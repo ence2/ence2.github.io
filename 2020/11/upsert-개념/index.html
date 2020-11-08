@@ -273,18 +273,18 @@
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <h2 id="정의">정의</h2>
+              <h3 id="정의">정의</h3>
 
 <p>간략하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.</p>
 
-<h2 id="mysql의-경우-사용-방법">MySql의 경우 사용 방법</h2>
+<h3 id="mysql의-경우-사용-방법">MySql의 경우 사용 방법</h3>
 
 <blockquote>
 <pre><code class="language-mysql">INSERT INTO t1 (a,b,c) VALUES (1,2,3)  ON DUPLICATE KEY UPDATE c=c+1;
 </code></pre>
 </blockquote>
 
-<h2 id="mssql의-경우-사용-방법">MsSql의 경우 사용 방법</h2>
+<h3 id="mssql의-경우-사용-방법">MsSql의 경우 사용 방법</h3>
 
 <blockquote>
 <pre><code class="language-mssql">CREATE PROCEDURE dbo.InsertOrUpdateEmployee
