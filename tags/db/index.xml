@@ -17,7 +17,9 @@
       <pubDate>Sun, 08 Nov 2020 22:43:22 +0900</pubDate>
       
       <guid>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</guid>
-      <description>&lt;p&gt;DB 사용시 upsert라는 용어를 듣게 되는데 무엇인지 알아보자&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;정의&#34;&gt;정의&lt;/h2&gt;
+
+&lt;p&gt;간단하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert이다.&lt;/p&gt;</description>
     </item>
     
   </channel>
