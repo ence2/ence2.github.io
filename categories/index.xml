@@ -6,9 +6,19 @@
     <description>Recent content in Categories on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
+    <lastBuildDate>Sun, 08 Nov 2020 17:25:15 +0900</lastBuildDate>
     
 	<atom:link href="https://ence88.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://ence88.github.io/categories/c&#43;&#43;/</link>
+      <pubDate>Sun, 08 Nov 2020 17:25:15 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/categories/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Category</title>
@@ -16,6 +26,15 @@
       <pubDate>Sun, 08 Nov 2020 15:26:21 +0900</pubDate>
       
       <guid>https://ence88.github.io/categories/category/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dev</title>
+      <link>https://ence88.github.io/categories/dev/</link>
+      <pubDate>Sun, 08 Nov 2020 17:25:15 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/categories/dev/</guid>
       <description></description>
     </item>
     

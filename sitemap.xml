@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence88.github.io/2020/11/test/</loc>
+    <lastmod>2020-11-08T17:25:15+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/2020/11/my-first-blog/</loc>
     <lastmod>2020-11-08T15:26:21+09:00</lastmod>
   </url>
@@ -78,7 +83,14 @@
   </url>
   
   <url>
+    <loc>https://ence88.github.io/categories/c&#43;&#43;/</loc>
+    <lastmod>2020-11-08T17:25:15+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/categories/</loc>
+    <lastmod>2020-11-08T17:25:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -103,6 +115,12 @@
   <url>
     <loc>https://ence88.github.io/tags/dailymotion/</loc>
     <lastmod>2014-08-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence88.github.io/categories/dev/</loc>
+    <lastmod>2020-11-08T17:25:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -173,6 +191,12 @@
   </url>
   
   <url>
+    <loc>https://ence88.github.io/tags/none/</loc>
+    <lastmod>2020-11-08T17:25:15+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/tags/pagination/</loc>
     <lastmod>2014-08-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -180,7 +204,7 @@
   
   <url>
     <loc>https://ence88.github.io/post/</loc>
-    <lastmod>2020-11-08T15:26:21+09:00</lastmod>
+    <lastmod>2020-11-08T17:25:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -252,7 +276,7 @@
   
   <url>
     <loc>https://ence88.github.io/</loc>
-    <lastmod>2020-11-08T15:26:21+09:00</lastmod>
+    <lastmod>2020-11-08T17:25:15+09:00</lastmod>
     <priority>0</priority>
   </url>
   
