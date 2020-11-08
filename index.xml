@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>The Game Server Developer</title>
@@ -7,6 +7,10 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <managingEditor>ence88@gmail.com (Choi Jun-Han)</managingEditor>
-    <webMaster>ence88@gmail.com (Choi Jun-Han)</webMaster><atom:link href="https://ence88.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <webMaster>ence88@gmail.com (Choi Jun-Han)</webMaster>
+    
+	<atom:link href="https://ence88.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
   </channel>
 </rss>
