@@ -6,10 +6,19 @@
     <description>Recent content in C&#43;&#43; on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 08 Nov 2020 22:53:27 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2020 23:03:14 +0900</lastBuildDate>
     
 	<atom:link href="https://ence88.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>hpp 파일은 무엇인가?</title>
+      <link>https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/</link>
+      <pubDate>Sun, 08 Nov 2020 23:03:14 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/</guid>
+      <description>&lt;p&gt;라이브러리를 사용하다보면 hpp 파일이 자주 보입니다. 이 파일은 무엇일까요?&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>cbegin, begin, rbegin, cend, end, rend 등의 차이점</title>

@@ -8,41 +8,25 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Game Server Developer">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="C&#43;&#43;의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.
-
-Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.
-
-begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.">
+<meta name="description" content="라이브러리를 사용하다보면 hpp 파일이 자주 보입니다. 이 파일은 무엇일까요?">
 
 
-<meta property="og:description" content="C&#43;&#43;의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.
-
-Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.
-
-begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.">
+<meta property="og:description" content="라이브러리를 사용하다보면 hpp 파일이 자주 보입니다. 이 파일은 무엇일까요?">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cbegin, begin, rbegin, cend, end, rend 등의 차이점">
-<meta name="twitter:title" content="cbegin, begin, rbegin, cend, end, rend 등의 차이점">
-<meta property="og:url" content="https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
-<meta property="twitter:url" content="https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
+<meta property="og:title" content="hpp 파일은 무엇인가?">
+<meta name="twitter:title" content="hpp 파일은 무엇인가?">
+<meta property="og:url" content="https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+<meta property="twitter:url" content="https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
 <meta property="og:site_name" content="The Game Server Developer">
-<meta property="og:description" content="C&#43;&#43;의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.
-
-Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.
-
-begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.">
-<meta name="twitter:description" content="C&#43;&#43;의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.
-
-Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.
-
-begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.">
+<meta property="og:description" content="라이브러리를 사용하다보면 hpp 파일이 자주 보입니다. 이 파일은 무엇일까요?">
+<meta name="twitter:description" content="라이브러리를 사용하다보면 hpp 파일이 자주 보입니다. 이 파일은 무엇일까요?">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-11-08T22:53:27">
+    <meta property="article:published_time" content="2020-11-08T23:03:14">
   
   
-    <meta property="article:modified_time" content="2020-11-08T22:53:27">
+    <meta property="article:modified_time" content="2020-11-08T23:03:14">
   
   
   
@@ -55,8 +39,6 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
   
     
       <meta property="article:tag" content="C&#43;&#43;">
-    
-      <meta property="article:tag" content="std">
     
   
 
@@ -77,14 +59,14 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>cbegin, begin, rbegin, cend, end, rend 등의 차이점</title>
+    <title>hpp 파일은 무엇인가?</title>
 
     <link rel="icon" href="https://ence88.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
+    <link rel="canonical" href="https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -254,13 +236,13 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      cbegin, begin, rbegin, cend, end, rend 등의 차이점
+      hpp 파일은 무엇인가?
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-08T22:53:27&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-08T23:03:14&#43;09:00">
         
   November 8, 2020
 
@@ -283,42 +265,25 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>C++의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.</p>
+              <p>라이브러리를 사용하다보면 hpp 파일이 자주 보입니다. 이 파일은 무엇일까요?</p>
 
-<p>Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.</p>
+<h2 id="개념">개념</h2>
 
-<p>begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.</p>
+<p><code>C</code>의 헤더파일은 <code>.h</code>, <code>C++</code>의 헤더파일은 <code>.hpp</code>입니다.</p>
 
-<p>iterator 타입은 선언할 때 타입 이름이 상당히 길게 열거됩니다.</p>
+<p><code>C</code>와 <code>C++</code> 헤더 이름을 다르게 쓰는 이유는 다음과 같습니다.</p>
 
-<pre><code class="language-c++">std::vector&lt; std::vector&lt;int&gt;&gt;::iterator it = ptWord.begin();
-</code></pre>
+<ul>
+<li><p><code>C</code>와 <code>C++</code> 코드의 포맷을 다르게 쓰는 경우, editor에서 파일 형식에 따라 설정을 달리해 놓으면 editor가 자동으로 포맷을 맞춰줍니다.</p></li>
 
-<p>그래서 C++11에서는 auto 라는 키워드가 추가가 되었습니다.</p>
+<li><p>libraray가 <code>C</code>로 구현돼 있고 <code>wrapper</code>가 <code>C++</code>로 구현된 경우, header는 보통 이름이 비슷하기 때문에 파일 확장자로 구분해서 쓸 수 있습니다.</p></li>
 
-<p>그런데 auto 키워드의 문제는 begin(), end(), rbegin(), rend() 로는 const_iterator 타입을 받을 수 없다는 것입니다.</p>
+<li><p>프로젝트가 <code>C++</code>버전에서 더 적절한 기능을 지원하는데 C 버전에서 쓰고 있는 경우, 헤더 이름을 언어(<code>C/C++</code>)에 따라 다르게 설정하면 <code>C</code>헤더를 찾아내서 <code>C++</code> 버전으로 바꾸는 게 쉽습니다.</p></li>
+</ul>
 
-<p>begin()으로 받으면 타입 추론에 의해서 iterator 타입으로 받게 됩니다.</p>
+<h2 id="결론">결론</h2>
 
-<p>이런 이유로 cbegin()과 cend(), crbegin(), crend()가 새롭게 추가되었습니다.</p>
-
-<p>상수 반복자라는 의미로 앞에 c가 붙었습니다.</p>
-
-<p>이렇게 되면 반복자가 가리키는 곳의 값을 변경할 수 없습니다.</p>
-
-<p>역방향 상수 반복자의 경우 const_reverse_iterator로 타입명만 해도 상당한 길이입니다.</p>
-
-<p>auto와 crbegin()을 사용하면 간단하게 표현이 가능합니다.</p>
-
-<pre><code class="language-c++">auto it = ptWord.crbegin();
-</code></pre>
-
-<p>또한 순방향도 아래와 같이 간단하게 표현이 가능합니다.</p>
-
-<pre><code class="language-c++">auto it = ptWord.cbegin();
-</code></pre>
-
-<p>auto 키워드와 cbegin(), range based for loop 등을 사용하면 STL을 보다 편리하게 사용 가능해집니다.</p>
+<p><code>C</code>와 <code>C++</code>은 다른 언어고, 둘을 같이 쓰는 건 위험하기 때문에 권장하지 않는 방법입니다. 따라서 파일 이름을 다르게 지음으로써 어떤 언어가 쓰였는지 구분해 주는 것입니다.</p>
               
             </div>
           </div>
@@ -332,8 +297,6 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
                     
   <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
 
-  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/std/">std</a>
-
                   </div>
                 
               
@@ -345,7 +308,7 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" data-tooltip="hpp 파일은 무엇인가?">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -353,7 +316,7 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" data-tooltip="UPSERT 개념">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/" data-tooltip="cbegin, begin, rbegin, cend, end, rend 등의 차이점">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -371,19 +334,19 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -431,7 +394,7 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" data-tooltip="hpp 파일은 무엇인가?">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -439,7 +402,7 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" data-tooltip="UPSERT 개념">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/" data-tooltip="cbegin, begin, rbegin, cend, end, rend 등의 차이점">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -457,19 +420,19 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -499,19 +462,19 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fcbegin-begin-rbegin-cend-end-rend-%25EB%2593%25B1%25EC%259D%2598-%25EC%25B0%25A8%25EC%259D%25B4%25EC%25A0%2590%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fhpp-%25ED%258C%258C%25EC%259D%25BC%25EC%259D%2580-%25EB%25AC%25B4%25EC%2597%2587%25EC%259D%25B8%25EA%25B0%2580%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fcbegin-begin-rbegin-cend-end-rend-%25EB%2593%25B1%25EC%259D%2598-%25EC%25B0%25A8%25EC%259D%25B4%25EC%25A0%2590%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fhpp-%25ED%258C%258C%25EC%259D%25BC%25EC%259D%2580-%25EB%25AC%25B4%25EC%2597%2587%25EC%259D%25B8%25EA%25B0%2580%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fcbegin-begin-rbegin-cend-end-rend-%25EB%2593%25B1%25EC%259D%2598-%25EC%25B0%25A8%25EC%259D%25B4%25EC%25A0%2590%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fhpp-%25ED%258C%258C%25EC%259D%25BC%25EC%259D%2580-%25EB%25AC%25B4%25EC%2597%2587%25EC%259D%25B8%25EA%25B0%2580%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -603,9 +566,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90\/';
+          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80\/';
           
-            this.page.identifier = '\/2020\/11\/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90\/'
+            this.page.identifier = '\/2020\/11\/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80\/'
           
         };
         (function() {
