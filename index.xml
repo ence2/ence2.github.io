@@ -6,10 +6,19 @@
     <description>Recent content on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 08 Nov 2020 22:31:11 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2020 22:43:22 +0900</lastBuildDate>
     
 	<atom:link href="https://ence88.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>UPSERT 개념</title>
+      <link>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</link>
+      <pubDate>Sun, 08 Nov 2020 22:43:22 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</guid>
+      <description>&lt;p&gt;DB 사용시 upsert라는 용어를 듣게 되는데 무엇인지 알아보자&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>shard_ptr의 다운/업 캐스팅</title>

@@ -8,39 +8,37 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Game Server Developer">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="shard_ptr을 다룰때의 동적 캐스팅 방법">
+<meta name="description" content="DB 사용시 upsert라는 용어를 듣게 되는데 무엇인지 알아보자">
 
 
-<meta property="og:description" content="shard_ptr을 다룰때의 동적 캐스팅 방법">
+<meta property="og:description" content="DB 사용시 upsert라는 용어를 듣게 되는데 무엇인지 알아보자">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shard_ptr의 다운/업 캐스팅">
-<meta name="twitter:title" content="shard_ptr의 다운/업 캐스팅">
-<meta property="og:url" content="https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
-<meta property="twitter:url" content="https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+<meta property="og:title" content="UPSERT 개념">
+<meta name="twitter:title" content="UPSERT 개념">
+<meta property="og:url" content="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
+<meta property="twitter:url" content="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
 <meta property="og:site_name" content="The Game Server Developer">
-<meta property="og:description" content="shard_ptr을 다룰때의 동적 캐스팅 방법">
-<meta name="twitter:description" content="shard_ptr을 다룰때의 동적 캐스팅 방법">
+<meta property="og:description" content="DB 사용시 upsert라는 용어를 듣게 되는데 무엇인지 알아보자">
+<meta name="twitter:description" content="DB 사용시 upsert라는 용어를 듣게 되는데 무엇인지 알아보자">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-11-08T22:31:11">
+    <meta property="article:published_time" content="2020-11-08T22:43:22">
   
   
-    <meta property="article:modified_time" content="2020-11-08T22:31:11">
+    <meta property="article:modified_time" content="2020-11-08T22:43:22">
   
   
   
     
       <meta property="article:section" content="Dev">
     
-      <meta property="article:section" content="C&#43;&#43;">
+      <meta property="article:section" content="DB">
     
   
   
     
-      <meta property="article:tag" content="C&#43;&#43;">
-    
-      <meta property="article:tag" content="std">
+      <meta property="article:tag" content="DB">
     
   
 
@@ -61,14 +59,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>shard_ptr의 다운/업 캐스팅</title>
+    <title>UPSERT 개념</title>
 
     <link rel="icon" href="https://ence88.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+    <link rel="canonical" href="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -238,13 +236,13 @@
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      shard_ptr의 다운/업 캐스팅
+      UPSERT 개념
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-08T22:31:11&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-08T22:43:22&#43;09:00">
         
   November 8, 2020
 
@@ -257,7 +255,7 @@
     
       <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
     
-      <a class="category-link" href="https://ence88.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+      <a class="category-link" href="https://ence88.github.io/categories/db">DB</a>
     
   
 
@@ -267,37 +265,44 @@
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>shard_ptr을 다룰때의 동적 캐스팅 방법</p>
+              <p>DB 사용시 upsert라는 용어를 듣게 되는데 무엇인지 알아보자</p>
 
-<h2 id="shard-ptr-다운-업-캐스팅">shard_ptr 다운, 업 캐스팅</h2>
+<h2 id="정의">정의</h2>
 
-<p><code>dynamic_pointer_cast</code>, <code>static_pointer_cast</code> 및 <code>const_pointer_cast</code>를 사용하여 <code>shared_ptr</code>을 캐스팅할 수 있습니다. 이러한 함수는 <strong><code>dynamic_cast</code></strong> , <strong><code>static_cast</code></strong> 및 연산자와 유사 <strong><code>const_cast</code></strong> 합니다. 다음 예제에서는 기본 클래스에서 <code>shared_ptr</code>의 벡터에 있는 각 요소의 파생 형식을 테스트한 다음 요소를 복사하고 이에 대한 정보를 표시하는 방법을 보여 줍니다.</p>
+<p>간단하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert이다.</p>
 
-<p>C++복사</p>
+<h2 id="mysql의-경우-사용-방법">MySql의 경우 사용 방법</h2>
 
-<pre><code class="language-cpp">vector&lt;shared_ptr&lt;MediaAsset&gt;&gt; assets;
-
-assets.push_back(shared_ptr&lt;Song&gt;(new Song(L&quot;Himesh Reshammiya&quot;, L&quot;Tera Surroor&quot;)));
-assets.push_back(shared_ptr&lt;Song&gt;(new Song(L&quot;Penaz Masani&quot;, L&quot;Tu Dil De De&quot;)));
-assets.push_back(shared_ptr&lt;Photo&gt;(new Photo(L&quot;2011-04-06&quot;, L&quot;Redmond, WA&quot;, L&quot;Soccer field at Microsoft.&quot;)));
-
-vector&lt;shared_ptr&lt;MediaAsset&gt;&gt; photos;
-
-copy_if(assets.begin(), assets.end(), back_inserter(photos), [] (shared_ptr&lt;MediaAsset&gt; p) -&gt; bool
-{
-    // Use dynamic_pointer_cast to test whether
-    // element is a shared_ptr&lt;Photo&gt;.
-    shared_ptr&lt;Photo&gt; temp = dynamic_pointer_cast&lt;Photo&gt;(p);        
-    return temp.get() != nullptr;
-});
-
-for (const auto&amp;  p : photos)
-{
-    // We know that the photos vector contains only 
-    // shared_ptr&lt;Photo&gt; objects, so use static_cast.
-    wcout &lt;&lt; &quot;Photo location: &quot; &lt;&lt; (static_pointer_cast&lt;Photo&gt;(p))-&gt;location_ &lt;&lt; endl;
-}
+<blockquote>
+<pre><code class="language-mysql">INSERT INTO t1 (a,b,c) VALUES (1,2,3)  ON DUPLICATE KEY UPDATE c=c+1;
 </code></pre>
+</blockquote>
+
+<h2 id="mssql의-경우-사용-방법">MsSql의 경우 사용 방법</h2>
+
+<blockquote>
+<pre><code class="language-mssql">CREATE PROCEDURE dbo.InsertOrUpdateEmployee
+       @ID INT,
+       @Name VARCHAR(50),
+       @ItemName VARCHAR(50),  
+       @ItemCatName VARCHAR(50),
+       @ItemQty DECIMAL(15,2)
+AS BEGIN
+    IF NOT EXISTS (SELECT * FROM dbo.Table1 WHERE ID = @ID)
+       INSERT INTO dbo.Table1(ID, Name, ItemName, ItemCatName, ItemQty)
+       VALUES(@ID, @Name, @ItemName, @ItemCatName, @ItemQty)
+    ELSE
+       UPDATE dbo.Table1
+       SET Name = @Name,
+           ItemName = @ItemName,
+           ItemCatName = @ItemCatName,
+           ItemQty = @ItemQty
+       WHERE ID = @ID
+END
+</code></pre>
+</blockquote>
+
+<p>MsSql쪽은 Upsert가 Merge 쪽이랑 연관이 있는듯 한데.. 추후에 좀 찾아볼것..</p>
               
             </div>
           </div>
@@ -309,9 +314,7 @@ for (const auto&amp;  p : photos)
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
-
-  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/std/">std</a>
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/db/">DB</a>
 
                   </div>
                 
@@ -324,7 +327,7 @@ for (const auto&amp;  p : photos)
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" data-tooltip="UPSERT 개념">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -332,7 +335,7 @@ for (const auto&amp;  p : photos)
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/" data-tooltip="컨테이너 삽입시 Insert와 Emplace 차이">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/" data-tooltip="shard_ptr의 다운/업 캐스팅">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -350,19 +353,19 @@ for (const auto&amp;  p : photos)
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -410,7 +413,7 @@ for (const auto&amp;  p : photos)
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" data-tooltip="UPSERT 개념">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -418,7 +421,7 @@ for (const auto&amp;  p : photos)
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/" data-tooltip="컨테이너 삽입시 Insert와 Emplace 차이">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/" data-tooltip="shard_ptr의 다운/업 캐스팅">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -436,19 +439,19 @@ for (const auto&amp;  p : photos)
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -478,19 +481,19 @@ for (const auto&amp;  p : photos)
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fshard_ptr%25EC%259D%2598-%25EB%258B%25A4%25EC%259A%25B4-%25EC%2597%2585-%25EC%25BA%2590%25EC%258A%25A4%25ED%258C%2585%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fupsert-%25EA%25B0%259C%25EB%2585%2590%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fshard_ptr%25EC%259D%2598-%25EB%258B%25A4%25EC%259A%25B4-%25EC%2597%2585-%25EC%25BA%2590%25EC%258A%25A4%25ED%258C%2585%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fupsert-%25EA%25B0%259C%25EB%2585%2590%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fshard_ptr%25EC%259D%2598-%25EB%258B%25A4%25EC%259A%25B4-%25EC%2597%2585-%25EC%25BA%2590%25EC%258A%25A4%25ED%258C%2585%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fupsert-%25EA%25B0%259C%25EB%2585%2590%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -582,9 +585,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85\/';
+          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/upsert-%EA%B0%9C%EB%85%90\/';
           
-            this.page.identifier = '\/2020\/11\/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85\/'
+            this.page.identifier = '\/2020\/11\/upsert-%EA%B0%9C%EB%85%90\/'
           
         };
         (function() {
