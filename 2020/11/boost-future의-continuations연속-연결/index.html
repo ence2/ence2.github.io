@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Game Server Developer">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="In asynchronous programming, it is very common for one asynchronous operation, on completion, to invoke a second operation and pass data to it. The current C&#43;&#43; standard does not allow one to register a continuation to a future. With .then, instead of waiting for the result, a continuation is &ldquo;attached&rdquo; to the asynchronous operation, which is invoked when the result is ready. Continuations registered using the .then function will help to avoid blocking waits or wasting threads on polling, greatly improving the responsiveness and scalability of an application.
+
+비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C &#43;&#43; 표준은 미래에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &ldquo;연결&rdquo;됩니다. 이 함수를 사용하여 등록 된 연속 은 대기를 차단하거나 폴링에 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다">
+
+
+<meta property="og:description" content="In asynchronous programming, it is very common for one asynchronous operation, on completion, to invoke a second operation and pass data to it. The current C&#43;&#43; standard does not allow one to register a continuation to a future. With .then, instead of waiting for the result, a continuation is &ldquo;attached&rdquo; to the asynchronous operation, which is invoked when the result is ready. Continuations registered using the .then function will help to avoid blocking waits or wasting threads on polling, greatly improving the responsiveness and scalability of an application.
+
+비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C &#43;&#43; 표준은 미래에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &ldquo;연결&rdquo;됩니다. 이 함수를 사용하여 등록 된 연속 은 대기를 차단하거나 폴링에 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Boost Future의 continuations(연속 연결)">
+<meta name="twitter:title" content="Boost Future의 continuations(연속 연결)">
+<meta property="og:url" content="https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+<meta property="twitter:url" content="https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+<meta property="og:site_name" content="The Game Server Developer">
+<meta property="og:description" content="In asynchronous programming, it is very common for one asynchronous operation, on completion, to invoke a second operation and pass data to it. The current C&#43;&#43; standard does not allow one to register a continuation to a future. With .then, instead of waiting for the result, a continuation is &ldquo;attached&rdquo; to the asynchronous operation, which is invoked when the result is ready. Continuations registered using the .then function will help to avoid blocking waits or wasting threads on polling, greatly improving the responsiveness and scalability of an application.
+
+비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C &#43;&#43; 표준은 미래에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &ldquo;연결&rdquo;됩니다. 이 함수를 사용하여 등록 된 연속 은 대기를 차단하거나 폴링에 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다">
+<meta name="twitter:description" content="In asynchronous programming, it is very common for one asynchronous operation, on completion, to invoke a second operation and pass data to it. The current C&#43;&#43; standard does not allow one to register a continuation to a future. With .then, instead of waiting for the result, a continuation is &ldquo;attached&rdquo; to the asynchronous operation, which is invoked when the result is ready. Continuations registered using the .then function will help to avoid blocking waits or wasting threads on polling, greatly improving the responsiveness and scalability of an application.
+
+비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C &#43;&#43; 표준은 미래에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &ldquo;연결&rdquo;됩니다. 이 함수를 사용하여 등록 된 연속 은 대기를 차단하거나 폴링에 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-11-08T23:31:17">
+  
+  
+    <meta property="article:modified_time" content="2020-11-08T23:31:17">
+  
+  
+  
+    
+      <meta property="article:section" content="Dev">
+    
+      <meta property="article:section" content="C&#43;&#43;">
+    
+  
+  
+    
+      <meta property="article:tag" content="C&#43;&#43;">
+    
+      <meta property="article:tag" content="Future">
+    
+      <meta property="article:tag" content="Boost">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>Boost Future의 continuations(연속 연결)</title>
+
+    <link rel="icon" href="https://ence88.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence88.github.io/css/style-o0o9xxn7sl2qnkojgevnrv4ons1qbibz9maphukkvfydd3f3fh3o5ycrnxi.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence88.github.io/">The Game Server Developer</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence88.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence88.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Game Server Developer</h4>
+        
+          <h5 class="sidebar-profile-bio">Making online multi-user games</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://chjh.net/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-card"></i>
+      
+      <span class="sidebar-button-desc">MySite</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence88" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/junh.choi/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Boost Future의 continuations(연속 연결)
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-08T23:31:17&#43;09:00">
+        
+  November 8, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
+    
+      <a class="category-link" href="https://ence88.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>In asynchronous programming, it is very common for one asynchronous operation, on completion, to invoke a second operation and pass data to it. The current C++ standard does not allow one to register a continuation to a future. With <code>.then</code>, instead of waiting for the result, a continuation is &ldquo;attached&rdquo; to the asynchronous operation, which is invoked when the result is ready. Continuations registered using the <code>.then</code> function will help to avoid blocking waits or wasting threads on polling, greatly improving the responsiveness and scalability of an application.</p>
+
+<p>비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 미래에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &ldquo;연결&rdquo;됩니다. 이 함수를 사용하여 등록 된 연속 은 대기를 차단하거나 폴링에 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다</p>
+
+<p><code>future.then()</code> provides the ability to sequentially compose two futures by declaring one to be the continuation of another. With <code>.then()</code> the antecedent future is ready (has a value or exception stored in the shared state) before the continuation starts as instructed by the lambda function.</p>
+
+<p>In the example below the <code>future&lt;int&gt;</code> <code>f2</code> is registered to be a continuation of <code>future&lt;int&gt;</code> <code>f1</code> using the <code>.then()</code> member function. This operation takes a lambda function which describes how <code>f2</code> should proceed after <code>f1</code> is ready.</p>
+
+<p>하나를 다른 것의 연속이라고 선언하여 두 개의 미래를 순차적으로 구성하는 기능을 제공합니다. 함께 선행 미래 준비 람다 함수에 의해 지시 된대로 계속 시작되기 전에 (공유 상태로 저장 값 또는 예외를 갖습니다.)</p>
+
+<p>아래 예에서는 멤버 함수 사용의 연속으로 등록됩니다 . 이 작업 은 준비 후 어떻게 진행해야하는지 설명하는 람다 함수를 사용 합니다 .</p>
+
+<pre><code>#include &lt;boost/thread/future.hpp&gt;
+using namespace boost;
+int main()
+{
+  future&lt;int&gt; f1 = async([]() { return 123; });
+  future&lt;string&gt; f2 = f1.then([](future&lt;int&gt; f) { return f.get().to_string(); // here .get() won't block });
+}
+</code></pre>
+
+<p>One key feature of this function is the ability to chain multiple asynchronous operations. In asynchronous programming, it&rsquo;s common to define a sequence of operations, in which each continuation executes only when the previous one completes. In some cases, the antecedent future produces a value that the continuation accepts as input. By using <code>future.then()</code>, creating a chain of continuations becomes straightforward and intuitive:</p>
+
+<p>이 함수의 핵심 기능 중 하나는 여러 비동기 작업을 연결하는 기능입니다. 비동기 프로그래밍에서는 각 연속 작업이 이전 작업이 완료 될 때만 실행되는 일련의 작업을 정의하는 것이 일반적입니다. 어떤 경우에는 선행 미래가 연속이 입력으로 받아들이는 값을 생성합니다. 를 사용 하면 연속 체인을 만드는 것이 간단하고 직관적이됩니다.</p>
+
+<pre><code>myFuture.then(...).then(...).then(...).
+</code></pre>
+
+<p>Some points to note are:</p>
+
+<ul>
+<li>Each continuation will not begin until the preceding has completed.</li>
+<li>If an exception is thrown, the following continuation can handle it in a try-catch block</li>
+</ul>
+
+<p>Input Parameters:</p>
+
+<ul>
+<li>Lambda function: One option which can be considered is to take two functions, one for success and one for error handling. However this option has not been retained for the moment. The lambda function takes a future as its input which carries the exception through. This makes propagating exceptions straightforward. This approach also simplifies the chaining of continuations.</li>
+<li>Scheduler: Providing an overload to <code>.then</code>, to take a scheduler reference places great flexibility over the execution of the future in the programmer&rsquo;s hand. As described above, often taking a launch policy is not sufficient for powerful asynchronous operations. The lifetime of the scheduler must outlive the continuation.</li>
+<li>Launch policy: if the additional flexibility that the scheduler provides is not required.</li>
+</ul>
+
+<p>입력 매개 변수 :</p>
+
+<ul>
+<li>Lambda 함수 : 고려할 수있는 한 가지 옵션은 성공을위한 기능과 오류 처리를위한 기능의 두 가지를 취하는 것입니다. 그러나이 옵션은 현재 유지되지 않았습니다. 람다 함수는 예외를 전달하는 입력으로 future를 사용합니다. 이는 예외 전파를 간단하게 만듭니다. 이 접근 방식은 또한 연속 연결을 단순화합니다.</li>
+<li>스케줄러 : 스케줄러 참조를 가져 오기 위해에 오버로드를 제공 하면 프로그래머의 손에있는 미래의 실행에 대해 큰 유연성을 제공합니다. 위에서 설명한 것처럼 종종 시작 정책을 취하는 것만으로는 강력한 비동기 작업에 충분하지 않습니다. 스케줄러의 수명은 연속보다 길어야합니다. <code>.then</code></li>
+<li>시작 정책 : 스케줄러가 제공하는 추가 유연성이 필요하지 않은 경우.</li>
+</ul>
+
+<p>Return values: The decision to return a future was based primarily on the ability to chain multiple continuations using <code>.then()</code>. This benefit of composability gives the programmer incredible control and flexibility over their code. Returning a <code>future</code> object rather than a <code>shared_future</code> is also a much cheaper operation thereby improving performance. A <code>shared_future</code> object is not necessary to take advantage of the chaining feature. It is also easy to go from a <code>future</code> to a <code>shared_future</code> when needed using future::share().</p>
+
+<p>반환 값 : 미래를 반환하기로 한 결정은 주로를 사용하여 여러 연속을 연결하는 기능에 기반 합니다. 이러한 구성 가능성의 이점은 프로그래머에게 코드에 대한 놀라운 제어와 유연성을 제공합니다. a 가 아닌 객체를 반환하는 것도 훨씬 저렴한 작업이므로 성능이 향상됩니다. 개체는 체인 기능을 활용할 필요가 없습니다. 또한 future :: share ()를 사용하여 필요할 때 a 에서 a 로 쉽게 이동할 수 있습니다.</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/future/">Future</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/boost/">Boost</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/std-upper_bound/" data-tooltip="std upper_bound">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/std-upper_bound/" data-tooltip="std upper_bound">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fboost-future%25EC%259D%2598-continuations%25EC%2597%25B0%25EC%2586%258D-%25EC%2597%25B0%25EA%25B2%25B0%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fboost-future%25EC%259D%2598-continuations%25EC%2597%25B0%25EC%2586%258D-%25EC%2597%25B0%25EA%25B2%25B0%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fboost-future%25EC%259D%2598-continuations%25EC%2597%25B0%25EC%2586%258D-%25EC%2597%25B0%25EA%25B2%25B0%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Game Server Developer</h4>
+    
+      <div id="about-card-bio">Making online multi-user games</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence88.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence88.github.io/js/script-p1zguplwyakfwhsmeqh0d6rabsawnxhnzuxy9nox9uzkglxoxardgduszp1.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0\/';
+          
+            this.page.identifier = '\/2020\/11\/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence88-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
