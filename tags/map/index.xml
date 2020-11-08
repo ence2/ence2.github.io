@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Dev on The Game Server Developer</title>
-    <link>https://ence88.github.io/categories/dev/</link>
-    <description>Recent content in Dev on The Game Server Developer</description>
+    <title>Map on The Game Server Developer</title>
+    <link>https://ence88.github.io/tags/map/</link>
+    <description>Recent content in Map on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <lastBuildDate>Sun, 08 Nov 2020 22:01:43 +0900</lastBuildDate>
     
-	<atom:link href="https://ence88.github.io/categories/dev/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ence88.github.io/tags/map/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -22,17 +22,6 @@
 &lt;p&gt;둘 다 컨테이너에 데이터를 삽입 하는 행위이나 차이가 있다.&lt;/p&gt;
 
 &lt;p&gt;Insert로 삽입 시 Map의 경우 std::make_pair를 이용해야하며, emplace는 간단하게 삽입이 가능하며, 내부 동작 또한 다르다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>std::tie 사용법</title>
-      <link>https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/</link>
-      <pubDate>Sun, 08 Nov 2020 21:38:48 +0900</pubDate>
-      
-      <guid>https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/</guid>
-      <description>&lt;h2 id=&#34;std-tie&#34;&gt;std::tie&lt;/h2&gt;
-
-&lt;p&gt;pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음&lt;/p&gt;</description>
     </item>
     
   </channel>
