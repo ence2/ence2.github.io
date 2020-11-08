@@ -6,9 +6,28 @@
     <description>Recent content in Tags on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
+    <lastBuildDate>Sun, 08 Nov 2020 21:38:48 +0900</lastBuildDate>
     
 	<atom:link href="https://ence88.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://ence88.github.io/tags/c&#43;&#43;/</link>
+      <pubDate>Sun, 08 Nov 2020 21:38:48 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Std</title>
+      <link>https://ence88.github.io/tags/std/</link>
+      <pubDate>Sun, 08 Nov 2020 21:38:48 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/tags/std/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

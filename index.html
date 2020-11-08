@@ -215,6 +215,65 @@
         <section class="postShorten-group main-content-wrap">
           
           
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
+          std::tie 사용법
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-08T21:38:48&#43;09:00">
+        
+  November 8, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
+    
+      <a class="category-link" href="https://ence88.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        std::tie pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음
+코드 #include &lt;iostream&gt; #include &lt;tuple&gt; int main() { auto t = make_tuple(1, 2, 3); int x = get&lt;0&gt;(t); int y = get&lt;1&gt;(t); int z = get&lt;2&gt;(t); cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n'; //1 2 3 x = y = z = 0; cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n'; //0 0 0 std::tie(x, y, z) = t; cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n'; //1 2 3 x = y = z = 0; std::tie(x, y, ignore) = t; //세번째 자리는 무시 키워드 : ignore cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n'; //1 2 0 return 0; } 
+      
+      <p>
+        <a href="https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
           
 
         </section>

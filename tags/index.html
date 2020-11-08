@@ -212,13 +212,71 @@
         class="
                hasCoverMetaIn
                ">
-        <section class="postShorten-group main-content-wrap">
-          
-          
-          
-          
 
-        </section>
+        <div id="tags-archives" class="main-content-wrap">
+          <form id="filter-form" action="#">
+            <input name="tag" type="text" class="form-control input--xlarge" placeholder="Search tag" autofocus="autofocus">
+          </form>
+          <h4 class="archive-result text-color-base text-xlarge"
+              data-message-zero="no tag found"
+              data-message-one="1 tag found"
+              data-message-other="{n} tags found"></h4>
+
+            <section>
+              
+                <a class="tag tag--primary tag--small" href="#c%2b%2b-list" data-tag="c&#43;&#43;">
+                  c&#43;&#43;
+                </a>
+              
+                <a class="tag tag--primary tag--small" href="#std-list" data-tag="std">
+                  std
+                </a>
+              
+            </section>
+            <section class="boxes">
+              
+                <div id="c&#43;&#43;-list" class="archive box" data-tag="c&#43;&#43;">
+                  <h4 class="archive-title">
+                    <a class="link-unstyled" href="c&#43;&#43;">
+                      c&#43;&#43; (1)
+                    </a>
+                  </h4>
+                  <ul class="archive-posts">
+                    
+                      <li class="archive-post">
+                        <a class="archive-post-title" href="https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
+                          std::tie 사용법
+                        </a>
+                        <span class="archive-post-date"> - 
+  November 8, 2020
+</span>
+                      </li>
+                    
+                  </ul>
+                </div>
+              
+                <div id="std-list" class="archive box" data-tag="std">
+                  <h4 class="archive-title">
+                    <a class="link-unstyled" href="std">
+                      std (1)
+                    </a>
+                  </h4>
+                  <ul class="archive-posts">
+                    
+                      <li class="archive-post">
+                        <a class="archive-post-title" href="https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
+                          std::tie 사용법
+                        </a>
+                        <span class="archive-post-date"> - 
+  November 8, 2020
+</span>
+                      </li>
+                    
+                  </ul>
+                </div>
+              
+           </section>
+         </div>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
     &copy; 2020 JhChoi. All Rights Reserved
@@ -227,7 +285,6 @@
 
       </div>
     </div>
-    
     <div id="about">
   <div id="about-card">
     <div id="about-btn-close">
@@ -258,8 +315,6 @@
 </div>
 
     
-
-    
   
     
       <div id="cover" style="background-image:url('https://ence88.github.io/images/cover.jpg');"></div>
@@ -267,7 +322,8 @@
   
 
 
-    
+  </body>
+  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
@@ -309,7 +365,4 @@ $(document).ready(function() {
 
 
 
-    
-  </body>
 </html>
-
