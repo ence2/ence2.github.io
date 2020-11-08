@@ -6,10 +6,27 @@
     <description>Recent content in Dev on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 08 Nov 2020 23:03:14 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2020 23:10:09 +0900</lastBuildDate>
     
 	<atom:link href="https://ence88.github.io/categories/dev/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>#define 매크로, const와 차이점, 유의 사항</title>
+      <link>https://ence88.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</link>
+      <pubDate>Sun, 08 Nov 2020 23:10:09 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</guid>
+      <description>&lt;h3 id=&#34;define-상수&#34;&gt;#define 상수&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#define 상수명 값
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;define-지시문-매크로-함수&#34;&gt;#define 지시문 (매크로 함수)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#define 식별자(인수1, 인수2 ...) 토큰열
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     
     <item>
       <title>hpp 파일은 무엇인가?</title>
