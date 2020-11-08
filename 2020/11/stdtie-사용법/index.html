@@ -8,22 +8,26 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Game Server Developer">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="std::tie pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음
-코드 #include &lt;iostream&gt; #include &lt;tuple&gt; int main() { auto t = make_tuple(1, 2, 3); int x = get&lt;0&gt;(t); int y = get&lt;1&gt;(t); int z = get&lt;2&gt;(t); cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //0 0 0 std::tie(x, y, z) = t; cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; std::tie(x, y, ignore) = t; //세번째 자리는 무시 키워드 : ignore cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 0 return 0; } ">
+<meta name="description" content="std::tie
+
+pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음">
 
 
-<meta property="og:description" content="std::tie pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음
-코드 #include &lt;iostream&gt; #include &lt;tuple&gt; int main() { auto t = make_tuple(1, 2, 3); int x = get&lt;0&gt;(t); int y = get&lt;1&gt;(t); int z = get&lt;2&gt;(t); cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //0 0 0 std::tie(x, y, z) = t; cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; std::tie(x, y, ignore) = t; //세번째 자리는 무시 키워드 : ignore cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 0 return 0; } ">
+<meta property="og:description" content="std::tie
+
+pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음">
 <meta property="og:type" content="article">
 <meta property="og:title" content="std::tie 사용법">
 <meta name="twitter:title" content="std::tie 사용법">
 <meta property="og:url" content="https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
 <meta property="twitter:url" content="https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
 <meta property="og:site_name" content="The Game Server Developer">
-<meta property="og:description" content="std::tie pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음
-코드 #include &lt;iostream&gt; #include &lt;tuple&gt; int main() { auto t = make_tuple(1, 2, 3); int x = get&lt;0&gt;(t); int y = get&lt;1&gt;(t); int z = get&lt;2&gt;(t); cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //0 0 0 std::tie(x, y, z) = t; cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; std::tie(x, y, ignore) = t; //세번째 자리는 무시 키워드 : ignore cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 0 return 0; } ">
-<meta name="twitter:description" content="std::tie pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음
-코드 #include &lt;iostream&gt; #include &lt;tuple&gt; int main() { auto t = make_tuple(1, 2, 3); int x = get&lt;0&gt;(t); int y = get&lt;1&gt;(t); int z = get&lt;2&gt;(t); cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //0 0 0 std::tie(x, y, z) = t; cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; std::tie(x, y, ignore) = t; //세번째 자리는 무시 키워드 : ignore cout &lt;&lt; x &lt;&lt; &#39; &#39; &lt;&lt; y &lt;&lt; &#39; &#39; &lt;&lt; z &lt;&lt; &#39;\n&#39;; //1 2 0 return 0; } ">
+<meta property="og:description" content="std::tie
+
+pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음">
+<meta name="twitter:description" content="std::tie
+
+pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음">
 <meta property="og:locale" content="en-us">
 
   

@@ -261,8 +261,9 @@
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        std::tie pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음
-코드 #include &lt;iostream&gt; #include &lt;tuple&gt; int main() { auto t = make_tuple(1, 2, 3); int x = get&lt;0&gt;(t); int y = get&lt;1&gt;(t); int z = get&lt;2&gt;(t); cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n'; //1 2 3 x = y = z = 0; cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n'; //0 0 0 std::tie(x, y, z) = t; cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n'; //1 2 3 x = y = z = 0; std::tie(x, y, ignore) = t; //세번째 자리는 무시 키워드 : ignore cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n'; //1 2 0 return 0; } 
+        <h2 id="std-tie">std::tie</h2>
+
+<p>pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음</p>
       
       <p>
         <a href="https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/" class="postShorten-excerpt_link link">Continue reading</a>

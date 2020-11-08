@@ -17,8 +17,9 @@
       <pubDate>Sun, 08 Nov 2020 21:38:48 +0900</pubDate>
       
       <guid>https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/</guid>
-      <description>std::tie pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음
-코드 #include &amp;lt;iostream&amp;gt; #include &amp;lt;tuple&amp;gt; int main() { auto t = make_tuple(1, 2, 3); int x = get&amp;lt;0&amp;gt;(t); int y = get&amp;lt;1&amp;gt;(t); int z = get&amp;lt;2&amp;gt;(t); cout &amp;lt;&amp;lt; x &amp;lt;&amp;lt; &#39; &#39; &amp;lt;&amp;lt; y &amp;lt;&amp;lt; &#39; &#39; &amp;lt;&amp;lt; z &amp;lt;&amp;lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; cout &amp;lt;&amp;lt; x &amp;lt;&amp;lt; &#39; &#39; &amp;lt;&amp;lt; y &amp;lt;&amp;lt; &#39; &#39; &amp;lt;&amp;lt; z &amp;lt;&amp;lt; &#39;\n&#39;; //0 0 0 std::tie(x, y, z) = t; cout &amp;lt;&amp;lt; x &amp;lt;&amp;lt; &#39; &#39; &amp;lt;&amp;lt; y &amp;lt;&amp;lt; &#39; &#39; &amp;lt;&amp;lt; z &amp;lt;&amp;lt; &#39;\n&#39;; //1 2 3 x = y = z = 0; std::tie(x, y, ignore) = t; //세번째 자리는 무시 키워드 : ignore cout &amp;lt;&amp;lt; x &amp;lt;&amp;lt; &#39; &#39; &amp;lt;&amp;lt; y &amp;lt;&amp;lt; &#39; &#39; &amp;lt;&amp;lt; z &amp;lt;&amp;lt; &#39;\n&#39;; //1 2 0 return 0; } </description>
+      <description>&lt;h2 id=&#34;std-tie&#34;&gt;std::tie&lt;/h2&gt;
+
+&lt;p&gt;pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한큐에 받아 올 수 있음&lt;/p&gt;</description>
     </item>
     
   </channel>
