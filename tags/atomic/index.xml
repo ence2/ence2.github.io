@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Atomic on The Game Server Developer</title>
+    <link>https://ence88.github.io/tags/atomic/</link>
+    <description>Recent content in Atomic on The Game Server Developer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Mon, 09 Nov 2020 21:45:07 +0900</lastBuildDate>
+    
+	<atom:link href="https://ence88.github.io/tags/atomic/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>std::atomic, memory_order</title>
+      <link>https://ence88.github.io/2020/11/stdatomic-memory_order/</link>
+      <pubDate>Mon, 09 Nov 2020 21:45:07 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/2020/11/stdatomic-memory_order/</guid>
+      <description>&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;std::atomic&amp;lt;T&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;std::atomic&amp;lt;int&amp;gt; x;
+std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt; boolalpha &amp;lt;&amp;lt; x.is_lock_free() &amp;lt;&amp;lt; std::endl;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
