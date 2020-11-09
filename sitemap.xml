@@ -3,6 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence88.github.io/2020/11/boostmake_ready_future/</loc>
+    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</loc>
     <lastmod>2020-11-08T23:31:17+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -70,35 +76,28 @@
   
   <url>
     <loc>https://ence88.github.io/tags/boost/</loc>
-    <lastmod>2020-11-08T23:31:17+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence88.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2020-11-08T23:31:17+09:00</lastmod>
+    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2020-11-08T23:31:17+09:00</lastmod>
+    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence88.github.io/categories/c&#43;&#43;/</loc>
+    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/categories/</loc>
-    <lastmod>2020-11-08T23:31:17+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence88.github.io/categories/db/</loc>
-    <lastmod>2020-11-08T22:43:22+09:00</lastmod>
+    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -111,8 +110,15 @@
   </url>
   
   <url>
+    <loc>https://ence88.github.io/categories/db/</loc>
+    <lastmod>2020-11-08T22:43:22+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/categories/dev/</loc>
-    <lastmod>2020-11-08T23:31:17+09:00</lastmod>
+    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -133,7 +139,7 @@
   
   <url>
     <loc>https://ence88.github.io/post/</loc>
-    <lastmod>2020-11-08T23:31:17+09:00</lastmod>
+    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -147,14 +153,14 @@
   
   <url>
     <loc>https://ence88.github.io/tags/</loc>
-    <lastmod>2020-11-08T23:31:17+09:00</lastmod>
+    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/</loc>
-    <lastmod>2020-11-08T23:31:17+09:00</lastmod>
+    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
