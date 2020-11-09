@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Db on The Game Server Developer</title>
-    <link>https://ence88.github.io/categories/db/</link>
-    <description>Recent content in Db on The Game Server Developer</description>
+    <title>Index on The Game Server Developer</title>
+    <link>https://ence88.github.io/tags/index/</link>
+    <description>Recent content in Index on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <lastBuildDate>Mon, 09 Nov 2020 22:07:38 +0900</lastBuildDate>
     
-	<atom:link href="https://ence88.github.io/categories/db/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ence88.github.io/tags/index/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -36,17 +36,6 @@
 &lt;li&gt;비클러스터형 인덱스의 인덱스 행에서 데이터 행으로의 포인터를 행 로케이터라고 합니다. 행 로케이터의 구조는 데이터 페이지가 힙에 저장되는지 아니면 클러스터형 테이블에 저장되는지에 따라 다릅니다. 힙의 경우 행 로케이터는 행에 대한 포인터입니다. 클러스터형 테이블의 경우 행 로케이터는 클러스터형 인덱스 키입니다.&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>UPSERT 개념</title>
-      <link>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</link>
-      <pubDate>Sun, 08 Nov 2020 22:43:22 +0900</pubDate>
-      
-      <guid>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</guid>
-      <description>&lt;h3 id=&#34;정의&#34;&gt;정의&lt;/h3&gt;
-
-&lt;p&gt;간략하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.&lt;/p&gt;</description>
     </item>
     
   </channel>

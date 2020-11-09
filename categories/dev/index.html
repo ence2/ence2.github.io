@@ -235,6 +235,82 @@
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence88.github.io/2020/11/clustered-nonclustered-index-%EC%B6%9C%EC%B2%98-https-daewonyoon.tistory.com-208-%EC%95%8C%EB%9D%BD%EB%B8%94%EB%A1%9D/">
+          Clustered, Nonclustered Index
+출처: https://daewonyoon.tistory.com/208 [알락블록]
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-09T22:07:38&#43;09:00">
+        
+  November 9, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
+    
+      <a class="category-link" href="https://ence88.github.io/categories/db">DB</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <h3 id="index란">Index란</h3>
+
+<p>책의 목차와 비슷하게 데이터의 색인을 기록하여 검색 속도를 증가 시킬 수 있는 구조입니다.</p>
+
+<ul>
+<li>클러스터형
+
+<ul>
+<li>클러스터형 인덱스는 해당 키 값을 기반으로 테이블이나 뷰의 데이터 행을 정렬하고 저장합니다. 인덱스 정의에 여러 열이 포함됩니다. 데이터 행 자체는 한 가지 순서로만 저장될 수 있으므로 테이블당 클러스터형 인덱스는 하나만 있을 수 있습니다.</li>
+<li>테이블의 데이터 행이 정렬된 순서로 저장될 때만 테이블에 클러스터형 인덱스가 포함됩니다. 클러스터형 인덱스가 포함된 테이블을 클러스터형 테이블이라고 합니다. 테이블에 클러스터형 인덱스가 없으면 해당 데이터 행은 힙이라는 정렬되지 않은 _구조로 저장됩니다.</li>
+</ul></li>
+<li>비클러스터형 인덱스
+
+<ul>
+<li>비클러스터형 인덱스의 구조는 데이터 행으로부터 독립적입니다. 비클러스터형 인덱스에는 비클러스터형 인덱스 키 값이 있으며 각 키 값 항목에는 해당 키 값이 포함된 데이터 행에 대한 포인터가 있습니다.</li>
+<li>비클러스터형 인덱스의 인덱스 행에서 데이터 행으로의 포인터를 행 로케이터라고 합니다. 행 로케이터의 구조는 데이터 페이지가 힙에 저장되는지 아니면 클러스터형 테이블에 저장되는지에 따라 다릅니다. 힙의 경우 행 로케이터는 행에 대한 포인터입니다. 클러스터형 테이블의 경우 행 로케이터는 클러스터형 인덱스 키입니다.</li>
+</ul></li>
+</ul>
+      
+      <p>
+        <a href="https://ence88.github.io/2020/11/clustered-nonclustered-index-%EC%B6%9C%EC%B2%98-https-daewonyoon.tistory.com-208-%EC%95%8C%EB%9D%BD%EB%B8%94%EB%A1%9D/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://ence88.github.io/2020/11/stdatomic-memory_order/">
           std::atomic, memory_order
         </a>
@@ -583,68 +659,6 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
       
       <p>
         <a href="https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
-          cbegin, begin, rbegin, cend, end, rend 등의 차이점
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T22:53:27&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
-    
-      <a class="category-link" href="https://ence88.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>C++의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.</p>
-
-<p>Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.</p>
-
-<p>begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.</p>
-      
-      <p>
-        <a href="https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
