@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Game Server Developer">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="개요
+
+지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C &#43; &#43; 17에 추가 되었습니다.">
+
+
+<meta property="og:description" content="개요
+
+지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C &#43; &#43; 17에 추가 되었습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="std::invoke">
+<meta name="twitter:title" content="std::invoke">
+<meta property="og:url" content="https://ence88.github.io/2020/11/stdinvoke/">
+<meta property="twitter:url" content="https://ence88.github.io/2020/11/stdinvoke/">
+<meta property="og:site_name" content="The Game Server Developer">
+<meta property="og:description" content="개요
+
+지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C &#43; &#43; 17에 추가 되었습니다.">
+<meta name="twitter:description" content="개요
+
+지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C &#43; &#43; 17에 추가 되었습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-11-10T21:56:37">
+  
+  
+    <meta property="article:modified_time" content="2020-11-10T21:56:37">
+  
+  
+  
+    
+      <meta property="article:section" content="Dev">
+    
+      <meta property="article:section" content="C&#43;&#43;">
+    
+  
+  
+    
+      <meta property="article:tag" content="C&#43;&#43;">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>std::invoke</title>
+
+    <link rel="icon" href="https://ence88.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence88.github.io/2020/11/stdinvoke/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence88.github.io/css/style-o0o9xxn7sl2qnkojgevnrv4ons1qbibz9maphukkvfydd3f3fh3o5ycrnxi.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence88.github.io/">The Game Server Developer</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence88.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence88.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Game Server Developer</h4>
+        
+          <h5 class="sidebar-profile-bio">Making online multi-user games</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://chjh.net/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-card"></i>
+      
+      <span class="sidebar-button-desc">MySite</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence88" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/junh.choi/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence88.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      std::invoke
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-10T21:56:37&#43;09:00">
+        
+  November 10, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
+    
+      <a class="category-link" href="https://ence88.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <h2 id="개요">개요</h2>
+
+<p>지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C + + 17에 추가 되었습니다.</p>
+
+<pre><code class="language-cpp">template &lt;class Callable, class... Args&gt;
+invoke_result_t&lt;Callable, Args...&gt;
+    invoke(Callable&amp;&amp; fn, Args&amp;&amp;... args) noexcept(/* specification */);
+</code></pre>
+
+<h3 id="매개-변수">매개 변수</h3>
+
+<p><em>호출</em>
+호출할 개체의 형식입니다.</p>
+
+<p><em>Args</em>
+호출 인수의 형식입니다.</p>
+
+<p><em>fn</em>
+호출할 개체입니다.</p>
+
+<p><em>args</em>
+호출 인수입니다.</p>
+
+<p><em>사양의</em>
+<strong><code>noexcept</code></strong> 사양 <code>std::is_nothrow_invocable_v&lt;Callable, Args&gt;)</code> 입니다.</p>
+
+<h3 id="설명">설명</h3>
+
+<p>매개 변수 *인수*를 사용 하 여 호출 가능 개체 <em>fn</em> 을 호출 합니다. 실제로 <code>INVOKE(std::forward&lt;Callable&gt;(fn), std::forward&lt;Args&gt;(args)...)</code> 의사 (pseudo) 함수는 <code>INVOKE(f, t1, t2, ..., tN)</code> 다음 중 하나를 의미 합니다.</p>
+
+<ul>
+<li><p><code>f</code>가 <code>T</code> 클래스의 멤버 함수에 대한 포인터이고, <code>t1</code>이 <code>T</code> 형식의 개체이거나 <code>T</code> 형식의 개체에 대한 참조 또는 <code>T</code>에서 파생된 형식의 개체에 대한 참조인 경우 <code>(t1.*f)(t2, ..., tN)</code>입니다. 즉,가 true 인 경우입니다 <code>std::is_base_of&lt;T, std::decay_t&lt;decltype(t1)&gt;&gt;::value</code> .</p></li>
+
+<li><p><code>(t1.get().*f)(t2, ..., tN)</code><code>f</code>가 클래스의 멤버 함수에 대 한 포인터 <code>T</code> 이 고는 <code>std::decay_t&lt;decltype(t1)&gt;</code> 의 특수화입니다 <code>std::reference_wrapper</code> .</p></li>
+
+<li><p><code>((*t1).*f)(t2, ..., tN)</code><code>f</code>가 클래스의 멤버 함수에 대 한 포인터이 <code>T</code> 고가 <code>t1</code> 이전 형식 중 하나가 아닌 경우</p></li>
+
+<li><p>N == 1이며 <code>f</code>가 <code>T</code> 클래스의 멤버 데이터에 대한 포인터이고, <code>t1</code>이 <code>T</code> 형식의 개체이거나 <code>T</code> 형식의 개체에 대한 참조 또는 <code>T</code>에서 파생된 형식의 개체에 대한 참조인 경우 <code>t1.*f</code>입니다. 즉,가 true 인 경우입니다 <code>std::is_base_of&lt;T, std::decay_t&lt;decltype(t1)&gt;&gt;::value</code> .</p></li>
+
+<li><p><code>t1.get().*f</code> N = = 1이 고는 <code>f</code> 클래스의 멤버 데이터에 대 한 포인터이 <code>T</code> 고는 <code>std::decay_t&lt;decltype(t1)&gt;</code> 의 특수화입니다 <code>std::reference_wrapper</code> .</p></li>
+
+<li><p><code>(*t1).*f</code> N = = 1이 고 <code>f</code> 는 클래스의 멤버 데이터에 대 한 포인터이 <code>T</code> 고는 <code>t1</code> 이전 형식 중 하나가 아닙니다.</p></li>
+
+<li><p>다른 모든 경우에는 <code>f(t1, t2, ..., tN)</code>.</p></li>
+</ul>
+
+<h3 id="예제">예제</h3>
+
+<pre><code class="language-cpp">// functional_invoke.cpp
+// compile using: cl /EHsc /std:c++17 functional_invoke.cpp
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+
+struct Demo
+{
+    int n_;
+
+    Demo(int const n) : n_{n} {}
+
+    void operator()( int const i, int const j ) const
+    {
+        std::cout &lt;&lt; &quot;Demo operator( &quot; &lt;&lt; i &lt;&lt; &quot;, &quot;
+            &lt;&lt; j &lt;&lt; &quot; ) is &quot; &lt;&lt; i * j &lt;&lt; &quot;\n&quot;;
+    }
+
+    void difference( int const i ) const
+    {
+        std::cout &lt;&lt; &quot;Demo.difference( &quot; &lt;&lt; i &lt;&lt; &quot; ) is &quot;
+            &lt;&lt; n_ - i &lt;&lt; &quot;\n&quot;;
+    }
+};
+
+void divisible_by_3(int const i)
+{
+    std::cout &lt;&lt; i &lt;&lt; ( i % 3 == 0 ? &quot; is&quot; : &quot; isn't&quot; )
+        &lt;&lt; &quot; divisible by 3.\n&quot;;
+}
+
+int main()
+{
+    Demo d{ 42 };
+    Demo * pd{ &amp;d };
+    auto pmf = &amp;Demo::difference;
+    auto pmd = &amp;Demo::n_;
+
+    // Invoke a function object, like calling d( 3, -7 )
+    std::invoke( d, 3, -7 );
+
+    // Invoke a member function, like calling
+    // d.difference( 29 ) or (d.*pmf)( 29 )
+    std::invoke( &amp;Demo::difference, d, 29 );
+    std::invoke( pmf, pd, 13 );
+
+    // Invoke a data member, like access to d.n_ or d.*pmd
+    std::cout &lt;&lt; &quot;d.n_: &quot; &lt;&lt; std::invoke( &amp;Demo::n_, d ) &lt;&lt; &quot;\n&quot;;
+    std::cout &lt;&lt; &quot;pd-&gt;n_: &quot; &lt;&lt; std::invoke( pmd, pd ) &lt;&lt; &quot;\n&quot;;
+
+    // Invoke a stand-alone (free) function
+    std::invoke( divisible_by_3, 42 );
+
+    // Invoke a lambda
+    auto divisible_by_7 = []( int const i ) {
+        std::cout &lt;&lt; i &lt;&lt; ( i % 7 == 0 ? &quot; is&quot; : &quot; isn't&quot; )
+            &lt;&lt; &quot; divisible by 7.\n&quot;;
+        };
+    std::invoke( divisible_by_7, 42 );
+}
+</code></pre>
+
+<p>Output</p>
+
+<pre><code class="language-Output">Demo operator( 3, -7 ) is -21
+Demo.difference( 29 ) is 13
+Demo.difference( 13 ) is 29
+d.n_: 42
+pd-&gt;n_: 42
+42 is divisible by 3.
+42 is divisible by 7.
+</code></pre>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/" data-tooltip="std::invoke_result 클래스">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/stdinvoke/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/stdinvoke/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/stdinvoke/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/" data-tooltip="std::invoke_result 클래스">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/stdinvoke/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/stdinvoke/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/stdinvoke/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fstdinvoke%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fstdinvoke%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fstdinvoke%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Game Server Developer</h4>
+    
+      <div id="about-card-bio">Making online multi-user games</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence88.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence88.github.io/js/script-p1zguplwyakfwhsmeqh0d6rabsawnxhnzuxy9nox9uzkglxoxardgduszp1.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/stdinvoke\/';
+          
+            this.page.identifier = '\/2020\/11\/stdinvoke\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence88-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
