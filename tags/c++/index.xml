@@ -6,10 +6,29 @@
     <description>Recent content in C&#43;&#43; on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 10 Nov 2020 21:56:37 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2020 22:02:59 +0900</lastBuildDate>
     
 	<atom:link href="https://ence88.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>std::for_each와 std::transform</title>
+      <link>https://ence88.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/</link>
+      <pubDate>Tue, 10 Nov 2020 22:02:59 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/</guid>
+      <description>&lt;h2 id=&#34;for-each&#34;&gt;for_each&lt;/h2&gt;
+
+&lt;p&gt;&lt;algorithm&gt; 에 정의됨&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;template &amp;lt;class InputIterator, class Function&amp;gt;
+Function for_each(InputIterator first, InputIterator last, Function fn);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;범위 내에 원소들에 대해 함수를 실행시킵니다.&lt;/p&gt;
+
+&lt;p&gt;범위 내 (&lt;code&gt;first&lt;/code&gt; 부터 &lt;code&gt;last&lt;/code&gt; 전 까지) 원소들 각각에 대해 함수 &lt;code&gt;fn&lt;/code&gt; 을 실행한다. 참고로 함수의 리턴값은 무시됩니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>std::invoke</title>
