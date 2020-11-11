@@ -8,55 +8,47 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Game Server Developer">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.
+<meta name="description" content="SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지
 
-컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.
+한눈에 파악 할 수 있는 기능을 제공합니다.
+Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
 
-컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.">
 
+<meta property="og:description" content="SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지
 
-<meta property="og:description" content="코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.
-
-컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.
-
-컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.">
+한눈에 파악 할 수 있는 기능을 제공합니다.
+Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#43;&#43; Google Coding Convention Style 정리">
-<meta name="twitter:title" content="C&#43;&#43; Google Coding Convention Style 정리">
-<meta property="og:url" content="https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
-<meta property="twitter:url" content="https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
+<meta property="og:title" content="Perforce의 Time Lapse View (SVN의 Blame)">
+<meta name="twitter:title" content="Perforce의 Time Lapse View (SVN의 Blame)">
+<meta property="og:url" content="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
+<meta property="twitter:url" content="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
 <meta property="og:site_name" content="The Game Server Developer">
-<meta property="og:description" content="코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.
+<meta property="og:description" content="SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지
 
-컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.
+한눈에 파악 할 수 있는 기능을 제공합니다.
+Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
+<meta name="twitter:description" content="SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지
 
-컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.">
-<meta name="twitter:description" content="코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.
-
-컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.
-
-컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.">
+한눈에 파악 할 수 있는 기능을 제공합니다.
+Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-11-11T21:25:16">
+    <meta property="article:published_time" content="2020-11-11T21:57:54">
   
   
-    <meta property="article:modified_time" content="2020-11-11T21:25:16">
+    <meta property="article:modified_time" content="2020-11-11T21:57:54">
   
   
   
     
-      <meta property="article:section" content="Dev">
-    
-      <meta property="article:section" content="Common">
+      <meta property="article:section" content="None">
     
   
   
     
-      <meta property="article:tag" content="C&#43;&#43;">
-    
-      <meta property="article:tag" content="CodingConventions">
+      <meta property="article:tag" content="None">
     
   
 
@@ -77,14 +69,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C&#43;&#43; Google Coding Convention Style 정리</title>
+    <title>Perforce의 Time Lapse View (SVN의 Blame)</title>
 
     <link rel="icon" href="https://ence88.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
+    <link rel="canonical" href="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -254,13 +246,13 @@
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      C&#43;&#43; Google Coding Convention Style 정리
+      Perforce의 Time Lapse View (SVN의 Blame)
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-11T21:25:16&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-11T21:57:54&#43;09:00">
         
   November 11, 2020
 
@@ -271,9 +263,7 @@
   
     <span>in</span>
     
-      <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
-    
-      <a class="category-link" href="https://ence88.github.io/categories/common">Common</a>
+      <a class="category-link" href="https://ence88.github.io/categories/none">None</a>
     
   
 
@@ -283,76 +273,14 @@
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.</p>
+              <p>SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지</p>
 
-<p>컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.</p>
+<p>한눈에 파악 할 수 있는 기능을 제공합니다.
+Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
 
-<p>컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.</p>
+<p>자세한 사용법은 <a href="https://www.perforce.com/video-tutorials/vcs/using-time-lapse-view">https://www.perforce.com/video-tutorials/vcs/using-time-lapse-view</a> 공식 페이지에 동영상과 설명이 잘 되어 있습니다.</p>
 
-<p>Google에서는 C++ 언어의 코딩 컨벤션 스타일 가이드를 제시하는데 제너럴한 스타일이기 때문에 참고해 볼만 합니다.</p>
-
-<p><a href="https://google.github.io/styleguide/cppguide.html">https://google.github.io/styleguide/cppguide.html</a></p>
-
-<h3 id="간단-요약">간단 요약</h3>
-
-<ul>
-<li><p>탭
-탭 문자를 사용하는 hard탭 (O)</p></li>
-
-<li><p>클래스
-파스칼 표기법 -&gt; Player, Item, Monster</p></li>
-
-<li><p>Method
-파스칼 표기법 -&gt; ItemInventorySlot, MonsterPower</p></li>
-
-<li><p>Parameter, 지역 변수
-가능하면 camelCase -&gt; helloWorldVision</p></li>
-
-<li><p>포인터
-약식 헝가리안 표기법 -&gt; pItemSlot, pStore</p></li>
-
-<li><p>멤버 변수
-가능하면 camelCase -&gt; m_powerOverSuper, m_pLocalManager(포인터류)</p></li>
-
-<li><p>멤버 함수
-protected, private은 camelCase -&gt; private void helloWorld()
-public 파스칼 -&gt; public void HelloWorld()</p></li>
-
-<li><p>Lock 사용 함수
-_가 들어가면 lock을 사용하지 않습니다 -&gt; private void _noLockFunction()</p></li>
-
-<li><p>레퍼런스 parameter
-약식 헝가리안 표기법, Output 인자인 경우 rf를 붙입니다</p></li>
-
-<li><p>namespace indentation
-들여쓰기 하지 않음. 대신 closing bracket에 주석으로 어떤 네임스페이스인지 명시(} //namespace spacename)</p></li>
-
-<li><p>global namespace
-코드 양을 줄이기 위해 name::, ::name::와 같은 global namespace 사용은 하지 않습니다</p></li>
-
-<li><p>namespace hierarchy</p>
-
-<p>가능하면 2단계(1단계는 namespace name)로 사용합니다
-특히 wrapper의 경우 name::wrapper::item 보단 name::wrapper를 사용합니다
-이래야 wrapper 클래스 내에서 name::item 네임스페이스를 쓸 때 name::를 안붙일 수 있습니다</p></li>
-
-<li><p>using typename
-using Ptr = std::shared_ptr<Item> 보단 std::shared_ptr<Item>를 직접 사용합니다</p></li>
-
-<li><p>newline
-가능하면 두줄 이상의 빈 라인을 사용하지 않습니다</p></li>
-
-<li><p>include directive
-#include &ldquo;character/item.h&rdquo; 보단 #include &ldquo;Common/character/item.h&rdquo;와 같이 프로젝트 이름을 넣어줍니다.</p></li>
-
-<li><p>한 줄 길이
-100 컬럼(탭 사이즈가 4 컬럼이기 때문입니다)</p></li>
-
-<li><p>약어</p>
-
-<p>itemID
-userPvpHistory</p></li>
-</ul>
+<p>p4vs나 p4EXP 사용시 [ 파일 -&gt; 우클릭 -&gt; Time-lapse View ] 과 같은 방법으로 접근 가능합니다.</p>
               
             </div>
           </div>
@@ -364,9 +292,7 @@ userPvpHistory</p></li>
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
-
-  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/codingconventions/">CodingConventions</a>
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/none/">None</a>
 
                   </div>
                 
@@ -379,7 +305,7 @@ userPvpHistory</p></li>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/" data-tooltip="Perforce의 Time Lapse View (SVN의 Blame)">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -387,7 +313,7 @@ userPvpHistory</p></li>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/mssql-with-nolock/" data-tooltip="MsSQL with nolock">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/" data-tooltip="C&#43;&#43; Google Coding Convention Style 정리">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -405,19 +331,19 @@ userPvpHistory</p></li>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -465,7 +391,7 @@ userPvpHistory</p></li>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/" data-tooltip="Perforce의 Time Lapse View (SVN의 Blame)">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -473,7 +399,7 @@ userPvpHistory</p></li>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/mssql-with-nolock/" data-tooltip="MsSQL with nolock">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/" data-tooltip="C&#43;&#43; Google Coding Convention Style 정리">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -491,19 +417,19 @@ userPvpHistory</p></li>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -533,19 +459,19 @@ userPvpHistory</p></li>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fc-google-coding-convention-style-%25EC%25A0%2595%25EB%25A6%25AC%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fperforce%25EC%259D%2598-time-lapse-view-svn%25EC%259D%2598-blame%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fc-google-coding-convention-style-%25EC%25A0%2595%25EB%25A6%25AC%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fperforce%25EC%259D%2598-time-lapse-view-svn%25EC%259D%2598-blame%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fc-google-coding-convention-style-%25EC%25A0%2595%25EB%25A6%25AC%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fperforce%25EC%259D%2598-time-lapse-view-svn%25EC%259D%2598-blame%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -637,9 +563,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC\/';
+          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame\/';
           
-            this.page.identifier = '\/2020\/11\/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC\/'
+            this.page.identifier = '\/2020\/11\/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame\/'
           
         };
         (function() {
