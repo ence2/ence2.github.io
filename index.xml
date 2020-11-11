@@ -42,7 +42,7 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.&lt;
       <pubDate>Wed, 11 Nov 2020 21:13:26 +0900</pubDate>
       
       <guid>https://ence88.github.io/2020/11/mssql-with-nolock/</guid>
-      <description>&lt;p&gt;MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸린다.&lt;/p&gt;
+      <description>&lt;p&gt;MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.&lt;/p&gt;
 
 &lt;p&gt;MSSQL에서 SELECT 시에 &lt;strong&gt;WITH (NOLOCK)&lt;/strong&gt; 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.&lt;/p&gt;
 

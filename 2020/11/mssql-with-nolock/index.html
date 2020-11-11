@@ -8,7 +8,7 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Game Server Developer">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸린다.
+<meta name="description" content="MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.
 
 MSSQL에서 SELECT 시에 WITH (NOLOCK) 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.
 
@@ -16,7 +16,7 @@ SELECT * FROM TABLE1 WITH (NOLOCK)
 ">
 
 
-<meta property="og:description" content="MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸린다.
+<meta property="og:description" content="MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.
 
 MSSQL에서 SELECT 시에 WITH (NOLOCK) 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.
 
@@ -28,13 +28,13 @@ SELECT * FROM TABLE1 WITH (NOLOCK)
 <meta property="og:url" content="https://ence88.github.io/2020/11/mssql-with-nolock/">
 <meta property="twitter:url" content="https://ence88.github.io/2020/11/mssql-with-nolock/">
 <meta property="og:site_name" content="The Game Server Developer">
-<meta property="og:description" content="MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸린다.
+<meta property="og:description" content="MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.
 
 MSSQL에서 SELECT 시에 WITH (NOLOCK) 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.
 
 SELECT * FROM TABLE1 WITH (NOLOCK)
 ">
-<meta name="twitter:description" content="MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸린다.
+<meta name="twitter:description" content="MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.
 
 MSSQL에서 SELECT 시에 WITH (NOLOCK) 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.
 
@@ -287,14 +287,16 @@ SELECT * FROM TABLE1 WITH (NOLOCK)
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸린다.</p>
+              <p>MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.</p>
 
 <p>MSSQL에서 SELECT 시에 <strong>WITH (NOLOCK)</strong> 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.</p>
 
 <pre><code class="language-sql">SELECT * FROM TABLE1 WITH (NOLOCK)
 </code></pre>
 
-<p>SELECT 문이 수행되는 테이블에 대해서 INSERT, UPDATE, DELETE 문이 수행되고 있다면 SELECT문은 선행 작업이 모두 끝날때까지 LOCK이 걸립니다. 이때 SELECT 문에 WITH (NOLOCK)을 추가하면 선행작업의 결과와 관계없이 바로 SELECT문이 수행되어서 결과를 반환하게 됩니다.</p>
+<p>SELECT 문이 수행되는 테이블에 대해서 INSERT, UPDATE, DELETE 문이 수행되고 있다면 SELECT문은 선행 작업이 모두 끝날때까지 LOCK이 걸립니다.</p>
+
+<p>이때 SELECT 문에 WITH (NOLOCK)을 추가하면 선행작업의 결과와 관계없이 바로 SELECT문이 수행되어서 결과를 반환하게 됩니다.</p>
 
 <p>SELECT 문장에서 여러 테이블을 조인해서 가져오는 경우 WITH (NOLOCK)을 사용하기 위해서는 모든 테이블에 적어주어야 합니다.</p>
 
@@ -307,7 +309,7 @@ inner join Bonus as b with(nolock) on b.id = sb.BonusID and b.BonusTypeID = 1111
 <pre><code class="language-mssql">SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 </code></pre>
 
-<p>사용예</p>
+<p>사용 예시</p>
 
 <pre><code class="language-mssql">CREATE PROCEDURE 프로시저명
 
