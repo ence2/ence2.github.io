@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Management on The Game Server Developer</title>
+    <link>https://ence88.github.io/tags/management/</link>
+    <description>Recent content in Management on The Game Server Developer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Wed, 11 Nov 2020 21:57:54 +0900</lastBuildDate>
+    
+	<atom:link href="https://ence88.github.io/tags/management/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Perforce의 Time Lapse View (SVN의 Blame)</title>
+      <link>https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/</link>
+      <pubDate>Wed, 11 Nov 2020 21:57:54 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/</guid>
+      <description>&lt;p&gt;SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지&lt;/p&gt;
+
+&lt;p&gt;한눈에 파악 할 수 있는 기능을 제공합니다.
+Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

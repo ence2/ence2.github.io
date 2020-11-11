@@ -235,6 +235,73 @@
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence88.github.io/2020/11/stdatomic-memory_order/">
+          std::atomic, memory_order
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-09T21:45:07&#43;09:00">
+        
+  November 9, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
+    
+      <a class="category-link" href="https://ence88.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <pre><code class="language-cpp">std::atomic&lt;T&gt;
+</code></pre>
+
+<p>동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)</p>
+
+<pre><code class="language-cpp">std::atomic&lt;int&gt; x;
+std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
+</code></pre>
+
+<p>is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.</p>
+      
+      <p>
+        <a href="https://ence88.github.io/2020/11/stdatomic-memory_order/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://ence88.github.io/2020/11/boostmake_ready_future/">
           boost::make_ready_future
         </a>
@@ -578,66 +645,6 @@
       
       <p>
         <a href="https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
-          UPSERT 개념
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T22:43:22&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
-    
-      <a class="category-link" href="https://ence88.github.io/categories/db">DB</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h3 id="정의">정의</h3>
-
-<p>간략하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.</p>
-      
-      <p>
-        <a href="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
