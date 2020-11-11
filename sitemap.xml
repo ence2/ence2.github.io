@@ -3,6 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence88.github.io/2020/11/mssql-with-nolock/</loc>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/</loc>
     <lastmod>2020-11-10T22:02:59+09:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -142,21 +148,21 @@
   
   <url>
     <loc>https://ence88.github.io/tags/db/</loc>
-    <lastmod>2020-11-09T22:07:38+09:00</lastmod>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/categories/db/</loc>
-    <lastmod>2020-11-09T22:07:38+09:00</lastmod>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/categories/dev/</loc>
-    <lastmod>2020-11-10T22:02:59+09:00</lastmod>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -183,8 +189,15 @@
   </url>
   
   <url>
+    <loc>https://ence88.github.io/tags/mssql/</loc>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/post/</loc>
-    <lastmod>2020-11-10T22:02:59+09:00</lastmod>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -205,7 +218,7 @@
   
   <url>
     <loc>https://ence88.github.io/</loc>
-    <lastmod>2020-11-10T22:02:59+09:00</lastmod>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
