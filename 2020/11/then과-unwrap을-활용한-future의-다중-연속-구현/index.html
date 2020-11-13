@@ -8,51 +8,55 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Game Server Developer">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지
+<meta name="description" content="비동기 프로그래밍에서 futue는 강력한 도구입니다.
 
-한눈에 파악 할 수 있는 기능을 제공합니다.
-Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
+이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.
+
+future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.">
 
 
-<meta property="og:description" content="SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지
+<meta property="og:description" content="비동기 프로그래밍에서 futue는 강력한 도구입니다.
 
-한눈에 파악 할 수 있는 기능을 제공합니다.
-Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
+이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.
+
+future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Perforce의 Time Lapse View (SVN의 Blame)">
-<meta name="twitter:title" content="Perforce의 Time Lapse View (SVN의 Blame)">
-<meta property="og:url" content="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
-<meta property="twitter:url" content="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
+<meta property="og:title" content="then과 unwrap을 활용한 future의 다중 연속 구현">
+<meta name="twitter:title" content="then과 unwrap을 활용한 future의 다중 연속 구현">
+<meta property="og:url" content="https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
+<meta property="twitter:url" content="https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
 <meta property="og:site_name" content="The Game Server Developer">
-<meta property="og:description" content="SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지
+<meta property="og:description" content="비동기 프로그래밍에서 futue는 강력한 도구입니다.
 
-한눈에 파악 할 수 있는 기능을 제공합니다.
-Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
-<meta name="twitter:description" content="SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지
+이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.
 
-한눈에 파악 할 수 있는 기능을 제공합니다.
-Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
+future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.">
+<meta name="twitter:description" content="비동기 프로그래밍에서 futue는 강력한 도구입니다.
+
+이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.
+
+future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-11-11T21:57:54">
+    <meta property="article:published_time" content="2020-11-13T21:56:30">
   
   
-    <meta property="article:modified_time" content="2020-11-11T21:57:54">
+    <meta property="article:modified_time" content="2020-11-13T21:56:30">
   
   
   
     
       <meta property="article:section" content="Dev">
     
-      <meta property="article:section" content="Perforce">
+      <meta property="article:section" content="C&#43;&#43;">
     
   
   
     
-      <meta property="article:tag" content="Management">
+      <meta property="article:tag" content="C&#43;&#43;">
     
-      <meta property="article:tag" content="Perforce">
+      <meta property="article:tag" content="Mordern C&#43;&#43;">
     
   
 
@@ -73,14 +77,14 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>Perforce의 Time Lapse View (SVN의 Blame)</title>
+    <title>then과 unwrap을 활용한 future의 다중 연속 구현</title>
 
     <link rel="icon" href="https://ence88.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
+    <link rel="canonical" href="https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -250,15 +254,15 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      Perforce의 Time Lapse View (SVN의 Blame)
+      then과 unwrap을 활용한 future의 다중 연속 구현
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-11T21:57:54&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-13T21:56:30&#43;09:00">
         
-  November 11, 2020
+  November 13, 2020
 
       </time>
     
@@ -269,7 +273,7 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
     
       <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
     
-      <a class="category-link" href="https://ence88.github.io/categories/perforce">Perforce</a>
+      <a class="category-link" href="https://ence88.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
     
   
 
@@ -279,14 +283,58 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.">
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지</p>
+              <p>비동기 프로그래밍에서 futue는 강력한 도구입니다.</p>
 
-<p>한눈에 파악 할 수 있는 기능을 제공합니다.
-Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
+<p>이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.</p>
 
-<p>자세한 사용법은 <a href="https://www.perforce.com/video-tutorials/vcs/using-time-lapse-view">https://www.perforce.com/video-tutorials/vcs/using-time-lapse-view</a> 공식 페이지에 동영상과 설명이 잘 되어 있습니다.</p>
+<p>future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.</p>
 
-<p>p4vs나 p4EXP 사용시 [ 파일 -&gt; 우클릭 -&gt; Time-lapse View ] 과 같은 방법으로 접근 가능합니다.</p>
+<p>이러한 방식의 장점은 연속된 다중 연결을 시리얼하게 처리할 수 있습니다.</p>
+
+<p>예를 들어 비동기 A 작업이 완료된 후 비동기 B 작업을 처리하고 B 작업이 처리 된 후 C 작업이 처리되도록 어렵 지 않게 구현 할 수 있습니다.</p>
+
+<p>예제</p>
+
+<pre><code class="language-c++">boost::promise&lt;State&gt; prom;
+    prom.set_executor(executor-&gt;ExPointer());
+    prom.set_value(going);
+    boost::future&lt;State&gt; before = prom.get_future();
+    
+// GetLogin
+before = before.then(executor-&gt;Ex(), [pSocket, req, ack, loginData](auto f)
+{
+    auto r = f.get();
+    if (r != going)
+        return boost::make_ready_future(r);
+
+    return asyncFuncName(pSocket, req, ack, loginData);
+
+}).unwrap();
+
+// Secondary
+before = before.then(executor-&gt;Ex(), [pSocket, req, ack, loginData](auto f)
+{
+    auto r = f.get();
+    if (r != going)
+        return boost::make_ready_future(r);
+
+    return asyncFuncName_2(pSocket, req, ack, loginData);
+
+}).unwrap();
+
+// Third
+before = before.then(executor-&gt;Ex(), [pSocket, req, ack, loginData](auto f)
+{
+    auto r = f.get();
+    if (r != going)
+        return boost::make_ready_future(r);
+
+    return asyncFuncName_3(pSocket, req, ack, loginData);
+
+});
+
+return before;
+</code></pre>
               
             </div>
           </div>
@@ -298,9 +346,9 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/management/">Management</a>
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
 
-  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/perforce/">Perforce</a>
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/mordern-c&#43;&#43;/">Mordern C&#43;&#43;</a>
 
                   </div>
                 
@@ -313,7 +361,7 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/" data-tooltip="then과 unwrap을 활용한 future의 다중 연속 구현">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -321,7 +369,7 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/" data-tooltip="C&#43;&#43; Google Coding Convention Style 정리">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/" data-tooltip="Perforce의 Time Lapse View (SVN의 Blame)">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -339,19 +387,19 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -399,7 +447,7 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/" data-tooltip="then과 unwrap을 활용한 future의 다중 연속 구현">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -407,7 +455,7 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/" data-tooltip="C&#43;&#43; Google Coding Convention Style 정리">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/" data-tooltip="Perforce의 Time Lapse View (SVN의 Blame)">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -425,19 +473,19 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -467,19 +515,19 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fperforce%25EC%259D%2598-time-lapse-view-svn%25EC%259D%2598-blame%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fthen%25EA%25B3%25BC-unwrap%25EC%259D%2584-%25ED%2599%259C%25EC%259A%25A9%25ED%2595%259C-future%25EC%259D%2598-%25EB%258B%25A4%25EC%25A4%2591-%25EC%2597%25B0%25EC%2586%258D-%25EA%25B5%25AC%25ED%2598%2584%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fperforce%25EC%259D%2598-time-lapse-view-svn%25EC%259D%2598-blame%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fthen%25EA%25B3%25BC-unwrap%25EC%259D%2584-%25ED%2599%259C%25EC%259A%25A9%25ED%2595%259C-future%25EC%259D%2598-%25EB%258B%25A4%25EC%25A4%2591-%25EC%2597%25B0%25EC%2586%258D-%25EA%25B5%25AC%25ED%2598%2584%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fperforce%25EC%259D%2598-time-lapse-view-svn%25EC%259D%2598-blame%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fthen%25EA%25B3%25BC-unwrap%25EC%259D%2584-%25ED%2599%259C%25EC%259A%25A9%25ED%2595%259C-future%25EC%259D%2598-%25EB%258B%25A4%25EC%25A4%2591-%25EC%2597%25B0%25EC%2586%258D-%25EA%25B5%25AC%25ED%2598%2584%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -571,9 +619,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame\/';
+          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84\/';
           
-            this.page.identifier = '\/2020\/11\/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame\/'
+            this.page.identifier = '\/2020\/11\/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84\/'
           
         };
         (function() {
