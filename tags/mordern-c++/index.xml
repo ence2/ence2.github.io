@@ -6,23 +6,10 @@
     <description>Recent content in Mordern C&#43;&#43; on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 13 Nov 2020 21:56:30 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2020 23:31:17 +0900</lastBuildDate>
     
 	<atom:link href="https://ence88.github.io/tags/mordern-c++/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>then과 unwrap을 활용한 future의 다중 연속 구현</title>
-      <link>https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</link>
-      <pubDate>Fri, 13 Nov 2020 21:56:30 +0900</pubDate>
-      
-      <guid>https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</guid>
-      <description>&lt;p&gt;비동기 프로그래밍에서 futue는 강력한 도구입니다.&lt;/p&gt;
-
-&lt;p&gt;이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.&lt;/p&gt;
-
-&lt;p&gt;future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.&lt;/p&gt;</description>
-    </item>
     
     <item>
       <title>Boost Future의 continuations(연속 연결)</title>
