@@ -10,50 +10,50 @@
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="구문
 
--- Syntax for SQL Server
+-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
 
-SET ANSI_NULLS { ON | OFF }
+SET QUOTED_IDENTIFIER { ON | OFF }
 ">
 
 
 <meta property="og:description" content="구문
 
--- Syntax for SQL Server
+-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
 
-SET ANSI_NULLS { ON | OFF }
+SET QUOTED_IDENTIFIER { ON | OFF }
 ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MsSQL SET ANSI_NULLS ON|OFF">
-<meta name="twitter:title" content="MsSQL SET ANSI_NULLS ON|OFF">
-<meta property="og:url" content="https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
-<meta property="twitter:url" content="https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
+<meta property="og:title" content="MsSQL SET QUOTED_IDENTIFIER ON|OFF">
+<meta name="twitter:title" content="MsSQL SET QUOTED_IDENTIFIER ON|OFF">
+<meta property="og:url" content="https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">
+<meta property="twitter:url" content="https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">
 <meta property="og:site_name" content="The Game Server Developer">
 <meta property="og:description" content="구문
 
--- Syntax for SQL Server
+-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
 
-SET ANSI_NULLS { ON | OFF }
+SET QUOTED_IDENTIFIER { ON | OFF }
 ">
 <meta name="twitter:description" content="구문
 
--- Syntax for SQL Server
+-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
 
-SET ANSI_NULLS { ON | OFF }
+SET QUOTED_IDENTIFIER { ON | OFF }
 ">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-11-14T22:00:20">
+    <meta property="article:published_time" content="2020-11-14T22:08:35">
   
   
-    <meta property="article:modified_time" content="2020-11-14T22:00:20">
+    <meta property="article:modified_time" content="2020-11-14T22:08:35">
   
   
   
     
       <meta property="article:section" content="Dev">
     
-      <meta property="article:section" content="MsSQL">
+      <meta property="article:section" content="DB">
     
   
   
@@ -81,14 +81,14 @@ SET ANSI_NULLS { ON | OFF }
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>MsSQL SET ANSI_NULLS ON|OFF</title>
+    <title>MsSQL SET QUOTED_IDENTIFIER ON|OFF</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
+    <link rel="canonical" href="https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -271,13 +271,13 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      MsSQL SET ANSI_NULLS ON|OFF
+      MsSQL SET QUOTED_IDENTIFIER ON|OFF
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-14T22:00:20&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-14T22:08:35&#43;09:00">
         
   November 14, 2020
 
@@ -290,7 +290,7 @@ if (!doNotTrack) {
     
       <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
     
-      <a class="category-link" href="https://ence2.github.io/categories/mssql">MsSQL</a>
+      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>
     
   
 
@@ -302,176 +302,16 @@ if (!doNotTrack) {
             <div class="main-content-wrap">
               <h4 id="구문">구문</h4>
 
-<pre><code class="language-mssql">-- Syntax for SQL Server
+<pre><code class="language-mssql">-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
 
-SET ANSI_NULLS { ON | OFF }
+SET QUOTED_IDENTIFIER { ON | OFF }
 </code></pre>
 
 <h4 id="설명">설명</h4>
 
-<p>ANSI_NULLS 옵션이 ON인 경우, WHERE <em>column_name</em> = <strong>NULL</strong>을 사용하는 SELECT 문은 *column_name*에 null 값이 있어도 0행을 반환합니다. WHERE <em>column_name</em> &lt;&gt; <strong>NULL</strong>을 사용하는 SELECT 문은 *column_name*에 Null 이외의 값이 있어도 0행을 반환합니다.</p>
+<p><code>SET QUOTED_IDENTIFIER</code>가 ON(기본값)이면, 식별자는 큰따옴표(“ ”)로 구분할 수 있고 리터럴은 작은따옴표(‘ ’)로 구분해야 합니다. 큰따옴표로 구분되는 모든 문자열은 개체 식별자로 해석됩니다. 따라서 따옴표 붙은 식별자는 Transact-SQL 식별자 규칙을 따르지 않아도 됩니다. 따옴표 붙은 식별자는 예약 키워드일 수 있으며 Transact-SQL 식별자에서 일반적으로 허용되지 않는 문자를 포함할 수 있습니다. 큰따옴표로는 리터럴 문자열 식을 구분할 수 없습니다. 리터럴 문자열을 묶으려면 작은따옴표를 사용해야 합니다. 리터럴 문자열에 작은따옴표(‘)가 포함되어 있으면, 두 개의 작은따옴표(‘’)로 나타낼 수 있습니다. 데이터베이스의 개체 이름에 예약된 키워드를 사용하는 경우 <code>SET QUOTED_IDENTIFIER</code>를 ON으로 설정해야 합니다.</p>
 
-<p>ANSI_NULLS 옵션이 OFF면 Equals(=)와 Not Equal(&lt;&gt;) 비교 연산자가 ISO 표준을 따르지 않습니다. WHERE <em>column_name</em> = <strong>NULL</strong>을 사용하는 SELECT 문은 *column_name*에 Null 값이 있는 행을 반환합니다. WHERE <em>column_name</em> &lt;&gt; <strong>NULL</strong>을 사용하는 SELECT 문은 열에 Null 이외의 값이 있는 행을 반환합니다. 또한 WHERE <em>column_name</em> &lt;&gt; *XYZ_value*를 사용하는 SELECT 문은 *XYZ_value*가 아니고 NULL이 아닌 모든 행을 반환합니다.</p>
-
-<p>ANSI_NULLS 옵션이 OFF면 Equals(=)와 Not Equal(&lt;&gt;) 비교 연산자가 ISO 표준을 따르지 않습니다. WHERE <em>column_name</em> = <strong>NULL</strong>을 사용하는 SELECT 문은 *column_name*에 Null 값이 있는 행을 반환합니다. WHERE <em>column_name</em> &lt;&gt; <strong>NULL</strong>을 사용하는 SELECT 문은 열에 Null 이외의 값이 있는 행을 반환합니다. 또한 WHERE <em>column_name</em> &lt;&gt; *XYZ_value*를 사용하는 SELECT 문은 *XYZ_value*가 아니고 NULL이 아닌 모든 행을 반환합니다.</p>
-
-<p>다음 표에서는 ANSI_NULLS 설정이 null과 null이 아닌 값을 사용하여 많은 부울 식의 결과에 어떤 영향을 미치는지를 보여 줍니다.</p>
-
-<table>
-<thead>
-<tr>
-<th align="left">부울 식(Boolean Expression)</th>
-<th align="left">SET ANSI_NULLS ON</th>
-<th align="left">SET ANSI_NULLS OFF</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">NULL = NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">TRUE</td>
-</tr>
-
-<tr>
-<td align="left">1 = NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">FALSE</td>
-</tr>
-
-<tr>
-<td align="left">NULL &lt;&gt; NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">FALSE</td>
-</tr>
-
-<tr>
-<td align="left">1 &lt;&gt; NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">TRUE</td>
-</tr>
-
-<tr>
-<td align="left">NULL &gt; NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">UNKNOWN</td>
-</tr>
-
-<tr>
-<td align="left">1 &gt; NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">UNKNOWN</td>
-</tr>
-
-<tr>
-<td align="left">NULL IS NULL</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-
-<tr>
-<td align="left">1 IS NULL</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-
-<tr>
-<td align="left">NULL IS NOT NULL</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-</tr>
-
-<tr>
-<td align="left">1 IS NOT NULL</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-</tbody>
-</table>
-
-<p>SET ANSI_NULLS ON 옵션은 비교의 피연산자 중 하나가 NULL 변수 또는 리터럴 NULL 변수인 경우에만 해당 비교에 영향을 줍니다. 비교의 양쪽이 열 또는 복합 식인 경우에는 설정이 비교에 영향을 주지 않습니다.</p>
-
-<p>ANSI_NULLS 데이터베이스 옵션이나 SET ANSI_NULLS 설정에 관계없이 스크립트가 의도했던 대로 실행되도록 하려면 Null 값을 포함할 수 있는 비교에 IS NULL과 IS NOT NULL을 사용하십시오.</p>
-
-<p>분산 쿼리를 실행할 때는 ANSI_NULLS를 ON으로 설정해야 합니다.</p>
-
-<p>계산 열이나 인덱싱된 뷰에서 인덱스를 만들거나 변경할 때는 ANSI_NULLS 옵션도 ON으로 설정해야 합니다. SET ANSI_NULLS 옵션이 OFF면 계산 열의 인덱스가 있는 테이블이나 인덱싱된 뷰에서 CREATE, UPDATE, INSERT, DELETE 문이 실패합니다. SQL Server는 필요한 값을 위반하는 모든 SET 옵션이 나열된 오류를 반환합니다. 뿐만 아니라 SELECT 문 실행 시 SET ANSI_NULLS 옵션이 OFF면 SQL Server는 계산 열이나 뷰의 인덱스 값을 무시하고 테이블이나 뷰에 이러한 인덱스가 없는 것처럼 SELECT 작업을 처리합니다.</p>
-
-<h4 id="예제">예제</h4>
-
-<p>다음 예에서는 Equals(<code>=</code>)와 Not Equal To(<code>&lt;&gt;</code>) 비교 연산자를 사용하여 테이블의 <code>NULL</code> 및 Null이 아닌 값에 비교를 수행합니다. 또한 <code>IS NULL</code>이 <code>SET ANSI_NULLS</code> 설정의 영향을 받지 않는다는 것을 보여 줍니다.</p>
-
-<pre><code class="language-sql">-- Create table t1 and insert values.  
-CREATE TABLE dbo.t1 (a INT NULL);  
-INSERT INTO dbo.t1 values (NULL),(0),(1);  
-GO  
-  
--- Print message and perform SELECT statements.  
-PRINT 'Testing default setting';  
-DECLARE @varname int;   
-SET @varname = NULL;  
-  
-SELECT a  
-FROM t1   
-WHERE a = @varname;  
-  
-SELECT a   
-FROM t1   
-WHERE a &lt;&gt; @varname;  
-  
-SELECT a   
-FROM t1   
-WHERE a IS NULL;  
-GO 
-</code></pre>
-
-<p>이제 ANSI_NULLS를 ON으로 설정하고 테스트합니다.</p>
-
-<p>SQL복사</p>
-
-<pre><code class="language-sql">PRINT 'Testing ANSI_NULLS ON';  
-SET ANSI_NULLS ON;  
-GO  
-DECLARE @varname int;  
-SET @varname = NULL  
-  
-SELECT a   
-FROM t1   
-WHERE a = @varname;  
-  
-SELECT a   
-FROM t1   
-WHERE a &lt;&gt; @varname;  
-  
-SELECT a   
-FROM t1   
-WHERE a IS NULL;  
-GO  
-</code></pre>
-
-<p>이제 ANSI_NULLS를 OFF로 설정하고 테스트합니다.</p>
-
-<pre><code class="language-sql">PRINT 'Testing ANSI_NULLS OFF';  
-SET ANSI_NULLS OFF;  
-GO  
-DECLARE @varname int;  
-SET @varname = NULL;  
-SELECT a   
-FROM t1   
-WHERE a = @varname;  
-  
-SELECT a   
-FROM t1   
-WHERE a &lt;&gt; @varname;  
-  
-SELECT a   
-FROM t1   
-WHERE a IS NULL;  
-GO  
-  
--- Drop table t1.  
-DROP TABLE dbo.t1;  
-</code></pre>
+<p><code>SET QUOTED_IDENTIFIER</code>가 OFF이면, 식별자를 따옴표로 묶을 수 없으며 모든 Transact-SQL 식별자 규칙을 따라야 합니다. 자세한 내용은 <a href="https://docs.microsoft.com/ko-kr/sql/relational-databases/databases/database-identifiers?view=sql-server-ver15">Database Identifiers</a>을 참조하세요. 리터럴은 작은따옴표 또는 큰따옴표로 구분할 수 있습니다. 리터럴 문자열을 큰따옴표로 구분할 때 아포스트로피와 같은 작은따옴표가 들어갈 수 있습니다.</p>
               
             </div>
           </div>
@@ -498,7 +338,7 @@ DROP TABLE dbo.t1;
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/" data-tooltip="MsSQL SET QUOTED_IDENTIFIER ON|OFF">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -506,7 +346,7 @@ DROP TABLE dbo.t1;
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-%EC%8B%A4%ED%96%89%EA%B3%84%ED%9A%8D-%EB%B6%84%EC%84%9D%EB%B2%95/" data-tooltip="MsSQL 실행계획 분석법">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/" data-tooltip="MsSQL SET ANSI_NULLS ON|OFF">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -524,19 +364,19 @@ DROP TABLE dbo.t1;
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -584,7 +424,7 @@ DROP TABLE dbo.t1;
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/" data-tooltip="MsSQL SET QUOTED_IDENTIFIER ON|OFF">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -592,7 +432,7 @@ DROP TABLE dbo.t1;
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-%EC%8B%A4%ED%96%89%EA%B3%84%ED%9A%8D-%EB%B6%84%EC%84%9D%EB%B2%95/" data-tooltip="MsSQL 실행계획 분석법">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/" data-tooltip="MsSQL SET ANSI_NULLS ON|OFF">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -610,19 +450,19 @@ DROP TABLE dbo.t1;
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -652,19 +492,19 @@ DROP TABLE dbo.t1;
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-set-ansi_nulls-onoff%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-set-quoted_identifier-onoff%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-set-ansi_nulls-onoff%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-set-quoted_identifier-onoff%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-set-ansi_nulls-onoff%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-set-quoted_identifier-onoff%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -756,9 +596,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/mssql-set-ansi_nulls-onoff\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/mssql-set-quoted_identifier-onoff\/';
           
-            this.page.identifier = '\/2020\/11\/mssql-set-ansi_nulls-onoff\/'
+            this.page.identifier = '\/2020\/11\/mssql-set-quoted_identifier-onoff\/'
           
         };
         (function() {
