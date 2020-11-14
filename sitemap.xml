@@ -5,281 +5,300 @@
   <url>
     <loc>https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/</loc>
     <lastmod>2020-11-11T21:57:54+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/</loc>
     <lastmod>2020-11-11T21:25:16+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/mssql-with-nolock/</loc>
     <lastmod>2020-11-11T21:13:26+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/</loc>
     <lastmod>2020-11-10T22:02:59+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/stdinvoke/</loc>
     <lastmod>2020-11-10T21:56:37+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/</loc>
     <lastmod>2020-11-10T21:44:03+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/clustered-nonclustered-index/</loc>
     <lastmod>2020-11-09T22:07:38+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/stdatomic-memory_order/</loc>
     <lastmod>2020-11-09T21:45:07+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/boostmake_ready_future/</loc>
     <lastmod>2020-11-09T21:09:42+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</loc>
     <lastmod>2020-11-08T23:31:17+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/std-upper_bound/</loc>
     <lastmod>2020-11-08T23:22:20+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</loc>
     <lastmod>2020-11-08T23:10:09+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/</loc>
     <lastmod>2020-11-08T23:03:14+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</loc>
     <lastmod>2020-11-08T22:53:27+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</loc>
     <lastmod>2020-11-08T22:43:22+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/</loc>
     <lastmod>2020-11-08T22:31:11+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/</loc>
     <lastmod>2020-11-08T22:01:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/</loc>
     <lastmod>2020-11-08T21:38:48+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/archives/</loc>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/atomic/</loc>
     <lastmod>2020-11-09T21:45:07+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/boost/</loc>
     <lastmod>2020-11-09T21:09:42+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence88.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2020-11-13T21:56:30+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence88.github.io/categories/c&#43;&#43;/</loc>
+    <lastmod>2020-11-13T21:56:30+09:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/c&#43;&#43;17/</loc>
     <lastmod>2020-11-10T21:44:03+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/categories/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/codingconventions/</loc>
     <lastmod>2020-11-11T21:25:16+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/categories/common/</loc>
     <lastmod>2020-11-11T21:25:16+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence88.github.io/categories/db/</loc>
-    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/db/</loc>
     <lastmod>2020-11-11T21:13:26+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence88.github.io/categories/db/</loc>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/categories/dev/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/future/</loc>
     <lastmod>2020-11-08T23:31:17+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/index/</loc>
     <lastmod>2020-11-09T22:07:38+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/management/</loc>
     <lastmod>2020-11-11T21:57:54+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/map/</loc>
     <lastmod>2020-11-08T22:01:43+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/modern-c&#43;&#43;/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/mssql/</loc>
     <lastmod>2020-11-11T21:13:26+09:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence88.github.io/categories/perforce/</loc>
-    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/perforce/</loc>
     <lastmod>2020-11-11T21:57:54+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence88.github.io/categories/perforce/</loc>
+    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/post/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/std/</loc>
     <lastmod>2020-11-10T22:02:59+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/tags/</loc>
     <lastmod>2020-11-09T21:45:07+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence88.github.io/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
