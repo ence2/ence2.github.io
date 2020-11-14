@@ -219,14 +219,14 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/blog/</loc>
+    <loc>https://ence2.github.io/categories/blog/</loc>
     <lastmod>2020-11-14T13:50:07+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ence2.github.io/categories/blog/</loc>
+    <loc>https://ence2.github.io/tags/blog/</loc>
     <lastmod>2020-11-14T13:50:07+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
@@ -240,14 +240,14 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/c&#43;&#43;/</loc>
+    <loc>https://ence2.github.io/categories/c&#43;&#43;/</loc>
     <lastmod>2020-11-14T21:31:48+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ence2.github.io/categories/c&#43;&#43;/</loc>
+    <loc>https://ence2.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2020-11-14T21:31:48+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
@@ -282,15 +282,15 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/db/</loc>
-    <lastmod>2020-11-14T22:00:20+09:00</lastmod>
+    <loc>https://ence2.github.io/categories/db/</loc>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ence2.github.io/categories/db/</loc>
-    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
+    <loc>https://ence2.github.io/tags/db/</loc>
+    <lastmod>2020-11-14T22:00:20+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -359,13 +359,6 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/mssql/</loc>
-    <lastmod>2020-11-14T22:00:20+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ence2.github.io/categories/mssql/</loc>
     <lastmod>2020-11-14T22:00:20+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -373,14 +366,21 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/perforce/</loc>
-    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
+    <loc>https://ence2.github.io/tags/mssql/</loc>
+    <lastmod>2020-11-14T22:00:20+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/categories/perforce/</loc>
+    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence2.github.io/tags/perforce/</loc>
     <lastmod>2020-11-11T21:57:54+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
