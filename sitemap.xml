@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/</loc>
+    <lastmod>2020-11-14T22:26:09+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/2020/11/srw-lock/</loc>
     <lastmod>2020-11-14T22:16:16+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -255,14 +262,14 @@
   
   <url>
     <loc>https://ence2.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2020-11-14T22:16:16+09:00</lastmod>
+    <lastmod>2020-11-14T22:26:09+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2020-11-14T22:16:16+09:00</lastmod>
+    <lastmod>2020-11-14T22:26:09+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -311,7 +318,7 @@
   
   <url>
     <loc>https://ence2.github.io/categories/dev/</loc>
-    <lastmod>2020-11-14T22:16:16+09:00</lastmod>
+    <lastmod>2020-11-14T22:26:09+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -402,14 +409,14 @@
   
   <url>
     <loc>https://ence2.github.io/post/</loc>
-    <lastmod>2020-11-14T22:16:16+09:00</lastmod>
+    <lastmod>2020-11-14T22:26:09+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/tags/std/</loc>
-    <lastmod>2020-11-10T22:02:59+09:00</lastmod>
+    <lastmod>2020-11-14T22:26:09+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -423,7 +430,7 @@
   
   <url>
     <loc>https://ence2.github.io/</loc>
-    <lastmod>2020-11-14T22:16:16+09:00</lastmod>
+    <lastmod>2020-11-14T22:26:09+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>

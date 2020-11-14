@@ -248,6 +248,66 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/kafka%EC%B9%B4%ED%94%84%EC%B9%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+          Kafka(카프카)란 무엇인가?
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-14T21:00:32&#43;09:00">
+        
+  November 14, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <p>서버간 통신을 할 때 서버간에 다이렉트로 소켓 연결이나, rest call 연결을 할 경우 복잡성이 매우 증가 할 수 있습니다. (최악의 경우 N^2)</p>
+
+<p>예를 들어 128대의 서버간 망형태로 연결이 필요 할 경우 16,384개의 연결이 필요합니다. 보통 이를 해결 하기 위해 중계 서버를 만들거나 메세지큐 형태의 서비스를 이용하는데 이러한 서비스를 제공하는 것이 Kafka라는 서비스입니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/kafka%EC%B9%B4%ED%94%84%EC%B9%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://ence2.github.io/2020/11/elkelasticsearch-logstash-kibana-stack-%EB%B2%88%EC%99%B8-fluentd/">
           ELK(ElasticSearch &#43; LogStash &#43; Kibana) Stack (번외 FluentD)
         </a>
@@ -587,69 +647,6 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.</p>
       
       <p>
         <a href="https://ence2.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/mssql-with-nolock/">
-          MsSQL with nolock
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-11T21:13:26&#43;09:00">
-        
-  November 11, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.</p>
-
-<p>MSSQL에서 SELECT 시에 <strong>WITH (NOLOCK)</strong> 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.</p>
-
-<pre><code class="language-sql">SELECT * FROM TABLE1 WITH (NOLOCK)
-</code></pre>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/mssql-with-nolock/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
