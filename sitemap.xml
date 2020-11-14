@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence2.github.io/2020/11/kafka%EC%B9%B4%ED%94%84%EC%B9%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/</loc>
+    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/2020/11/elkelasticsearch-logstash-kibana-stack-%EB%B2%88%EC%99%B8-fluentd/</loc>
     <lastmod>2020-11-14T20:11:21+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -157,6 +164,13 @@
   </url>
   
   <url>
+    <loc>https://ence2.github.io/tags/achitecture/</loc>
+    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/tags/architecture/</loc>
     <lastmod>2020-11-14T20:11:21+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -177,14 +191,14 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/categories/blog/</loc>
+    <loc>https://ence2.github.io/tags/blog/</loc>
     <lastmod>2020-11-14T13:50:07+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/blog/</loc>
+    <loc>https://ence2.github.io/categories/blog/</loc>
     <lastmod>2020-11-14T13:50:07+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
@@ -198,14 +212,14 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/categories/c&#43;&#43;/</loc>
+    <loc>https://ence2.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/c&#43;&#43;/</loc>
+    <loc>https://ence2.github.io/categories/c&#43;&#43;/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
@@ -234,14 +248,7 @@
   
   <url>
     <loc>https://ence2.github.io/categories/common/</loc>
-    <lastmod>2020-11-14T20:11:21+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/categories/db/</loc>
-    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
+    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -254,8 +261,15 @@
   </url>
   
   <url>
+    <loc>https://ence2.github.io/categories/db/</loc>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/categories/dev/</loc>
-    <lastmod>2020-11-14T20:11:21+09:00</lastmod>
+    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -277,6 +291,13 @@
   <url>
     <loc>https://ence2.github.io/tags/index/</loc>
     <lastmod>2020-11-09T22:07:38+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence2.github.io/tags/kafka/</loc>
+    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -317,13 +338,6 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/categories/perforce/</loc>
-    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ence2.github.io/tags/perforce/</loc>
     <lastmod>2020-11-11T21:57:54+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -331,8 +345,15 @@
   </url>
   
   <url>
+    <loc>https://ence2.github.io/categories/perforce/</loc>
+    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/post/</loc>
-    <lastmod>2020-11-14T20:11:21+09:00</lastmod>
+    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -346,14 +367,14 @@
   
   <url>
     <loc>https://ence2.github.io/tags/</loc>
-    <lastmod>2020-11-14T20:11:21+09:00</lastmod>
+    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/</loc>
-    <lastmod>2020-11-14T20:11:21+09:00</lastmod>
+    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
