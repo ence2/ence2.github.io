@@ -6,10 +6,24 @@
     <description>Recent content in Mssql on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 14 Nov 2020 21:41:03 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2020 22:00:20 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/categories/mssql/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MsSQL SET ANSI_NULLS ON|OFF</title>
+      <link>https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/</link>
+      <pubDate>Sat, 14 Nov 2020 22:00:20 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/</guid>
+      <description>&lt;h4 id=&#34;구문&#34;&gt;구문&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-mssql&#34;&gt;-- Syntax for SQL Server
+
+SET ANSI_NULLS { ON | OFF }
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     
     <item>
       <title>MsSQL 실행계획 분석법</title>
