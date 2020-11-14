@@ -6,10 +6,19 @@
     <description>Recent content on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 14 Nov 2020 21:00:32 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2020 21:19:54 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MsSQL Merge문</title>
+      <link>https://ence2.github.io/2020/11/mssql-merge%EB%AC%B8/</link>
+      <pubDate>Sat, 14 Nov 2020 21:19:54 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/mssql-merge%EB%AC%B8/</guid>
+      <description>&lt;p&gt;SQL Server 2008 부터 지원되는 MERGE문은 조건에 따라 INSERT, UPDATE ,DELETE등을 한 문장으로 간단히 실행할 수 있는 편리한 TSQL 문장입니다. MERGE가 없는 이전 버전의 경우 보통 IF문 등으로 조건을 먼저 체크하고 DML 문장(INSERT, UPDATE ,DELETE)을 각각 나눠서 여러 문장으로 기술해야 했습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Kafka(카프카)란 무엇인가?</title>
