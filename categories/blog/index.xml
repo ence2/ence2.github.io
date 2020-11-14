@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on The Game Server Developer</title>
+    <link>https://ence88.github.io/categories/blog/</link>
+    <description>Recent content in Blog on The Game Server Developer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sat, 14 Nov 2020 13:50:07 +0900</lastBuildDate>
+    
+	<atom:link href="https://ence88.github.io/categories/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hugo 블로그에 Google Analytics 연결</title>
+      <link>https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/</link>
+      <pubDate>Sat, 14 Nov 2020 13:50:07 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/</guid>
+      <description>&lt;p&gt;구글에서는 사이트 접근시 유입분석과 체류시간 등옶의 각종 통계 분석이 가능한 콘솔 서비스를 제공합니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hugo 블로그 검색 엔진에 등록하기</title>
+      <link>https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/</link>
+      <pubDate>Sat, 14 Nov 2020 12:19:25 +0900</pubDate>
+      
+      <guid>https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/</guid>
+      <description>&lt;p&gt;Google이나 Naver에 블로그나 사이트를 노출시키기 위해서는 검색엔진 제공 업체의 검색콘솔 등에 직접 등록하는 것이 좋습니다.&lt;/p&gt;
+
+&lt;p&gt;등록해야 하는 파일은 비슷하지만, 회사마다 방법이 조금 달라 그 방법과 Hugo 기반 블로그에서 필요한 파일을 생성하는 방법을 소개합니다.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
