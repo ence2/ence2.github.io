@@ -8,39 +8,43 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="5 years a go I’ve showed how to use clock_gettime to do basic high_resolution profiling. The approach there is very useful, but unfortunately, not cross-platform. It works only on POSIX compliant systems (especially not windows).">
+<meta name="description" content="std::lock_guard
+
+std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.">
 
 
-<meta property="og:description" content="5 years a go I’ve showed how to use clock_gettime to do basic high_resolution profiling. The approach there is very useful, but unfortunately, not cross-platform. It works only on POSIX compliant systems (especially not windows).">
+<meta property="og:description" content="std::lock_guard
+
+std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="std::chrono::high_resolution_clock">
-<meta name="twitter:title" content="std::chrono::high_resolution_clock">
-<meta property="og:url" content="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
-<meta property="twitter:url" content="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
+<meta property="og:title" content="std::lock_guard">
+<meta name="twitter:title" content="std::lock_guard">
+<meta property="og:url" content="https://ence2.github.io/2020/11/stdlock_guard/">
+<meta property="twitter:url" content="https://ence2.github.io/2020/11/stdlock_guard/">
 <meta property="og:site_name" content="The Game Server Developer">
-<meta property="og:description" content="5 years a go I’ve showed how to use clock_gettime to do basic high_resolution profiling. The approach there is very useful, but unfortunately, not cross-platform. It works only on POSIX compliant systems (especially not windows).">
-<meta name="twitter:description" content="5 years a go I’ve showed how to use clock_gettime to do basic high_resolution profiling. The approach there is very useful, but unfortunately, not cross-platform. It works only on POSIX compliant systems (especially not windows).">
+<meta property="og:description" content="std::lock_guard
+
+std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.">
+<meta name="twitter:description" content="std::lock_guard
+
+std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-11-14T22:26:09">
+    <meta property="article:published_time" content="2020-11-14T22:48:24">
   
   
-    <meta property="article:modified_time" content="2020-11-14T22:26:09">
+    <meta property="article:modified_time" content="2020-11-14T22:48:24">
   
   
   
     
-      <meta property="article:section" content="Dev">
-    
-      <meta property="article:section" content="C&#43;&#43;">
+      <meta property="article:section" content="None">
     
   
   
     
-      <meta property="article:tag" content="C&#43;&#43;">
-    
-      <meta property="article:tag" content="std">
+      <meta property="article:tag" content="None">
     
   
 
@@ -61,14 +65,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>std::chrono::high_resolution_clock</title>
+    <title>std::lock_guard</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
+    <link rel="canonical" href="https://ence2.github.io/2020/11/stdlock_guard/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -251,13 +255,13 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      std::chrono::high_resolution_clock
+      std::lock_guard
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-14T22:26:09&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-14T22:48:24&#43;09:00">
         
   November 14, 2020
 
@@ -268,9 +272,7 @@ if (!doNotTrack) {
   
     <span>in</span>
     
-      <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+      <a class="category-link" href="https://ence2.github.io/categories/none">None</a>
     
   
 
@@ -280,43 +282,46 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>5 years a go I’ve showed how to <a href="https://www.guyrutenberg.com/2007/09/22/profiling-code-using-clock_gettime/">use <code>clock_gettime</code></a> to do basic high_resolution profiling. The approach there is very useful, but unfortunately, not cross-platform. It works only on POSIX compliant systems (especially not windows).</p>
+              <h4 id="std-lock-guard">std::lock_guard</h4>
 
-<p>Luckily, the not-so-new C++11 provides, among other things, interface to high-precision clocks in a portable way. It’s still not a perfect solution, as it only provides wall-time (<code>clock_gettime</code> can give per process and per thread actual CPU time as well). However, it’s still nice.</p>
+<p>std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.</p>
 
 <pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;chrono&gt;
-using namespace std;
- 
-int main()
-{
-    cout &lt;&lt; chrono::high_resolution_clock::period::den &lt;&lt; endl;
-    auto start_time = chrono::high_resolution_clock::now();
-    int temp;
-    for (int i = 0; i&lt; 242000000; i++)
-        temp+=temp;
-    auto end_time = chrono::high_resolution_clock::now();
-    cout &lt;&lt; chrono::duration_cast&lt;chrono::seconds&gt;(end_time - start_time).count() &lt;&lt; &quot;:&quot;;
-    cout &lt;&lt; chrono::duration_cast&lt;chrono::microseconds&gt;(end_time - start_time).count() &lt;&lt; &quot;:&quot;;
-    return 0;
+#include &lt;thread&gt;
+#include &lt;mutex&gt;
+
+std::mutex m1;
+int main() {
+   std::thread th([&amp;]() {
+   std::lock_guard&lt;std::mutex&gt; lock_guard(m1);
+   for (int i = 0; i &lt; 100; i++) {
+   std::cout &lt;&lt; &quot;th1&quot; &lt;&lt; std::endl;
+   }
+   });
+   std::thread th2([&amp;]() {
+   std::lock_guard&lt;std::mutex&gt; lock_guard(m1);
+   for (int i = 0; i &lt; 100; i++) {
+   std::cout &lt;&lt; &quot;th2&quot; &lt;&lt; std::endl;
+   }
+   });
+
+   std::cout &lt;&lt; &quot;hello&quot; &lt;&lt; std::endl;
+   th.join();
+   th2.join();
 }
 </code></pre>
 
-<p>I’ll explain a bit the code. <code>chrono</code> is the new header files that provides various time and clock related functionality of the new standard library. <code>high_resolution_clock</code> should be, according to the standard, the clock with the highest precision.</p>
+<p>또한  중간에 리턴되어 unlock이 되지 않는 문제를 해결 할 수 있습니다.</p>
 
-<pre><code class="language-cpp">cout &lt;&lt; chrono::high_resolution_clock::period::den &lt;&lt; endl;
+<pre><code class="language-cpp">...
+mutex.lock()
+
+if(n == 10)
+   return false;
+
+mutex.unlock()
+...
 </code></pre>
-
-<p>Note, that there isn’t a guarantee how many the ticks per seconds it has, only that it’s the highest available. Hence, the first thing we do is to get the precision, by printing how many many times a second the clock ticks. My system provides 1000000 ticks per second, which is a microsecond precision.</p>
-
-<p>Getting the current time using <code>now()</code> is self-explanatory. The possibly tricky part is</p>
-
-<pre><code class="language-cpp">cout &lt;&lt; chrono::duration_cast&lt;chrono::seconds&gt;(end_time - start_time).count() &lt;&lt; &quot;:&quot;;
-</code></pre>
-
-<p><code>(end_time - start_time)</code> is a <code>duration</code> (newly defined type) and the <code>count()</code> method returns the number of ticks it represents. As we said, the number of ticks per second may change from system to system, so in order to get the number of seconds we use <code>duration_cast</code>. The same goes in the next line for microseconds.</p>
-
-<p>The standard also provides other useful time units such as nanoseconds, milliseconds, minutes and even hours.</p>
               
             </div>
           </div>
@@ -328,9 +333,7 @@ int main()
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
-
-  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/std/">std</a>
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/none/">None</a>
 
                   </div>
                 
@@ -343,7 +346,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/stdlock_guard/" data-tooltip="std::lock_guard">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -351,7 +354,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/srw-lock/" data-tooltip="SRW Lock">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/" data-tooltip="std::chrono::high_resolution_clock">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -369,19 +372,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/stdlock_guard/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/stdlock_guard/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/stdlock_guard/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -429,7 +432,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/stdlock_guard/" data-tooltip="std::lock_guard">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -437,7 +440,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/srw-lock/" data-tooltip="SRW Lock">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/" data-tooltip="std::chrono::high_resolution_clock">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -455,19 +458,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/stdlock_guard/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/stdlock_guard/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/stdlock_guard/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -497,19 +500,19 @@ int main()
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fstdchronohigh_resolution_clock%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fstdlock_guard%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fstdchronohigh_resolution_clock%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fstdlock_guard%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fstdchronohigh_resolution_clock%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fstdlock_guard%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -601,9 +604,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/stdchronohigh_resolution_clock\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/stdlock_guard\/';
           
-            this.page.identifier = '\/2020\/11\/stdchronohigh_resolution_clock\/'
+            this.page.identifier = '\/2020\/11\/stdlock_guard\/'
           
         };
         (function() {
