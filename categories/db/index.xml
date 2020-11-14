@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Db on The Game Server Developer</title>
-    <link>https://ence88.github.io/categories/db/</link>
+    <link>https://ence2.github.io/categories/db/</link>
     <description>Recent content in Db on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <lastBuildDate>Wed, 11 Nov 2020 21:13:26 +0900</lastBuildDate>
     
-	<atom:link href="https://ence88.github.io/categories/db/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ence2.github.io/categories/db/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>MsSQL with nolock</title>
-      <link>https://ence88.github.io/2020/11/mssql-with-nolock/</link>
+      <link>https://ence2.github.io/2020/11/mssql-with-nolock/</link>
       <pubDate>Wed, 11 Nov 2020 21:13:26 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/mssql-with-nolock/</guid>
+      <guid>https://ence2.github.io/2020/11/mssql-with-nolock/</guid>
       <description>&lt;p&gt;MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.&lt;/p&gt;
 
 &lt;p&gt;MSSQL에서 SELECT 시에 &lt;strong&gt;WITH (NOLOCK)&lt;/strong&gt; 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.&lt;/p&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>Clustered, Nonclustered Index</title>
-      <link>https://ence88.github.io/2020/11/clustered-nonclustered-index/</link>
+      <link>https://ence2.github.io/2020/11/clustered-nonclustered-index/</link>
       <pubDate>Mon, 09 Nov 2020 22:07:38 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/clustered-nonclustered-index/</guid>
+      <guid>https://ence2.github.io/2020/11/clustered-nonclustered-index/</guid>
       <description>&lt;h3 id=&#34;index란&#34;&gt;Index란&lt;/h3&gt;
 
 &lt;p&gt;책의 목차와 비슷하게 데이터의 색인을 기록하여 검색 속도를 증가 시킬 수 있는 구조입니다.&lt;/p&gt;</description>
@@ -38,10 +38,10 @@
     
     <item>
       <title>UPSERT 개념</title>
-      <link>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</link>
+      <link>https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</link>
       <pubDate>Sun, 08 Nov 2020 22:43:22 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</guid>
+      <guid>https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</guid>
       <description>&lt;h3 id=&#34;정의&#34;&gt;정의&lt;/h3&gt;
 
 &lt;p&gt;간략하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.&lt;/p&gt;</description>

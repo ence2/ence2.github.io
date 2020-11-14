@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Modern C&#43;&#43; on The Game Server Developer</title>
-    <link>https://ence88.github.io/tags/modern-c&#43;&#43;/</link>
+    <link>https://ence2.github.io/tags/modern-c&#43;&#43;/</link>
     <description>Recent content in Modern C&#43;&#43; on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <lastBuildDate>Fri, 13 Nov 2020 21:56:30 +0900</lastBuildDate>
     
-	<atom:link href="https://ence88.github.io/tags/modern-c++/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ence2.github.io/tags/modern-c++/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>then과 unwrap을 활용한 future의 다중 연속 구현</title>
-      <link>https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</link>
+      <link>https://ence2.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</link>
       <pubDate>Fri, 13 Nov 2020 21:56:30 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</guid>
+      <guid>https://ence2.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</guid>
       <description>&lt;p&gt;비동기 프로그래밍에서 futue는 강력한 도구입니다.&lt;/p&gt;
 
 &lt;p&gt;이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.&lt;/p&gt;
@@ -26,19 +26,19 @@
     
     <item>
       <title>std::invoke_result 클래스</title>
-      <link>https://ence88.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/</link>
+      <link>https://ence2.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/</link>
       <pubDate>Tue, 10 Nov 2020 21:44:03 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/</guid>
+      <guid>https://ence2.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/</guid>
       <description>&lt;p&gt;컴파일 타임에 지정 된 인수 형식을 사용 하는 호출 가능 형식의 반환 형식을 결정 합니다. C + + 17에 추가 되었습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Boost Future의 continuations(연속 연결)</title>
-      <link>https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</link>
+      <link>https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</link>
       <pubDate>Sun, 08 Nov 2020 23:31:17 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</guid>
+      <guid>https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</guid>
       <description>&lt;p&gt;비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 future에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &amp;ldquo;연결&amp;rdquo;됩니다. then 함수를 사용하여 등록 된 연속 futue는 대기를 차단하거나 폴링 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다&lt;/p&gt;</description>
     </item>
     

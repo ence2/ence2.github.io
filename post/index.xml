@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on The Game Server Developer</title>
-    <link>https://ence88.github.io/post/</link>
+    <link>https://ence2.github.io/post/</link>
     <description>Recent content in Posts on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <lastBuildDate>Sat, 14 Nov 2020 13:50:07 +0900</lastBuildDate>
     
-	<atom:link href="https://ence88.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ence2.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Hugo 블로그에 Google Analytics 연결</title>
-      <link>https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/</link>
+      <link>https://ence2.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/</link>
       <pubDate>Sat, 14 Nov 2020 13:50:07 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/</guid>
+      <guid>https://ence2.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/</guid>
       <description>&lt;p&gt;구글에서는 사이트 접근시 유입분석과 체류시간 등옶의 각종 통계 분석이 가능한 콘솔 서비스를 제공합니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Hugo 블로그 검색 엔진에 등록하기</title>
-      <link>https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/</link>
+      <link>https://ence2.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/</link>
       <pubDate>Sat, 14 Nov 2020 12:19:25 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/</guid>
+      <guid>https://ence2.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/</guid>
       <description>&lt;p&gt;Google이나 Naver에 블로그나 사이트를 노출시키기 위해서는 검색엔진 제공 업체의 검색콘솔 등에 직접 등록하는 것이 좋습니다.&lt;/p&gt;
 
 &lt;p&gt;등록해야 하는 파일은 비슷하지만, 회사마다 방법이 조금 달라 그 방법과 Hugo 기반 블로그에서 필요한 파일을 생성하는 방법을 소개합니다.&lt;/p&gt;</description>
@@ -33,10 +33,10 @@
     
     <item>
       <title>then과 unwrap을 활용한 future의 다중 연속 구현</title>
-      <link>https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</link>
+      <link>https://ence2.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</link>
       <pubDate>Fri, 13 Nov 2020 21:56:30 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</guid>
+      <guid>https://ence2.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</guid>
       <description>&lt;p&gt;비동기 프로그래밍에서 futue는 강력한 도구입니다.&lt;/p&gt;
 
 &lt;p&gt;이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.&lt;/p&gt;
@@ -46,10 +46,10 @@
     
     <item>
       <title>Perforce의 Time Lapse View (SVN의 Blame)</title>
-      <link>https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/</link>
+      <link>https://ence2.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/</link>
       <pubDate>Wed, 11 Nov 2020 21:57:54 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/</guid>
+      <guid>https://ence2.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/</guid>
       <description>&lt;p&gt;SVN의 blame 기능은 소스코드 형상관리시 누가 언제 커밋을 했고 해당 소스코드의 어떤 변경내역이 있었는지&lt;/p&gt;
 
 &lt;p&gt;한눈에 파악 할 수 있는 기능을 제공합니다.
@@ -58,10 +58,10 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.&lt;
     
     <item>
       <title>C&#43;&#43; Google Coding Convention Style 정리</title>
-      <link>https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/</link>
+      <link>https://ence2.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/</link>
       <pubDate>Wed, 11 Nov 2020 21:25:16 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/</guid>
+      <guid>https://ence2.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/</guid>
       <description>&lt;p&gt;코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.&lt;/p&gt;
 
 &lt;p&gt;컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.&lt;/p&gt;
@@ -71,10 +71,10 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.&lt;
     
     <item>
       <title>MsSQL with nolock</title>
-      <link>https://ence88.github.io/2020/11/mssql-with-nolock/</link>
+      <link>https://ence2.github.io/2020/11/mssql-with-nolock/</link>
       <pubDate>Wed, 11 Nov 2020 21:13:26 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/mssql-with-nolock/</guid>
+      <guid>https://ence2.github.io/2020/11/mssql-with-nolock/</guid>
       <description>&lt;p&gt;MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.&lt;/p&gt;
 
 &lt;p&gt;MSSQL에서 SELECT 시에 &lt;strong&gt;WITH (NOLOCK)&lt;/strong&gt; 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.&lt;/p&gt;
@@ -85,10 +85,10 @@ Perforce에도 비슷한 기능이 있는데 바로 Time Lase View입니다.&lt;
     
     <item>
       <title>std::for_each와 std::transform</title>
-      <link>https://ence88.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/</link>
+      <link>https://ence2.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/</link>
       <pubDate>Tue, 10 Nov 2020 22:02:59 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/</guid>
+      <guid>https://ence2.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/</guid>
       <description>&lt;h2 id=&#34;for-each&#34;&gt;for_each&lt;/h2&gt;
 
 &lt;p&gt;&lt;algorithm&gt; 에 정의됨&lt;/p&gt;
@@ -104,10 +104,10 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
     
     <item>
       <title>std::invoke</title>
-      <link>https://ence88.github.io/2020/11/stdinvoke/</link>
+      <link>https://ence2.github.io/2020/11/stdinvoke/</link>
       <pubDate>Tue, 10 Nov 2020 21:56:37 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/stdinvoke/</guid>
+      <guid>https://ence2.github.io/2020/11/stdinvoke/</guid>
       <description>&lt;h2 id=&#34;개요&#34;&gt;개요&lt;/h2&gt;
 
 &lt;p&gt;지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C + + 17에 추가 되었습니다.&lt;/p&gt;</description>
@@ -115,19 +115,19 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
     
     <item>
       <title>std::invoke_result 클래스</title>
-      <link>https://ence88.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/</link>
+      <link>https://ence2.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/</link>
       <pubDate>Tue, 10 Nov 2020 21:44:03 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/</guid>
+      <guid>https://ence2.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/</guid>
       <description>&lt;p&gt;컴파일 타임에 지정 된 인수 형식을 사용 하는 호출 가능 형식의 반환 형식을 결정 합니다. C + + 17에 추가 되었습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Clustered, Nonclustered Index</title>
-      <link>https://ence88.github.io/2020/11/clustered-nonclustered-index/</link>
+      <link>https://ence2.github.io/2020/11/clustered-nonclustered-index/</link>
       <pubDate>Mon, 09 Nov 2020 22:07:38 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/clustered-nonclustered-index/</guid>
+      <guid>https://ence2.github.io/2020/11/clustered-nonclustered-index/</guid>
       <description>&lt;h3 id=&#34;index란&#34;&gt;Index란&lt;/h3&gt;
 
 &lt;p&gt;책의 목차와 비슷하게 데이터의 색인을 기록하여 검색 속도를 증가 시킬 수 있는 구조입니다.&lt;/p&gt;</description>
@@ -135,10 +135,10 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
     
     <item>
       <title>std::atomic, memory_order</title>
-      <link>https://ence88.github.io/2020/11/stdatomic-memory_order/</link>
+      <link>https://ence2.github.io/2020/11/stdatomic-memory_order/</link>
       <pubDate>Mon, 09 Nov 2020 21:45:07 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/stdatomic-memory_order/</guid>
+      <guid>https://ence2.github.io/2020/11/stdatomic-memory_order/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;std::atomic&amp;lt;T&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -153,10 +153,10 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
     
     <item>
       <title>boost::make_ready_future</title>
-      <link>https://ence88.github.io/2020/11/boostmake_ready_future/</link>
+      <link>https://ence2.github.io/2020/11/boostmake_ready_future/</link>
       <pubDate>Mon, 09 Nov 2020 21:09:42 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/boostmake_ready_future/</guid>
+      <guid>https://ence2.github.io/2020/11/boostmake_ready_future/</guid>
       <description>&lt;h4 id=&#34;making-immediate-futures-easier&#34;&gt;Making immediate futures easier&lt;/h4&gt;
 
 &lt;p&gt;Some functions may know the value at the point of construction. In these cases the value is immediately available, but needs to be returned as a future or shared_future. By using make_ready_future a future can be created which holds a pre-computed result in its shared state.&lt;/p&gt;
@@ -166,19 +166,19 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
     
     <item>
       <title>Boost Future의 continuations(연속 연결)</title>
-      <link>https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</link>
+      <link>https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</link>
       <pubDate>Sun, 08 Nov 2020 23:31:17 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</guid>
+      <guid>https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</guid>
       <description>&lt;p&gt;비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 future에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &amp;ldquo;연결&amp;rdquo;됩니다. then 함수를 사용하여 등록 된 연속 futue는 대기를 차단하거나 폴링 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>std upper_bound</title>
-      <link>https://ence88.github.io/2020/11/std-upper_bound/</link>
+      <link>https://ence2.github.io/2020/11/std-upper_bound/</link>
       <pubDate>Sun, 08 Nov 2020 23:22:20 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/std-upper_bound/</guid>
+      <guid>https://ence2.github.io/2020/11/std-upper_bound/</guid>
       <description>&lt;h3 id=&#34;upper-bound&#34;&gt;upper_bound&lt;/h3&gt;
 
 &lt;p&gt;컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.&lt;/p&gt;</description>
@@ -186,10 +186,10 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
     
     <item>
       <title>#define 매크로, const와 차이점, 유의 사항</title>
-      <link>https://ence88.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</link>
+      <link>https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</link>
       <pubDate>Sun, 08 Nov 2020 23:10:09 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</guid>
+      <guid>https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</guid>
       <description>&lt;h3 id=&#34;define-상수&#34;&gt;#define 상수&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;#define 상수명 값
@@ -203,19 +203,19 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
     
     <item>
       <title>hpp 파일은 무엇인가?</title>
-      <link>https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/</link>
+      <link>https://ence2.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/</link>
       <pubDate>Sun, 08 Nov 2020 23:03:14 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/</guid>
+      <guid>https://ence2.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/</guid>
       <description>&lt;p&gt;라이브러리를 사용하다보면 hpp 파일이 자주 보입니다. 이 파일은 무엇일까요?&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>cbegin, begin, rbegin, cend, end, rend 등의 차이점</title>
-      <link>https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
+      <link>https://ence2.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
       <pubDate>Sun, 08 Nov 2020 22:53:27 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
+      <guid>https://ence2.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
       <description>&lt;p&gt;C++의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.&lt;/p&gt;
 
 &lt;p&gt;Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.&lt;/p&gt;
@@ -225,10 +225,10 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
     
     <item>
       <title>UPSERT 개념</title>
-      <link>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</link>
+      <link>https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</link>
       <pubDate>Sun, 08 Nov 2020 22:43:22 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</guid>
+      <guid>https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/</guid>
       <description>&lt;h3 id=&#34;정의&#34;&gt;정의&lt;/h3&gt;
 
 &lt;p&gt;간략하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.&lt;/p&gt;</description>
@@ -236,10 +236,10 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
     
     <item>
       <title>shard_ptr의 다운/업 캐스팅</title>
-      <link>https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/</link>
+      <link>https://ence2.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/</link>
       <pubDate>Sun, 08 Nov 2020 22:31:11 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/</guid>
+      <guid>https://ence2.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/</guid>
       <description>&lt;h3 id=&#34;shard-ptr-다운-업-캐스팅&#34;&gt;shard_ptr 다운, 업 캐스팅&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;dynamic_pointer_cast&lt;/code&gt;, &lt;code&gt;static_pointer_cast&lt;/code&gt; 및 &lt;code&gt;const_pointer_cast&lt;/code&gt;를 사용하여 &lt;code&gt;shared_ptr&lt;/code&gt;을 캐스팅할 수 있습니다. 이러한 함수는 &lt;strong&gt;&lt;code&gt;dynamic_cast&lt;/code&gt;&lt;/strong&gt; , &lt;strong&gt;&lt;code&gt;static_cast&lt;/code&gt;&lt;/strong&gt; 및 연산자와 유사 &lt;strong&gt;&lt;code&gt;const_cast&lt;/code&gt;&lt;/strong&gt; 합니다. 다음 예제에서는 기본 클래스에서 &lt;code&gt;shared_ptr&lt;/code&gt;의 벡터에 있는 각 요소의 파생 형식을 테스트한 다음 요소를 복사하고 이에 대한 정보를 표시하는 방법을 보여 줍니다.&lt;/p&gt;</description>
@@ -247,10 +247,10 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
     
     <item>
       <title>컨테이너 삽입시 Insert와 Emplace 차이</title>
-      <link>https://ence88.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/</link>
+      <link>https://ence2.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/</link>
       <pubDate>Sun, 08 Nov 2020 22:01:43 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/</guid>
+      <guid>https://ence2.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/</guid>
       <description>&lt;h3 id=&#34;insert와-emplace&#34;&gt;Insert와 Emplace&lt;/h3&gt;
 
 &lt;p&gt;둘 다 컨테이너에 데이터를 삽입 하는 행위이나 차이가 있습니다&lt;/p&gt;
@@ -260,10 +260,10 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
     
     <item>
       <title>std::tie 사용법</title>
-      <link>https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/</link>
+      <link>https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/</link>
       <pubDate>Sun, 08 Nov 2020 21:38:48 +0900</pubDate>
       
-      <guid>https://ence88.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/</guid>
+      <guid>https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/</guid>
       <description>&lt;h3 id=&#34;std-tie&#34;&gt;std::tie&lt;/h3&gt;
 
 &lt;p&gt;pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.&lt;/p&gt;</description>
