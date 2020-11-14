@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/</loc>
+    <lastmod>2020-11-14T12:19:25+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -149,6 +156,13 @@
   </url>
   
   <url>
+    <loc>https://ence88.github.io/tags/blog/</loc>
+    <lastmod>2020-11-14T12:19:25+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/tags/boost/</loc>
     <lastmod>2020-11-09T21:09:42+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -156,14 +170,14 @@
   </url>
   
   <url>
-    <loc>https://ence88.github.io/tags/c&#43;&#43;/</loc>
+    <loc>https://ence88.github.io/categories/c&#43;&#43;/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ence88.github.io/categories/c&#43;&#43;/</loc>
+    <loc>https://ence88.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2020-11-13T21:56:30+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
@@ -192,14 +206,7 @@
   
   <url>
     <loc>https://ence88.github.io/categories/common/</loc>
-    <lastmod>2020-11-11T21:25:16+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence88.github.io/tags/db/</loc>
-    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
+    <lastmod>2020-11-14T12:19:25+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -212,8 +219,15 @@
   </url>
   
   <url>
+    <loc>https://ence88.github.io/tags/db/</loc>
+    <lastmod>2020-11-11T21:13:26+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/categories/dev/</loc>
-    <lastmod>2020-11-13T21:56:30+09:00</lastmod>
+    <lastmod>2020-11-14T12:19:25+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -221,6 +235,13 @@
   <url>
     <loc>https://ence88.github.io/tags/future/</loc>
     <lastmod>2020-11-08T23:31:17+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence88.github.io/tags/hugo/</loc>
+    <lastmod>2020-11-14T12:19:25+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -261,13 +282,6 @@
   </url>
   
   <url>
-    <loc>https://ence88.github.io/tags/perforce/</loc>
-    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ence88.github.io/categories/perforce/</loc>
     <lastmod>2020-11-11T21:57:54+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -275,8 +289,15 @@
   </url>
   
   <url>
+    <loc>https://ence88.github.io/tags/perforce/</loc>
+    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence88.github.io/post/</loc>
-    <lastmod>2020-11-13T21:56:30+09:00</lastmod>
+    <lastmod>2020-11-14T12:19:25+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -297,7 +318,7 @@
   
   <url>
     <loc>https://ence88.github.io/</loc>
-    <lastmod>2020-11-13T21:56:30+09:00</lastmod>
+    <lastmod>2020-11-14T12:19:25+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>

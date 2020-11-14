@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Common on The Game Server Developer</title>
-    <link>https://ence88.github.io/categories/common/</link>
-    <description>Recent content in Common on The Game Server Developer</description>
+    <title>Hugo on The Game Server Developer</title>
+    <link>https://ence88.github.io/tags/hugo/</link>
+    <description>Recent content in Hugo on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <lastBuildDate>Sat, 14 Nov 2020 12:19:25 +0900</lastBuildDate>
     
-	<atom:link href="https://ence88.github.io/categories/common/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ence88.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,19 +20,6 @@
       <description>&lt;p&gt;Google이나 Naver에 블로그나 사이트를 노출시키기 위해서는 검색엔진 제공 업체의 검색콘솔 등에 직접 등록하는 것이 좋습니다.&lt;/p&gt;
 
 &lt;p&gt;등록해야 하는 파일은 비슷하지만, 회사마다 방법이 조금 달라 그 방법과 Hugo 기반 블로그에서 필요한 파일을 생성하는 방법을 소개합니다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>C&#43;&#43; Google Coding Convention Style 정리</title>
-      <link>https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/</link>
-      <pubDate>Wed, 11 Nov 2020 21:25:16 +0900</pubDate>
-      
-      <guid>https://ence88.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/</guid>
-      <description>&lt;p&gt;코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.&lt;/p&gt;
-
-&lt;p&gt;컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.&lt;/p&gt;</description>
     </item>
     
   </channel>
