@@ -8,47 +8,39 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Game Server Developer">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="shard_ptr 다운, 업 캐스팅
-
-dynamic_pointer_cast, static_pointer_cast 및 const_pointer_cast를 사용하여 shared_ptr을 캐스팅할 수 있습니다. 이러한 함수는 dynamic_cast , static_cast 및 연산자와 유사 const_cast 합니다. 다음 예제에서는 기본 클래스에서 shared_ptr의 벡터에 있는 각 요소의 파생 형식을 테스트한 다음 요소를 복사하고 이에 대한 정보를 표시하는 방법을 보여 줍니다.">
+<meta name="description" content="구글에서는 사이트 접근시 유입분석과 체류시간 등옶의 각종 통계 분석이 가능한 콘솔 서비스를 제공합니다.">
 
 
-<meta property="og:description" content="shard_ptr 다운, 업 캐스팅
-
-dynamic_pointer_cast, static_pointer_cast 및 const_pointer_cast를 사용하여 shared_ptr을 캐스팅할 수 있습니다. 이러한 함수는 dynamic_cast , static_cast 및 연산자와 유사 const_cast 합니다. 다음 예제에서는 기본 클래스에서 shared_ptr의 벡터에 있는 각 요소의 파생 형식을 테스트한 다음 요소를 복사하고 이에 대한 정보를 표시하는 방법을 보여 줍니다.">
+<meta property="og:description" content="구글에서는 사이트 접근시 유입분석과 체류시간 등옶의 각종 통계 분석이 가능한 콘솔 서비스를 제공합니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shard_ptr의 다운/업 캐스팅">
-<meta name="twitter:title" content="shard_ptr의 다운/업 캐스팅">
-<meta property="og:url" content="https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
-<meta property="twitter:url" content="https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+<meta property="og:title" content="Hugo 블로그에 Google Analytics 연결">
+<meta name="twitter:title" content="Hugo 블로그에 Google Analytics 연결">
+<meta property="og:url" content="https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">
+<meta property="twitter:url" content="https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">
 <meta property="og:site_name" content="The Game Server Developer">
-<meta property="og:description" content="shard_ptr 다운, 업 캐스팅
-
-dynamic_pointer_cast, static_pointer_cast 및 const_pointer_cast를 사용하여 shared_ptr을 캐스팅할 수 있습니다. 이러한 함수는 dynamic_cast , static_cast 및 연산자와 유사 const_cast 합니다. 다음 예제에서는 기본 클래스에서 shared_ptr의 벡터에 있는 각 요소의 파생 형식을 테스트한 다음 요소를 복사하고 이에 대한 정보를 표시하는 방법을 보여 줍니다.">
-<meta name="twitter:description" content="shard_ptr 다운, 업 캐스팅
-
-dynamic_pointer_cast, static_pointer_cast 및 const_pointer_cast를 사용하여 shared_ptr을 캐스팅할 수 있습니다. 이러한 함수는 dynamic_cast , static_cast 및 연산자와 유사 const_cast 합니다. 다음 예제에서는 기본 클래스에서 shared_ptr의 벡터에 있는 각 요소의 파생 형식을 테스트한 다음 요소를 복사하고 이에 대한 정보를 표시하는 방법을 보여 줍니다.">
+<meta property="og:description" content="구글에서는 사이트 접근시 유입분석과 체류시간 등옶의 각종 통계 분석이 가능한 콘솔 서비스를 제공합니다.">
+<meta name="twitter:description" content="구글에서는 사이트 접근시 유입분석과 체류시간 등옶의 각종 통계 분석이 가능한 콘솔 서비스를 제공합니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-11-08T22:31:11">
+    <meta property="article:published_time" content="2020-11-14T13:50:07">
   
   
-    <meta property="article:modified_time" content="2020-11-08T22:31:11">
+    <meta property="article:modified_time" content="2020-11-14T13:50:07">
   
   
   
     
       <meta property="article:section" content="Dev">
     
-      <meta property="article:section" content="C&#43;&#43;">
+      <meta property="article:section" content="Common">
     
   
   
     
-      <meta property="article:tag" content="C&#43;&#43;">
+      <meta property="article:tag" content="Blog">
     
-      <meta property="article:tag" content="std">
+      <meta property="article:tag" content="Hugo">
     
   
 
@@ -69,14 +61,14 @@ dynamic_pointer_cast, static_pointer_cast 및 const_pointer_cast를 사용하여
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>shard_ptr의 다운/업 캐스팅</title>
+    <title>Hugo 블로그에 Google Analytics 연결</title>
 
     <link rel="icon" href="https://ence88.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+    <link rel="canonical" href="https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -259,15 +251,15 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      shard_ptr의 다운/업 캐스팅
+      Hugo 블로그에 Google Analytics 연결
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-08T22:31:11&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-14T13:50:07&#43;09:00">
         
-  November 8, 2020
+  November 14, 2020
 
       </time>
     
@@ -278,7 +270,7 @@ if (!doNotTrack) {
     
       <a class="category-link" href="https://ence88.github.io/categories/dev">Dev</a>, 
     
-      <a class="category-link" href="https://ence88.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+      <a class="category-link" href="https://ence88.github.io/categories/common">Common</a>
     
   
 
@@ -288,35 +280,34 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <h3 id="shard-ptr-다운-업-캐스팅">shard_ptr 다운, 업 캐스팅</h3>
+              <p>구글에서는 사이트 접근시 유입분석과 체류시간 등옶의 각종 통계 분석이 가능한 콘솔 서비스를 제공합니다.</p>
 
-<p><code>dynamic_pointer_cast</code>, <code>static_pointer_cast</code> 및 <code>const_pointer_cast</code>를 사용하여 <code>shared_ptr</code>을 캐스팅할 수 있습니다. 이러한 함수는 <strong><code>dynamic_cast</code></strong> , <strong><code>static_cast</code></strong> 및 연산자와 유사 <strong><code>const_cast</code></strong> 합니다. 다음 예제에서는 기본 클래스에서 <code>shared_ptr</code>의 벡터에 있는 각 요소의 파생 형식을 테스트한 다음 요소를 복사하고 이에 대한 정보를 표시하는 방법을 보여 줍니다.</p>
+<h4 id="계정-생성-및-측정-id-획득">계정 생성 및 측정 ID 획득</h4>
 
-<p>C++복사</p>
+<ul>
+<li><p><a href="https://analytics.google.com/analytics">Google analytics</a> 가입합니다.</p></li>
 
-<pre><code class="language-cpp">vector&lt;shared_ptr&lt;MediaAsset&gt;&gt; assets;
+<li><p>입맛에 맞는 속성을 설정합니다. (<code>고급옵션</code> -&gt; <code>유니버설 애널리틱스 속성 만들기</code>는 반드시 체크해야 합니다. Only <code>유니버셜 애널리틱스</code>)</p></li>
 
-assets.push_back(shared_ptr&lt;Song&gt;(new Song(L&quot;Himesh Reshammiya&quot;, L&quot;Tera Surroor&quot;)));
-assets.push_back(shared_ptr&lt;Song&gt;(new Song(L&quot;Penaz Masani&quot;, L&quot;Tu Dil De De&quot;)));
-assets.push_back(shared_ptr&lt;Photo&gt;(new Photo(L&quot;2011-04-06&quot;, L&quot;Redmond, WA&quot;, L&quot;Soccer field at Microsoft.&quot;)));
+<li><p>좌측 메뉴의 <code>데이터 스트림</code> -&gt; <code>스트림 추가</code> -&gt; <code>웹</code></p></li>
 
-vector&lt;shared_ptr&lt;MediaAsset&gt;&gt; photos;
+<li><p>사이트 url과 이름을 등록후 <code>스트림 만들기</code></p></li>
 
-copy_if(assets.begin(), assets.end(), back_inserter(photos), [] (shared_ptr&lt;MediaAsset&gt; p) -&gt; bool
-{
-    // Use dynamic_pointer_cast to test whether
-    // element is a shared_ptr&lt;Photo&gt;.
-    shared_ptr&lt;Photo&gt; temp = dynamic_pointer_cast&lt;Photo&gt;(p);        
-    return temp.get() != nullptr;
-});
+<li><p>만들어진 스트림의 <code>추적 ID</code> 를 얻을 수 있습니다.</p></li>
+</ul>
 
-for (const auto&amp;  p : photos)
-{
-    // We know that the photos vector contains only 
-    // shared_ptr&lt;Photo&gt; objects, so use static_cast.
-    wcout &lt;&lt; &quot;Photo location: &quot; &lt;&lt; (static_pointer_cast&lt;Photo&gt;(p))-&gt;location_ &lt;&lt; endl;
-}
+<h4 id="블로그에-연결">블로그에 연결</h4>
+
+<ul>
+<li>Hugo 설정파일 <code>config.toml</code>에 위에서 얻은 <strong>추적 ID</strong>를 기입합니다. (G-12345 형식 아님, UA-12345)</li>
+</ul>
+
+<pre><code>googleAnalytics = &quot;추적 ID&quot;
 </code></pre>
+
+<ul>
+<li>Hugo 사이트 Build 및 Publish</li>
+</ul>
               
             </div>
           </div>
@@ -328,9 +319,9 @@ for (const auto&amp;  p : photos)
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/blog/">Blog</a>
 
-  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/std/">std</a>
+  <a class="tag tag--primary tag--small" href="https://ence88.github.io/tags/hugo/">Hugo</a>
 
                   </div>
                 
@@ -343,7 +334,7 @@ for (const auto&amp;  p : photos)
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" data-tooltip="UPSERT 개념">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -351,7 +342,7 @@ for (const auto&amp;  p : photos)
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/" data-tooltip="컨테이너 삽입시 Insert와 Emplace 차이">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/" data-tooltip="Hugo 블로그 검색 엔진에 등록하기">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -369,19 +360,19 @@ for (const auto&amp;  p : photos)
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -429,7 +420,7 @@ for (const auto&amp;  p : photos)
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" data-tooltip="UPSERT 개념">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -437,7 +428,7 @@ for (const auto&amp;  p : photos)
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/" data-tooltip="컨테이너 삽입시 Insert와 Emplace 차이">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/" data-tooltip="Hugo 블로그 검색 엔진에 등록하기">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -455,19 +446,19 @@ for (const auto&amp;  p : photos)
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence88.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -497,19 +488,19 @@ for (const auto&amp;  p : photos)
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fshard_ptr%25EC%259D%2598-%25EB%258B%25A4%25EC%259A%25B4-%25EC%2597%2585-%25EC%25BA%2590%25EC%258A%25A4%25ED%258C%2585%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fhugo-%25EB%25B8%2594%25EB%25A1%259C%25EA%25B7%25B8%25EC%2597%2590-google-analytics-%25EC%2597%25B0%25EA%25B2%25B0%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fshard_ptr%25EC%259D%2598-%25EB%258B%25A4%25EC%259A%25B4-%25EC%2597%2585-%25EC%25BA%2590%25EC%258A%25A4%25ED%258C%2585%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fhugo-%25EB%25B8%2594%25EB%25A1%259C%25EA%25B7%25B8%25EC%2597%2590-google-analytics-%25EC%2597%25B0%25EA%25B2%25B0%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fshard_ptr%25EC%259D%2598-%25EB%258B%25A4%25EC%259A%25B4-%25EC%2597%2585-%25EC%25BA%2590%25EC%258A%25A4%25ED%258C%2585%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence88.github.io%2F2020%2F11%2Fhugo-%25EB%25B8%2594%25EB%25A1%259C%25EA%25B7%25B8%25EC%2597%2590-google-analytics-%25EC%2597%25B0%25EA%25B2%25B0%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -601,9 +592,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85\/';
+          this.page.url = 'https:\/\/ence88.github.io\/2020\/11\/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0\/';
           
-            this.page.identifier = '\/2020\/11\/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85\/'
+            this.page.identifier = '\/2020\/11\/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0\/'
           
         };
         (function() {
