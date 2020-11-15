@@ -6,10 +6,21 @@
     <description>Recent content in C&#43;&#43; on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 14 Nov 2020 22:26:09 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2020 22:48:24 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>std::lock_guard</title>
+      <link>https://ence2.github.io/2020/11/stdlock_guard/</link>
+      <pubDate>Sat, 14 Nov 2020 22:48:24 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/stdlock_guard/</guid>
+      <description>&lt;h4 id=&#34;std-lock-guard&#34;&gt;std::lock_guard&lt;/h4&gt;
+
+&lt;p&gt;std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>std::chrono::high_resolution_clock</title>
