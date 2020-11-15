@@ -6,10 +6,30 @@
     <description>Recent content on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 15 Nov 2020 13:39:43 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2020 14:27:54 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MsSQL 값 자동 증가 identity와 시퀀스(sequence)</title>
+      <link>https://ence2.github.io/2020/11/mssql-%EA%B0%92-%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-identity%EC%99%80-%EC%8B%9C%ED%80%80%EC%8A%A4sequence/</link>
+      <pubDate>Sun, 15 Nov 2020 14:27:54 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/mssql-%EA%B0%92-%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-identity%EC%99%80-%EC%8B%9C%ED%80%80%EC%8A%A4sequence/</guid>
+      <description>&lt;p&gt;MsSQL에서 identity 옵션은 MySQL의 auto increment 옵션과 같습니다. (insert시 컬럼 값 자동 증가)&lt;/p&gt;
+
+&lt;p&gt;위 옵션들은 해당 테이블에 종속적이며, 여러 테이블에 걸친 전역적인 값 증가는 sequence라는 객체를 사용합니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MsSQL UDF(User Defined Functions)</title>
+      <link>https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/</link>
+      <pubDate>Sun, 15 Nov 2020 14:12:55 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/</guid>
+      <description>&lt;p&gt;프로그래밍 언어의 함수처럼 SQL Server 사용자 정의 함수는 매개 변수를 받아들이고 복잡한 계산과 같은 동작을 수행하며 해당 작업의 결과를 값으로 반환합니다. 반환 값은 단일 스칼라 값이나 결과 집합일 수 있습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Mssql 무결성 강제 적용(제약조건) PRIMARY KEY 및 FOREIGN KEY</title>

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="프로그래밍 언어의 함수처럼 SQL Server 사용자 정의 함수는 매개 변수를 받아들이고 복잡한 계산과 같은 동작을 수행하며 해당 작업의 결과를 값으로 반환합니다. 반환 값은 단일 스칼라 값이나 결과 집합일 수 있습니다.">
+
+
+<meta property="og:description" content="프로그래밍 언어의 함수처럼 SQL Server 사용자 정의 함수는 매개 변수를 받아들이고 복잡한 계산과 같은 동작을 수행하며 해당 작업의 결과를 값으로 반환합니다. 반환 값은 단일 스칼라 값이나 결과 집합일 수 있습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MsSQL UDF(User Defined Functions)">
+<meta name="twitter:title" content="MsSQL UDF(User Defined Functions)">
+<meta property="og:url" content="https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
+<meta property="twitter:url" content="https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
+<meta property="og:site_name" content="The Game Server Developer">
+<meta property="og:description" content="프로그래밍 언어의 함수처럼 SQL Server 사용자 정의 함수는 매개 변수를 받아들이고 복잡한 계산과 같은 동작을 수행하며 해당 작업의 결과를 값으로 반환합니다. 반환 값은 단일 스칼라 값이나 결과 집합일 수 있습니다.">
+<meta name="twitter:description" content="프로그래밍 언어의 함수처럼 SQL Server 사용자 정의 함수는 매개 변수를 받아들이고 복잡한 계산과 같은 동작을 수행하며 해당 작업의 결과를 값으로 반환합니다. 반환 값은 단일 스칼라 값이나 결과 집합일 수 있습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-11-15T14:12:55">
+  
+  
+    <meta property="article:modified_time" content="2020-11-15T14:12:55">
+  
+  
+  
+    
+      <meta property="article:section" content="Dev">
+    
+      <meta property="article:section" content="DB">
+    
+      <meta property="article:section" content="MsSQL">
+    
+  
+  
+    
+      <meta property="article:tag" content="DB">
+    
+      <meta property="article:tag" content="MsSQL">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>MsSQL UDF(User Defined Functions)</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-o0o9xxn7sl2qnkojgevnrv4ons1qbibz9maphukkvfydd3f3fh3o5ycrnxi.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">The Game Server Developer</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://chjh.net/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-card"></i>
+      
+      <span class="sidebar-button-desc">MySite</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence88" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/junh.choi/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      MsSQL UDF(User Defined Functions)
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-15T14:12:55&#43;09:00">
+        
+  November 15, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/mssql">MsSQL</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>프로그래밍 언어의 함수처럼 SQL Server 사용자 정의 함수는 매개 변수를 받아들이고 복잡한 계산과 같은 동작을 수행하며 해당 작업의 결과를 값으로 반환합니다. 반환 값은 단일 스칼라 값이나 결과 집합일 수 있습니다.</p>
+
+<h2 id="사용자-정의-함수">사용자 정의 함수</h2>
+
+<p>UDF(사용자 정의 함수)를 사용하는 이유는 무엇인가요?</p>
+
+<ul>
+<li>모듈식 프로그래밍을 허용합니다.</li>
+</ul>
+
+<p>함수를 한 번 만들어 데이터베이스에 저장한 후에는 프로그램에서 여러 번 호출할 수 있습니다. 사용자 정의 함수는 프로그램 원본 코드에 관계없이 수정할 수 있습니다.</p>
+
+<ul>
+<li>작업을 더 빨리 실행할 수 있습니다.</li>
+</ul>
+
+<p>저장 프로시저와 마찬가지로 Transact-SQL 사용자 정의 함수는 계획을 캐시하고 반복 실행에 다시 사용함으로써 Transact-SQL 코드의 컴파일 비용을 줄입니다. 즉, 사용자 정의 함수를 매번 다시 구문 분석하고 최적화할 필요가 없기 때문에 더 빨리 실행할 수 있습니다.</p>
+
+<p>CLR 함수는 계산 태스크, 문자열 조작 및 비즈니스 논리 면에서 Transact-SQL 함수보다 더 뛰어난 성공을 제공합니다. Transact-SQL 함수는 데이터를 많이 액세스하는 논리에 더 적합합니다.</p>
+
+<ul>
+<li>네트워크 트래픽을 줄일 수 있습니다.</li>
+</ul>
+
+<p>단일 스칼라 식으로 표현할 수 없는 일부 복잡한 제약 조건을 기반으로 데이터를 필터링하는 작업을 함수로 표현할 수 있습니다. 그런 다음 WHERE 절에서 이 함수를 호출하여 클라이언트에 전송되는 행 수를 줄일 수 있습니다.</p>
+
+<blockquote>
+<p>중요</p>
+
+<p>쿼리에 포함된 Transact-SQL UDF는 단일 스레드(직렬 실행 계획)에서만 실행할 수 있습니다. 따라서 UDF를 사용하여 병렬 쿼리 처리를 금지합니다.</p>
+</blockquote>
+
+<h2 id="함수-유형">함수 유형</h2>
+
+<p><strong>스칼라 함수</strong>
+사용자 정의 스칼라 함수는 RETURNS 절에 정의된 유형의 단일 데이터 값을 반환합니다. 인라인 스칼라 함수의 경우 반환된 스칼라 값이 단일 문의 결과입니다. 다중 문 스칼라 함수의 경우 함수 본문에 단일 값을 반환하는 일련의 Transact-SQL 문이 포함됩니다. 반환 유형은 <strong>text</strong>, <strong>ntext</strong>, <strong>image</strong>, <strong>cursor</strong>및 <strong>timestamp</strong>를 제외한 모든 데이터 형식일 수 있습니다.</p>
+
+<p><strong>테이블 반환 함수</strong>
+사용자 정의 테이블 값 함수는 <strong>table</strong> 데이터 형식을 반환합니다. 인라인 테이블 반환 함수에는 함수 본문이 없으며 테이블이 단일 SELECT 문의 결과 집합입니다.</p>
+
+<h2 id="지침">지침</h2>
+
+<p>한 문을 취소하고 모듈(트리거, 저장 프로시저 등)의 다음 문을 실행하도록 하는 Transact-SQL 오류는 함수 내에서 다르게 처리됩니다. 함수에서 그러한 오류가 발생하면 함수의 실행이 중단됩니다. 이에 따라 함수를 호출한 문도 취소됩니다.</p>
+
+<p><code>BEGIN...END</code> 블록 내에 있는 명령문은 어떠한 부작용도 유발하지 않습니다. 함수의 부작용으로는 데이터베이스 테이블 수정과 같은 함수 외부 범위를 갖는 리소스 상태의 영구적인 변경을 들 수 있습니다. 함수의 문에서 변경할 수 있는 것은 로컬 커서나 변수와 같은 함수의 로컬 개체뿐입니다. 함수에서 수행할 수 없는 동작의 예로는 데이터베이스 테이블의 수정, 함수에서 로컬로 사용되지 않는 커서 작업, 전자 메일 보내기, 카탈로그 수정 시도 및 사용자에게 반환되는 결과 집합 생성 등이 있습니다.</p>
+
+<blockquote>
+<p>참고</p>
+
+<p>SQL Server에서는 <code>CREATE FUNCTION</code> 문이 실행될 때 존재하지 않는 리소스에 대해 부작용이 생기는 경우에는 <code>CREATE FUNCTION</code> 문을 실행하지만 이 문이 호출되는 경우에는 SQL Server 에서 이 함수가 실행되지 않습니다.</p>
+
+<p>쿼리에 지정된 함수가 실제로 실행되는 횟수는 최적화 프로그램에서 작성한 실행 계획마다 다릅니다. 예를 들면 <code>WHERE</code> 절의 하위 쿼리에서 호출하는 함수가 있습니다. 하위 쿼리 및 그 함수가 실행되는 횟수는 최적화 프로그램에서 선택한 액세스 경로에 따라 다릅니다.</p>
+</blockquote>
+
+<h2 id="함수의-유효한-문">함수의 유효한 문</h2>
+
+<p>함수에서 사용할 수 있는 문의 유형은 다음과 같습니다.</p>
+
+<ul>
+<li>함수에서 로컬로 사용되는 데이터 변수와 커서를 정의하는 데 사용되는 <code>DECLARE</code> 문</li>
+<li><code>SET</code>를 사용하여 스칼라 및 테이블 지역 변수에 값을 할당하는 것과 같이 함수의 로컬 개체에 값 할당</li>
+<li>함수에서 커서 선언, 열기, 닫기, 할당 취소 등 로컬 커서를 참조하는 커서 작업. 클라이언트에 데이터를 반환하는 <code>FETCH</code> 문은 사용할 수 없습니다. <code>INTO</code> 절을 사용하여 지역 변수에 값을 할당하는 FETCH 문만 사용할 수 있습니다.</li>
+<li><code>TRY...CATCH</code> 문을 제외한 흐름 제어 명령문</li>
+<li>함수에서 로컬로 사용되는 변수에 값을 할당하는 식이 있는 선택 목록이 포함된 <code>SELECT</code> 문</li>
+<li>함수에서 로컬로 사용되는 테이블 변수를 수정하는 <code>UPDATE</code>, <code>INSERT</code> 및 <code>DELETE</code> 문</li>
+<li>확장 저장 프로시저를 호출하는 <code>EXECUTE</code> 문</li>
+</ul>
+
+<h3 id="제한-사항">제한 사항</h3>
+
+<ul>
+<li>사용자 정의 함수는 데이터베이스 상태 수정 동작을 수행하는 데 사용할 수 없습니다.</li>
+<li>사용자 정의 함수에는 테이블이 대상인 <code>OUTPUT INTO</code> 절을 포함할 수 없습니다.</li>
+<li>사용자 정의 함수는 여러 결과 집합을 반환할 수 없습니다. 여러 결과 집합을 반환해야 하는 경우 저장 프로시저를 사용하세요.</li>
+<li>오류 처리는 사용자 정의 함수에서 제한됩니다. UDF는 <code>TRY...CATCH</code>, <code>@ERROR</code> 또는 <code>RAISERROR</code>를 지원하지 않습니다.</li>
+<li>사용자 정의 함수는 저장 프로시저를 호출할 수 없지만 확장 저장 프로시저는 호출할 수 있습니다.</li>
+<li>사용자 정의 함수는 동적 SQL 또는 임시 테이블을 사용할 수 없습니다. 테이블 변수는 허용됩니다.</li>
+<li><code>SET</code> 문은 사용자 정의 함수에서 허용되지 않습니다.</li>
+<li><code>FOR XML</code> 절은 허용되지 않습니다.</li>
+<li>사용자 정의 함수는 중첩될 수 있습니다. 즉, 하나의 사용자 정의 함수가 다른 사용자 정의 함수를 호출할 수 있습니다. 중첩 수준은 호출된 함수의 실행이 시작되면 늘어나고 호출된 함수의 실행이 끝나면 줄어듭니다. 사용자 정의 함수는 최대 32 수준까지 중첩될 수 있습니다. 최대 중첩 수준을 초과하면 전체 함수 호출 체인이 실패합니다. Transact-SQL 사용자 정의 함수의 관리 코드 참조는 32 수준의 중첩 제한에 대해 한 수준으로 계산됩니다. 관리 코드 내에서 호출된 메서드는 이 제한에 따라 계산되지 않습니다.</li>
+<li>다음 Service Broker 문은 Transact-SQL 사용자 정의 함수에 <strong>포함시킬 수 없습니다</strong>.
+
+<ul>
+<li><code>BEGIN DIALOG CONVERSATION</code></li>
+<li><code>END CONVERSATION</code></li>
+<li><code>GET CONVERSATION GROUP</code></li>
+<li><code>MOVE CONVERSATION</code></li>
+<li><code>RECEIVE</code></li>
+<li><code>SEND</code></li>
+</ul></li>
+</ul>
+
+<h3 id="권한">권한</h3>
+
+<p>데이터베이스에 대한 <code>CREATE FUNCTION</code> 권한과 함수가 생성되는 스키마에 대한 <code>ALTER</code> 권한이 필요합니다. 함수가 사용자 정의 형식을 지정하면 해당 유형에 대한 <code>EXECUTE</code> 권한이 필요합니다.</p>
+
+<h2 id="스칼라-함수">스칼라 함수</h2>
+
+<p>다음 예에서는 AdventureWorks2012 데이터베이스의 다중 명령문 <strong>스칼라 함수(스칼라 UDF)</strong> 를 만듭니다. 함수에 <code>ProductID</code>가 단일 입력 값으로 입력되고 지정한 제품의 총 재고 수량이 단일 데이터 값으로 반환됩니다.</p>
+
+<pre><code class="language-sql">IF OBJECT_ID (N'dbo.ufnGetInventoryStock', N'FN') IS NOT NULL  
+    DROP FUNCTION ufnGetInventoryStock;  
+GO  
+CREATE FUNCTION dbo.ufnGetInventoryStock(@ProductID int)  
+RETURNS int   
+AS   
+-- Returns the stock level for the product.  
+BEGIN  
+    DECLARE @ret int;  
+    SELECT @ret = SUM(p.Quantity)   
+    FROM Production.ProductInventory p   
+    WHERE p.ProductID = @ProductID   
+        AND p.LocationID = '6';  
+     IF (@ret IS NULL)   
+        SET @ret = 0;  
+    RETURN @ret;  
+END; 
+</code></pre>
+
+<p>다음 예에서는 <code>ufnGetInventoryStock</code> 함수를 사용하여 <code>ProductModelID</code> 가 75와 80 사이인 제품의 현재 재고 수량을 반환합니다.</p>
+
+<pre><code class="language-sql">SELECT ProductModelID, Name, dbo.ufnGetInventoryStock(ProductID)AS CurrentSupply  
+FROM Production.Product  
+WHERE ProductModelID BETWEEN 75 and 80;  
+</code></pre>
+
+<h2 id="테이블-반환-함수">테이블 반환 함수</h2>
+
+<p>다음 예제에서는 AdventureWorks2012 데이터베이스에서 <strong>인라인 TVF(테이블 반환 함수)</strong> 를 만듭니다. 함수에 고객(상점) ID가 단일 입력 매개 변수로 입력되고 <code>ProductID</code>, <code>Name</code>및 <code>YTD Total</code> (해당 상점에 판매된 각 제품의 연간 총 매출액) 열이 반환됩니다.</p>
+
+<pre><code class="language-sql">IF OBJECT_ID (N'Sales.ufn_SalesByStore', N'IF') IS NOT NULL  
+    DROP FUNCTION Sales.ufn_SalesByStore;  
+GO  
+CREATE FUNCTION Sales.ufn_SalesByStore (@storeid int)  
+RETURNS TABLE  
+AS  
+RETURN   
+(  
+    SELECT P.ProductID, P.Name, SUM(SD.LineTotal) AS 'Total'  
+    FROM Production.Product AS P   
+    JOIN Sales.SalesOrderDetail AS SD ON SD.ProductID = P.ProductID  
+    JOIN Sales.SalesOrderHeader AS SH ON SH.SalesOrderID = SD.SalesOrderID  
+    JOIN Sales.Customer AS C ON SH.CustomerID = C.CustomerID  
+    WHERE C.StoreID = @storeid  
+    GROUP BY P.ProductID, P.Name  
+);  
+</code></pre>
+
+<p>다음 예에서는 함수를 호출하고 고객 ID 602를 지정합니다.</p>
+
+<pre><code class="language-sql">SELECT * FROM Sales.ufn_SalesByStore (602);  
+</code></pre>
+
+<p>다음 예제에서는 AdventureWorks2012 데이터베이스에서 <strong>MSTVF(다중 명령문 테이블 반환 함수)</strong> 를 만듭니다. 함수에 <code>EmployeeID</code> 가 단일 입력 매개 변수로 입력되고 지정한 직원에게 직접 또는 간접적으로 보고하는 모든 직원의 목록이 반환됩니다. 그런 다음 직원 ID 109를 지정하여 함수를 호출합니다.</p>
+
+<pre><code class="language-sql">IF OBJECT_ID (N'dbo.ufn_FindReports', N'TF') IS NOT NULL  
+    DROP FUNCTION dbo.ufn_FindReports;  
+GO  
+CREATE FUNCTION dbo.ufn_FindReports (@InEmpID INTEGER)  
+RETURNS @retFindReports TABLE   
+(  
+    EmployeeID int primary key NOT NULL,  
+    FirstName nvarchar(255) NOT NULL,  
+    LastName nvarchar(255) NOT NULL,  
+    JobTitle nvarchar(50) NOT NULL,  
+    RecursionLevel int NOT NULL  
+)  
+--Returns a result set that lists all the employees who report to the   
+--specific employee directly or indirectly.*/  
+AS  
+BEGIN  
+WITH EMP_cte(EmployeeID, OrganizationNode, FirstName, LastName, JobTitle, RecursionLevel) -- CTE name and columns  
+    AS (  
+        SELECT e.BusinessEntityID, e.OrganizationNode, p.FirstName, p.LastName, e.JobTitle, 0 -- Get the initial list of Employees for Manager n  
+        FROM HumanResources.Employee e   
+INNER JOIN Person.Person p   
+ON p.BusinessEntityID = e.BusinessEntityID  
+        WHERE e.BusinessEntityID = @InEmpID  
+        UNION ALL  
+        SELECT e.BusinessEntityID, e.OrganizationNode, p.FirstName, p.LastName, e.JobTitle, RecursionLevel + 1 -- Join recursive member to anchor  
+        FROM HumanResources.Employee e   
+            INNER JOIN EMP_cte  
+            ON e.OrganizationNode.GetAncestor(1) = EMP_cte.OrganizationNode  
+INNER JOIN Person.Person p   
+ON p.BusinessEntityID = e.BusinessEntityID  
+        )  
+-- copy the required columns to the result of the function   
+   INSERT @retFindReports  
+   SELECT EmployeeID, FirstName, LastName, JobTitle, RecursionLevel  
+   FROM EMP_cte   
+   RETURN  
+END;  
+GO  
+</code></pre>
+
+<p>다음 예제에서는 함수를 호출하고 고객 ID 1을 지정합니다.</p>
+
+<pre><code class="language-sql">SELECT EmployeeID, FirstName, LastName, JobTitle, RecursionLevel  
+FROM dbo.ufn_FindReports(1);  
+</code></pre>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/db/">DB</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/mssql/">MsSQL</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-%EA%B0%92-%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-identity%EC%99%80-%EC%8B%9C%ED%80%80%EC%8A%A4sequence/" data-tooltip="MsSQL 값 자동 증가 identity와 시퀀스(sequence)">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-%EB%AC%B4%EA%B2%B0%EC%84%B1-%EA%B0%95%EC%A0%9C-%EC%A0%81%EC%9A%A9%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4-primary-key-%EB%B0%8F-foreign-key/" data-tooltip="Mssql 무결성 강제 적용(제약조건) PRIMARY KEY 및 FOREIGN KEY">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-%EA%B0%92-%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-identity%EC%99%80-%EC%8B%9C%ED%80%80%EC%8A%A4sequence/" data-tooltip="MsSQL 값 자동 증가 identity와 시퀀스(sequence)">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-%EB%AC%B4%EA%B2%B0%EC%84%B1-%EA%B0%95%EC%A0%9C-%EC%A0%81%EC%9A%A9%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4-primary-key-%EB%B0%8F-foreign-key/" data-tooltip="Mssql 무결성 강제 적용(제약조건) PRIMARY KEY 및 FOREIGN KEY">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-udfuser-defined-functions%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-udfuser-defined-functions%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-udfuser-defined-functions%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-p1zguplwyakfwhsmeqh0d6rabsawnxhnzuxy9nox9uzkglxoxardgduszp1.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/mssql-udfuser-defined-functions\/';
+          
+            this.page.identifier = '\/2020\/11\/mssql-udfuser-defined-functions\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence88-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
