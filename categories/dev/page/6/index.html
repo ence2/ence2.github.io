@@ -13,10 +13,10 @@
 
 <meta property="og:description" content="The Game Server Developer">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Db">
-<meta name="twitter:title" content="Db">
-<meta property="og:url" content="https://ence2.github.io/categories/db/">
-<meta property="twitter:url" content="https://ence2.github.io/categories/db/">
+<meta property="og:title" content="Dev">
+<meta name="twitter:title" content="Dev">
+<meta property="og:url" content="https://ence2.github.io/categories/dev/">
+<meta property="twitter:url" content="https://ence2.github.io/categories/dev/">
 <meta property="og:site_name" content="The Game Server Developer">
 <meta property="og:description" content="The Game Server Developer">
 <meta name="twitter:description" content="The Game Server Developer">
@@ -39,16 +39,16 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>Db</title>
+    <title>Dev</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ence2.github.io/categories/db/index.xml">
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ence2.github.io/categories/dev/index.xml">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/categories/db/">
+    <link rel="canonical" href="https://ence2.github.io/categories/dev/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -248,139 +248,14 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/mssql-with-nolock/">
-          MsSQL with nolock
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
+          std::tie 사용법
         </a>
       </h1>
       
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-11T21:13:26&#43;09:00">
-        
-  November 11, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/mssql">MsSQL</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.</p>
-
-<p>MSSQL에서 SELECT 시에 <strong>WITH (NOLOCK)</strong> 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.</p>
-
-<pre><code class="language-sql">SELECT * FROM TABLE1 WITH (NOLOCK)
-</code></pre>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/mssql-with-nolock/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/clustered-nonclustered-index/">
-          Clustered, Nonclustered Index
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-09T22:07:38&#43;09:00">
-        
-  November 9, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h3 id="index란">Index란</h3>
-
-<p>책의 목차와 비슷하게 데이터의 색인을 기록하여 검색 속도를 증가 시킬 수 있는 구조입니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/clustered-nonclustered-index/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
-          UPSERT 개념
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T22:43:22&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-08T21:38:48&#43;09:00">
         
   November 8, 2020
 
@@ -393,7 +268,7 @@ if (!doNotTrack) {
     
       <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
     
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
     
   
 
@@ -402,12 +277,12 @@ if (!doNotTrack) {
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <h3 id="정의">정의</h3>
+        <h3 id="std-tie">std::tie</h3>
 
-<p>간략하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.</p>
+<p>pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.</p>
       
       <p>
-        <a href="https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -422,7 +297,7 @@ if (!doNotTrack) {
       
         
           <li class="pagination-prev">
-            <a class="btn btn--default btn--small" href="https://ence2.github.io/categories/db/">
+            <a class="btn btn--default btn--small" href="https://ence2.github.io/categories/dev/page/5/">
               <i class="fa fa-angle-left text-base icon-mr"></i>
               <span>NEWER POSTS</span>
             </a>
@@ -430,7 +305,7 @@ if (!doNotTrack) {
         
         
       
-      <li class="pagination-number">page 2 of 2</li>
+      <li class="pagination-number">page 6 of 6</li>
     </ul>
   </div>
 

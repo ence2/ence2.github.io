@@ -6,10 +6,38 @@
     <description>Recent content on The Game Server Developer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 15 Nov 2020 14:27:54 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2020 15:29:56 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mssql Procedure 프로시저</title>
+      <link>https://ence2.github.io/2020/11/mssql-procedure-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80/</link>
+      <pubDate>Sun, 15 Nov 2020 15:29:56 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/mssql-procedure-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80/</guid>
+      <description>&lt;p&gt;저장 프로시저는 다음과 같은 점에서 다른 프로그래밍 언어의 프로시저와 유사합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;입력 매개 변수를 받아 여러 값을 출력 매개 변수의 형태로 호출하는 프로시저 또는 일괄 처리에 반환합니다.&lt;/li&gt;
+&lt;li&gt;다른 프로시저 호출을 비롯하여 데이터베이스에서 작업을 수행하는 프로그래밍 문이 포함되어 있습니다.&lt;/li&gt;
+&lt;li&gt;호출하는 프로시저 또는 일괄 처리에 상태 값을 반환하여 성공 또는 실패 및 실패 원인을 나타냅니다.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Mssql Cursor</title>
+      <link>https://ence2.github.io/2020/11/mssql-cursor/</link>
+      <pubDate>Sun, 15 Nov 2020 15:17:47 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/mssql-cursor/</guid>
+      <description>&lt;p&gt;커서는 행 단위 작업을 추가로 제어해야 할 경우 사용되는 기능입니다.&lt;/p&gt;
+
+&lt;p&gt;여러 행을 select 하여 While 반복문 등에 활용 될 수 있습니다. 프로그래밍의 for문의 첨자 i와 비슷합니다.&lt;/p&gt;
+
+&lt;p&gt;프로시저 작성시 활용됩니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>MsSQL 값 자동 증가 identity와 시퀀스(sequence)</title>
