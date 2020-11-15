@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Mssql Procedure 프로시저</title>
+      <title>MsSQL Procedure 프로시저</title>
       <link>https://ence2.github.io/2020/11/mssql-procedure-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80/</link>
       <pubDate>Sun, 15 Nov 2020 15:29:56 +0900</pubDate>
       
@@ -27,7 +27,7 @@
     </item>
     
     <item>
-      <title>Mssql Cursor</title>
+      <title>MsSQL Cursor</title>
       <link>https://ence2.github.io/2020/11/mssql-cursor/</link>
       <pubDate>Sun, 15 Nov 2020 15:17:47 +0900</pubDate>
       
@@ -60,7 +60,7 @@
     </item>
     
     <item>
-      <title>Mssql 무결성 강제 적용(제약조건) PRIMARY KEY 및 FOREIGN KEY</title>
+      <title>MsSQL 무결성 강제 적용(제약조건) PRIMARY KEY 및 FOREIGN KEY</title>
       <link>https://ence2.github.io/2020/11/mssql-%EB%AC%B4%EA%B2%B0%EC%84%B1-%EA%B0%95%EC%A0%9C-%EC%A0%81%EC%9A%A9%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4-primary-key-%EB%B0%8F-foreign-key/</link>
       <pubDate>Sun, 15 Nov 2020 13:39:43 +0900</pubDate>
       
