@@ -246,6 +246,68 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/boostmake_ready_future/">
+          boost::make_ready_future
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-09T21:09:42&#43;09:00">
+        
+  November 9, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <h4 id="making-immediate-futures-easier">Making immediate futures easier</h4>
+
+<p>Some functions may know the value at the point of construction. In these cases the value is immediately available, but needs to be returned as a future or shared_future. By using make_ready_future a future can be created which holds a pre-computed result in its shared state.</p>
+
+<p>일부 함수는 구성 시점에서 값을 알 수 있습니다. 이 경우 값을 즉시 사용할 수 있지만 future 또는 shared_future로 반환해야합니다. make_ready_future를 사용하면 공유 상태에서 미리 계산 된 결과를 보유하는 future를 만들 수 있습니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/boostmake_ready_future/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
           Boost Future의 continuations(연속 연결)
         </a>
@@ -585,66 +647,6 @@ if (!doNotTrack) {
       
       <p>
         <a href="https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/">
-          shard_ptr의 다운/업 캐스팅
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T22:31:11&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h3 id="shard-ptr-다운-업-캐스팅">shard_ptr 다운, 업 캐스팅</h3>
-
-<p><code>dynamic_pointer_cast</code>, <code>static_pointer_cast</code> 및 <code>const_pointer_cast</code>를 사용하여 <code>shared_ptr</code>을 캐스팅할 수 있습니다. 이러한 함수는 <strong><code>dynamic_cast</code></strong> , <strong><code>static_cast</code></strong> 및 연산자와 유사 <strong><code>const_cast</code></strong> 합니다. 다음 예제에서는 기본 클래스에서 <code>shared_ptr</code>의 벡터에 있는 각 요소의 파생 형식을 테스트한 다음 요소를 복사하고 이에 대한 정보를 표시하는 방법을 보여 줍니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/shard_ptr%EC%9D%98-%EB%8B%A4%EC%9A%B4-%EC%97%85-%EC%BA%90%EC%8A%A4%ED%8C%85/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>

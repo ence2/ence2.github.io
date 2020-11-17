@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence2.github.io/2020/11/mssql-object_id/</loc>
+    <lastmod>2020-11-17T21:03:29+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/2020/11/visual-studio-%EB%94%94%EB%B2%84%EA%B9%85-%ED%8C%81/</loc>
     <lastmod>2020-11-16T21:30:53+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -353,14 +360,14 @@
   
   <url>
     <loc>https://ence2.github.io/tags/db/</loc>
-    <lastmod>2020-11-15T15:29:56+09:00</lastmod>
+    <lastmod>2020-11-17T21:03:29+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/categories/db/</loc>
-    <lastmod>2020-11-15T15:29:56+09:00</lastmod>
+    <lastmod>2020-11-17T21:03:29+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -374,7 +381,7 @@
   
   <url>
     <loc>https://ence2.github.io/categories/dev/</loc>
-    <lastmod>2020-11-16T21:30:53+09:00</lastmod>
+    <lastmod>2020-11-17T21:03:29+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -409,7 +416,7 @@
   
   <url>
     <loc>https://ence2.github.io/</loc>
-    <lastmod>2020-11-16T21:30:53+09:00</lastmod>
+    <lastmod>2020-11-17T21:03:29+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -444,14 +451,14 @@
   
   <url>
     <loc>https://ence2.github.io/tags/mssql/</loc>
-    <lastmod>2020-11-15T15:29:56+09:00</lastmod>
+    <lastmod>2020-11-17T21:03:29+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/categories/mssql/</loc>
-    <lastmod>2020-11-15T15:29:56+09:00</lastmod>
+    <lastmod>2020-11-17T21:03:29+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -472,7 +479,7 @@
   
   <url>
     <loc>https://ence2.github.io/post/</loc>
-    <lastmod>2020-11-16T21:30:53+09:00</lastmod>
+    <lastmod>2020-11-17T21:03:29+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
