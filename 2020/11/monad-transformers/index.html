@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="하스켈에서 모나드는 매우 유용하지만 처음에는 그 개념이 꽤 어렵습니다. 모나드는 수많은 응용이 있기 때문에 사람들은 모나드를 특정 관점에서만 설명하는 경향이 있는데, 그러면 여러분이 모나드를 완벽히 이해하는 데 혼란을 줄 수도 있습니다.">
+
+
+<meta property="og:description" content="하스켈에서 모나드는 매우 유용하지만 처음에는 그 개념이 꽤 어렵습니다. 모나드는 수많은 응용이 있기 때문에 사람들은 모나드를 특정 관점에서만 설명하는 경향이 있는데, 그러면 여러분이 모나드를 완벽히 이해하는 데 혼란을 줄 수도 있습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Monad transformers">
+<meta name="twitter:title" content="Monad transformers">
+<meta property="og:url" content="https://ence2.github.io/2020/11/monad-transformers/">
+<meta property="twitter:url" content="https://ence2.github.io/2020/11/monad-transformers/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="하스켈에서 모나드는 매우 유용하지만 처음에는 그 개념이 꽤 어렵습니다. 모나드는 수많은 응용이 있기 때문에 사람들은 모나드를 특정 관점에서만 설명하는 경향이 있는데, 그러면 여러분이 모나드를 완벽히 이해하는 데 혼란을 줄 수도 있습니다.">
+<meta name="twitter:description" content="하스켈에서 모나드는 매우 유용하지만 처음에는 그 개념이 꽤 어렵습니다. 모나드는 수많은 응용이 있기 때문에 사람들은 모나드를 특정 관점에서만 설명하는 경향이 있는데, 그러면 여러분이 모나드를 완벽히 이해하는 데 혼란을 줄 수도 있습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-11-18T21:43:34">
+  
+  
+    <meta property="article:modified_time" content="2020-11-18T21:43:34">
+  
+  
+  
+    
+      <meta property="article:section" content="Dev">
+    
+      <meta property="article:section" content="Common">
+    
+  
+  
+    
+      <meta property="article:tag" content="Achitecture">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>Monad transformers</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2020/11/monad-transformers/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-o0o9xxn7sl2qnkojgevnrv4ons1qbibz9maphukkvfydd3f3fh3o5ycrnxi.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="http://chjh.net/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-card"></i>
+      
+      <span class="sidebar-button-desc">MySite</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence88" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/junh.choi/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Monad transformers
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-18T21:43:34&#43;09:00">
+        
+  November 18, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/dev">Dev</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>하스켈에서 모나드는 매우 유용하지만 처음에는 그 개념이 꽤 어렵습니다. 모나드는 수많은 응용이 있기 때문에 사람들은 모나드를 특정 관점에서만 설명하는 경향이 있는데, 그러면 여러분이 모나드를 완벽히 이해하는 데 혼란을 줄 수도 있습니다.</p>
+
+<p>역사적으로 보면 모나드는 하스켈에서 입출력을 수행하기 위해 도입되었습니다. 미리 정의된 실행 순서는 파일 읽고 쓰기 같은 작업에 중대한 사항이고 모나딕 연산은 내재된inherent 순서를 따릅니다.</p>
+
+<p>모나드는 입출력에 한정되지 않습니다. 모나드는 예외, 상태, 비결정성non-determinism, 연속성continuation, 코루틴, 그 외에 수많은 것을 지원합니다. 사실 모나드의 다재다능함 덕에 이 중 어느 것도 하스켈 언어의 일부로 내장될 필요가 없었습니다. 이것들은 대신 표준 라이브러리에 정의되어 있습니다.</p>
+
+<h3 id="정의">정의</h3>
+
+<p>모나드는 세 가지에 의해 정의됩니다.</p>
+
+<ul>
+<li>타입 생성자 M</li>
+<li>return 함수</li>
+<li>&ldquo;bind&rdquo;라 부르는 (&gt;&gt;=) 연산자</li>
+</ul>
+
+<p>위의 함수와 연산자는 Monad 타입 클래스의 메서드이며 다음의 타입을 가집니다.</p>
+
+<pre><code class="language-haskell">return :: a -&gt; M a
+(&gt;&gt;=)  :: M a -&gt; ( a -&gt; M b ) -&gt; M b
+</code></pre>
+
+<p>그리고 나중에 설명할 세 개의 법칙을 따라야 합니다.</p>
+
+<p>구체적인 예시로 Maybe 모나드를 보겠습니다. 타입 생성자는 M = Maybe이고 return과 (&gt;&gt;=)는 이렇게 정의됩니다.</p>
+
+<pre><code class="language-haskell">return :: a -&gt; Maybe a
+return x  = Just x
+
+(&gt;&gt;=)  :: Maybe a -&gt; (a -&gt; Maybe b) -&gt; Maybe b
+m &gt;&gt;= g = case m of
+             Nothing -&gt; Nothing
+             Just x  -&gt; g x
+</code></pre>
+
+<p>Maybe는 모나드고 return은 하나의 값을 Just로 감싸서 반환합니다. (&gt;&gt;=)는 m :: Maybe a 값과 g :: a -&gt; Maybe b 함수를 취합니다. m이 Nothing이면 하는 일 없이 결과도 Nothing입니다. 반대로 Just x의 경우 Just로 감싼 x에 g가 적용되고 Maybe b를 결과로 내놓습니다. 그 결과는 g가 x에 하는 일에 따라 Nothing일 수도 있습니다. 종합하면, m에 포함된 값이 있으면 이 값에 g를 적용하고 그 결과가 Maybe 모나드에 다시 들어가 반환됩니다.</p>
+
+<p>return과 (&gt;&gt;=)가 어떻게 작동하는지 이해하는 첫 걸음은 어떤 값과 인수가 모나딕인지 아닌지 추적하는 것입니다. 다른 많은 경우와 마찬가지로 타입 시그너쳐가 그 과정의 안내자가 될 것입니다.</p>
+
+<h4 id="동기-maybe">동기: Maybe</h4>
+
+<p><code>(&gt;&gt;=)</code>와 <code>Maybe</code> 모나드의 유용함을 다음 예제에서 살펴보겠습니다. 두 함수를 제공하는 가계도 데이터베이스를 가정합니다.</p>
+
+<pre><code class="language-haskell">father :: Person -&gt; Maybe Person
+mother :: Person -&gt; Maybe Person
+</code></pre>
+
+<p>이 함수들은 누군가의 아버지나 어머니의 이름을 검색합니다. 데이터베이스에 그런 정보가 없을 때 <code>Maybe</code> 덕에 프로그램을 고장내는 대신 <code>Nothing</code> 값을 반환할 수 있습니다.</p>
+
+<p>이 함수들을 결합하여 할아버지들을 찾아보겠습니다. 다음 함수는 외할아버지를 검색합니다.</p>
+
+<pre><code class="language-haskell">maternalGrandfather :: Person -&gt; Maybe Person
+maternalGrandfather p =
+    case mother p of
+        Nothing -&gt; Nothing
+        Just mom -&gt; father mom
+</code></pre>
+
+<p>다음 함수는 데이터베이스에 친할아버지와 외할아버지가 모두 있는지 검사합니다.</p>
+
+<pre><code class="language-haskell">bothGrandfathers :: Person -&gt; Maybe (Person, Person)
+bothGrandfathers p =
+    case father p of
+        Nothing -&gt; Nothing
+        Just dad -&gt;
+            case father dad of
+                Nothing -&gt; Nothing
+                Just gf1 -&gt;                          -- found first grandfather
+                    case mother p of
+                        Nothing -&gt; Nothing
+                        Just mom -&gt;
+                            case father mom of
+                                Nothing -&gt; Nothing
+                                Just gf2 -&gt;          -- found second grandfather
+                                    Just (gf1, gf2)
+</code></pre>
+
+<p>너무 길고 복잡하다! 각각의 질의는 <code>Nothing</code>을 반환하면서 실패할 수 있고 그럴 경우 전체 함수도 실패해야 합니다.</p>
+
+<p>분명히 <code>Nothing</code>을 쓰고 또 쓰는 것보다 나은 방법이 있을 것입니다. 모나드가 바로 그 방법입니다. 예컨데 외할아버지에 접근하는 함수는 <code>(&gt;&gt;=)</code> 연산자와 정확히 동일한 구조를 가지므로 이렇게 다시 쓸 수 있습니다.</p>
+
+<pre><code class="language-haskell">maternalGrandfather p = mother p &gt;&gt;= father
+</code></pre>
+
+<p>람다 표현식과 return의 도움을 받아 두 할아버지를 찾는 함수도 다시 작성할 수 있습니다.</p>
+
+<pre><code class="language-haskell">bothGrandfathers p =
+   father p &gt;&gt;=
+       (\dad -&gt; father dad &gt;&gt;=
+           (\gf1 -&gt; mother p &gt;&gt;=   -- this line works as &quot;\_ -&gt; mother p&quot;, but naming gf1 allows later return
+               (\mom -&gt; father mom &gt;&gt;=
+                   (\gf2 -&gt; return (gf1,gf2) ))))
+</code></pre>
+
+<p>중첩된 람다 표현식이 혼란스러울 지도 모르겠다. 여기서 눈여겨볼 점은 <code>(&gt;&gt;=)</code> 덕에 모든 <code>Nothing</code>을 나열하는 부분을 없애서 코드의 관심 있는 부분에만 집중할 수 있다는 것입니다.</p>
+
+<p>좀 더 정확히 하자면, <code>father p</code>의 결과는 모나딕 값입니다. 그 값은 <code>p</code>의 아버지가 데이터베이스에 있느냐 없느냐에 따라 <code>Just dad</code> 또는 <code>Nothing</code>입니다. <code>father</code> 함수가 모나드딕 값이 아닌 정규 값을 취하기 때문에 <code>(&gt;&gt;=)</code>는 모나딕이 아닌 값인 <code>p</code>의 <code>dad</code>를 <code>father</code>에게 인자로 전달합니다. 그리고 <code>father dad</code>의 결과는 다시 모나딕 값이고, 이 과정은 계속됩니다.</p>
+
+<p>즉 <code>(&gt;&gt;=)</code>는 모나드를 떠나지 않고도 함수에 모나딕이 아닌 값을 전달할 수 있도록 합니다. <code>Maybe</code> 모나드의 모나딕 관점은 그 값을 구할 수 있을지에 대한 불확실성입니다.</p>
+
+<h4 id="타입-클래스">타입 클래스</h4>
+
+<p>하스켈에서는 <code>Monad</code> 타입 클래스를 이용해 모나드를 구현합니다. <code>Monad</code>는 <a href="http://hackage.haskell.org/package/base-4.1.0.0/docs/Control-Monad.html">Control.Monad</a> 모듈의 일부이며 Prelude에 포함되어 있습니다. 이 클래스는 다음 메서드들을 가진다.</p>
+
+<pre><code class="language-haskell">class Monad m where
+    return :: a -&gt; m a
+    (&gt;&gt;=)  :: m a -&gt; (a -&gt; m b) -&gt; m b
+
+    (&gt;&gt;)   :: m a -&gt; m b -&gt; m b
+    fail   :: String -&gt; m a
+</code></pre>
+
+<p><code>return</code>과 <code>bind</code> 외에도 <code>(&gt;&gt;)</code>와 <code>fail</code>이라는 함수가 있습니다. 이 둘도 기본 구현을 가지기 때문에 인스턴스를 작성할 때 굳이 정의하지 않아도 됩니다.</p>
+
+<p><code>(&gt;&gt;)</code> 연산자는 &ldquo;then&rdquo;이라 읽으며 그저 편의를 위한 것으로 대개 이렇게 구현됩니다.</p>
+
+<pre><code class="language-haskell">m &gt;&gt; n = m &gt;&gt;= \_ -&gt; n
+</code></pre>
+
+<p><code>(&gt;&gt;)</code>는 두 모나딕 액션을 연결하는데 두 번째 액션이 첫 번째 액션의 결과를 이용하지 않는다. IO 같은 모나드에서는 흔한 일입니다.</p>
+
+<pre><code class="language-haskell">printSomethingTwice :: String -&gt; IO ()
+printSomethingTwice str = putStrLn str &gt;&gt; putStrLn str
+</code></pre>
+
+<p><code>fail</code> 함수는 <code>do</code> 표기 내에서의 패턴 매칭 실패를 처리합니다. 기술적으로 어쩔 수 없이 필요할 뿐 모나드와는 아무 상관이 없습니다. <code>fail</code>을 코드에서 직접 호출하는 것은 권장하지 않는다.</p>
+
+<h4 id="monad-와-applicative"><code>Monad</code>와 <code>Applicative</code></h4>
+
+<p><code>Applicative</code>가 <code>Monad</code>의 슈퍼클래스이며 이에 따른 주목할 만한 결과들이 있다는 걸 짚고 넘어가야겠다.<a href="https://wikidocs.net/1471#fn:2">2</a> 먼저 모든 <code>Monad</code>는 <code>Functor</code>이자 <code>Applicative</code>이고, 따라서 모나드에도 <code>fmap</code>, <code>pure</code>, <code>(&lt;*&gt;)</code>을 사용할 수 있습니다. 두 번째로 사실 <code>Monad</code> 인스턴스를 작성하려면 <code>Functor</code>와 <code>Applicative</code> 인스턴스도 작성해야 합니다. 그렇게 하는 방법은 이 장의 뒤에서 논의합니다. 세 번쨰로 <a href="https://en.wikibooks.org/wiki/Haskell/Prologue:_IO,_an_applicative_functor">서문</a>을 읽어봤다면 <code>return</code>과 <code>(&gt;&gt;)</code>의 타입과 역할이 친숙할 것입니다&hellip;</p>
+
+<pre><code class="language-haskell">(*&gt;) :: Applicative f =&gt; f a -&gt; f b -&gt; f b
+(&gt;&gt;) :: Monad m =&gt; m a -&gt; m b -&gt; m b
+
+pure :: Applicative f =&gt; a -&gt; f a
+return :: Monad m =&gt; a -&gt; m a
+</code></pre>
+
+<p><code>(*&gt;)</code>와 <code>(&gt;&gt;)</code>의 유일한 차이점은 제약이 <code>Applicative</code>에서 <code>Monad</code>로 바뀌었습니다는 것입니다. 사실 두 메서드 간의 차이는 이것 뿐입니다. <code>Monad</code>를 처리할 때는 언제든 <code>(*&gt;)</code>와 <code>(&gt;&gt;)</code>를 서로 교체할 수 있습니다. <code>pure</code>와 <code>return</code>도 마찬가집니다. 사실 <code>Applicative</code> 인스턴스에 <code>pure</code>의 별도 정의가 있다면 <code>return</code>을 구현할 필요도 없는데, <code>return</code>의 기본 구현은 <code>retur = pure</code> 이기 때문입니다.</p>
+
+<h3 id="계산이라는-개념notions-of-computation">계산이라는 개념Notions of Computation</h3>
+
+<p>Maybe를 사용할 때, 틀에 박힌 코드를 없애는 데 (&gt;&gt;=)와 return이 아주 편리하다는 걸 봤었습니다. 하지만 이걸로는 모나드가 왜 그토록 중요한지 납득하기에는 충분하지 않다. 두 할아버지를 찾는 함수를, do 표기에 괄호와 세미콜론을 붙여 다시 작성하면서 모나드 공부를 계속하겠다. 다른 프로그래밍 언어 경험이 있으면 그 언어가 연상될 수도 있겠다.</p>
+
+<pre><code class="language-haskell">bothGrandfathers p = do {
+    dad &lt;- father p;
+    gf1 &lt;- father dad;
+    mom &lt;- mother p;
+    gf2 &lt;- father mom;
+    return (gf1, gf2);
+  }
+</code></pre>
+
+<p>이 코드가 명령형 언어의 코드처럼 보이는 이유는 정말 그렇기 때문입니다. 사실 이 명령형 언어는 예외를 지원합니다. father와 mother는 결과를 도출하는 데 실패할 수도 있는 함수다. 즉 예외를 일으킬 수 있습니다. 그리고 그런 일이 발생하면 do 블록 전체가 실패합니다. 즉 예외를 일으키며 종료합니다.</p>
+
+<p>달리 말하자면 표현식 father p는 Maybe Person 타입이며 해석되기로는 명령형 언어에서 Person을 결과값으로 반환하는 하나의 명령문처럼 해석됩니다. 이 말은 모든 모나드에 대해 성립합니다. M a 타입의 값은 명령형 언어에서 a 타입의 값을 결과로 반환하는 명령문으로 해석됩니다. 그리고 이 언어의 의미semantic는 모나드 M에 의해 결정됩니다.<a href="https://wikidocs.net/1471#fn:3">3</a></p>
+
+<p>이런 해석에 따르면 bind 연산자 (&gt;&gt;=)는 세미콜론의 함수 버전일 뿐입니다. let 표현식을 함수 적용처럼 작성할 수 있듯이</p>
+
+<pre><code class="language-haskell">let x = foo in x + 3          는 다음에 대응됩니다      (\x -&gt; x + 3) foo
+</code></pre>
+
+<p>할당과 세미콜론은 bind 연산자로 재작성할 수 있습니다.</p>
+
+<pre><code class="language-haskell">x &lt;- foo; return (x + 3)      는 다음에 대응됩니다      foo &gt;&gt;= (\x -&gt; return (x + 3))
+</code></pre>
+
+<p>return 함수는 값 <code>a</code>를 <code>M a</code>로 전이시킨다. <code>M a</code>는 모나드 <code>M</code>에 대응하는 명령형 언어의 명령문과 같습니다.</p>
+
+<p>명령형 언어의 여러 의미(semantic)는 각기 다른 모나드에 대응합니다. 다음 표는 모든 하스켈 프로그래머가 반드시 알아야 하는 고전적인 사항을 선별한 표다. 모나드에 깔린 발상이 아직도 명확하지 않다면, 뒤에 이어지는 장들의 예제를 공부하면서 좋은 도구상자도 얻고 여러 모나드 뒤에 숨은 공통된 추상화를 이해하는 데 도움을 받을 수 있을 것입니다.</p>
+
+<table>
+<thead>
+<tr>
+<th>모나드</th>
+<th>명령형 언어에서의 의미semantic</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Maybe</td>
+<td>예외(익명)</td>
+</tr>
+
+<tr>
+<td>Error</td>
+<td>예외(오류 내용이 있음)</td>
+</tr>
+
+<tr>
+<td>State</td>
+<td>전역 상태global state</td>
+</tr>
+
+<tr>
+<td>IO</td>
+<td>입출력</td>
+</tr>
+
+<tr>
+<td>[](리스트)</td>
+<td>비결정성</td>
+</tr>
+
+<tr>
+<td>Reader</td>
+<td>환경설정Environment</td>
+</tr>
+
+<tr>
+<td>Writer</td>
+<td>로거Logger</td>
+</tr>
+</tbody>
+</table>
+
+<p>더욱이, 서로 다른 이들 의미semantic는 꼭 따로 써야 하는 것이 아니다. 몇몇 장에서 보겠지만 모나드 변환기monad transformer를 사용해서 모나드들을 합성하고, 일치시키거나 여러 모나드의 semantic을 단일 모나드로 합성하는 것이 가능하다.</p>
+
+<h3 id="모나드의-법칙">모나드의 법칙</h3>
+
+<p>하스켈에서 Monad 타입 클래스의 모든 인스턴스는(그리고 (&gt;&gt;=)와 return의 모든 구현은) 다음의 세 법칙을 만족해야 합니다.</p>
+
+<pre><code class="language-haskell">m &gt;&gt;= return     =  m                        -- 우단위원의 법칙(right unit)
+return x &gt;&gt;= f   =  f x                      -- 좌단위원의 법칙(left unit)
+
+(m &gt;&gt;= f) &gt;&gt;= g  =  m &gt;&gt;= (\x -&gt; f x &gt;&gt;= g)  -- 결합법칙(associativity)
+</code></pre>
+
+<h4 id="중립원neutral-element으로서의-return">중립원neutral element으로서의 return</h4>
+
+<p>return의 동작은 좌단위원(left unit)의 법칙과 우단위원(right unit)의 법칙에 의해 기술됩니다. 이 법칙들은 return이 아무 계산도 하지 않음을 뜻합니다. return은 그저 값을 보관합니다. 예를 들어 다음 코드는</p>
+
+<pre><code class="language-haskell">maternalGrandfather p = do
+        mom &lt;- mother p
+        gf  &lt;- father mom
+        return gf
+</code></pre>
+
+<p>우단위원의 법칙에 의해 다음과 정확히 같습니다.</p>
+
+<pre><code class="language-haskell">maternalGrandfather p = do
+        mom  &lt;- mother p
+        father mom
+</code></pre>
+
+<h4 id="bind의-결합법칙">bind의 결합법칙</h4>
+
+<p>결합법칙은 세미콜론이 그러듯이 bind 연산자 (&gt;&gt;=)가 계산의 순서만 신경쓸 뿐 그 중첩 구조는 고려하지 않음을 보장합니다. 예를 들어 bothGrandfathers를 이렇게 작성할 수도 있습니다. do를 쓰지 않은 이전 버전과 비교해보십시오</p>
+
+<pre><code class="language-haskell">bothGrandfathers p =
+   (father p &gt;&gt;= father) &gt;&gt;=
+       (\gf1 -&gt; (mother p &gt;&gt;= father) &gt;&gt;=
+           (\gf2 -&gt; return (gf1,gf2) ))
+</code></pre>
+
+<p>then 연산자의 결합 법칙은 특수한 경우입니다.</p>
+
+<pre><code class="language-haskell">(m &gt;&gt; n) &gt;&gt; o  =  m &gt;&gt; (n &gt;&gt; o)
+</code></pre>
+
+<h5 id="모나딕-합성">모나딕 합성</h5>
+
+<p>bind의 결합 법칙을 이렇게 재구성하면 그 의미를 포착하기가 더 쉽습니다.</p>
+
+<pre><code>(f &gt;=&gt; g) &gt;=&gt; h  =  f &gt;=&gt; (g &gt;=&gt; h)
+</code></pre>
+
+<p>여기서 <code>(&gt;=&gt;)</code>는 <em>모나딕 합성 연산자로서</em> 함수 합성 연산자 <code>(.)</code>와 아주 유사하지만 그 인자는 반대로다. <code>(&gt;=&gt;)</code>는 다음과 같이 정의됩니다.</p>
+
+<pre><code class="language-haskell">(&gt;=&gt;) :: Monad m =&gt; (a -&gt; m b) -&gt; (b -&gt; m c) -&gt; a -&gt; m c
+f &gt;=&gt; g = \x -&gt; f x &gt;&gt;= g
+</code></pre>
+
+<p><code>(&gt;=&gt;)</code>을 뒤집은 <code>(&lt;=&lt;)</code>도 있습니다. 이걸 쓸 때는 합성 순서가 <code>(.)</code>와 일치하며, 따라서 <code>(f &lt;=&lt; g)</code>에서는 <code>g</code>가 먼저 옵니다.</p>
+
+<h3 id="모나드와-범주론">모나드와 범주론</h3>
+
+<p>모나드는 범주론이라는 수학의 한 갈래에서 유래했다. 다행히도 하스켈에서 모나드를 이해하고 활용하기 위해 범주론을 이해할 필요는 전혀 없습니다. 범주론의 모나드 정의는 사실 표현법이 조금 다릅니다. 이 표현법을 하스켈 식으로 다듬으면 동등하지만 또다른 모나드 정의를 얻습니다. 이로부터 <code>Monad</code> 클래스에 대한 또다른 통찰을 얻을 수 있습니다.</p>
+
+<p>지금까지는 <code>(&gt;&gt;=)</code>와 <code>return</code>을 통해 모나드를 정의했습니다. 또다른 정의에서는 모나드를 두 결합기를 가지는 functor로 취급합니다.</p>
+
+<pre><code class="language-haskell">fmap   :: (a -&gt; b) -&gt; M a -&gt; M b  -- functor
+
+return :: a -&gt; M a
+join   :: M (M a) -&gt; M a
+</code></pre>
+
+<p>펑터를 컨테이너에 비유할 수 있습니다. 이에 따르면 <code>functor M</code>은 일종의 컨테이너로서 <code>M a</code>는 <code>a</code> 타입의 값을 &ldquo;보관&rdquo;하고, 대응하는 매핑 함수 <code>fmap</code>은 그 내부의 값에 함수들을 적용할 수 있도록 합니다.</p>
+
+<p>이렇게 해석하면 위 함수들은 다음과 같이 작동합니다.</p>
+
+<ul>
+<li><code>fmap</code>은 주어진 함수를 컨테이너 내부의 모든 원소에 적용합니다</li>
+<li><code>return</code>은 원소를 컨테이너로 감쌉니다</li>
+<li><code>join</code>은 컨테이너의 컨테이너를 취해 단일 컨테이너로 평탄화합니다.</li>
+</ul>
+
+<p>이 함수들을 이용해 bind 연산자를 다음과 같이 정의할 수 있습니다.</p>
+
+<pre><code class="language-haskell">m &gt;&gt;= g = join (fmap g m)
+</code></pre>
+
+<p>비슷하게 <code>(&gt;&gt;=)</code>와 <code>return</code>을 이용해 <code>fmap</code>과 <code>join</code>을 정의할 수 있습니다.</p>
+
+<pre><code class="language-haskell">fmap f x = x &gt;&gt;= (return . f)
+join x   = x &gt;&gt;= id
+</code></pre>
+
+<h4 id="liftm-과-그-친구들"><code>liftM</code>과 그 친구들</h4>
+
+<p>앞서 모든 <code>Monad</code>는 <code>Applicative</code>이고 따라서 <code>Functor</code>이기도 하다는 것을 짚고 넘어간 적이 있습니다. 그 결과 <code>return</code>과 <code>(&gt;&gt;)</code>는 각각 <code>pure</code>와 <code>(*&gt;)</code>의 모나드 전용 버전이 되었습니다. 그런데 여기서 끝이 아닙니다. <code>Control.Monad</code>는 <code>liftM</code>을 정의하는데 그 타입 시그너쳐가 왠지 친숙합니다.</p>
+
+<pre><code class="language-haskell">liftM :: (Monad m) =&gt; (a1 -&gt; r) -&gt; m a1 -&gt; m r
+</code></pre>
+
+<p>의심했던 대로 <code>liftM</code>은 우리가 바로 앞 절에서 한 것처럼 <code>(&gt;&gt;=)</code>와 <code>return</code>을 통해 구현한 <code>fmap</code>일 뿐입니다. 따라서 <code>liftM</code>과 <code>fmap</code>은 서로 바꿔 쓸 수 있습니다.</p>
+
+<p><code>ap</code>는 <code>Control.Monad</code>에 있는 또다른 함수로서 묘한 타입을 가집니다.</p>
+
+<pre><code class="language-haskell">ap :: Monad m =&gt; m (a -&gt; b) -&gt; m a -&gt; m b
+</code></pre>
+
+<p>다른 경우와 비슷하게 <code>ap</code>는 <code>(&lt;*&gt;)</code>의 모나드 전용 버전입니다.</p>
+
+<p><code>Control.Monad</code>를 비롯해 기본 라이브러리 모듈에는 <code>Monad</code>에 <em>특화된</em> 버전의 <code>Applicative</code> 함수들이 곳곳에 있습니다. 이런 함수들이 존재하는 데는 역사적인 이유가 있습니다. 하스켈에 <code>Monad</code>와 <code>Applicative</code>가 도입되는 사이에는 몇 년의 간격이 있었고 <code>Applicative</code>가 <code>Monad</code>의 슈퍼클래스가 되기까지는 더 오랜 시간이 걸렸기에 특화된 버전을 사용하는 것은 선택사항이 되었습니다. 이제와서는 모나드 전용 버전을 사용할 이유가 거의 없어져서, 다른 사람들의 코드를 보면 <code>return</code>과 <code>(&gt;&gt;)</code>만 보일 것입니다. 이것들의 용법은 하스켈에서 20년이 넘도록 <code>Applicative</code>가 <code>Monad</code>의 슈퍼클래스가 아니었던 덕에 잘 자리잡게 되었습니다.</p>
+
+<blockquote>
+<p>노트</p>
+
+<p><code>Applicative</code>가 <code>Monad</code>의 슈퍼클래스이므로 <code>Monad</code>를 구현하는 가장 명료한 방법은 <code>Functor</code> 인스턴스를 작성하고 클래스 계층도를 따라 내려가는 것입니다.</p>
+
+<pre><code class="language-haskell">instance Functor Foo where
+    fmap = -- etc.
+
+instance Applicative Foo where
+    pure = -- etc.
+    (&lt;*&gt;) = -- etc.
+
+instance Monad Foo where
+    (&gt;&gt;=) = -- etc.
+</code></pre>
+
+<p>여러분은 <code>Monad</code>의 인스턴스들을 작성하고 사용해보거나, 여러분이 생각하는 다른 실험을 해볼 것입니다. 하지만 위에서 보여준 방식으로 인스턴스를 작성하려면 <code>pure</code>와 <code>(&lt;*&gt;)</code>를 구현해야 하는데, 이는 쉬운 일이 아닙니다.  다행히 돌아가는 길이 있습니다. <code>(&gt;&gt;=)</code>와 <code>return</code>을 구현하여 그 자체로 충분한 <code>Monad</code> 인스턴스를 만들고 나면 <code>liftM</code>, <code>ap</code>, <code>return</code>을 사용해 다른 인스턴스들을 채워넣을 수 있습니다.</p>
+
+<pre><code class="language-haskell">instance Monad Foo where
+    return = -- etc.
+    (&gt;&gt;=) = -- etc.
+
+instance Applicative Foo where
+    pure = return
+    (&lt;*&gt;) = ap
+
+instance Functor Foo where
+    fmap = liftM
+</code></pre>
+</blockquote>
+
+<h3 id="노트">노트</h3>
+
+<hr />
+
+<ol>
+<li>return 함수는 C나 자바 같은 명령형 언어의 return 키워드와 아무 관련이 없습니다. 둘을 헷갈리지 마십시오</li>
+<li>중요한 상하관계는 역사적 우연 덕에 최근에 와서야 (2015년 초기 GHC 7.10 버전) 구현되었습니다. 이보다 오래된 GHC 버전을 쓰고 있다면 이런 클래스 제약이 존재하지 않으므로 우리가 앞으로 고려할 실용적 관점들 중 일부는 해당사항이 없을 것입니다.</li>
+<li>&ldquo;의미semantic&rdquo;라 함은 언어가 여러분에게 말하기를 허락한 것입니다. <code>Maybe</code>의 의미는 우리가 실패를 표현하는 것을 허락하여, 명령문이 결과를 내는 데 실패하면 뒤에 따라오는 명령문은 건너뛰게 만듭니다.</li>
+<li>물론 정규 함수 합성에 쓰이는 함수들은 모나딕 함수가 아닌 반면, 모나딕 합성은 모나딕 함수만을 취합니다.</li>
+</ol>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/achitecture/">Achitecture</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-object_id/" data-tooltip="MsSQL OBJECT_ID">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/monad-transformers/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/monad-transformers/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/monad-transformers/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-object_id/" data-tooltip="MsSQL OBJECT_ID">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/monad-transformers/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/monad-transformers/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/monad-transformers/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmonad-transformers%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmonad-transformers%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmonad-transformers%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-p1zguplwyakfwhsmeqh0d6rabsawnxhnzuxy9nox9uzkglxoxardgduszp1.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/monad-transformers\/';
+          
+            this.page.identifier = '\/2020\/11\/monad-transformers\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence88-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

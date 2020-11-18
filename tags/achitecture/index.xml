@@ -6,10 +6,19 @@
     <description>Recent content in Achitecture on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 14 Nov 2020 21:00:32 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 18 Nov 2020 21:43:34 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/tags/achitecture/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Monad transformers</title>
+      <link>https://ence2.github.io/2020/11/monad-transformers/</link>
+      <pubDate>Wed, 18 Nov 2020 21:43:34 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/monad-transformers/</guid>
+      <description>&lt;p&gt;하스켈에서 모나드는 매우 유용하지만 처음에는 그 개념이 꽤 어렵습니다. 모나드는 수많은 응용이 있기 때문에 사람들은 모나드를 특정 관점에서만 설명하는 경향이 있는데, 그러면 여러분이 모나드를 완벽히 이해하는 데 혼란을 줄 수도 있습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Kafka(카프카)란 무엇인가?</title>
