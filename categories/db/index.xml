@@ -92,12 +92,35 @@ SET QUOTED_IDENTIFIER { ON | OFF }
     </item>
     
     <item>
+      <title>MsSQL SET ANSI_NULLS ON|OFF</title>
+      <link>https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/</link>
+      <pubDate>Sat, 14 Nov 2020 22:00:20 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/</guid>
+      <description>&lt;h4 id=&#34;구문&#34;&gt;구문&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-mssql&#34;&gt;-- Syntax for SQL Server
+
+SET ANSI_NULLS { ON | OFF }
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
       <title>MsSQL 실행계획 분석법</title>
       <link>https://ence2.github.io/2020/11/mssql-%EC%8B%A4%ED%96%89%EA%B3%84%ED%9A%8D-%EB%B6%84%EC%84%9D%EB%B2%95/</link>
       <pubDate>Sat, 14 Nov 2020 21:41:03 +0900</pubDate>
       
       <guid>https://ence2.github.io/2020/11/mssql-%EC%8B%A4%ED%96%89%EA%B3%84%ED%9A%8D-%EB%B6%84%EC%84%9D%EB%B2%95/</guid>
       <description>&lt;p&gt;쿼리문을 작성하다보면 해당 쿼리가 최선인지 애매한 순간이 있습니다. 이 때 DBMS에서 제공하는 실행계획 기능을 활용하면 더 나은 판단이 가능합니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MsSQL Merge문</title>
+      <link>https://ence2.github.io/2020/11/mssql-merge%EB%AC%B8/</link>
+      <pubDate>Sat, 14 Nov 2020 21:19:54 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/mssql-merge%EB%AC%B8/</guid>
+      <description>&lt;p&gt;SQL Server 2008 부터 지원되는 MERGE문은 조건에 따라 INSERT, UPDATE ,DELETE등을 한 문장으로 간단히 실행할 수 있는 편리한 TSQL 문장입니다. MERGE가 없는 이전 버전의 경우 보통 IF문 등으로 조건을 먼저 체크하고 DML 문장(INSERT, UPDATE ,DELETE)을 각각 나눠서 여러 문장으로 기술해야 했습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
