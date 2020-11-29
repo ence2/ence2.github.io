@@ -8,43 +8,47 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="라이브러리란 특정한 코드(함수 혹은 클래스)를 포함하고 있는 컴파일된 파일입니다.
+<meta name="description" content="linked server는
 
-라이브러리에도 그 쓰임새에 따라서 여러가지 종류가 있습니다.(크게 3가지) 가장 흔하게 쓰일수 있는 &ldquo;정적라이브러리&rdquo;와 &ldquo;공유라이브러리&rdquo;, &ldquo;동적라이브러리&rdquo; 가 있습니다. 이들 라이브러리가 서로 구분되어지는 특징은 라이브러리의 로드 타이밍입니다.">
+MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.">
 
 
-<meta property="og:description" content="라이브러리란 특정한 코드(함수 혹은 클래스)를 포함하고 있는 컴파일된 파일입니다.
+<meta property="og:description" content="linked server는
 
-라이브러리에도 그 쓰임새에 따라서 여러가지 종류가 있습니다.(크게 3가지) 가장 흔하게 쓰일수 있는 &ldquo;정적라이브러리&rdquo;와 &ldquo;공유라이브러리&rdquo;, &ldquo;동적라이브러리&rdquo; 가 있습니다. 이들 라이브러리가 서로 구분되어지는 특징은 라이브러리의 로드 타이밍입니다.">
+MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="정적 라이브러리(lib) vs 동적 라이브러리(dll)">
-<meta name="twitter:title" content="정적 라이브러리(lib) vs 동적 라이브러리(dll)">
-<meta property="og:url" content="https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">
-<meta property="twitter:url" content="https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">
+<meta property="og:title" content="MsSQL linked server와 OPENQUERY 정의, 사용법">
+<meta name="twitter:title" content="MsSQL linked server와 OPENQUERY 정의, 사용법">
+<meta property="og:url" content="https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
+<meta property="twitter:url" content="https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="라이브러리란 특정한 코드(함수 혹은 클래스)를 포함하고 있는 컴파일된 파일입니다.
+<meta property="og:description" content="linked server는
 
-라이브러리에도 그 쓰임새에 따라서 여러가지 종류가 있습니다.(크게 3가지) 가장 흔하게 쓰일수 있는 &ldquo;정적라이브러리&rdquo;와 &ldquo;공유라이브러리&rdquo;, &ldquo;동적라이브러리&rdquo; 가 있습니다. 이들 라이브러리가 서로 구분되어지는 특징은 라이브러리의 로드 타이밍입니다.">
-<meta name="twitter:description" content="라이브러리란 특정한 코드(함수 혹은 클래스)를 포함하고 있는 컴파일된 파일입니다.
+MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.">
+<meta name="twitter:description" content="linked server는
 
-라이브러리에도 그 쓰임새에 따라서 여러가지 종류가 있습니다.(크게 3가지) 가장 흔하게 쓰일수 있는 &ldquo;정적라이브러리&rdquo;와 &ldquo;공유라이브러리&rdquo;, &ldquo;동적라이브러리&rdquo; 가 있습니다. 이들 라이브러리가 서로 구분되어지는 특징은 라이브러리의 로드 타이밍입니다.">
+MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-11-29T23:05:52">
+    <meta property="article:published_time" content="2020-11-29T23:26:55">
   
   
-    <meta property="article:modified_time" content="2020-11-29T23:05:52">
+    <meta property="article:modified_time" content="2020-11-29T23:26:55">
   
-  
-  
-    
-      <meta property="article:section" content="Common">
-    
   
   
     
-      <meta property="article:tag" content="Common">
+      <meta property="article:section" content="DB">
+    
+      <meta property="article:section" content="MsSQL">
+    
+  
+  
+    
+      <meta property="article:tag" content="DB">
+    
+      <meta property="article:tag" content="MsSQL">
     
   
 
@@ -65,14 +69,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>정적 라이브러리(lib) vs 동적 라이브러리(dll)</title>
+    <title>MsSQL linked server와 OPENQUERY 정의, 사용법</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">
+    <link rel="canonical" href="https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -255,13 +259,13 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      정적 라이브러리(lib) vs 동적 라이브러리(dll)
+      MsSQL linked server와 OPENQUERY 정의, 사용법
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-29T23:05:52&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-29T23:26:55&#43;09:00">
         
   November 29, 2020
 
@@ -272,7 +276,9 @@ if (!doNotTrack) {
   
     <span>in</span>
     
-      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>
+      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/mssql">MsSQL</a>
     
   
 
@@ -282,78 +288,89 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>라이브러리란 특정한 코드(함수 혹은 클래스)를 포함하고 있는 컴파일된 파일입니다.</p>
+              <p>linked server는</p>
 
-<p>라이브러리에도 그 쓰임새에 따라서 여러가지 종류가 있습니다.(크게 3가지) 가장 흔하게 쓰일수 있는 &ldquo;정적라이브러리&rdquo;와 &ldquo;공유라이브러리&rdquo;, &ldquo;동적라이브러리&rdquo; 가 있습니다. 이들 라이브러리가 서로 구분되어지는 특징은 라이브러리의 로드 타이밍입니다.</p>
+<p>MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.</p>
 
-<p>메모리를 효율적으로 쓰기 위해서는 lib 보다 dll 방식이 좋습니다.(필요할 때만 링크해서 쓰고 필요 없으면 바로 해제)</p>
+<p>- MSSQL 연결된 서버 생성</p>
 
-<p>lib 방식은 프로그램이 실행되면 바로 메모리를 차지하고 프로그램이 종료될 때까지 메모리에 남아있습니다.</p>
+<pre><code class="language-mssql">EXEC sp_addlinkedserver
+    @server = '[연결된 서버별칭]',
+    @srvproduct = '',
+    @provider = 'SQLOLEDB',
+    @datasrc = '[서버 아이피]',
+    @catalog = '[데이터 베이스명]'
+</code></pre>
 
-<h4 id="확장자별-라이브러리-구분">확장자별 라이브러리 구분</h4>
+<p>- MSSQL 연결계정 생성</p>
+
+<pre><code class="language-mssql">EXEC sp_addlinkedsrvlogin
+    @rmtsrvname= '[연결된 서버별칭]',
+    @useself= 'false',
+    @rmtuser = '[사용자 이름]',
+    @rmtpassword = '[사용자 암호]'
+</code></pre>
+
+<p>- MSSQL 연결된 서버 확인</p>
+
+<pre><code class="language-mssql">SELECT * FROM master.dbo.sysservers WHERE srvname = '[연결된 서버별칭]'
+</code></pre>
+
+<p>- MSSQL 연결계정 확인</p>
+
+<pre><code class="language-mssql">SELECT * FROM master.sys.linked_logins WHERE remote_name = '[사용자 이름]'
+</code></pre>
+
+<p>- MSSQL 연결된 서버 사용 예시</p>
+
+<pre><code class="language-mssql">--  연결된 서버를 등록한 후 사용하려면 [연결된 서버별칭].[데이터 베이스명].[데이터베이스 소유자명].[테이블명]
+--  형태로 호출하여 사용할 수 있습니다.
+--  SELECT 쿼리를 예로 들면 아래와 같습니다.
+
+</code></pre>
+
+<p>- MSSQL 연결된 서버에 SELECT 쿼리시</p>
+
+<pre><code class="language-mssql">SELECT [컬럼명] FROM [연결된 서버별칭].[데이터 베이스명].[데이터베이스 소유자명].[테이블명] WHERE [조건절]
+</code></pre>
 
 <ul>
-<li>.a : 리눅스 / 정적 라이브러리</li>
-<li>.so : 리눅스 / 동적 라이브러리</li>
-<li>.lib : 윈도우 / 정적 라이브러리</li>
-<li>.dll : 윈도우 / 동적 라이브러리</li>
+<li>Openquery 활용</li>
 </ul>
 
-<h4 id="동적-라이브러리-dll">동적 라이브러리 dll</h4>
-
-<ul>
-<li>DLL을 구현하고 컴파일하고 나면 Static library와는 다르게 output file이 2개가 생성됩니다.</li>
-<li>하나는 *.lib 파일이고
-하나는 *.dll 파일이다.</li>
-<li>여기서 *.lib 파일은 Static library의 *.lib 파일과는 전혀 다릅니다.</li>
-<li>Static library의 *.lib 파일은 <strong>라이브러리 전체 코드</strong>를 포함하는 <strong>바이너리</strong>이며,
-DLL의 *.lib 파일은 DLL이 제공하고자 하는 <strong>함수 정보(함수명)</strong>을 가지는 <strong>정보 파일</strong>입니다.</li>
-<li>프로그램 시작할 때 같이 로딩되어
-프로그램 종료 할 때 <strong>메모리</strong>에서 <strong>해제</strong>되는 방법을
-<strong>암시적 링킹(Implicit Linking)</strong>이라 합니다</li>
-<li>DLL의 *.lib 파일을 이용하여 <strong>링킹</strong>하는 것을 <strong>암시적 링킹(implicit linking)</strong>이라고 합니다</li>
-<li>프로그램 실행 시 필요시만 외부 DLL 파일에서 함수를 참조합니다</li>
-<li>실행 바이너리를 링크 단계에서 실행 바이너리의 *.obj 파일들과 DLL의 *.lib 파일을 함께 링크하여
-이 정보를 토대로 runtime에 DLL의 함수 코드를 참조하게 되는 것입니다.</li>
-<li>즉 *.lib 파일은 <strong>링크</strong>시 필요하고, *.dll 파일은 <strong>실행</strong>시 필요합니다.</li>
-</ul>
-
-<h4 id="정적-라이브러리-lib">정적 라이브러리 lib</h4>
-
-<ul>
-<li>프로그램 빌드 시에 라이브러리가 제공하는 코드를 실행 파일에 넣는 방식의 라이브러리를 의미합니다.</li>
-<li><strong>컴파일</strong>의 <strong>링킹 단계</strong>에서 <strong>실행 파일</strong>에 <strong>결합</strong>됩니다.</li>
-<li>특정 기능의 라이브러리를 static 하게 제작한다는 것은 컴파일의 link 단계에서 <strong>라이브러리(*.lib 파일)</strong>를 <strong>실행 바이너리</strong>에 포함시킨다는 말입니다.</li>
-<li>즉 <strong>라이브러리의 동작 코드</strong>가 이를 사용하는 <strong>실행 바이너리</strong> 속에 포함되기 때문에 별도의 추가 작업없이, 그리고 <strong>독립적</strong>으로 라이브러리 함수들을 사용할 수 있습니다.</li>
-<li>정적 라이브러리를 사용하여 컴파일을 하면 <strong>링커</strong>가 프로그램이 <strong>필요</strong>로 하는 <strong>부분</strong>을 <strong>라이브러리</strong>에서 찾아 실행파일에 바로 <strong>복사</strong>합니다.</li>
-<li>실행 파일에 다 들어가기 때문에 <strong>실행 시</strong> 라이브러리가 필요없습니다.</li>
-</ul>
-
-<h4 id="정리">정리</h4>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th align="center"><strong>LIB</strong>(정적 static)</th>
-<th align="center"><strong>DLL</strong> (동적 dynamic)</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><strong>장점</strong></td>
-<td align="center">1. 속도가 빠르다 2. 작성이 간단하다 3. 컴파일시에 해당 정적 라이브러리의 내용이 실행 바이너리 안에 포함되기 때문에 함께 배포하지 않아도 된다 4. 런타임시 외부 참조가 없어 속도가 빠르다</td>
-<td align="center">1. 메인 실행 파일의 사이즈가 작아진다 2. dll에 있는 함수들을 다른 곳에서도 호출하여 쓸 수 있으므로 재사용성이 증대된다 3. DLL 업그레이드시 해당 모듈만 교체하고 메인 프로그램은 컴파일하지 않아도 된다</td>
-</tr>
-
-<tr>
-<td><strong>단점</strong></td>
-<td align="center">1. 실행 파일의 크기가 커진다 2. 함수의 재사용성이 코드레벨에서만 가능하다 3. 라이브러리가 업데이트 될 경우 다시 빌드하여 컴파일해야 한다</td>
-<td align="center">1. 사용이 복잡하다 2. 속도가 lib에 비해 느릴 수 있다 3. 컴파일시에 해당 동적 라이브러리의 내용이 실행 파일안에 포함되지 않기 때문에, 반드시 실행 파일 배포시에는 라이브러리 역시 함께 배포해야 한다.</td>
-</tr>
-</tbody>
-</table>
+<pre><code class="language-mssql">  -- 'OpenQuery' 이용이 Linked Server를 이용하는 방식보다 빠르다.
+  -- OpenQuery() 안의 내용은 varchar(8000) 까지이다.
+  
+  -- select
+  SELECT *
+  FROM OPENQUERY(
+      [192.168.0.1],
+      'SELECT * FROM [테이블] WHERE no &lt; 101'
+  );
+  
+  -- update
+  UPDATE OpenQuery(
+      [192.168.0.1],
+      'SELECT regDate
+      FROM [데이터베이스].dbo.[테이블]
+      WHERE Seq = 1')
+  Set regDate = getDate()
+  
+  -- Update : 동적 쿼리
+  Declare @strQuery varchar(4000)
+  Declare @no bigint = 123
+  Declare @a int = 10
+  Declare @b int = 10
+  Set @strQuery = N'UPDATE OpenQuery([192.168.0.1], '''
+          + N'SELECT a, b'
+          + N' FROM [데이터베이스].dbo.[테이블]'
+          + N' WHERE no = ' + CONVERT(varchar(30),@no)+''
+      + N''')'
+      + N' Set a = a + '+ Convert(varchar(30),@a)+''
+      + N', b = b + '+ Convert(varchar(30),@b)
+  --print @strQuery
+  Exec (@strQuery);
+</code></pre>
               
             </div>
           </div>
@@ -365,7 +382,9 @@ DLL의 *.lib 파일은 DLL이 제공하고자 하는 <strong>함수 정보(함�
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/common/">Common</a>
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/db/">DB</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/mssql/">MsSQL</a>
 
                   </div>
                 
@@ -378,7 +397,7 @@ DLL의 *.lib 파일은 DLL이 제공하고자 하는 <strong>함수 정보(함�
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/" data-tooltip="MsSQL linked server와 OPENQUERY 정의, 사용법">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-union-all-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/" data-tooltip="MsSQL UNION (ALL) 정의, 사용법">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -386,7 +405,7 @@ DLL의 *.lib 파일은 DLL이 제공하고자 하는 <strong>함수 정보(함�
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/stdadvance-%EC%98%88%EC%A0%9C/" data-tooltip="std::advance 예제">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/" data-tooltip="정적 라이브러리(lib) vs 동적 라이브러리(dll)">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -404,19 +423,19 @@ DLL의 *.lib 파일은 DLL이 제공하고자 하는 <strong>함수 정보(함�
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -464,7 +483,7 @@ DLL의 *.lib 파일은 DLL이 제공하고자 하는 <strong>함수 정보(함�
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/" data-tooltip="MsSQL linked server와 OPENQUERY 정의, 사용법">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/mssql-union-all-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/" data-tooltip="MsSQL UNION (ALL) 정의, 사용법">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -472,7 +491,7 @@ DLL의 *.lib 파일은 DLL이 제공하고자 하는 <strong>함수 정보(함�
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/stdadvance-%EC%98%88%EC%A0%9C/" data-tooltip="std::advance 예제">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/" data-tooltip="정적 라이브러리(lib) vs 동적 라이브러리(dll)">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -490,19 +509,19 @@ DLL의 *.lib 파일은 DLL이 제공하고자 하는 <strong>함수 정보(함�
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -532,19 +551,19 @@ DLL의 *.lib 파일은 DLL이 제공하고자 하는 <strong>함수 정보(함�
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2F%25EC%25A0%2595%25EC%25A0%2581-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25AClib-vs-%25EB%258F%2599%25EC%25A0%2581-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25ACdll%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-linked-server%25EC%2599%2580-openquery-%25EC%25A0%2595%25EC%259D%2598-%25EC%2582%25AC%25EC%259A%25A9%25EB%25B2%2595%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2F%25EC%25A0%2595%25EC%25A0%2581-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25AClib-vs-%25EB%258F%2599%25EC%25A0%2581-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25ACdll%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-linked-server%25EC%2599%2580-openquery-%25EC%25A0%2595%25EC%259D%2598-%25EC%2582%25AC%25EC%259A%25A9%25EB%25B2%2595%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2F%25EC%25A0%2595%25EC%25A0%2581-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25AClib-vs-%25EB%258F%2599%25EC%25A0%2581-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25ACdll%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fmssql-linked-server%25EC%2599%2580-openquery-%25EC%25A0%2595%25EC%259D%2598-%25EC%2582%25AC%25EC%259A%25A9%25EB%25B2%2595%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -636,9 +655,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95\/';
           
-            this.page.identifier = '\/2020\/11\/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll\/'
+            this.page.identifier = '\/2020\/11\/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95\/'
           
         };
         (function() {
