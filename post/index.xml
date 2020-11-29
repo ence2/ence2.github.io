@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 29 Nov 2020 22:59:40 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 29 Nov 2020 23:05:52 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>정적 라이브러리(lib) vs 동적 라이브러리(dll)</title>
+      <link>https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/</link>
+      <pubDate>Sun, 29 Nov 2020 23:05:52 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/</guid>
+      <description>&lt;p&gt;라이브러리란 특정한 코드(함수 혹은 클래스)를 포함하고 있는 컴파일된 파일입니다.&lt;/p&gt;
+
+&lt;p&gt;라이브러리에도 그 쓰임새에 따라서 여러가지 종류가 있습니다.(크게 3가지) 가장 흔하게 쓰일수 있는 &amp;ldquo;정적라이브러리&amp;rdquo;와 &amp;ldquo;공유라이브러리&amp;rdquo;, &amp;ldquo;동적라이브러리&amp;rdquo; 가 있습니다. 이들 라이브러리가 서로 구분되어지는 특징은 라이브러리의 로드 타이밍입니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>std::advance 예제</title>
