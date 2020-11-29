@@ -245,318 +245,16 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/mssql-procedure-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80/">
-          MsSQL Procedure 프로시저
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
+          std::tie 사용법
         </a>
       </h1>
       
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-15T15:29:56&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-08T21:38:48&#43;09:00">
         
-  November 15, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/mssql">MsSQL</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>저장 프로시저는 다음과 같은 점에서 다른 프로그래밍 언어의 프로시저와 유사합니다.</p>
-
-<ul>
-<li>입력 매개 변수를 받아 여러 값을 출력 매개 변수의 형태로 호출하는 프로시저 또는 일괄 처리에 반환합니다.</li>
-<li>다른 프로시저 호출을 비롯하여 데이터베이스에서 작업을 수행하는 프로그래밍 문이 포함되어 있습니다.</li>
-<li>호출하는 프로시저 또는 일괄 처리에 상태 값을 반환하여 성공 또는 실패 및 실패 원인을 나타냅니다.</li>
-</ul>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/mssql-procedure-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/mssql-cursor/">
-          MsSQL Cursor
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-15T15:17:47&#43;09:00">
-        
-  November 15, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/mssql">MsSQL</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>커서는 행 단위 작업을 추가로 제어해야 할 경우 사용되는 기능입니다.</p>
-
-<p>여러 행을 select 하여 While 반복문 등에 활용 될 수 있습니다. 프로그래밍의 for문의 첨자 i와 비슷합니다.</p>
-
-<p>프로시저 작성시 활용됩니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/mssql-cursor/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/mssql-%EA%B0%92-%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-identity%EC%99%80-%EC%8B%9C%ED%80%80%EC%8A%A4sequence/">
-          MsSQL 값 자동 증가 identity와 시퀀스(sequence)
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-15T14:27:54&#43;09:00">
-        
-  November 15, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/mssql">MsSQL</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>MsSQL에서 identity 옵션은 MySQL의 auto increment 옵션과 같습니다. (insert시 컬럼 값 자동 증가)</p>
-
-<p>위 옵션들은 해당 테이블에 종속적이며, 여러 테이블에 걸친 전역적인 값 증가는 sequence라는 객체를 사용합니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/mssql-%EA%B0%92-%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-identity%EC%99%80-%EC%8B%9C%ED%80%80%EC%8A%A4sequence/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">
-          MsSQL UDF(User Defined Functions)
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-15T14:12:55&#43;09:00">
-        
-  November 15, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/mssql">MsSQL</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>프로그래밍 언어의 함수처럼 SQL Server 사용자 정의 함수는 매개 변수를 받아들이고 복잡한 계산과 같은 동작을 수행하며 해당 작업의 결과를 값으로 반환합니다. 반환 값은 단일 스칼라 값이나 결과 집합일 수 있습니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/mssql-%EB%AC%B4%EA%B2%B0%EC%84%B1-%EA%B0%95%EC%A0%9C-%EC%A0%81%EC%9A%A9%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4-primary-key-%EB%B0%8F-foreign-key/">
-          MsSQL 무결성 강제 적용(제약조건) PRIMARY KEY 및 FOREIGN KEY
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-15T13:39:43&#43;09:00">
-        
-  November 15, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/mssql">MsSQL</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>MsSQL 테이블에서 데이터 무결성을 강제 적용하는 데 사용할 수 있는 두 가지 유형의 제약 조건으로 기본 키와 외래 키가 있습니다. 이들 키는 중요한 데이터베이스 개체입니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/mssql-%EB%AC%B4%EA%B2%B0%EC%84%B1-%EA%B0%95%EC%A0%9C-%EC%A0%81%EC%9A%A9%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4-primary-key-%EB%B0%8F-foreign-key/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdlock_guard/">
-          std::lock_guard
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-14T22:48:24&#43;09:00">
-        
-  November 14, 2020
+  November 8, 2020
 
       </time>
     
@@ -576,70 +274,12 @@ if (!doNotTrack) {
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <h4 id="std-lock-guard">std::lock_guard</h4>
+        <h3 id="std-tie">std::tie</h3>
 
-<p>std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.</p>
+<p>pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.</p>
       
       <p>
-        <a href="https://ence2.github.io/2020/11/stdlock_guard/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
-          std::chrono::high_resolution_clock
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-14T22:26:09&#43;09:00">
-        
-  November 14, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>5 years a go I’ve showed how to <a href="https://www.guyrutenberg.com/2007/09/22/profiling-code-using-clock_gettime/">use <code>clock_gettime</code></a> to do basic high_resolution profiling. The approach there is very useful, but unfortunately, not cross-platform. It works only on POSIX compliant systems (especially not windows).</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -654,22 +294,15 @@ if (!doNotTrack) {
       
         
           <li class="pagination-prev">
-            <a class="btn btn--default btn--small" href="https://ence2.github.io/">
+            <a class="btn btn--default btn--small" href="https://ence2.github.io/page/6/">
               <i class="fa fa-angle-left text-base icon-mr"></i>
               <span>NEWER POSTS</span>
             </a>
           </li>
         
         
-          <li class="pagination-next">
-            <a class="btn btn--default btn--small" href="https://ence2.github.io/page/3/">
-              <span>OLDER POSTS</span>
-              <i class="fa fa-angle-right text-base icon-ml"></i>
-            </a>
-          </li>
-        
       
-      <li class="pagination-number">page 2 of 7</li>
+      <li class="pagination-number">page 7 of 7</li>
     </ul>
   </div>
 
