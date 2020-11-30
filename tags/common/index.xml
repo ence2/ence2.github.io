@@ -6,10 +6,19 @@
     <description>Recent content in Common on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 29 Nov 2020 23:05:52 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 11:36:17 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/tags/common/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>비주얼 스튜디오 관련 단축키 총정리</title>
+      <link>https://ence2.github.io/2020/11/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%EA%B4%80%EB%A0%A8-%EB%8B%A8%EC%B6%95%ED%82%A4-%EC%B4%9D%EC%A0%95%EB%A6%AC/</link>
+      <pubDate>Mon, 30 Nov 2020 11:36:17 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%EA%B4%80%EB%A0%A8-%EB%8B%A8%EC%B6%95%ED%82%A4-%EC%B4%9D%EC%A0%95%EB%A6%AC/</guid>
+      <description>&lt;p&gt;비주얼 스튜디오로 개발시 생산성이나 편의성 관련 사용하는 단축키 정리&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>정적 라이브러리(lib) vs 동적 라이브러리(dll)</title>
