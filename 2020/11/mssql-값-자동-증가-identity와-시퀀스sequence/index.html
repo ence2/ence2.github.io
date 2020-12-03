@@ -294,7 +294,7 @@ if (!doNotTrack) {
 
 <h1 id="identity">identity</h1>
 
-<pre><code class="language-mssql">-- 테이블 생성시
+<pre><code class="language-sql">-- 테이블 생성시
 CREATE TABL]E (
 
    [컬럼명] [숫자데이터형식] IDENTITY ([초기값], [증가값]) [제약조건]
@@ -339,7 +339,7 @@ INSERT INTO testTB (name) value('이름'); -- 자동으로 id 지정됨
 
 <h3 id="구문">구문</h3>
 
-<pre><code class="language-mssql">CREATE SEQUENCE [schema_name . ] sequence_name  
+<pre><code class="language-sql">CREATE SEQUENCE [schema_name . ] sequence_name  
     [ AS [ built_in_integer_type | user-defined_integer_type ] ]  
     [ START WITH &lt;constant&gt; ]  
     [ INCREMENT BY &lt;constant&gt; ]  

@@ -289,14 +289,14 @@ if (!doNotTrack) {
 <h3 id="mysql의-경우-사용-방법">MySql의 경우 사용 방법</h3>
 
 <blockquote>
-<pre><code class="language-mysql">INSERT INTO t1 (a,b,c) VALUES (1,2,3)  ON DUPLICATE KEY UPDATE c=c+1;
+<pre><code class="language-sql">INSERT INTO t1 (a,b,c) VALUES (1,2,3)  ON DUPLICATE KEY UPDATE c=c+1;
 </code></pre>
 </blockquote>
 
 <h3 id="mssql의-경우-사용-방법">MsSql의 경우 사용 방법</h3>
 
 <blockquote>
-<pre><code class="language-mssql">CREATE PROCEDURE dbo.InsertOrUpdateEmployee
+<pre><code class="language-sql">CREATE PROCEDURE dbo.InsertOrUpdateEmployee
        @ID INT,
        @Name VARCHAR(50),
        @ItemName VARCHAR(50),  

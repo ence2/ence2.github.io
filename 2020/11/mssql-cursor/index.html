@@ -304,7 +304,7 @@ if (!doNotTrack) {
 
 <h3 id="커서-선언">커서 선언</h3>
 
-<pre><code>--커서 생성
+<pre><code class="language-sql">--커서 생성
 DECLARE   CursorEmail   CURSOR  
 FOR SELECT Email from tblUserTable where IsDelete = 'False'
 </code></pre>
@@ -337,7 +337,7 @@ Deallocate CursorEmail;
 
 <h3 id="fetch-구문">FETCH 구문</h3>
 
-<pre><code class="language-syntaxsql">FETCH   
+<pre><code class="language-sql">FETCH   
           [ [ NEXT | PRIOR | FIRST | LAST   
                     | ABSOLUTE { n | @nvar }   
                     | RELATIVE { n | @nvar }   

@@ -286,7 +286,7 @@ if (!doNotTrack) {
 
 <p>사용예</p>
 
-<pre><code class="language-mssql">MERGE 변경될테이블명 AS A
+<pre><code class="language-sql">MERGE 변경될테이블명 AS A
     USING 기준테이블명 AS B
     ON A.컬럼명 = B.컬럼명
     WHEN MATCHED THEN
@@ -299,7 +299,7 @@ if (!doNotTrack) {
 
 <p>또한, MATCHED, NOT MATCHED와 함께 추가 조건 지정도 가능합니다.</p>
 
-<pre><code class="language-mssql">MERGE 변경될테이블명 AS A
+<pre><code class="language-sql">MERGE 변경될테이블명 AS A
     USING (SELECT 컬럼명 FROM 기준테이블명) AS B
     ON (A.컬럼명 = B.컬럼명 AND A.컬럼명 = B.컬럼명)
     WHEN MATCHED AND 조건 THEN

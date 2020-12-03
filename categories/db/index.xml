@@ -109,7 +109,7 @@
       <guid>https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/</guid>
       <description>&lt;h4 id=&#34;구문&#34;&gt;구문&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-mssql&#34;&gt;-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
 
 SET QUOTED_IDENTIFIER { ON | OFF }
 &lt;/code&gt;&lt;/pre&gt;</description>
@@ -123,7 +123,7 @@ SET QUOTED_IDENTIFIER { ON | OFF }
       <guid>https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/</guid>
       <description>&lt;h4 id=&#34;구문&#34;&gt;구문&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-mssql&#34;&gt;-- Syntax for SQL Server
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- Syntax for SQL Server
 
 SET ANSI_NULLS { ON | OFF }
 &lt;/code&gt;&lt;/pre&gt;</description>

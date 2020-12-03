@@ -249,7 +249,7 @@
       <guid>https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/</guid>
       <description>&lt;h4 id=&#34;구문&#34;&gt;구문&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-mssql&#34;&gt;-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
 
 SET QUOTED_IDENTIFIER { ON | OFF }
 &lt;/code&gt;&lt;/pre&gt;</description>
@@ -263,7 +263,7 @@ SET QUOTED_IDENTIFIER { ON | OFF }
       <guid>https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/</guid>
       <description>&lt;h4 id=&#34;구문&#34;&gt;구문&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-mssql&#34;&gt;-- Syntax for SQL Server
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- Syntax for SQL Server
 
 SET ANSI_NULLS { ON | OFF }
 &lt;/code&gt;&lt;/pre&gt;</description>
@@ -502,12 +502,12 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       <guid>https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</guid>
       <description>&lt;h3 id=&#34;define-상수&#34;&gt;#define 상수&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code&gt;#define 상수명 값
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#define 상수명 값
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;define-지시문-매크로-함수&#34;&gt;#define 지시문 (매크로 함수)&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code&gt;#define 식별자(인수1, 인수2 ...) 토큰열
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#define 식별자(인수1, 인수2 ...) 토큰열
 &lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
