@@ -8,33 +8,57 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="C&#43;&#43;20 과정 스터디 기록 관련 시리즈입니다.
-C&#43;&#43;20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
-본 포스팅에서는 간략한 특징을 소개합니다.">
+<meta name="description" content="C&#43;&#43;20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.
 
 
-<meta property="og:description" content="C&#43;&#43;20 과정 스터디 기록 관련 시리즈입니다.
-C&#43;&#43;20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
-본 포스팅에서는 간략한 특징을 소개합니다.">
+템플릿 사용 가능
+평가 되지 않은 표현식 사용 가능
+캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능
+암시적 this 캡쳐 deprecated
+parameter pack 캡쳐 가능
+">
+
+
+<meta property="og:description" content="C&#43;&#43;20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.
+
+
+템플릿 사용 가능
+평가 되지 않은 표현식 사용 가능
+캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능
+암시적 this 캡쳐 deprecated
+parameter pack 캡쳐 가능
+">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#43;&#43;20 스터디 - 소개[1]">
-<meta name="twitter:title" content="C&#43;&#43;20 스터디 - 소개[1]">
-<meta property="og:url" content="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/">
+<meta property="og:title" content="C&#43;&#43;20 스터디 - 람다의 변화[1]">
+<meta name="twitter:title" content="C&#43;&#43;20 스터디 - 람다의 변화[1]">
+<meta property="og:url" content="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="C&#43;&#43;20 과정 스터디 기록 관련 시리즈입니다.
-C&#43;&#43;20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
-본 포스팅에서는 간략한 특징을 소개합니다.">
-<meta name="twitter:description" content="C&#43;&#43;20 과정 스터디 기록 관련 시리즈입니다.
-C&#43;&#43;20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
-본 포스팅에서는 간략한 특징을 소개합니다.">
+<meta property="og:description" content="C&#43;&#43;20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.
+
+
+템플릿 사용 가능
+평가 되지 않은 표현식 사용 가능
+캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능
+암시적 this 캡쳐 deprecated
+parameter pack 캡쳐 가능
+">
+<meta name="twitter:description" content="C&#43;&#43;20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.
+
+
+템플릿 사용 가능
+평가 되지 않은 표현식 사용 가능
+캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능
+암시적 this 캡쳐 deprecated
+parameter pack 캡쳐 가능
+">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-01-05T15:58:30">
+    <meta property="article:published_time" content="2021-01-06T11:58:00">
   
   
-    <meta property="article:modified_time" content="2021-01-05T15:58:30">
+    <meta property="article:modified_time" content="2021-01-06T11:58:00">
   
   
   
@@ -71,14 +95,14 @@ C&#43;&#43;20 에 추가된 다양한 문법과 라이브러리를 정리합니�
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C&#43;&#43;20 스터디 - 소개[1]</title>
+    <title>C&#43;&#43;20 스터디 - 람다의 변화[1]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/">
+    <link rel="canonical" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -251,15 +275,15 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      C&#43;&#43;20 스터디 - 소개[1]
+      C&#43;&#43;20 스터디 - 람다의 변화[1]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-01-05T15:58:30&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-01-06T11:58:00&#43;09:00">
         
-  January 5, 2021
+  January 6, 2021
 
       </time>
     
@@ -280,132 +304,88 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>C++20 과정 스터디 기록 관련 시리즈입니다.
-C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
-본 포스팅에서는 간략한 특징을 소개합니다.</p>
+              <p>C++20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.</p>
 
-<h3 id="기본-특징">기본 특징</h3>
+<ol>
+<li>템플릿 사용 가능</li>
+<li>평가 되지 않은 표현식 사용 가능</li>
+<li>캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능</li>
+<li>암시적 this 캡쳐 deprecated</li>
+<li>parameter pack 캡쳐 가능</li>
+</ol>
+
+<h3 id="람다-표현식-템플릿">람다 표현식 템플릿</h3>
 
 <ul>
-<li><p><strong>4가지 큰 흐름</strong>
-concept, coruntine, module, range</p></li>
+<li><p>기존에 람다 표현식 입력 인자를 auto로 할 경우 C++14 부터 자동으로 템플릿화 하여 여러 타입에 대응되는 표현식을 작성 할 수 있으나, 동일 타입에 대해서만
+동작하게 만들 수 없었습니다.</p></li>
 
-<li><p>C++20 표준 확정</p></li>
-
-<li><p>아직은 모든 컴파일러에서 표준의 모든 기능을 지원하지 않음</p></li>
-
-<li><p>C++ 11/14/17을 알아야 정확히 이해 가능한 내용 다수 포함</p></li>
-
-<li><p>컴파일러 vs cl 컴파일러 19.28 이상 버전 권장</p></li>
-
-<li><p>프로젝트 속성 컴파일러 옵션 /std:c++latest 추가 필요</p></li>
+<li><p>C++20 방식 예제</p></li>
 </ul>
 
-<h3 id="신규-키워드">신규 키워드</h3>
+<pre><code class="language-c++">  auto add = [](auto a, auto b) {return a+b;} // C++14 모든 타입 대응가능
+  auto add = [](auto a, decltype(a) b) {return a+b;} // C++14 a와 b 타입 동일시 하지만, 원치 않은 동작 발생 가능
+  auto add = []&lt;typename T&gt;(T a, T b) {return a+b;} // C++20 새로운 방식, 타입이 다를 경우 컴파일 오류 발생
+</code></pre>
 
-<table>
-<thead>
-<tr>
-<th>내 용</th>
-<th>키워드 이름</th>
-</tr>
-</thead>
+<h3 id="평가-되지-않은-표현식">평가 되지 않은 표현식</h3>
 
-<tbody>
-<tr>
-<td>Concept 문법 지원</td>
-<td>concept, requires</td>
-</tr>
+<ul>
+<li><p>런타임 시간에는 실행되지 않고, 컴파일 시간에만 사용 되는 표현식
+sizoeof, decltype, typeid, nocept</p></li>
 
-<tr>
-<td>Corutine 문법 지원</td>
-<td>co_wait, co_return, co_yield</td>
-</tr>
+<li><p>C++17까지는 람다 표현식을 평가되지 않은 표현식으로 사용 할 수 없었음, But 20부터 가능해졌습니다.</p></li>
+</ul>
 
-<tr>
-<td>Module 문법 지원</td>
-<td>module, import, export</td>
-</tr>
+<pre><code class="language-c++">  std::cout &lt;&lt; sizeof( [](int a, int b) { return a+b; } ) &lt;&lt; std::endl; // C++17 불가, C++20 허용
+  
+  // 활용 : 스마트 포인터 deleter의 인자로 람다를 넘겨 줄 수 있음 C++20
+  std::unique_ptr&lt;int, decltype( [](int* p) { delete p; })&gt; pVal( new int );
+</code></pre>
 
-<tr>
-<td>상수성 지원</td>
-<td>constinit, consteval</td>
-</tr>
+<h3 id="람다-표현식과-디폴트-생성자">람다 표현식과 디폴트 생성자</h3>
 
-<tr>
-<td>UTF-8 문자열 지원</td>
-<td>char8_t</td>
-</tr>
-</tbody>
-</table>
+<pre><code class="language-c++">// 캡쳐 없는 케이스
+int v = 10;
+auto r1 = [](int a, int b) {return a + b};
 
-<h3 id="신규-헤더">신규 헤더</h3>
+                        // ~C++17       C++20
+decltype(r1) r2;        // 불가          가능
+decltype(r1) r3 = r1;   // 가능          가능
+r3 = r1;                // 불가          가능
 
-<table>
-<thead>
-<tr>
-<th>내 용</th>
-<th>헤더 이름</th>
-</tr>
-</thead>
+// 캡쳐 있는 케이스
+int v = 10;
+auto r1 = [v](int a, int b) {return a + b};
 
-<tbody>
-<tr>
-<td>Concepts</td>
-<td>〈concepts〉</td>
-</tr>
+                        // ~C++17       C++20
+decltype(r1) r2;        // 불가          !!불가!!
+decltype(r1) r3 = r1;   // 가능          가능
+r3 = r1;                // 불가          !!불가!!
+</code></pre>
 
-<tr>
-<td>Coroutines</td>
-<td>〈coroutine〉</td>
-</tr>
+<h3 id="암묵적-this-캡쳐-deprecated">암묵적 this 캡쳐 deprecated</h3>
 
-<tr>
-<td>utility</td>
-<td>〈compare&gt;, 〈version〉, 〈source_location〉</td>
-</tr>
+<ul>
+<li>기존 람다 표현식 캡쳐시 [=] 할 경우 [=, this]와 같은 의미였습니다.
+[=]로 캡쳐시 표현식 안에서 지역변수와 모든 멤버 변수에 접근이 가능합니다.
+하지만 객체 수명 주기로 인해 의도치 않은 버그를 만들어 낼 수 있습니다. (잡기 힘든 버그가 됨. 매우 위험)</li>
+<li>C++ 20 부터는 [=] 로 캡쳐시 컴파일로 경고가 발생 합니다.( 암묵적 this 캡쳐 사용은 좋지 않은 방법이고. 명시적인 값복사 사용을 권장합니다. )</li>
+</ul>
 
-<tr>
-<td>string</td>
-<td>〈format〉</td>
-</tr>
+<h3 id="parameter-pack-캡쳐-c-17-이전에는-캡쳐-불가">Parameter pack 캡쳐( C++17 이전에는 캡쳐 불가 )</h3>
 
-<tr>
-<td>container</td>
-<td>〈span〉</td>
-</tr>
+<pre><code class="language-c++">// 값 캡쳐
+template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
+{
+    return [...args = std::forward&lt;args)](){ std::cout &lt;&lt; ... &lt;&lt; args); };
+}
 
-<tr>
-<td>Ranges</td>
-<td>〈ranges〉</td>
-</tr>
-
-<tr>
-<td>numeric</td>
-<td>〈bit〉, 〈numbers〉 〈syncstream〉</td>
-</tr>
-
-<tr>
-<td>thread</td>
-<td>〈stop_token〉, 〈semaphore〉, 〈latch〉, 〈barrier〉</td>
-</tr>
-</tbody>
-</table>
-
-<h3 id="feature-test-macro">feature test macro</h3>
-
-<blockquote>
-<p>컴파일러가 특정 문법 또는 특정 라이브러리 지원하는지 확인 가능</p>
-</blockquote>
-
-<pre><code class="language-c++">#ifdef __cpp_concepts // 언어 특징 지원 여부
-    std::cout &lt;&lt; &quot;concpets 사용 가능 &lt;&lt; std::endl;
-#endif
-
-#ifdef __cpp_lib_chrono // 라이브러리 특징 지원 여부
-    std::cout &lt;&lt; &quot;chrono 지원&quot; &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;version(버전은 년도로 정의)&quot; : &lt;&lt; __cpp_lib_chrono &lt;&lt; std::endl;
-#endif
+// 참조 캡쳐
+template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
+{
+    return [&amp;...args = std::forward&lt;args)](){ std::cout &lt;&lt; ... &lt;&lt; args); };
+}
 </code></pre>
 
 <p>더 많은 정보 -&gt; cppreference.com</p>
@@ -437,7 +417,7 @@ concept, coruntine, module, range</p></li>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/" data-tooltip="C&#43;&#43;20 스터디 - 람다의 변화[1]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -445,7 +425,7 @@ concept, coruntine, module, range</p></li>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/" data-tooltip="비주얼 스튜디오 프로젝트 구성속성 옵션 정리">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/" data-tooltip="C&#43;&#43;20 스터디 - 소개[1]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -463,19 +443,19 @@ concept, coruntine, module, range</p></li>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -523,7 +503,7 @@ concept, coruntine, module, range</p></li>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/" data-tooltip="C&#43;&#43;20 스터디 - 람다의 변화[1]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -531,7 +511,7 @@ concept, coruntine, module, range</p></li>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/" data-tooltip="비주얼 스튜디오 프로젝트 구성속성 옵션 정리">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/" data-tooltip="C&#43;&#43;20 스터디 - 소개[1]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -549,19 +529,19 @@ concept, coruntine, module, range</p></li>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -591,19 +571,19 @@ concept, coruntine, module, range</p></li>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-%25EC%2586%258C%25EA%25B0%259C1%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-%25EB%259E%258C%25EB%258B%25A4%25EC%259D%2598-%25EB%25B3%2580%25ED%2599%25941%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-%25EC%2586%258C%25EA%25B0%259C1%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-%25EB%259E%258C%25EB%258B%25A4%25EC%259D%2598-%25EB%25B3%2580%25ED%2599%25941%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-%25EC%2586%258C%25EA%25B0%259C1%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-%25EB%259E%258C%25EB%258B%25A4%25EC%259D%2598-%25EB%25B3%2580%25ED%2599%25941%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -695,9 +675,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/01\/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/01\/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941\/';
           
-            this.page.identifier = '\/2021\/01\/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EC%86%8C%EA%B0%9C1\/'
+            this.page.identifier = '\/2021\/01\/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%941\/'
           
         };
         (function() {
