@@ -8,41 +8,33 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="Attributes는 C&#43;&#43;17에서 추가된 문법입니다.
+<meta name="description" content="c&#43;&#43;20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.
 
-Attributes는 컴파일러 지시문으로 표준이 나오기 전에는 컴파일러마다 다른 방식으로 사용했습니다.
-
-C&#43;&#43; 20에서 추가된 Attributes는 다음과 같습니다.">
+이 연산자의 의미는 다음과 같습니다.">
 
 
-<meta property="og:description" content="Attributes는 C&#43;&#43;17에서 추가된 문법입니다.
+<meta property="og:description" content="c&#43;&#43;20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.
 
-Attributes는 컴파일러 지시문으로 표준이 나오기 전에는 컴파일러마다 다른 방식으로 사용했습니다.
-
-C&#43;&#43; 20에서 추가된 Attributes는 다음과 같습니다.">
+이 연산자의 의미는 다음과 같습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#43;&#43;20 스터디 - Attributes[3]">
-<meta name="twitter:title" content="C&#43;&#43;20 스터디 - Attributes[3]">
-<meta property="og:url" content="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/">
+<meta property="og:title" content="C&#43;&#43;20 스터디 - Three Way Comparison(&lt;=&gt;)[4]">
+<meta name="twitter:title" content="C&#43;&#43;20 스터디 - Three Way Comparison(&lt;=&gt;)[4]">
+<meta property="og:url" content="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="Attributes는 C&#43;&#43;17에서 추가된 문법입니다.
+<meta property="og:description" content="c&#43;&#43;20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.
 
-Attributes는 컴파일러 지시문으로 표준이 나오기 전에는 컴파일러마다 다른 방식으로 사용했습니다.
+이 연산자의 의미는 다음과 같습니다.">
+<meta name="twitter:description" content="c&#43;&#43;20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.
 
-C&#43;&#43; 20에서 추가된 Attributes는 다음과 같습니다.">
-<meta name="twitter:description" content="Attributes는 C&#43;&#43;17에서 추가된 문법입니다.
-
-Attributes는 컴파일러 지시문으로 표준이 나오기 전에는 컴파일러마다 다른 방식으로 사용했습니다.
-
-C&#43;&#43; 20에서 추가된 Attributes는 다음과 같습니다.">
+이 연산자의 의미는 다음과 같습니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-01-06T11:58:00">
+    <meta property="article:published_time" content="2021-01-06T13:58:00">
   
   
-    <meta property="article:modified_time" content="2021-01-06T11:58:00">
+    <meta property="article:modified_time" content="2021-01-06T13:58:00">
   
   
   
@@ -79,14 +71,14 @@ C&#43;&#43; 20에서 추가된 Attributes는 다음과 같습니다.">
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C&#43;&#43;20 스터디 - Attributes[3]</title>
+    <title>C&#43;&#43;20 스터디 - Three Way Comparison(&lt;=&gt;)[4]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/">
+    <link rel="canonical" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -259,13 +251,13 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      C&#43;&#43;20 스터디 - Attributes[3]
+      C&#43;&#43;20 스터디 - Three Way Comparison(&lt;=&gt;)[4]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-01-06T11:58:00&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-01-06T13:58:00&#43;09:00">
         
   January 6, 2021
 
@@ -288,83 +280,85 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>Attributes는 C++17에서 추가된 문법입니다.</p>
+              <p>c++20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.</p>
 
-<p>Attributes는 컴파일러 지시문으로 표준이 나오기 전에는 컴파일러마다 다른 방식으로 사용했습니다.</p>
+<p>이 연산자의 의미는 다음과 같습니다.</p>
 
-<p>C++ 20에서 추가된 Attributes는 다음과 같습니다.</p>
+<table>
+<thead>
+<tr>
+<th>식</th>
+<th>의미</th>
+</tr>
+</thead>
 
-<ol>
-<li>[[nodiscard(&ldquo;reason&rdquo;)]]</li>
-<li>[[likely]]</li>
-<li>[[unlikely]]</li>
-<li>[[no_unique_address]]</li>
-</ol>
+<tbody>
+<tr>
+<td>(a &lt;=&gt; b)  &lt; 0</td>
+<td>a &lt; b</td>
+</tr>
 
-<h3 id="nodiscard">nodiscard</h3>
+<tr>
+<td>(a &lt;=&gt; b)  &gt; 0</td>
+<td>a &gt; b</td>
+</tr>
 
-<blockquote>
-<p>함수의 리턴값을 받아 사용하지 않았을 경우 컴파일 경고 표시</p>
-</blockquote>
+<tr>
+<td>(a &lt;=&gt; b)  == 0</td>
+<td>a == b</td>
+</tr>
+</tbody>
+</table>
 
-<pre><code class="language-c++">[[nodiscard(&quot;무시 하면 안되세요&quot;)]] int* MyNew(int size)
-{
-    return new int[size];
-}
+<h3 id="예제">예제</h3>
 
-// 활용
-enum class [[nodiscard(&quot;반드시 처리해야 하는 에러코드입니다.&quot;)]] ErrCode { OK, NO, FATAL};
+<pre><code class="language-c++">#include &lt;compare&gt;
 
-// enum class에 nodiscard를 명시 해 둘 경우 이 값을 리턴하는 모든 함수에 적용됨
-Errcode GetCode(){ return ErrCode::FATAL; }
+int a = 10, b = 20;
+bool r1 = a &lt; b;
+auto r2 = a &lt;=&gt; b;
 
-// 생성자의 앞에도 사용 가능
-class MyClass
-{
-    [[nodiscard(&quot;경고~&quot;)]] MyClass(int a, bool b){}
-}
+if (r2 &gt; 0) std::cout &lt;&lt; &quot;a &gt; b&quot; &lt;&lt; std::endl;
+else if (r2 &lt; 0) std::cout &lt;&lt; &quot;a &lt; b&quot; &lt;&lt; std::endl;
+else if (r2 == 0) std::cout &lt;&lt; &quot;a == b&quot; &lt;&lt; std::endl;
+
+std::cout &lt;&lt; typeid(r2).name() &lt;&lt; std::endl; //std::string_ordering
 </code></pre>
 
-<h3 id="likely-unlikey">likely / unlikey</h3>
+<h3 id="어디에-쓰나">어디에 쓰나?</h3>
 
-<blockquote>
-<p>컴파일러 최적화와 관련되어 있으며, 제어문 등을 만들 때 특정 조건이 발생할 확률이 더 높다/적다는 것을 알려주는 것</p>
-</blockquote>
+<ul>
+<li>사용자 타입을 만든 후 기존 타입과의 비교 operatior 연산자를 오버라이딩 할 때 &lt;=&gt; 를 활용 할 경우 기존 18개 -&gt; 3개 구현으로 코드양이 많이 줄어듭니다.</li>
+</ul>
 
-<pre><code class="language-c++">if ( i &gt; 1) [[likely]]
-    i += 1;
-else if( i &gt; 5)
-    i -= 1;
-else [[unlikely]]
-    i -= 2;
+<h3 id="연산자의-반환-타입">&lt;=&gt; 연산자의 반환 타입</h3>
+
+<ul>
+<li>std::strong_ordering : 두 비교 대상이 같다.</li>
+<li>std::weak_ordering : 두 비교 대상이 대등하다.(완벽하게 같진 않을 수 있음)</li>
+<li>std::partial_ordering : 비교를 없는 등의 경우의 의미를 나타내기 위해 사용 ( 실수 계산시 NaN 케이스 등 )</li>
+</ul>
+
+<pre><code class="language-c++">#include &lt;compare&gt;
+
+int n1 = 10, n2 = 20;
+double d1 = 10, d2 = 20;
+auto r1 = n1 &lt;=&gt; n2;
+auto r2 = d1 &lt;=&gt; d2;
+auto r3 = n1 &lt;=&gt; d2;
+
+if (r1 &lt; 0 ){} // r1 == std::strong_ordering::less
+if (r2 &gt; 0 ){} // r1 == std::strong_ordering::greater
+if (r3 == 0 ){} // r1 == std::strong_ordering::equal
+
+std::cout &lt;&lt; typeid(r1).name() &lt;&lt; std::endl; // struct std::strong_ordering
+std::cout &lt;&lt; typeid(r2).name() &lt;&lt; std::endl; // struct std::partial_ordering
+std::cout &lt;&lt; typeid(r3).name() &lt;&lt; std::endl; // struct std::partial_ordering
 </code></pre>
 
-<h3 id="no-unique-address">no_unique_address</h3>
+<h3 id="추가-정보">추가 정보</h3>
 
-<blockquote>
-<p>Empty class : non-static 멤버 데이터와 가상함수가 없는 클래스 (크기는 1 byte)</p>
-
-<p>Empty class가 구조체의 멤버로 놓일 때 크기를 0으로 계산시키는 속성입니다.</p>
-
-<p>람다 표현식 등을 컨테이너에 보관 할 때 활용 가능하며, 메모리 최적화에 사용 할 수 있습니다.</p>
-</blockquote>
-
-<pre><code class="language-c++">struct Empty
-{
-    void A(){}
-};
-
-struct Data
-{
-    [[no_unique_address]] Empty e;
-    int a;
-}
-
-int main()
-{
-    std::cout &lt;&lt; sizeof(Data) &lt;&lt; std::endl; // no_unique_address를 붙인 경우 4, 아닐 경우 8
-}
-</code></pre>
+<p>&lt;=&gt; 연산자는 Rewrite Expression라는 개념을 사용하며 의미는 사용자가 만든 표현식을 컴파일러가 컴파일 시간에 다시 작성한다는 의미입니다.</p>
 
 <p>더 많은 정보 -&gt; cppreference.com</p>
               
@@ -395,7 +389,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/" data-tooltip="C&#43;&#43;20 스터디 - Three Way Comparison(&lt;=&gt;)[4]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -403,7 +397,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/" data-tooltip="C&#43;&#43;20 스터디 - 람다의 변화[2]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/" data-tooltip="C&#43;&#43;20 스터디 - Attributes[3]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -421,19 +415,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -481,7 +475,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/" data-tooltip="C&#43;&#43;20 스터디 - Three Way Comparison(&lt;=&gt;)[4]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -489,7 +483,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/" data-tooltip="C&#43;&#43;20 스터디 - 람다의 변화[2]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/" data-tooltip="C&#43;&#43;20 스터디 - Attributes[3]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -507,19 +501,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -549,19 +543,19 @@ int main()
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-attributes3%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-three-way-comparison4%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-attributes3%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-three-way-comparison4%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-attributes3%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EC%258A%25A4%25ED%2584%25B0%25EB%2594%2594-three-way-comparison4%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -653,9 +647,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/01\/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/01\/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4\/';
           
-            this.page.identifier = '\/2021\/01\/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-attributes3\/'
+            this.page.identifier = '\/2021\/01\/c-20-%EC%8A%A4%ED%84%B0%EB%94%94-three-way-comparison4\/'
           
         };
         (function() {
