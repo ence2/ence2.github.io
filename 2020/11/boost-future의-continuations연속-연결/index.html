@@ -280,7 +280,7 @@ if (!doNotTrack) {
 
 <p>아래 예에서는 멤버 함수 사용의 연속으로 등록됩니다 . 이 작업은 준비 후 어떻게 진행해야하는지 설명하는 람다 함수를 사용 합니다 .</p>
 
-<pre><code>#include &lt;boost/thread/future.hpp&gt;
+<pre><code class="language-cpp">#include &lt;boost/thread/future.hpp&gt;
 using namespace boost;
 int main()
 {
@@ -291,7 +291,7 @@ int main()
 
 <p>이 함수의 핵심 기능 중 하나는 여러 비동기 작업을 연결하는 기능입니다. 비동기 프로그래밍에서는 각 연속 작업이 이전 작업이 완료 될 때만 실행되는 일련의 작업을 정의하는 것이 일반적입니다. 어떤 경우에는 선행 future가 연속이 입력으로 받아들이는 값을 생성합니다. <code>future.then()</code>을 사용 하면 연속 체인을 만드는 것이 간단하고 직관적이됩니다.</p>
 
-<pre><code>myFuture.then(...).then(...).then(...).
+<pre><code class="language-cpp">myFuture.then(...).then(...).then(...).
 </code></pre>
 
 <p>입력 매개 변수 :</p>
