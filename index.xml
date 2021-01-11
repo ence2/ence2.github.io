@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>C&#43;&#43;20 리서치 - range의 view, ref_view, revers_view, filtwer_view[7]</title>
-      <link>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/</link>
+      <title>C&#43;&#43;20 리서치 - range의 view, ref_view, revers_view, filter_view[7]</title>
+      <link>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filter_view7/</link>
       <pubDate>Mon, 11 Jan 2021 15:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/</guid>
+      <guid>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filter_view7/</guid>
       <description>&lt;p&gt;C++20에서 추가된 Ranges는 C#의 linq와 흡사하게 컨테이너의 데이터를 손쉽게 다룰 수 있는 다양한 알고리즘을 제공합니다.&lt;/p&gt;</description>
     </item>
     
@@ -640,8 +640,9 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       <guid>https://ence2.github.io/2020/11/c-%EC%BA%90%EC%8A%A4%ED%8C%85-%EC%B4%9D%EC%A0%95%EB%A6%AC%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%AC%EC%9D%B8%ED%84%B0-%EC%BA%90%EC%8A%A4%ED%8C%85-%ED%8F%AC%ED%95%A8/</guid>
       <description>&lt;p&gt;캐스트는 자료형간 또는 포인터간 형변환시 사용됩니다.&lt;/p&gt;
 
-&lt;p&gt;캐스트는 크게 묵시적 캐스트(implicit cast)와 명시적 캐스트(explicit cast) 두 가지로 나눌 수 있습니다.
-특별히 캐스트 연산자를 사용하지 않고 형변환이 이루어지는 경우를 &amp;ldquo;묵시적 캐스트&amp;rdquo; 라고 합니다.&lt;/p&gt;
+&lt;p&gt;캐스트는 크게 묵시적 캐스트(implicit cast)와 명시적 캐스트(explicit cast) 두 가지로 나눌 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;특별히 캐스트 연산자를 사용하지 않고 형변환이 이루어지는 경우를 &amp;ldquo;묵시적 캐스트&amp;rdquo; 라고 합니다.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;   int i = 10;
    char c = i;         // 묵시적 캐스트
@@ -658,7 +659,7 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       <guid>https://ence2.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/</guid>
       <description>&lt;h3 id=&#34;insert와-emplace&#34;&gt;Insert와 Emplace&lt;/h3&gt;
 
-&lt;p&gt;둘 다 컨테이너에 데이터를 삽입 하는 행위이나 차이가 있습니다&lt;/p&gt;
+&lt;p&gt;둘 다 컨테이너에 데이터를 삽입 하는 행위이나 차이가 있습니다.&lt;/p&gt;
 
 &lt;p&gt;Insert로 삽입 시 Map의 경우 std::make_pair를 이용해야하며, emplace는 간단하게 삽입이 가능하며, 내부 동작 또한 다릅니다.&lt;/p&gt;</description>
     </item>
