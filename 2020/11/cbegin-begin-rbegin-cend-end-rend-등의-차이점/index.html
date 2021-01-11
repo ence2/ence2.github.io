@@ -292,6 +292,8 @@ if (!doNotTrack) {
 
 <p>begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.</p>
 
+<p>#</p>
+
 <p>iterator 타입은 선언할 때 타입 이름이 상당히 길게 열거됩니다.</p>
 
 <pre><code class="language-cpp">std::vector&lt; std::vector&lt;int&gt;&gt;::iterator it = ptWord.begin();
@@ -316,10 +318,14 @@ if (!doNotTrack) {
 <pre><code class="language-cpp">auto it = ptWord.crbegin();
 </code></pre>
 
+<p>#</p>
+
 <p>또한 순방향도 아래와 같이 간단하게 표현이 가능합니다.</p>
 
 <pre><code class="language-cpp">auto it = ptWord.cbegin();
 </code></pre>
+
+<p>#</p>
 
 <p>auto 키워드와 cbegin(), range based for loop 등을 사용하면 STL을 보다 편리하게 사용 가능해집니다.</p>
               
