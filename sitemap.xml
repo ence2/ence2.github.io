@@ -388,42 +388,7 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/achitecture/</loc>
-    <lastmod>2020-11-18T21:43:34+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/architecture/</loc>
-    <lastmod>2020-11-14T20:11:21+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ence2.github.io/archive/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/atomic/</loc>
-    <lastmod>2020-11-09T21:45:07+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/blog/</loc>
-    <lastmod>2020-11-14T13:50:07+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/boost/</loc>
-    <lastmod>2020-11-09T21:09:42+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -436,28 +401,7 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2021-01-11T15:00:00+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/c&#43;&#43;17/</loc>
-    <lastmod>2020-11-10T21:44:03+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ence2.github.io/categories/c&#43;&#43;20/</loc>
-    <lastmod>2021-01-11T15:00:00+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/c&#43;&#43;20/</loc>
     <lastmod>2021-01-11T15:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
@@ -471,21 +415,7 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/codingconventions/</loc>
-    <lastmod>2020-11-11T21:25:16+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ence2.github.io/categories/common/</loc>
-    <lastmod>2020-11-30T11:36:17+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/common/</loc>
     <lastmod>2020-11-30T11:36:17+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
@@ -494,48 +424,6 @@
   <url>
     <loc>https://ence2.github.io/categories/db/</loc>
     <lastmod>2020-11-29T23:27:20+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/db/</loc>
-    <lastmod>2020-11-29T23:27:20+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/debugging/</loc>
-    <lastmod>2020-11-16T21:30:53+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/future/</loc>
-    <lastmod>2020-11-08T23:31:17+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/hugo/</loc>
-    <lastmod>2020-11-14T13:50:07+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/index/</loc>
-    <lastmod>2020-11-09T22:07:38+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/kafka/</loc>
-    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -555,34 +443,6 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/log/</loc>
-    <lastmod>2020-11-14T20:11:21+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/management/</loc>
-    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/map/</loc>
-    <lastmod>2020-11-08T22:01:43+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/modern-c&#43;&#43;/</loc>
-    <lastmod>2021-01-11T15:00:00+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ence2.github.io/categories/mssql/</loc>
     <lastmod>2020-11-29T23:27:20+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -590,28 +450,7 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/mssql/</loc>
-    <lastmod>2020-11-29T23:27:20+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/none/</loc>
-    <lastmod>2020-11-29T21:29:12+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ence2.github.io/categories/perforce/</loc>
-    <lastmod>2020-11-11T21:57:54+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/perforce/</loc>
     <lastmod>2020-11-11T21:57:54+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
@@ -632,36 +471,7 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/tags/std/</loc>
-    <lastmod>2020-11-29T22:59:40+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/</loc>
-    <lastmod>2020-11-18T21:43:34+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/unittest/</loc>
-    <lastmod>2020-11-26T18:33:54+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/visaulstudio/</loc>
-    <lastmod>2020-12-01T11:35:36+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/tags/%ED%98%95%EC%83%81%EA%B4%80%EB%A6%AC/</loc>
-    <lastmod>2020-12-01T11:35:36+09:00</lastmod>
+    <loc>https://ence2.github.io/tag/</loc>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
