@@ -338,7 +338,9 @@ char* dd1 = static_cast&lt;char*&gt;(intVal); //컴파일 에러
 <ul>
 <li>제약사항
 struct 타입을 int나 double 타입으로 형변환 할 수 없고, float 타입을 포인터 타입으로 형변환 할 수 없습니다.
-게다가, static_cast는 표현식이 원래 가지고 있는 상수성(const)를 제거 할 수 없습니다.(이를 위해 별도로 const_cast가 존재합니다.)</li>
+게다가, static_cast는 표현식이 원래 가지고 있는 상수성(const)를 제거 할 수 없습니다.(이를 위해 별도로 const_cast가 존재합니다.)
+
+<br /></li>
 </ul>
 
 <h3 id="const-cast">const_cast</h3>
@@ -496,6 +498,8 @@ int main()
 <p>다시 말해, 껍데기만 Doctor 클래스이지 내용은 전혀 Doctor의 것이 아니게 된다는 것입니다.
 이때 멤버 필드에 접근시 엉뚱한 값이 들어가 있거나, 런타임 오류가 발생할 수 있게 됩니다.
 위 예제를 잘 보고 언제 static_cast와 dynamic_cast를 구분해서 쓰는 게 좋은지 잘 이해해야 합니다.</p>
+
+<p>​</p>
 
 <h3 id="스마트포인터-형변환-static-pointer-cast-dynamic-pointer-cast-const-pointer-cast">스마트포인터 형변환 static_pointer_cast / dynamic_pointer_cast / const_pointer_cast</h3>
 
