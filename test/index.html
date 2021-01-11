@@ -13,10 +13,10 @@
 
 <meta property="og:description" content="The Game Server Developer">
 <meta property="og:type" content="website">
-<meta property="og:title" content="C&#43;&#43;">
-<meta name="twitter:title" content="C&#43;&#43;">
-<meta property="og:url" content="https://ence2.github.io/tags/c&#43;&#43;/">
-<meta property="twitter:url" content="https://ence2.github.io/tags/c&#43;&#43;/">
+<meta property="og:title" content="Test">
+<meta name="twitter:title" content="Test">
+<meta property="og:url" content="https://ence2.github.io/test/">
+<meta property="twitter:url" content="https://ence2.github.io/test/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="The Game Server Developer">
 <meta name="twitter:description" content="The Game Server Developer">
@@ -39,16 +39,16 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C&#43;&#43;</title>
+    <title>Test</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
-      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ence2.github.io/tags/c&#43;&#43;/index.xml">
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="https://ence2.github.io/test/index.xml">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/tags/c&#43;&#43;/">
+    <link rel="canonical" href="https://ence2.github.io/test/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -209,105 +209,116 @@ if (!doNotTrack) {
   </div>
 </nav>
 
-      
-        
-
-      
       <div id="main" data-behavior="2"
         class="
                hasCoverMetaIn
                ">
-        
-          <section class="postShorten-group main-content-wrap">
-            
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
-          std::tie 사용법
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T21:38:48&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h3 id="std-tie">std::tie</h3>
-
-<p>pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-            
-  <div class="pagination-bar">
-    <ul class="pagination">
-      
-        
-          <li class="pagination-prev">
-            <a class="btn btn--default btn--small" href="https://ence2.github.io/tags/c&#43;&#43;/page/4/">
-              <i class="fa fa-angle-left text-base icon-mr"></i>
-              <span>NEWER POSTS</span>
-            </a>
-          </li>
-        
-        
-      
-      <li class="pagination-number">page 5 of 5</li>
+        <div id="search" class="main-content-wrap">
+Search:
+    <input id="search" type="text">
+    <br> Results:
+    <ul id="results">
     </ul>
-  </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/vendor/lunr.min.js"></script>
+    <script type="text/javascript">
+    var lunrIndex,
+        $results,
+        pagesIndex;
 
-
-          </section>
+    
+    function initLunr() {
         
-        <footer id="footer" class="main-content-wrap">
-  <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
-  </span>
-</footer>
+        $.getJSON("js/lunr/PagesIndex.json")
+            .done(function(index) {
+                pagesIndex = index;
+                console.log("index:", pagesIndex);
 
+                
+                
+                lunrIndex = lunr(function() {
+                    this.field("title", {
+                        boost: 10
+                    });
+                    this.field("tags", {
+                        boost: 5
+                    });
+                    this.field("content");
+
+                    
+                    this.ref("href");
+                });
+
+                
+                pagesIndex.forEach(function(page) {
+                    lunrIndex.add(page);
+                });
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.error("Error getting Hugo index flie:", err);
+            });
+    }
+
+    
+    function initUI() {
+        $results = $("#results");
+        $("#search").keyup(function() {
+            $results.empty();
+
+            
+            var query = $(this).val();
+            if (query.length < 2) {
+                return;
+            }
+
+            var results = search(query);
+
+            renderResults(results);
+        });
+    }
+
+    
+
+    function search(query) {
+        
+        
+        
+        
+        
+        return lunrIndex.search(query).map(function(result) {
+                return pagesIndex.filter(function(page) {
+                    return page.href === result.ref;
+                })[0];
+            });
+    }
+
+    
+
+    function renderResults(results) {
+        if (!results.length) {
+            return;
+        }
+
+        
+        results.slice(0, 10).forEach(function(result) {
+            var $result = $("<li>");
+            $result.append($("<a>", {
+                href: result.href,
+                text: "» " + result.title
+            }));
+            $results.append($result);
+        });
+    }
+
+    
+    initLunr();
+
+    $(document).ready(function() {
+        initUI();
+    });
+    </script>
+        </div>
       </div>
     </div>
     
