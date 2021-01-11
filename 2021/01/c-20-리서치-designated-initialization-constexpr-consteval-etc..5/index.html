@@ -311,7 +311,9 @@ if (!doNotTrack) {
 
 <h3 id="designated-initialization-지정된-초기화">Designated Initialization 지정된 초기화</h3>
 
+<blockquote>
 <p>Aggregate 초기화를 사용 할 때 명시적으로 멤버의 이름을 지정하여 초기화 하는 것</p>
+</blockquote>
 
 <pre><code class="language-c++">class Point3
 {
@@ -340,9 +342,9 @@ int main()
 <h3 id="constexpr-관련-변경점">Constexpr 관련 변경점</h3>
 
 <ul>
-<li>std::is_constant_evaluated() 함수 추가 : 어떤 함수가 컴파일 타임에 실행 되는지 여부</li>
-<li>constexpr virtual function : 가상 함수도 constexpr 사용 가능 (17 이전에는 불가능)</li>
-<li>std 알고리즘에 constexpr 지원</li>
+<li><strong>std::is_constant_evaluated() 함수 추가 : 어떤 함수가 컴파일 타임에 실행 되는지 여부</strong></li>
+<li><strong>constexpr virtual function : 가상 함수도 constexpr 사용 가능 (17 이전에는 불가능)</strong></li>
+<li><strong>std 알고리즘에 constexpr 지원</strong></li>
 </ul>
 
 <pre><code class="language-c++">//constexpr : 컴파일 시간 또는 실행시간에 수행 될 수 있다
@@ -381,7 +383,9 @@ int main()
 
 <h3 id="신규-키워드-consteval">신규 키워드 consteval</h3>
 
+<blockquote>
 <p>함수가 반드시 컴파일 시간에만 수행 될 수 있음을 명시(immediate function)</p>
+</blockquote>
 
 <pre><code class="language-c++">consteval int Add(int a, int b) { return a + b; }
 
@@ -397,7 +401,7 @@ int main()
 <h3 id="c-20-추가된-간단한-문법들">C++20 추가된 간단한 문법들</h3>
 
 <ul>
-<li>explicit(bool)
+<li><strong>explicit(bool)</strong>
 explicit 키워드를 사용시 적용 여부를 지정 할 수 있다.</li>
 </ul>
 
@@ -412,7 +416,7 @@ explicit 키워드를 사용시 적용 여부를 지정 할 수 있다.</li>
 </code></pre>
 
 <ul>
-<li>ranged-for with initializer
+<li><strong>ranged-for with initializer</strong>
 range for에 초기화 구문 표현이 가능</li>
 </ul>
 
@@ -429,7 +433,7 @@ range for에 초기화 구문 표현이 가능</li>
 </code></pre>
 
 <ul>
-<li>using enum
+<li><strong>using enum</strong>
 enum class 사용시 namespace 없이 사용 가능해짐
 <br /></li>
 </ul>
@@ -458,7 +462,7 @@ enum class 사용시 namespace 없이 사용 가능해짐
    }
 </code></pre>
 
-<p>더 많은 C++20 관련 정보 -&gt; cppreference.com</p>
+<p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
               
             </div>
           </div>

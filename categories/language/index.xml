@@ -6,15 +6,24 @@
     <description>Recent content in Language on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 11 Jan 2021 10:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 11 Jan 2021 15:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/categories/language/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>C&#43;&#43;20 리서치 - range의 view, ref_view, revers_view, filtwer_view[7]</title>
+      <link>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/</link>
+      <pubDate>Mon, 11 Jan 2021 15:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/</guid>
+      <description>&lt;p&gt;C++20에서 추가된 Ranges는 C#의 linq와 흡사하게 컨테이너의 데이터를 손쉽게 다룰 수 있는 다양한 알고리즘을 제공합니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>C&#43;&#43;20 리서치 - Requires 절, Concept[6]</title>
       <link>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-%EC%A0%88-concept6/</link>
-      <pubDate>Mon, 11 Jan 2021 10:00:00 +0900</pubDate>
+      <pubDate>Sun, 10 Jan 2021 10:00:00 +0900</pubDate>
       
       <guid>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-%EC%A0%88-concept6/</guid>
       <description>&lt;p&gt;C++20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.&lt;/p&gt;

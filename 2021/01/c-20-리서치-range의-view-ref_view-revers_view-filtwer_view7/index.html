@@ -8,57 +8,25 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="C&#43;&#43;20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.
+<meta name="description" content="C&#43;&#43;20에서 추가된 Ranges는 C#의 linq와 흡사하게 컨테이너의 데이터를 손쉽게 다룰 수 있는 다양한 알고리즘을 제공합니다.">
 
 
-템플릿 사용 가능
-평가 되지 않은 표현식 사용 가능
-캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능
-암시적 this 캡쳐 deprecated
-parameter pack 캡쳐 가능
-">
-
-
-<meta property="og:description" content="C&#43;&#43;20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.
-
-
-템플릿 사용 가능
-평가 되지 않은 표현식 사용 가능
-캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능
-암시적 this 캡쳐 deprecated
-parameter pack 캡쳐 가능
-">
+<meta property="og:description" content="C&#43;&#43;20에서 추가된 Ranges는 C#의 linq와 흡사하게 컨테이너의 데이터를 손쉽게 다룰 수 있는 다양한 알고리즘을 제공합니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#43;&#43;20 리서치 - 람다의 변화[2]">
-<meta name="twitter:title" content="C&#43;&#43;20 리서치 - 람다의 변화[2]">
-<meta property="og:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">
+<meta property="og:title" content="C&#43;&#43;20 리서치 - range의 view, ref_view, revers_view, filtwer_view[7]">
+<meta name="twitter:title" content="C&#43;&#43;20 리서치 - range의 view, ref_view, revers_view, filtwer_view[7]">
+<meta property="og:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="C&#43;&#43;20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.
-
-
-템플릿 사용 가능
-평가 되지 않은 표현식 사용 가능
-캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능
-암시적 this 캡쳐 deprecated
-parameter pack 캡쳐 가능
-">
-<meta name="twitter:description" content="C&#43;&#43;20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.
-
-
-템플릿 사용 가능
-평가 되지 않은 표현식 사용 가능
-캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능
-암시적 this 캡쳐 deprecated
-parameter pack 캡쳐 가능
-">
+<meta property="og:description" content="C&#43;&#43;20에서 추가된 Ranges는 C#의 linq와 흡사하게 컨테이너의 데이터를 손쉽게 다룰 수 있는 다양한 알고리즘을 제공합니다.">
+<meta name="twitter:description" content="C&#43;&#43;20에서 추가된 Ranges는 C#의 linq와 흡사하게 컨테이너의 데이터를 손쉽게 다룰 수 있는 다양한 알고리즘을 제공합니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-01-06T11:58:00">
+    <meta property="article:published_time" content="2021-01-11T15:00:00">
   
   
-    <meta property="article:modified_time" content="2021-01-06T11:58:00">
+    <meta property="article:modified_time" content="2021-01-11T15:00:00">
   
   
   
@@ -95,14 +63,14 @@ parameter pack 캡쳐 가능
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C&#43;&#43;20 리서치 - 람다의 변화[2]</title>
+    <title>C&#43;&#43;20 리서치 - range의 view, ref_view, revers_view, filtwer_view[7]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">
+    <link rel="canonical" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -275,15 +243,15 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      C&#43;&#43;20 리서치 - 람다의 변화[2]
+      C&#43;&#43;20 리서치 - range의 view, ref_view, revers_view, filtwer_view[7]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-01-06T11:58:00&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-01-11T15:00:00&#43;09:00">
         
-  January 6, 2021
+  January 11, 2021
 
       </time>
     
@@ -304,87 +272,255 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>C++20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.</p>
+              <p>C++20에서 추가된 Ranges는 C#의 linq와 흡사하게 컨테이너의 데이터를 손쉽게 다룰 수 있는 다양한 알고리즘을 제공합니다.</p>
+
+<h3 id="ranges-소개">Ranges 소개</h3>
+
+<ul>
+<li><p><strong>신규 헤더 ranges 추가</strong></p></li>
+
+<li><p><strong>아이템들의 집합</strong></p></li>
+
+<li><p><strong>iterable 할 수 있어야 함, concept range = requires -&gt; 최소 요구조건 begin(), end()</strong></p>
+
+<ul>
+<li>배열, std 컨테이너들 등
+
+<br /></li>
+</ul></li>
+</ul>
+
+<h3 id="views">Views</h3>
 
 <ol>
-<li>템플릿 사용 가능</li>
-<li>평가 되지 않은 표현식 사용 가능</li>
-<li>캡쳐 하지 않은 표현식에서 디폴트 생성자와 대입 연산자 사용 가능</li>
-<li>암시적 this 캡쳐 deprecated</li>
-<li>parameter pack 캡쳐 가능</li>
+<li><strong>DB의 view와 비슷하게 원본 컨테이너의 포인터 컨테이너를 만들어 원하는 만큼의 가시성을 제공함</strong></li>
+<li><strong>view 끼리 합 연산이 가능함</strong></li>
+<li><strong>view 변환이 가능함</strong></li>
+<li><strong>지연된 연산을 수행함 ( 명시 시점이 아닌, 실제 사용시 연산이 수행됨 )</strong></li>
 </ol>
 
-<h3 id="람다-표현식-템플릿">람다 표현식 템플릿</h3>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;ranges&gt;
 
-<ul>
-<li><p><strong>기존에 람다 표현식 입력 인자를 auto로 할 경우 C++14 부터 자동으로 템플릿화 하여 여러 타입에 대응되는 표현식을 작성 할 수 있으나, 동일 타입에 대해서만</strong>
-<strong>동작하게 만들 수 없었습니다.</strong></p></li>
-
-<li><p><strong>C++20 방식 예제</strong></p></li>
-</ul>
-
-<pre><code class="language-c++">  auto add = [](auto a, auto b) {return a+b;} // C++14 모든 타입 대응가능
-  auto add = [](auto a, decltype(a) b) {return a+b;} // C++14 a와 b 타입 동일시 하지만, 원치 않은 동작 발생 가능
-  auto add = []&lt;typename T&gt;(T a, T b) {return a+b;} // C++20 새로운 방식, 타입이 다를 경우 컴파일 오류 발생
-</code></pre>
-
-<h3 id="평가-되지-않은-표현식">평가 되지 않은 표현식</h3>
-
-<ul>
-<li><p><strong>런타임 시간에는 실행되지 않고, 컴파일 시간에만 사용 되는 표현식</strong>
-sizoeof, decltype, typeid, nocept</p></li>
-
-<li><p><strong>C++17까지는 람다 표현식을 평가되지 않은 표현식으로 사용 할 수 없었음, But 20부터 가능해졌습니다.</strong></p></li>
-</ul>
-
-<pre><code class="language-c++">  std::cout &lt;&lt; sizeof( [](int a, int b) { return a+b; } ) &lt;&lt; std::endl; // C++17 불가, C++20 허용
-  
-  // 활용 : 스마트 포인터 deleter의 인자로 람다를 넘겨 줄 수 있음 C++20
-  std::unique_ptr&lt;int, decltype( [](int* p) { delete p; })&gt; pVal( new int );
-</code></pre>
-
-<h3 id="람다-표현식과-디폴트-생성자">람다 표현식과 디폴트 생성자</h3>
-
-<pre><code class="language-c++">// 캡쳐 없는 케이스
-int v = 10;
-auto r1 = [](int a, int b) {return a + b};
-
-                        // ~C++17       C++20
-decltype(r1) r2;        // 불가          가능
-decltype(r1) r3 = r1;   // 가능          가능
-r3 = r1;                // 불가          가능
-
-// 캡쳐 있는 케이스
-int v = 10;
-auto r1 = [v](int a, int b) {return a + b};
-
-                        // ~C++17       C++20
-decltype(r1) r2;        // 불가          !!불가!!
-decltype(r1) r3 = r1;   // 가능          가능
-r3 = r1;                // 불가          !!불가!!
-</code></pre>
-
-<h3 id="암묵적-this-캡쳐-deprecated">암묵적 this 캡쳐 deprecated</h3>
-
-<ul>
-<li><strong>기존 람다 표현식 캡쳐시 [=] 할 경우 [=, this]와 같은 의미였습니다.</strong>
-<strong>[=]로 캡쳐시 표현식 안에서 지역변수와 모든 멤버 변수에 접근이 가능합니다.</strong>
-<strong>하지만 객체 수명 주기로 인해 의도치 않은 버그를 만들어 낼 수 있습니다. (잡기 힘든 버그가 됨. 매우 위험)</strong></li>
-<li><strong>C++ 20 부터는 [=] 로 캡쳐시 컴파일로 경고가 발생 합니다.( 암묵적 this 캡쳐 사용은 좋지 않은 방법이고. 명시적인 값복사 사용을 권장합니다. )</strong></li>
-</ul>
-
-<h3 id="parameter-pack-캡쳐-c-17-이전에는-캡쳐-불가">Parameter pack 캡쳐( C++17 이전에는 캡쳐 불가 )</h3>
-
-<pre><code class="language-c++">// 값 캡쳐
-template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
+int main()
 {
-    return [...args = std::forward&lt;args)](){ std::cout &lt;&lt; ... &lt;&lt; args); };
+    std::vector&lt;int&gt; v = {1, 2, 3, 4, 5, 6, 7, 8, 9}
+    
+    std::ranges::take_view tv(v, 3); // auto r1 v | std::views::take(3); 와 동일하며 뷰를 생성함
+    auto r1 v | std::views::take(3); // 같은 의미 다른 표현
+    
+   std::cout &lt;&lt; typeid(r1).name() &lt;&lt; std::endl;
+   std::cout &lt;&lt; typeid(tv).name() &lt;&lt; std::endl;
+    
+    std::ranges::transform_view trv(tv, [](int a) { std::cout &lt;&lt; &quot;op&quot; &lt;&lt; std::endl; return a*2; });
+    
+    // 위의 take_view와 transform을 합친 표현법
+    auto r = v | std::views::take(3) | std:views::transform( [](int a){ return a*2; });
+    
+    std::cout &lt;&lt; &quot;start iterating&quot; &lt;&lt; std::endl;
+    
+    auto p1 = std::ranges::begin(trv); 
+    std::cout &lt;&lt; *p1 &lt;&lt; std::endl; // 이 타이밍에 지연된 연산이 수행됨 -&gt; 출력 : 2
+    
+    for(auto n : r)
+        std::cout &lt;&lt; n &lt;&lt; std::endl; // 지연된 연산 : 2, 4, 6 출력
+}
+</code></pre>
+
+<h3 id="ref-view">Ref_view</h3>
+
+<ol>
+<li><strong>ref_view는 기존의 range에 대한 reference</strong></li>
+<li><strong>내부적으로 포인터 연산을 수행하는 구조</strong></li>
+</ol>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;ranges&gt;
+
+int main()
+{
+    std::vector&lt;int&gt; v = {1, 2, 3, 4, 5, 6, 7, 8, 9}
+    
+    std::ranges::ref_view rv(v);
+    
+    auto p1 = rv.begin();
+    auto p2 = v.begin();
+    
+    std::cout &lt;&lt; *p1 &lt;&lt; std::endl; // 1
+    std::cout &lt;&lt; *p2 &lt;&lt; std::endl; // 2
+    
+    std::cout &lt;&lt; &amp;v &lt;&lt; std::endl;
+    std::cout &lt;&lt; &amp;(rv.base(()) &lt;&lt; std::endl; // 위 주소와 동일, rv가 참조하던 원본 주소 출력
+}
+</code></pre>
+
+<ol>
+<li><strong>vector에 대한 기존 &amp;(참조) 문법을 사용하면 되는데, ref_view를 사용하는 이유?</strong></li>
+</ol>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;ranges&gt;
+
+int main()
+{
+    std::vector&lt;int&gt; v1 = {1, 2, 3, 4, 5}
+    std::vector&lt;int&gt; v2 = {6, 7, 8, 9, 10}
+    
+    // 기존 C++의 참조 : 이동 불가능한 참조
+    std::vector&lt;int&gt;&amp; r1(v1);
+    std::vector&lt;int&gt;&amp; r2(v2);
+    
+    r1 = r2; // 이 의미는? -&gt; 이렇게 대입 시 vector 자체를 복사
+    
+    // ref_view를 사용시 std::refernce_wraaper의 range 버전이며, 이동 가능한 참조
+    std::ranges::ref_view rf1(v1);
+    std::ranges::ref_view rf2(v2);
+    
+    std::cout &lt;&lt; v1[0] &lt;&lt; std:;endl; // 1
+    std::cout &lt;&lt; v2[0] &lt;&lt; std::endl; // 6
+    
+    std::cout &lt;&lt; rf1[0] &lt;&lt; std:;endl; // 6
+    std::cout &lt;&lt; rf2[0] &lt;&lt; std::endl; // 6
+}
+</code></pre>
+
+<ol>
+<li><strong>활용 예</strong></li>
+</ol>
+
+<pre><code class="language-c++">template&lt;typename R&gt; class take_view
+{
+    R rg;
+    int count;
+public:
+    template&lt;typename A&gt;
+    take_view(A&amp;&amp; r, int cnt) : rg(std::forward&lt;A&gt;(r)), count(cnt)
+        
+    // TODO : begin(), end() 구현
+};
+template&lt;typename A&gt;
+take_view(A&amp;&amp;, int) -&gt; take_view&lt; std::ranges::ref_view&lt;std::remove_reference_t&lt;A&gt; &gt; &gt;;
+
+int main()
+{
+    std::vector&lt;int&gt; v1 = { 1, 2, 3, 4, 5};
+    std::vector&lt;int&gt; v1 = { 6, 7, 8, 9, 10};
+    
+    take_view tv1(v1, 3);
+    take_view tv2(v2, 3);
+    
+    tv1 = tv2;
+}
+</code></pre>
+
+<h3 id="reverse-view">reverse_view</h3>
+
+<p>view를 거꾸로 볼 수 있음</p>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;ranges&gt;
+
+int main()
+{
+    std::vector&lt;int&gt; v1 = { 1, 2, 3, 4, 5};
+    
+    std::ranges::revers_view rv1(v);
+    // auto rv1 = std::views::revers(v); // 위와 동일 표현
+    
+    for(auto n : rv1 )
+        std:;cout &lt;&lt; n &lt;&lt; &quot;, &quot;;
+}
+</code></pre>
+
+<h3 id="filter-view">Filter_view</h3>
+
+<p>원하는 조건 필터링 가능</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;ranges&gt;
+
+int main()
+{
+    std::vector&lt;int&gt; v = { 1, 2, 3, 4, 5};
+    
+    std::ranges::filter_view fv(v, [](int n) { return n % 2 == 0 }); // 짝수만 필터링
+    // auto fv = std::views::filter(fv2, 3); // 같은 의미, 함수 객체를 생성하는 방법
+    // auto fv = v | std::views::filter( [](int n) { retgurn n % 2 = 0; }); // 파이프라인을 사용하는 같은 표현법 | 을 이용해서 여러
+                                                                            // 조건을 합칠 수 있음
+    
+    for(auto n : v1)
+        std::cout &lt;&lt; n &lt;&lt; std::endl;
+}
+</code></pre>
+
+<h3 id="range-응용">Range 응용</h3>
+
+<ul>
+<li><strong>정렬과 치환</strong></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;ranges&gt;
+#include &lt;algorithm&gt;
+
+int main()
+{
+    std::vector&lt;int&gt; v = { 1, 2, 3, 4, 5};
+    std::sort(v.begin(), v.end()); // 기존 C++ 정렬 알고리즘 -&gt; 인자로 반복자 전달
+    
+    std::range::sort(v); // Range의 정렬 알고리즘 -&gt; 인자로 Range를 전달, 코드가 간결해짐
+                         // sort에 lamda로 정렬 조건 전달 가능
+    
+    auto fv = v | std::views::filter([](int n) { return n % 2 == 0; });
+    
+    std::ranges::replace_if( fv, [](int n) { return n &gt; 0;}, 0); //0보다 큰 것을 0으로 치환
+    
+    for ( auto n : v)
+        std::cout &lt;&lt; n &lt;&lt; std::endl;
+}
+</code></pre>
+
+<ul>
+<li><strong>projection</strong></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;ranges&gt;
+#include &lt;algorithm&gt;
+#include &lt;fuctional&gt;
+#include &lt;string&gt;
+
+struct Person
+{
+    std::string name;
+    int age;
 }
 
-// 참조 캡쳐
-template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
+int main
 {
-    return [&amp;...args = std::forward&lt;args)](){ std::cout &lt;&lt; ... &lt;&lt; args); };
+    std::vector&lt;Person&gt; v;
+    
+    v.emplace_back(&quot;aa&quot;, 20);
+    v.emplace_back(&quot;xx&quot;, 22);
+    v.emplace_back(&quot;cc&quot;, 11);
+    v.emplace_back(&quot;oo&quot;, 54);
+    v.emplace_back(&quot;xx&quot;, 43);
+    
+    // range를 이용해서 나이순으로 간결하게 정렬하기
+    //std::ranges::sort(v, const Person&amp; p1, const Person&amp; p2) { return p1.age &lt; p2.age; }); // C++17 이전 가능하던 방법
+    
+    // C++20 range 활용 방법
+    std::ranges::sort(v, std::less{}, &amp;Person::age); // 구조체의 age를 기준으로 정렬( 새로운 방법 -&gt; projection )
+    
+    for (auto&amp;&amp; p : v)
+        std::cout &lt;&lt; p.name &lt;&lt; &quot; : &quot; &lt;&lt; p.age &lt;&lt; std::endl;
 }
 </code></pre>
 
@@ -417,7 +553,7 @@ template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-attributes3/" data-tooltip="C&#43;&#43;20 리서치 - Attributes[3]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -425,7 +561,7 @@ template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="C&#43;&#43;20 리서치 - 소개[1]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-%EC%A0%88-concept6/" data-tooltip="C&#43;&#43;20 리서치 - Requires 절, Concept[6]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -443,19 +579,19 @@ template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -503,7 +639,7 @@ template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-attributes3/" data-tooltip="C&#43;&#43;20 리서치 - Attributes[3]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -511,7 +647,7 @@ template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="C&#43;&#43;20 리서치 - 소개[1]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-%EC%A0%88-concept6/" data-tooltip="C&#43;&#43;20 리서치 - Requires 절, Concept[6]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -529,19 +665,19 @@ template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -571,19 +707,19 @@ template&lt;typename ... Args&gt; auto name(Args&amp;&amp;... args)
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EB%259E%258C%25EB%258B%25A4%25EC%259D%2598-%25EB%25B3%2580%25ED%2599%25942%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-range%25EC%259D%2598-view-ref_view-revers_view-filtwer_view7%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EB%259E%258C%25EB%258B%25A4%25EC%259D%2598-%25EB%25B3%2580%25ED%2599%25942%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-range%25EC%259D%2598-view-ref_view-revers_view-filtwer_view7%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EB%259E%258C%25EB%258B%25A4%25EC%259D%2598-%25EB%25B3%2580%25ED%2599%25942%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-range%25EC%259D%2598-view-ref_view-revers_view-filtwer_view7%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -675,9 +811,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7\/';
           
-            this.page.identifier = '\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942\/'
+            this.page.identifier = '\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filtwer_view7\/'
           
         };
         (function() {
