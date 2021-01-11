@@ -402,12 +402,6 @@
   </url>
   
   <url>
-    <loc>https://ence2.github.io/archives/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ence2.github.io/tags/atomic/</loc>
     <lastmod>2020-11-09T21:45:07+09:00</lastmod>
     <changefreq>daily</changefreq>
