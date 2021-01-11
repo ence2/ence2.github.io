@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Boost on Keep calm carry on</title>
+    <link>https://ence2.github.io/tags/boost/</link>
+    <description>Recent content in Boost on Keep calm carry on</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Mon, 09 Nov 2020 21:09:42 +0900</lastBuildDate>
+    
+	<atom:link href="https://ence2.github.io/tags/boost/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>boost::make_ready_future</title>
+      <link>https://ence2.github.io/2020/11/boostmake_ready_future/</link>
+      <pubDate>Mon, 09 Nov 2020 21:09:42 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/boostmake_ready_future/</guid>
+      <description>&lt;h4 id=&#34;making-immediate-futures-easier&#34;&gt;Making immediate futures easier&lt;/h4&gt;
+
+&lt;p&gt;일부 함수는 구성 시점에서 값을 알 수 있습니다. 이 경우 값을 즉시 사용할 수 있지만 future 또는 shared_future로 반환해야합니다. make_ready_future를 사용하면 공유 상태에서 미리 계산 된 결과를 보유하는 future를 만들 수 있습니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Boost Future의 continuations(연속 연결)</title>
+      <link>https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</link>
+      <pubDate>Sun, 08 Nov 2020 23:31:17 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</guid>
+      <description>&lt;p&gt;비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 future에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &amp;ldquo;연결&amp;rdquo;됩니다. then 함수를 사용하여 등록 된 연속 futue는 대기를 차단하거나 폴링 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

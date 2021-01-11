@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Log on Keep calm carry on</title>
+    <link>https://ence2.github.io/tags/log/</link>
+    <description>Recent content in Log on Keep calm carry on</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sat, 14 Nov 2020 20:11:21 +0900</lastBuildDate>
+    
+	<atom:link href="https://ence2.github.io/tags/log/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ELK(ElasticSearch &#43; LogStash &#43; Kibana) Stack (번외 FluentD)</title>
+      <link>https://ence2.github.io/2020/11/elkelasticsearch-logstash-kibana-stack-%EB%B2%88%EC%99%B8-fluentd/</link>
+      <pubDate>Sat, 14 Nov 2020 20:11:21 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/elkelasticsearch-logstash-kibana-stack-%EB%B2%88%EC%99%B8-fluentd/</guid>
+      <description>&lt;p&gt;대용량 서비스에서 각 장비에서 발생하는 로그를 한 장소에 모으고 해당 정보를 통합 모니터링 할 수 있는 시스템은 반드시 필요합니다.
+장비가 몇 대 안될 경우 직접 장비에 접근하여 파일 로그를 살펴보며 이슈 대응이 가능하지만, 물리 장비가 수백, 수천대 일 경우는 참 난감한 상황입니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 상황을 해결하기 위한 로그 분석 모니터링 서비스를 구축 할 때 ElasticSearch + ( LogStash or FluentD ) + Kibana를 조합하여 많이 사용합니다.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visaulstudio on Keep calm carry on</title>
+    <link>https://ence2.github.io/tags/visaulstudio/</link>
+    <description>Recent content in Visaulstudio on Keep calm carry on</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Tue, 01 Dec 2020 11:35:36 +0900</lastBuildDate>
+    
+	<atom:link href="https://ence2.github.io/tags/visaulstudio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>비주얼 스튜디오 프로젝트 구성속성 옵션 정리</title>
+      <link>https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/</link>
+      <pubDate>Tue, 01 Dec 2020 11:35:36 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/</guid>
+      <description>&lt;p&gt;VisualStudio에서 &lt;code&gt;프로젝트&lt;/code&gt; -&amp;gt; &lt;code&gt;우클릭&lt;/code&gt; -&amp;gt; &lt;code&gt;속성&lt;/code&gt;에 들어가면 프로젝트의 &lt;code&gt;구성 속성&lt;/code&gt;에 다양한 옵션을 지정 할 수있습니다.&lt;/p&gt;
+
+&lt;p&gt;의미가 명확하지 않은 옵션들이 있어 틈날 때마다 본 포스팅에 정리 할 예정입니다.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
