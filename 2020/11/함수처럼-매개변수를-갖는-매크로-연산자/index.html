@@ -304,7 +304,7 @@ if (!doNotTrack) {
 
 <p><strong># 연산자는 매개변수를 문자화 하는 연산자 입니다.</strong></p>
 
-<pre><code class="language-c++">#define STRING(x) #x
+<pre><code class="language-cpp">#define STRING(x) #x
 std::string test = STRING(123456);
 printf(test.c_str());
 </code></pre>
@@ -313,7 +313,7 @@ printf(test.c_str());
 
 <p><strong>##은 두 개의 토큰을 이어준다. 혹은 붙여준다.</strong> 의 의미로 생각하시면 됩니다.</p>
 
-<pre><code class="language-c++">#define INT_name_num(num)    int name##num;
+<pre><code class="language-cpp">#define INT_name_num(num)    int name##num;
 </code></pre>
 
 <p>위와 같은 매크로가 있고, 함수내에서 INT_i(0) 이라는 매크로를 사용했다고 가정합시다.</p>

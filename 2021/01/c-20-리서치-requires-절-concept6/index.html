@@ -313,7 +313,7 @@ if (!doNotTrack) {
 <li><p><strong>치환 실패는 에러가 아니라 SFINAE 규칙 적용</strong></p></li>
 </ul>
 
-<pre><code class="language-c++">  #include &lt;type_traits&gt;
+<pre><code class="language-cpp">  #include &lt;type_traits&gt;
   
   template&lt;typename T&gt; requires std::is_integral_v&lt;T&gt; // 문법 &quot;requires + (조건)&quot; 로 제약 조건 명시 가능
   void goo(T arg)
@@ -345,7 +345,7 @@ if (!doNotTrack) {
 <li><strong>Requires 절과 함수 오버로딩</strong></li>
 </ul>
 
-<pre><code class="language-c++">  #include &lt;iostream&gt;
+<pre><code class="language-cpp">  #include &lt;iostream&gt;
   #include &lt;vector&gt;
   #include &lt;list&gt;
   #include &lt;concepts&gt;
@@ -379,7 +379,7 @@ if (!doNotTrack) {
 <li><strong>Requires 절의 위치</strong></li>
 </ul>
 
-<pre><code class="language-c++">  template&lt;typename T&gt; requires true // 이 위치 OK
+<pre><code class="language-cpp">  template&lt;typename T&gt; requires true // 이 위치 OK
   void f1(T a)
   {}
   
@@ -394,7 +394,7 @@ if (!doNotTrack) {
 <li><strong>concept이란 requirements의 명명된 집합이며 다음과 같은 형태를 취합니다.</strong></li>
 </ul>
 
-<pre><code class="language-c++">  template &lt;파라메터 list&gt;
+<pre><code class="language-cpp">  template &lt;파라메터 list&gt;
   concept 컨셉이름 = 제약 조건 표현식;
 </code></pre>
 
@@ -402,7 +402,7 @@ if (!doNotTrack) {
 <li><strong>예제</strong></li>
 </ul>
 
-<pre><code class="language-c++">  #include &lt;type_traits&gt;
+<pre><code class="language-cpp">  #include &lt;type_traits&gt;
   
   template&lt;typename T&gt;
   concept Integral = std::is_integral_v&lt;T&gt; &amp;&amp; true; // 요구 조건 제약사항 concepts 생성
@@ -427,7 +427,7 @@ if (!doNotTrack) {
 <li><p><strong>형태 : requires ( 파라메터 list[생략가능] ) { 요구사항; };</strong></p></li>
 </ul>
 
-<pre><code class="language-c++">  #include &lt;type_traits&gt;
+<pre><code class="language-cpp">  #include &lt;type_traits&gt;
   
   template&lt;typename T&gt; concept True = true; // 기본형
   
@@ -448,7 +448,7 @@ if (!doNotTrack) {
   }
 </code></pre>
 
-<pre><code>  
+<pre><code class="language-cpp">  
   - 이러한 원리를 이용해서 표준에서 concepts 헤더에 미리 구현해놓은 다양한 concept이 존재합니다.
   
 - **Partial ordering : 여러개의 concept을 만족 할 경우 어떤 concept을 적용 하는지에 대한 규칙입니다.**
@@ -476,7 +476,7 @@ if (!doNotTrack) {
 <li><strong>concepts의 syntax sugar</strong></li>
 </ul>
 
-<pre><code class="language-c++">  #incldue &lt;concepts&gt;
+<pre><code class="language-cpp">  #incldue &lt;concepts&gt;
   
   template&lt;typename T&gt; requires std::integral&lt;T&gt; // 기본 표기법
   void f1(T a){ }

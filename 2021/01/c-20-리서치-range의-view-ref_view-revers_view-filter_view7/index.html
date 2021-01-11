@@ -299,7 +299,7 @@ if (!doNotTrack) {
 <li><strong>지연된 연산을 수행함 ( 명시 시점이 아닌, 실제 사용시 연산이 수행됨 )</strong></li>
 </ol>
 
-<pre><code class="language-c++">#include &lt;iostream&gt;
+<pre><code class="language-cpp">#include &lt;iostream&gt;
 #include &lt;vector&gt;
 #include &lt;ranges&gt;
 
@@ -335,7 +335,7 @@ int main()
 <li><strong>내부적으로 포인터 연산을 수행하는 구조</strong></li>
 </ol>
 
-<pre><code class="language-c++">#include &lt;iostream&gt;
+<pre><code class="language-cpp">#include &lt;iostream&gt;
 #include &lt;vector&gt;
 #include &lt;ranges&gt;
 
@@ -360,7 +360,7 @@ int main()
 <li><strong>vector에 대한 기존 &amp;(참조) 문법을 사용하면 되는데, ref_view를 사용하는 이유?</strong></li>
 </ol>
 
-<pre><code class="language-c++">#include &lt;iostream&gt;
+<pre><code class="language-cpp">#include &lt;iostream&gt;
 #include &lt;vector&gt;
 #include &lt;ranges&gt;
 
@@ -391,7 +391,7 @@ int main()
 <li><strong>활용 예</strong></li>
 </ol>
 
-<pre><code class="language-c++">template&lt;typename R&gt; class take_view
+<pre><code class="language-cpp">template&lt;typename R&gt; class take_view
 {
     R rg;
     int count;
@@ -420,7 +420,7 @@ int main()
 
 <p>view를 거꾸로 볼 수 있음</p>
 
-<pre><code class="language-c++">#include &lt;iostream&gt;
+<pre><code class="language-cpp">#include &lt;iostream&gt;
 #include &lt;vector&gt;
 #include &lt;ranges&gt;
 

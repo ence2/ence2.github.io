@@ -314,14 +314,14 @@ Nonfatal assertion (EXPECT</em>) 는 테스트 실패해도 모든 테스트를 
 첫번째 파라미터는 test suite의 이름이고, 두번째 파라미터는 구체적인 테스트의 이름입니다.
 이름에는 underscores (_)가 들어갈 수 없습니다.</p>
 
-<pre><code class="language-c++">TEST(TestSuiteName, TestName) {
+<pre><code class="language-cpp">TEST(TestSuiteName, TestName) {
   ... test body ...
 }
 </code></pre>
 
 <h4 id="example">Example</h4>
 
-<pre><code class="language-c++">// Tests factorial of 0.
+<pre><code class="language-cpp">// Tests factorial of 0.
 TEST(FactorialTest, HandlesZeroInput) {
   EXPECT_EQ(Factorial(0), 1);
 }
@@ -340,14 +340,14 @@ TEST(FactorialTest, HandlesPositiveInput) {
 <p>같은 데이터 설정을 여러 테스트에서 사용하고 싶을 때 필요한 방법입니다. ::testing::Test를 상속받습니다. Setup()과 같은 메소드들은 protected로 정의합니다.
 또한 TEST() 대신 TEST_F()를 사용합니다.</p>
 
-<pre><code class="language-c++">TEST_F(TestFixtureName, TestName) {
+<pre><code class="language-cpp">TEST_F(TestFixtureName, TestName) {
   ... test body ...
 }
 </code></pre>
 
 <h4 id="example-1">Example</h4>
 
-<pre><code class="language-c++">template &lt;typename E&gt;  // E is the element type.
+<pre><code class="language-cpp">template &lt;typename E&gt;  // E is the element type.
 class Queue {
  public:
   Queue();
@@ -396,7 +396,7 @@ TEST_F(QueueTest, DequeueWorks) {
 
 <p>gtest_main과 Link했다면 메인함수를 작성할 필요는 없습니다. gtest_main을 링크합니다면 구글 테스트가 메인 함수 기본 구현을 제공하기 때문입니다. 만약 자신만의 메인을 만들고 싶다면 RUN_ALL_TEST()를 리턴하게 해야 합니다.</p>
 
-<pre><code class="language-c++">#include &quot;this/package/foo.h&quot;
+<pre><code class="language-cpp">#include &quot;this/package/foo.h&quot;
 #include &quot;gtest/gtest.h&quot;
 
 namespace my {
@@ -474,12 +474,14 @@ int main(int argc, char **argv) {
 <ul>
 <li><a href="https://github.com/google/googletest/blob/master/googlemock/docs/for_dummies.md">gMock for dummies</a></li>
 <li><a href="https://github.com/google/googletest/blob/master/googlemock/docs/cook_book.md">gMock Cookbook</a></li>
-<li><a href="https://github.com/google/googletest/blob/master/googlemock/docs/cheat_sheet.md">gMock Chear Sheet</a></li>
+<li><a href="https://github.com/google/googletest/blob/master/googlemock/docs/cheat_sheet.md">gMock Chear Sheet</a>
+
+<br /></li>
 </ul>
 
 <p>먼저 Mocking을 하기 전에 Mocking할 대상을 상속받는 클래스를 만들어야 합니다.</p>
 
-<pre><code class="language-c++">#include &quot;gmock/gmock.h&quot;
+<pre><code class="language-cpp">#include &quot;gmock/gmock.h&quot;
 
 class MockFoo : public Foo {
   ...
@@ -496,7 +498,7 @@ class MockFoo : public Foo {
 
 <p>이제 Mocking 클래스를 사용해보겠습니다.</p>
 
-<pre><code class="language-c++">using ::testing::Return;                          // #1
+<pre><code class="language-cpp">using ::testing::Return;                          // #1
 
 TEST(BarTest, DoesThis) {
   MockFoo foo;                                    // #2

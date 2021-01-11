@@ -315,7 +315,7 @@ if (!doNotTrack) {
 <p>Aggregate 초기화를 사용 할 때 명시적으로 멤버의 이름을 지정하여 초기화 하는 것</p>
 </blockquote>
 
-<pre><code class="language-c++">class Point3
+<pre><code class="language-cpp">class Point3
 {
     int x, y, z;
 }
@@ -347,7 +347,7 @@ int main()
 <li><strong>std 알고리즘에 constexpr 지원</strong></li>
 </ul>
 
-<pre><code class="language-c++">//constexpr : 컴파일 시간 또는 실행시간에 수행 될 수 있다
+<pre><code class="language-cpp">//constexpr : 컴파일 시간 또는 실행시간에 수행 될 수 있다
 #include &lt;algoritm&gt;
 #include &lt;numeric&gt;
 #include &lt;array&gt;
@@ -387,7 +387,7 @@ int main()
 <p>함수가 반드시 컴파일 시간에만 수행 될 수 있음을 명시(immediate function)</p>
 </blockquote>
 
-<pre><code class="language-c++">consteval int Add(int a, int b) { return a + b; }
+<pre><code class="language-cpp">consteval int Add(int a, int b) { return a + b; }
 
 int main()
 {
@@ -405,7 +405,7 @@ int main()
 explicit 키워드를 사용시 적용 여부를 지정 할 수 있다.</li>
 </ul>
 
-<pre><code class="language-c++">   //explicit 의미 : 복사 생성자 사용 불가, 생성자를 사용한 암시적 변환 불가
+<pre><code class="language-cpp">   //explicit 의미 : 복사 생성자 사용 불가, 생성자를 사용한 암시적 변환 불가
    
    template&lt;typename T&gt; class Hello
    {
@@ -420,7 +420,7 @@ explicit 키워드를 사용시 적용 여부를 지정 할 수 있다.</li>
 range for에 초기화 구문 표현이 가능</li>
 </ul>
 
-<pre><code class="language-c++">   // 다음과 같은 표현이 가능해짐 C++20
+<pre><code class="language-cpp">   // 다음과 같은 표현이 가능해짐 C++20
    for( int y[3]{1,2,3}; auto n : y)
    {
        
@@ -438,7 +438,7 @@ enum class 사용시 namespace 없이 사용 가능해짐
 <br /></li>
 </ul>
 
-<pre><code class="language-c++">   enum class Color
+<pre><code class="language-cpp">   enum class Color
 {
         red = 1,
        green = 2,
