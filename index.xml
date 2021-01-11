@@ -644,7 +644,7 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
 
 &lt;p&gt;특별히 캐스트 연산자를 사용하지 않고 형변환이 이루어지는 경우를 &amp;ldquo;묵시적 캐스트&amp;rdquo; 라고 합니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;   int i = 10;
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;   int i = 10;
    char c = i;         // 묵시적 캐스트
    char c = (char) i;  // 명시적 캐스트 (c-style)
    char c = static_cast&amp;lt;char&amp;gt;(i) // C++ style
