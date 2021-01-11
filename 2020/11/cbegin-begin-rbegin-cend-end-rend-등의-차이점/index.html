@@ -294,7 +294,7 @@ if (!doNotTrack) {
 
 <p>iterator 타입은 선언할 때 타입 이름이 상당히 길게 열거됩니다.</p>
 
-<pre><code class="language-c++">std::vector&lt; std::vector&lt;int&gt;&gt;::iterator it = ptWord.begin();
+<pre><code class="language-cpp">std::vector&lt; std::vector&lt;int&gt;&gt;::iterator it = ptWord.begin();
 </code></pre>
 
 <p>그래서 C++11에서는 auto 라는 키워드가 추가가 되었습니다.</p>
@@ -313,12 +313,12 @@ if (!doNotTrack) {
 
 <p>auto와 crbegin()을 사용하면 간단하게 표현이 가능합니다.</p>
 
-<pre><code class="language-c++">auto it = ptWord.crbegin();
+<pre><code class="language-cpp">auto it = ptWord.crbegin();
 </code></pre>
 
 <p>또한 순방향도 아래와 같이 간단하게 표현이 가능합니다.</p>
 
-<pre><code class="language-c++">auto it = ptWord.cbegin();
+<pre><code class="language-cpp">auto it = ptWord.cbegin();
 </code></pre>
 
 <p>auto 키워드와 cbegin(), range based for loop 등을 사용하면 STL을 보다 편리하게 사용 가능해집니다.</p>
