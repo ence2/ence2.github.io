@@ -276,7 +276,7 @@ if (!doNotTrack) {
 
 <p>편집하며 계속하기를 시작하여 디버그 중인 코드에 변경 내용을 적용합니다.</p>
 
-<p><strong>함수의 반환 값 보기</strong></p>
+<h3 id="함수의-반환-값-보기"><strong>함수의 반환 값 보기</strong></h3>
 
 <p>함수의 반환 값을 보려면 코드를 단계별로 실행하는 동안 <strong>자동</strong> 창에 표시되는 함수를 확인합니다. 함수의 반환 값을 보려면 관심 있는 함수가 이미 실행되었는지 확인합니다(현재 함수 호출에서 중지된 경우 <strong>F10</strong> 키를 누름). 창이 닫히면 <strong>디버그 &gt; Windows &gt; 자동</strong>을 사용하여 <strong>자동</strong> 창을 엽니다.</p>
 
@@ -288,7 +288,7 @@ if (!doNotTrack) {
 
 <p><strong>조사식</strong> 및 <strong>즉시 실행</strong> 창에서 <code>$ReturnValue</code>와 같은 <a href="https://docs.microsoft.com/ko-kr/visualstudio/debugger/pseudovariables?view=vs-2019">의사 변수</a>를 사용할 수도 있습니다.</p>
 
-<p><strong>디버거 내장 함수를 사용하여 상태 유지</strong></p>
+<h3 id="디버거-내장-함수를-사용하여-상태-유지">디버거 내장 함수를 사용하여 상태 유지</h3>
 
 <p>디버거 내장 함수는 애플리케이션의 상태를 변경하지 않고 식에서 특정 C/C++ 함수를 호출하는 방법을 제공합니다.</p>
 
@@ -352,10 +352,14 @@ if (!doNotTrack) {
 <li>개체 비교 및 할당은 지원되지 않습니다.</li>
 <li>오버로드된 연산자 및 오버로드된 함수는 지원되지 않습니다.</li>
 <li>boxing 및 unboxing은 지원되지 않습니다.</li>
-<li><code>Sizeof</code> 연산자는 지원되지 않습니다.</li>
+<li><code>Sizeof</code> 연산자는 지원되지 않습니다.
+
+<br />
+
+<br /></li>
 </ul>
 
-<p><strong>교착 상태 및 경합 상태 디버그</strong></p>
+<h3 id="교착-상태-및-경합-상태-디버그"><strong>교착 상태 및 경합 상태 디버그</strong></h3>
 
 <p>다중 스레드 앱에 공통적인 문제 유형을 디버그해야 하는 경우 디버그하는 동안 스레드의 위치를 확인하는 것이 도움이 되는 경우가 많습니다. <strong>소스의 스레드 표시</strong> 단추를 사용하여 이 작업을 쉽게 수행할 수 있습니다.</p>
 
@@ -375,7 +379,7 @@ if (!doNotTrack) {
 
 <p><a href="https://docs.microsoft.com/ko-kr/visualstudio/debugger/get-started-debugging-multithreaded-apps?view=vs-2019">병렬 스택</a> 창에서도 스레드 위치를 볼 수 있습니다.</p>
 
-<p><strong>스코프를 벗어난 객체 주시하기</strong></p>
+<h3 id="스코프를-벗어난-객체-주시하기"><strong>스코프를 벗어난 객체 주시하기</strong></h3>
 
 <p>디버깅을 하다 보면 스코프를 벗어난 객체를 계속 주시하고 싶을 때가 있습니다. 하지만 비쥬얼 스튜디오의 조사식 창(Watch Window)에서는 입력한 객체가 스코프를 벗어나면 비활성화가 되어 더이상 값을 확인 할수 없게 되어버리죠. 이 때, 조사식에 주시 하고픈 객체의 포인터를 입력하면, 해당 객체가 스코프를 벗어났더라도 (해당 객체가 살아 있다면) 지속적으로 값을 확인할 수 있습니다.</p>
 
@@ -393,7 +397,7 @@ if (!doNotTrack) {
 
 <p><img src="https://t1.daumcdn.net/cfile/tistory/1368E24F516422960C" alt="img" /></p>
 
-<p><strong>CRT 라이브러리를 활용한 메모리 누수 탐지</strong></p>
+<h3 id="crt-라이브러리를-활용한-메모리-누수-탐지"><strong>CRT 라이브러리를 활용한 메모리 누수 탐지</strong></h3>
 
 <p>메모리 누수는 항상 골치 거리입니다. 수많은 코드들 중에서 어디서 메모리가 새는지 원인을 찾기도 힘들죠. CRT 라이브러리를 활용하여 메모리 누수 지점을 찾기 위한 방법이 있습니다. 먼저 아래와 같이 CRT 라이브러리를 사용하기 위한 헤더를 선언 해줍니다. 그리고 메모리 누수 체크를 위한 플래그를 선언 해줍니다( <strong>_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );</strong> ).</p>
 
@@ -421,7 +425,7 @@ if (!doNotTrack) {
 
 <p>짜잔~ 메모리를 할당하고 해제 하지 않은 부분을 찾아냈습니다. 이렇게 CRT 라이브러리를 이용하여 메모리 누수 원인을 찾아 낼수 있습니다.</p>
 
-<p><strong>값이 변경 되는 위치 찾기</strong></p>
+<h3 id="값이-변경-되는-위치-찾기"><strong>값이 변경 되는 위치 찾기</strong></h3>
 
 <ol>
 <li>C++ 프로젝트에서 디버깅을 시작하고 중단점에 도달할 때까지 기다립니다. <strong>디버그</strong> 메뉴에서 <strong>새 중단점</strong> &gt; <strong>데이터 중단점</strong> 을 선택합니다.</li>

@@ -307,7 +307,7 @@ Open CursorEmail;
 
 <h3 id="불러온-데이터를-이용한-작업">불러온 데이터를 이용한 작업</h3>
 
-<pre><code>-- 맨처음 결과 데이터로 이동
+<pre><code class="language-sql">-- 맨처음 결과 데이터로 이동
 Fetch Next From CursorEmail Into @email 
 
 WHILE(@@FETCH_STATUS &lt;&gt; -1) 
@@ -321,9 +321,11 @@ END;
 
 <h3 id="커서-닫기">커서 닫기</h3>
 
-<pre><code>Close CursorEmail; 
+<pre><code class="language-sql">Close CursorEmail; 
 Deallocate CursorEmail;
 </code></pre>
+
+<p>​</p>
 
 <h3 id="fetch-구문">FETCH 구문</h3>
 

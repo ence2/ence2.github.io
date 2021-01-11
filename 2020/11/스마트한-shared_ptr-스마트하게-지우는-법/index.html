@@ -284,7 +284,7 @@ if (!doNotTrack) {
 
 <p>shared_ptr의 생성자 함수는 크게 다음 세 가지 형태로 정의되어 있습니다.</p>
 
-<pre><code class="language-c++">constexpr shared_ptr() noexcept; // (1)
+<pre><code class="language-cpp">constexpr shared_ptr() noexcept; // (1)
 
 constexpr shared_ptr( std::nullptr_t ) noexcept; // (2)
 
@@ -303,9 +303,9 @@ shared_ptr( Y* ptr, Deleter d, Alloc alloc ); // (6)
 
 <p>4번째 기본 생성자를 보면 두번째 인자로 Deleter 함수 객체를 받고 있고, 여기에 원하는 Deleter 함수 객체 or 람다를 넣어주면 <code>std::shared_ptr</code>가 그것으로 객체를 해제합니다.</p>
 
-<p>사용예</p>
+<p><strong>사용예</strong></p>
 
-<pre><code class="language-c++">#include &lt;functional&gt;
+<pre><code class="language-cpp">#include &lt;functional&gt;
 #include &lt;memory&gt;
 
 template&lt;typename T&gt;

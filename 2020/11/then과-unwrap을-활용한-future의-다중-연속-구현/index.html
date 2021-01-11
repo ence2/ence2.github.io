@@ -298,7 +298,7 @@ if (!doNotTrack) {
 
 <p>예제</p>
 
-<pre><code class="language-c++">boost::promise&lt;State&gt; prom;
+<pre><code class="language-cpp">boost::promise&lt;State&gt; prom;
     prom.set_executor(executor-&gt;ExPointer());
     prom.set_value(going);
     boost::future&lt;State&gt; before = prom.get_future();

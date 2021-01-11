@@ -280,7 +280,7 @@ if (!doNotTrack) {
 
 <h4 id="적은-메모리-사용">적은 메모리 사용</h4>
 
-<pre><code class="language-c++">typedef struct _RTL_CRITICAL_SECTION {
+<pre><code class="language-cpp">typedef struct _RTL_CRITICAL_SECTION {
     PRTL_CRITICAL_SECTION_DEBUG DebugInfo;
  
     //
@@ -301,7 +301,13 @@ typedef struct _RTL_SRWLOCK {
 </code></pre>
 
 <ul>
-<li>SRWLock은 하나의 포인터로 구성되어 있습니다. 이로 인해, 메모리의 크기와 업데이트 해야 할 정보의 크기가 CriticalSection에 비해 상당히 작습니다.</li>
+<li>SRWLock은 하나의 포인터로 구성되어 있습니다. 이로 인해, 메모리의 크기와 업데이트 해야 할 정보의 크기가 CriticalSection에 비해 상당히 작습니다.
+
+
+
+<br />
+
+<br /></li>
 </ul>
 
 <h4 id="단점">단점</h4>
@@ -340,7 +346,7 @@ typedef struct _RTL_SRWLOCK {
 
 <h4 id="사용">사용</h4>
 
-<pre><code class="language-c++">//먼저, SRWLOCK 구조체를 초기화 시켜줘야 합니다.
+<pre><code class="language-cpp">//먼저, SRWLOCK 구조체를 초기화 시켜줘야 합니다.
 
 void InitializeSRWLock(PSRWLOCK SRWLock);
 

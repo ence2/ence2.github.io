@@ -121,7 +121,7 @@ SET QUOTED_IDENTIFIER { ON | OFF }
       <pubDate>Sat, 14 Nov 2020 22:00:20 +0900</pubDate>
       
       <guid>https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/</guid>
-      <description>&lt;h4 id=&#34;구문&#34;&gt;구문&lt;/h4&gt;
+      <description>&lt;h3 id=&#34;구문&#34;&gt;구문&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- Syntax for SQL Server
 
