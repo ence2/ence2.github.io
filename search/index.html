@@ -128,11 +128,11 @@ if (!doNotTrack) {
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/search">
+      <a class="sidebar-button-link " href="https://ence2.github.io/search">
     
       <i class="sidebar-button-icon fa fa-lg fa-search"></i>
       
-      <span class="sidebar-button-desc">Search</span>
+      <span class="sidebar-button-desc">Archives</span>
     </a>
   </li>
 
@@ -153,6 +153,16 @@ if (!doNotTrack) {
       <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
       
       <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/search">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
     </a>
   </li>
 
@@ -213,261 +223,111 @@ if (!doNotTrack) {
         class="
                hasCoverMetaIn
                ">
-        <div id="archives" class="main-content-wrap">
-          <form id="filter-form" action="#">
-            <input name="date" type="text" class="form-control input--xlarge" placeholder="Search date (YYYY/MM/DD)" autofocus="autofocus">
-          </form>
-          <h5 class="archive-result text-color-base text-xlarge" data-message-zero="no post found" data-message-one="1 post found" data-message-other="{n} posts found"></h5>
-<section class="boxes">
-  
+        <div id="search" class="main-content-wrap">
+Search:
+    <input id="search" type="text">
+    <br> Results:
+    <ul id="results">
+    </ul>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/vendor/lunr.min.js"></script>
+    <script type="text/javascript">
+    var lunrIndex,
+        $results,
+        pagesIndex;
+
     
-    <div class="archive archive-year box" data-date="2021">
-      <h4 class="archive-title" style="text-decoration: none;">2021</h4>
-      
-        <ul class="archive-posts archive-month" data-date="202101">
-          <h5 class="archive-title" style="text-decoration: none;">January</h5>
-          
-            <li class="archive-post archive-day" data-date="20210111">
-              <a class="archive-post-title" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-revers_view-filter_view7/">C&#43;&#43;20 리서치 - range의 view, ref_view, revers_view, filter_view[7]</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20210110">
-              <a class="archive-post-title" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-%EC%A0%88-concept6/">C&#43;&#43;20 리서치 - Requires 절, Concept[6]</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20210106">
-              <a class="archive-post-title" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-designated-initialization-constexpr-consteval-etc..5/">C&#43;&#43;20 리서치 - Designated Initialization, Constexpr, Consteval, etc..[5]</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20210106">
-              <a class="archive-post-title" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-three-way-comparison4/">C&#43;&#43;20 리서치 - Three Way Comparison(&lt;=&gt;)[4]</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20210106">
-              <a class="archive-post-title" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-attributes3/">C&#43;&#43;20 리서치 - Attributes[3]</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20210106">
-              <a class="archive-post-title" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/">C&#43;&#43;20 리서치 - 람다의 변화[2]</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20210105">
-              <a class="archive-post-title" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">C&#43;&#43;20 리서치 - 소개[1]</a>
-            </li>
-          
-        </ul>
-      
-    </div>
-  
+    function initLunr() {
+        
+        $.getJSON("js/lunr/PagesIndex.json")
+            .done(function(index) {
+                pagesIndex = index;
+                console.log("index:", pagesIndex);
+
+                
+                
+                lunrIndex = lunr(function() {
+                    this.field("title", {
+                        boost: 10
+                    });
+                    this.field("tags", {
+                        boost: 5
+                    });
+                    this.field("content");
+
+                    
+                    this.ref("href");
+                });
+
+                
+                pagesIndex.forEach(function(page) {
+                    lunrIndex.add(page);
+                });
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.error("Error getting Hugo index flie:", err);
+            });
+    }
+
     
-    <div class="archive archive-year box" data-date="2020">
-      <h4 class="archive-title" style="text-decoration: none;">2020</h4>
-      
-        <ul class="archive-posts archive-month" data-date="202012">
-          <h5 class="archive-title" style="text-decoration: none;">December</h5>
-          
-            <li class="archive-post archive-day" data-date="20201201">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">비주얼 스튜디오 프로젝트 구성속성 옵션 정리</a>
-            </li>
-          
-        </ul>
-      
-        <ul class="archive-posts archive-month" data-date="202011">
-          <h5 class="archive-title" style="text-decoration: none;">November</h5>
-          
-            <li class="archive-post archive-day" data-date="20201130">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%EA%B4%80%EB%A0%A8-%EB%8B%A8%EC%B6%95%ED%82%A4-%EC%B4%9D%EC%A0%95%EB%A6%AC/">비주얼 스튜디오 관련 단축키 총정리</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201129">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-union-all-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">MsSQL UNION (ALL) 정의, 사용법</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201129">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">MsSQL linked server와 OPENQUERY 정의, 사용법</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201129">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/%EC%A0%95%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AClib-vs-%EB%8F%99%EC%A0%81-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%ACdll/">정적 라이브러리(lib) vs 동적 라이브러리(dll)</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201129">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/stdadvance-%EC%98%88%EC%A0%9C/">std::advance 예제</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201129">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/%ED%95%A8%EC%88%98%EC%B2%98%EB%9F%BC-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EB%A5%BC-%EA%B0%96%EB%8A%94-%EB%A7%A4%ED%81%AC%EB%A1%9C-%EC%97%B0%EC%82%B0%EC%9E%90/">함수처럼 매개변수를 갖는 매크로, #, ## 연산자</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201126">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/unittesting-%EA%B4%80%EB%A0%A8-google-test-gmock-%EC%A0%95%EB%A6%AC/">UnitTesting 관련 Google Test, gMock 정리</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201126">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/c-%EB%B3%80%EC%88%98-%ED%83%80%EC%9E%85-%EC%B5%9C%EB%8C%80-%EC%B5%9C%EC%86%8C%EA%B0%92-%ED%8E%B8%EB%A6%AC%ED%95%98%EA%B2%8C-%ED%99%95%EC%9D%B8%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-stdnumeric_limits/">C&#43;&#43; 변수 타입 최대 최소값 편리하게 확인하는 방법 std::numeric_limits</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201118">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/%EB%AA%A8%EB%82%98%EB%93%9Cmonad%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">모나드(Monad)란 무엇인가?</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201117">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-object_id/">MsSQL OBJECT_ID</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201116">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/visual-studio-%EB%94%94%EB%B2%84%EA%B9%85-%ED%8C%81/">visual studio 디버깅 팁</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201115">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-procedure-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80/">MsSQL Procedure 프로시저</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201115">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-cursor/">MsSQL Cursor</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201115">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-%EA%B0%92-%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-identity%EC%99%80-%EC%8B%9C%ED%80%80%EC%8A%A4sequence/">MsSQL 값 자동 증가 identity와 시퀀스(sequence)</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201115">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-udfuser-defined-functions/">MsSQL UDF(User Defined Functions)</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201115">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-%EB%AC%B4%EA%B2%B0%EC%84%B1-%EA%B0%95%EC%A0%9C-%EC%A0%81%EC%9A%A9%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4-primary-key-%EB%B0%8F-foreign-key/">MsSQL 무결성 강제 적용(제약조건) PRIMARY KEY 및 FOREIGN KEY</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/stdlock_guard/">std::lock_guard</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">std::chrono::high_resolution_clock</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/srw-lock/">SRW Lock</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/">MsSQL SET QUOTED_IDENTIFIER ON|OFF</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">MsSQL SET ANSI_NULLS ON|OFF</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-%EC%8B%A4%ED%96%89%EA%B3%84%ED%9A%8D-%EB%B6%84%EC%84%9D%EB%B2%95/">MsSQL 실행계획 분석법</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%9C-shared_ptr-%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%98%EA%B2%8C-%EC%A7%80%EC%9A%B0%EB%8A%94-%EB%B2%95/">스마트한 shared_ptr 스마트하게 지우는 법</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-merge%EB%AC%B8/">MsSQL Merge문</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/kafka%EC%B9%B4%ED%94%84%EC%B9%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">Kafka(카프카)란 무엇인가?</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/elkelasticsearch-logstash-kibana-stack-%EB%B2%88%EC%99%B8-fluentd/">ELK(ElasticSearch &#43; LogStash &#43; Kibana) Stack (번외 FluentD)</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90-google-analytics-%EC%97%B0%EA%B2%B0/">Hugo 블로그에 Google Analytics 연결</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201114">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/hugo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0/">Hugo 블로그 검색 엔진에 등록하기</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201113">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">then과 unwrap을 활용한 future의 다중 연속 구현</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201111">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/perforce%EC%9D%98-time-lapse-view-svn%EC%9D%98-blame/">Perforce의 Time Lapse View (SVN의 Blame)</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201111">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">C&#43;&#43; Google Coding Convention Style 정리</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201111">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/mssql-with-nolock/">MsSQL with nolock</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201110">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/">std::for_each와 std::transform</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201110">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/stdinvoke/">std::invoke</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201110">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/">std::invoke_result 클래스</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201109">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/clustered-nonclustered-index/">Clustered, Nonclustered Index</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201109">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/stdatomic-memory_order/">std::atomic, memory_order</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201109">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/boostmake_ready_future/">boost::make_ready_future</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201108">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">Boost Future의 continuations(연속 연결)</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201108">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/std-upper_bound/">std upper_bound</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201108">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">#define 매크로, const와 차이점, 유의 사항</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201108">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">hpp 파일은 무엇인가?</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201108">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">cbegin, begin, rbegin, cend, end, rend 등의 차이점</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201108">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">UPSERT 개념</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201108">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/c-%EC%BA%90%EC%8A%A4%ED%8C%85-%EC%B4%9D%EC%A0%95%EB%A6%AC%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%AC%EC%9D%B8%ED%84%B0-%EC%BA%90%EC%8A%A4%ED%8C%85-%ED%8F%AC%ED%95%A8/">C&#43;&#43; 캐스팅 총정리(스마트포인터 캐스팅 포함)</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201108">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/">컨테이너 삽입시 Insert와 Emplace 차이</a>
-            </li>
-          
-            <li class="archive-post archive-day" data-date="20201108">
-              <a class="archive-post-title" href="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">std::tie 사용법</a>
-            </li>
-          
-        </ul>
-      
-    </div>
-  
-</section>
+    function initUI() {
+        $results = $("#results");
+        $("#search").keyup(function() {
+            $results.empty();
+
+            
+            var query = $(this).val();
+            if (query.length < 2) {
+                return;
+            }
+
+            var results = search(query);
+
+            renderResults(results);
+        });
+    }
+
+    
+
+    function search(query) {
+        
+        
+        
+        
+        
+        return lunrIndex.search(query).map(function(result) {
+                return pagesIndex.filter(function(page) {
+                    return page.href === result.ref;
+                })[0];
+            });
+    }
+
+    
+
+    function renderResults(results) {
+        if (!results.length) {
+            return;
+        }
+
+        
+        results.slice(0, 10).forEach(function(result) {
+            var $result = $("<li>");
+            $result.append($("<a>", {
+                href: result.href,
+                text: "» " + result.title
+            }));
+            $results.append($result);
+        });
+    }
+
+    
+    initLunr();
+
+    $(document).ready(function() {
+        initUI();
+    });
+    </script>
         </div>
       </div>
     </div>
