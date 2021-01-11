@@ -8,45 +8,49 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="VisualStudio에서 프로젝트 -&gt; 우클릭 -&gt; 속성에 들어가면 프로젝트의 구성 속성에 다양한 옵션을 지정 할 수있습니다.
+<meta name="description" content="C&#43;&#43;20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.
 
-의미가 명확하지 않은 옵션들이 있어 틈날 때마다 본 포스팅에 정리 할 예정입니다.">
+사용자가 만들 수 도 있고, 미리 만들어 져 있는 C&#43;&#43; 표준 Concept로도 제공합니다.">
 
 
-<meta property="og:description" content="VisualStudio에서 프로젝트 -&gt; 우클릭 -&gt; 속성에 들어가면 프로젝트의 구성 속성에 다양한 옵션을 지정 할 수있습니다.
+<meta property="og:description" content="C&#43;&#43;20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.
 
-의미가 명확하지 않은 옵션들이 있어 틈날 때마다 본 포스팅에 정리 할 예정입니다.">
+사용자가 만들 수 도 있고, 미리 만들어 져 있는 C&#43;&#43; 표준 Concept로도 제공합니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="비주얼 스튜디오 프로젝트 구성속성 옵션 정리">
-<meta name="twitter:title" content="비주얼 스튜디오 프로젝트 구성속성 옵션 정리">
-<meta property="og:url" content="https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">
-<meta property="twitter:url" content="https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">
+<meta property="og:title" content="C&#43;&#43;20 리서치 - Requires, Concept[6]">
+<meta name="twitter:title" content="C&#43;&#43;20 리서치 - Requires, Concept[6]">
+<meta property="og:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="VisualStudio에서 프로젝트 -&gt; 우클릭 -&gt; 속성에 들어가면 프로젝트의 구성 속성에 다양한 옵션을 지정 할 수있습니다.
+<meta property="og:description" content="C&#43;&#43;20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.
 
-의미가 명확하지 않은 옵션들이 있어 틈날 때마다 본 포스팅에 정리 할 예정입니다.">
-<meta name="twitter:description" content="VisualStudio에서 프로젝트 -&gt; 우클릭 -&gt; 속성에 들어가면 프로젝트의 구성 속성에 다양한 옵션을 지정 할 수있습니다.
+사용자가 만들 수 도 있고, 미리 만들어 져 있는 C&#43;&#43; 표준 Concept로도 제공합니다.">
+<meta name="twitter:description" content="C&#43;&#43;20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.
 
-의미가 명확하지 않은 옵션들이 있어 틈날 때마다 본 포스팅에 정리 할 예정입니다.">
+사용자가 만들 수 도 있고, 미리 만들어 져 있는 C&#43;&#43; 표준 Concept로도 제공합니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-12-01T11:35:36">
+    <meta property="article:published_time" content="2021-01-11T10:00:00">
   
   
-    <meta property="article:modified_time" content="2020-12-01T11:35:36">
+    <meta property="article:modified_time" content="2021-01-11T10:00:00">
   
-  
-  
-    
-      <meta property="article:section" content="SCM">
-    
   
   
     
-      <meta property="article:tag" content="VisaulStudio">
+      <meta property="article:section" content="Language">
     
-      <meta property="article:tag" content="형상관리">
+      <meta property="article:section" content="C&#43;&#43;20">
+    
+  
+  
+    
+      <meta property="article:tag" content="C&#43;&#43;">
+    
+      <meta property="article:tag" content="Modern C&#43;&#43;">
+    
+      <meta property="article:tag" content="C&#43;&#43;20">
     
   
 
@@ -67,14 +71,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>비주얼 스튜디오 프로젝트 구성속성 옵션 정리</title>
+    <title>C&#43;&#43;20 리서치 - Requires, Concept[6]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">
+    <link rel="canonical" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -247,15 +251,15 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      비주얼 스튜디오 프로젝트 구성속성 옵션 정리
+      C&#43;&#43;20 리서치 - Requires, Concept[6]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-12-01T11:35:36&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-01-11T10:00:00&#43;09:00">
         
-  December 1, 2020
+  January 11, 2021
 
       </time>
     
@@ -264,7 +268,9 @@ if (!doNotTrack) {
   
     <span>in</span>
     
-      <a class="category-link" href="https://ence2.github.io/categories/scm">SCM</a>
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;20">C&#43;&#43;20</a>
     
   
 
@@ -274,25 +280,220 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>VisualStudio에서 <code>프로젝트</code> -&gt; <code>우클릭</code> -&gt; <code>속성</code>에 들어가면 프로젝트의 <code>구성 속성</code>에 다양한 옵션을 지정 할 수있습니다.</p>
+              <p>C++20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.</p>
 
-<p>의미가 명확하지 않은 옵션들이 있어 틈날 때마다 본 포스팅에 정리 할 예정입니다.</p>
+<p>사용자가 만들 수 도 있고, 미리 만들어 져 있는 C++ 표준 Concept로도 제공합니다.</p>
 
-<ul>
-<li><code>강제 포함 파일</code> : 전처리기로 하여금 지정된 헤더 파일을 포함하도록 합니다. 이 옵션은 모든 소스 파일 첫 줄에 <code>#include &quot;파일명&quot;</code>을 삽입하는 효과와 동일합니다.</li>
-<li><code>추가 옵션</code> : 빌드 명령줄에 커스텀하게 추가 할 옵션을 n개 이상 명시 할 수 있습니다.
+<h3 id="requires와-concept-개요">Requires와 Concept 개요</h3>
 
 <ul>
-<li><code>/bigobj</code> : 목적 파일에 포함 할 수 있는 섹션의 수를 늘립니다. 목적 파일은 기본적으로 65,279개(약 2^16)의 주소 섹션을 갖는데 4,294,967,296(2^32)로 늘립니다.</li>
-<li><code>**</code>/std:c++14<code>** or /std:c++17 or /std:c++latest or /std:c++20(예정)</code> : 프로젝트의 C++ 버전 세팅 관련 옵션입니다.</li>
-<li><code>/await</code> : 코루틴에 대한 컴파일러 지원 사용 가능케 합니다. <strong><code>co_await</code></strong> <strong><code>co_yield</code></strong> <strong><code>co_return</code></strong> 등</li>
-</ul></li>
-<li><code>디버깅 정보 생성</code> : .PDB 파일 생성시 관련된 옵션이며 여러 설정값이 있습니다. <a href="https://docs.microsoft.com/ko-kr/cpp/build/reference/debug-generate-debug-info?view=msvc-160">자세한 내용</a></li>
-<li><code>링크 타임 코드 생성</code> : LTCG를 이용해 링크타임에 소스코드 최적화 관련 기능, 프로젝트가 복잡 할 경우 이 옵션을 끌 경우 빌드속도가 기적절으로 빨라 질 수 있습니다. 15분 -&gt; 2~3분. <a href="https://docs.microsoft.com/ko-kr/cpp/build/reference/ltcg-link-time-code-generation?view=msvc-160">자세한 내용</a>, 관련 <a href="https://www.slideshare.net/yikwonhwang/ndc2015-msvc">NDC 자료</a></li>
-<li><code>프레임 포인터 생략</code> : <code>/Oy-</code> 추천, 이 옵션을 설정하면 프레임 포인터를 설정하고 제거할 필요가 없기 때문에 함수 호출 속도가 빨라집니다. 또한 일반 용도를 위해 레지스터를 하나 더 해제합니다. 호출 스택에서 프레임 포인터를 생성하지 않으며 이에 따라 함수 호출 속도가 빨라진다. 이 것은 x86 컴파일러에서만 사용할 수 있다. /Oy를 사용하면 프레임 포인터가 생략되며 /Oy-를 사용하면 프레임 포인터 생략이 비활성화된다. 이 옵션을 사용하면 즉 /Oy가 설정되면 이 EBP를 스택 프레임으로서 사용하지 않고 General Purpose로 사용하게 된다.</li>
-<li><code>준수 모드</code> : 컴파일러에 대해 프로그래밍 문법 표준 준수 여부 지시</li>
-<li><code>컴파일 옵션</code> : C or C++로 컴파일 대상 지정 가능</li>
+<li><p>템플릿 인자가 가져야 하는 조건을 표기하는 문법</p></li>
+
+<li><p>조건을 만족하는 경우에만 템플릿 사용</p></li>
+
+<li><p>Concept 뿐 아니라 type traits 등도 사용 가능</p></li>
+
+<li><p>신규 키워드 : concept, requires</p></li>
+
+<li><p>신규 헤더 : concepts</p></li>
 </ul>
+
+<h3 id="requires-clauses">Requires Clauses</h3>
+
+<p><strong>장점 및 특징</strong></p>
+
+<ul>
+<li>템플릿에 requires + (조건)으로 제약조건 표기 가능</li>
+<li>컴파일 시간에 결정되는 bool 형식의 상수 값(반드시 bool 타입이어야 함)</li>
+
+<li><p>조건을 함수 형식(constexpr or consteval 함수)으로 사용가능( 괄호로 묶기 반드시 필요 )</p></li>
+
+<li><p>읽기 좋은 에러 메세지 출력 ( <strong>통상적으로 템플릿 사용시 에러 메세지가 매우 복잡</strong> )</p></li>
+
+<li><p>치환 실패는 에러가 아니라 SFINAE 규칙 적용</p></li>
+</ul>
+
+<pre><code class="language-c++">  #include &lt;type_traits&gt;
+  
+  template&lt;typename T&gt; requires std::is_integral_v&lt;T&gt; // 문법 &quot;requires + (조건)&quot; 로 제약 조건 명시 가능
+  void goo(T arg)
+  {
+  }
+  
+  template&lt;typename T&gt; requires std::is_integral_v&lt;T&gt;
+  T gcd(T a, T b)
+  {
+      return b == 0 ? a : gcd(b, a % b);
+  }
+  
+  double gcd(double a, double b) { return 0; };
+  
+  int main
+  {
+      goo(1); // OK
+      goo(3.4); // Error : 에러 메세지가 가독성 좋게 출력됨
+      
+      gcd(4, 2); // OK : template을 사용해서 int 버전 함수 생성
+      gcd(4.2, 2.1); // OK : double 버전
+      gcd(4.2f, 2.1f) // OK : float 버전에서 % 연산으로 인해 에러가 발생함으로 컴파일러가
+                      // requires 조건을 만족하지 않을 경우 템플릿을 사용하지 않은 double 버전 함수 선택
+                      // SFINAE라는 기술로 구현 ( Subsituation failure is not an error )
+  }
+</code></pre>
+
+<ul>
+<li>Requires 절과 함수 오버로딩</li>
+</ul>
+
+<pre><code class="language-c++">  #include &lt;iostream&gt;
+  #include &lt;vector&gt;
+  #include &lt;list&gt;
+  #include &lt;concepts&gt;
+  
+  template&lt;typename T&gt; requires std::random_access_iterator&lt;T&gt; // 반복자 임의 접근 가능한지 여부( C++ 표준 concepts )
+  void MyAdvance(T&amp; p, int n) // 간단한 구현을 위해 n &gt; 0 인 경우만
+  {
+      // 임의 접근
+      p = p + n; 
+  }
+  
+  template&lt;typename T&gt; requires std::input_iterator&lt;T&gt;
+  void MyAdvance(T&amp; p, int n)
+  {
+      // 임의 접근 아닌 경우
+      while(n--) ++p;
+  }
+  
+  int main()
+  {
+      // C++20 에서는 concepts을 이용하여 advance를 아주 손쉽게 구현 할 수 있다.
+      std::vector v = {1, 2, 3, 4, 5, 6};
+      std::list l = {1, 2, 3, 4, 5, 6};
+      
+      MyAdvance(std::begin(v), 4);
+      MyAdvance(std::begin(l), 4);
+  }
+</code></pre>
+
+<ul>
+<li>Requires 절의 위치</li>
+</ul>
+
+<pre><code class="language-c++">  template&lt;typename T&gt; requires true // 이 위치 OK
+  void f1(T a)
+  {}
+  
+  template&lt;typename T&gt; 
+  void f2(T a) requires true // 이 위치도 OK
+  {}
+</code></pre>
+
+<h3 id="concept">Concept</h3>
+
+<ul>
+<li>concept이란 requirements의 명명된 집합이며 다음과 같은 형태를 취합니다.</li>
+</ul>
+
+<pre><code class="language-c++">  template &lt;파라메터 list&gt;
+  concept 컨셉이름 = 제약 조건 표현식;
+</code></pre>
+
+<ul>
+<li>예제</li>
+</ul>
+
+<pre><code class="language-c++">  #include &lt;type_traits&gt;
+  
+  template&lt;typename T&gt;
+  concept Integral = std::is_integral_v&lt;T&gt; &amp;&amp; true; // 요구 조건 제약사항 concepts 생성
+  
+  template&lt;typename T&gt; requires Integral&lt;T&gt;
+  void foo(T a)
+  {
+      
+  }
+  
+  int main()
+  {
+      bool b = Integral&lt;int&gt;;
+      
+      std::cout &lt;&lt; b &lt;&lt; std::endl;
+  }
+</code></pre>
+
+<ul>
+<li>Requires expression
+형태 : requires ( 파라메터 list[생략가능] ) { 요구사항; };</li>
+</ul>
+
+<pre><code class="language-c++">  #include &lt;type_traits&gt;
+  
+  template&lt;typename T&gt; concept True = true; // 기본형
+  
+  template&lt;typename T&gt; concept Modulus = requres(T a, T b) // Requires expression 형태 : 조건을 디테일 하게 명시 할 수 있음
+  {
+      a % b;
+  };
+  
+  template&lt;typename T&gt; requires Modules&lt;T&gt; T Mod(T a, T b) // requires 절 : 일반적 템플릿에 requires와 위에서 만든 concept을 사용
+  {
+      return a % b;
+  }
+  
+  int main()
+  {
+      Mod(10, 5); // Ok
+      Mod(5.4, 2.2); // Error : 일치하는 오버로드 함수가 없음, concept의 제약조건을 % 연산에 대해서만 명시 했기 때문에 ( 실수는 % 연산 불가 )
+  }
+</code></pre>
+
+<ul>
+<li><p>이러한 원리를 이용해서 표준에서 concepts 헤더에 미리 구현해놓은 다양한 concept이 존재합니다.</p></li>
+
+<li><p>Partial ordering : 여러개의 concept을 만족 할 경우 어떤 concept을 적용 하는지에 대한 규칙입니다.</p></li>
+</ul>
+
+<pre><code class="language-c++">  template&lt;typename T&gt;
+  concept C1 = sizeof(T) &gt; 1;
+  
+  template&lt;typename T&gt;
+  concept C2 = C1&lt;T&gt; &amp;&amp; sizeof(T) &lt; 8; // 기존의 C1을 활용하여 조건 확장 가능
+  
+  template&lt;typename T&gt; requires C1&lt;T&gt;
+  void foo(T a) { }
+  
+  template&lt;typename T&gt; requires C2&lt;T&gt;
+  void foo(T a) { }
+  
+  int main()
+  {
+      foo(3); // int : C1과 C2를 만족하는데, 어떤 concept을 사용할지? -&gt; 보다 많은 조건을 만족하는 concept 실행
+  }
+</code></pre>
+
+<ul>
+<li>concepts의 syntax sugar</li>
+</ul>
+
+<pre><code class="language-c++">  #incldue &lt;concepts&gt;
+  
+  template&lt;typename T&gt; requires std::integral&lt;T&gt; // 기본 표기법
+  void f1(T a){ }
+  
+  template&lt;std::integral T&gt; // 이 표현도 같은 의미, 더욱 간결
+  void f2(T a){ }
+  
+  void f3()(std::integral auto a){ } // 이 표현도 같은 의미이며 템플릿입니다. 더 더욱 간결
+  
+  // 추가정보 : C++20의 간결해진 템플릿 표현법( 표준이지만 아직 VC에서 지원 하지 않음, 추후에 지원 될 예정 )
+  void easy_template()(auto a){ } // c++20 부터 템플릿 작성시 이러한 표현으로 가능하며 의미는 == template&lt;typeame T&gt; void 함수명(T a)
+</code></pre>
+
+<ul>
+<li>C++20 표준이 제공하는 concepts은 다음에서 참조 -&gt; <a href="https://en.cppreference.com/w/cpp/concepts">링크</a></li>
+</ul>
+
+<p>더 많은 C++20 관련 정보 -&gt; cppreference.com</p>
               
             </div>
           </div>
@@ -304,9 +505,11 @@ if (!doNotTrack) {
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/visaulstudio/">VisaulStudio</a>
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
 
-  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/%ED%98%95%EC%83%81%EA%B4%80%EB%A6%AC/">형상관리</a>
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/modern-c&#43;&#43;/">Modern C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;20/">C&#43;&#43;20</a>
 
                   </div>
                 
@@ -319,7 +522,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="C&#43;&#43;20 리서치 - 소개[1]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -327,7 +530,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%EA%B4%80%EB%A0%A8-%EB%8B%A8%EC%B6%95%ED%82%A4-%EC%B4%9D%EC%A0%95%EB%A6%AC/" data-tooltip="비주얼 스튜디오 관련 단축키 총정리">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-designated-initialization-constexpr-consteval-etc..5/" data-tooltip="C&#43;&#43;20 리서치 - Designated Initialization, Constexpr, Consteval, etc..[5]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -345,19 +548,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -405,7 +608,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="C&#43;&#43;20 리서치 - 소개[1]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -413,7 +616,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%EA%B4%80%EB%A0%A8-%EB%8B%A8%EC%B6%95%ED%82%A4-%EC%B4%9D%EC%A0%95%EB%A6%AC/" data-tooltip="비주얼 스튜디오 관련 단축키 총정리">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-designated-initialization-constexpr-consteval-etc..5/" data-tooltip="C&#43;&#43;20 리서치 - Designated Initialization, Constexpr, Consteval, etc..[5]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -431,19 +634,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/12/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -473,19 +676,19 @@ if (!doNotTrack) {
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F12%2F%25EB%25B9%2584%25EC%25A3%25BC%25EC%2596%25BC-%25EC%258A%25A4%25ED%258A%259C%25EB%2594%2594%25EC%2598%25A4-%25ED%2594%2584%25EB%25A1%259C%25EC%25A0%259D%25ED%258A%25B8-%25EA%25B5%25AC%25EC%2584%25B1%25EC%2586%258D%25EC%2584%25B1-%25EC%2598%25B5%25EC%2585%2598-%25EC%25A0%2595%25EB%25A6%25AC%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-requires-concept6%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F12%2F%25EB%25B9%2584%25EC%25A3%25BC%25EC%2596%25BC-%25EC%258A%25A4%25ED%258A%259C%25EB%2594%2594%25EC%2598%25A4-%25ED%2594%2584%25EB%25A1%259C%25EC%25A0%259D%25ED%258A%25B8-%25EA%25B5%25AC%25EC%2584%25B1%25EC%2586%258D%25EC%2584%25B1-%25EC%2598%25B5%25EC%2585%2598-%25EC%25A0%2595%25EB%25A6%25AC%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-requires-concept6%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F12%2F%25EB%25B9%2584%25EC%25A3%25BC%25EC%2596%25BC-%25EC%258A%25A4%25ED%258A%259C%25EB%2594%2594%25EC%2598%25A4-%25ED%2594%2584%25EB%25A1%259C%25EC%25A0%259D%25ED%258A%25B8-%25EA%25B5%25AC%25EC%2584%25B1%25EC%2586%258D%25EC%2584%25B1-%25EC%2598%25B5%25EC%2585%2598-%25EC%25A0%2595%25EB%25A6%25AC%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-requires-concept6%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -577,9 +780,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2020\/12\/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6\/';
           
-            this.page.identifier = '\/2020\/12\/%EB%B9%84%EC%A3%BC%EC%96%BC-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%84%B1%EC%86%8D%EC%84%B1-%EC%98%B5%EC%85%98-%EC%A0%95%EB%A6%AC\/'
+            this.page.identifier = '\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-concept6\/'
           
         };
         (function() {
