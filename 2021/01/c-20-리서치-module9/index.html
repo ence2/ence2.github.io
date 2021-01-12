@@ -8,25 +8,25 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="C&#43;&#43;20에 추가된 coroutine은 기존 sub-routine과 다르게 caller 함수와 협력 관계로 동작합니다.">
+<meta name="description" content="현재 글 작성 시점에 C&#43;&#43;20 표준의 module을 제대로 지원하는 컴파일러가 존재하지 않아, 간단한 개념과 사용 방법을 살펴보겠습니다.">
 
 
-<meta property="og:description" content="C&#43;&#43;20에 추가된 coroutine은 기존 sub-routine과 다르게 caller 함수와 협력 관계로 동작합니다.">
+<meta property="og:description" content="현재 글 작성 시점에 C&#43;&#43;20 표준의 module을 제대로 지원하는 컴파일러가 존재하지 않아, 간단한 개념과 사용 방법을 살펴보겠습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#43;&#43;20 리서치 - Coroutine[8]">
-<meta name="twitter:title" content="C&#43;&#43;20 리서치 - Coroutine[8]">
-<meta property="og:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/">
+<meta property="og:title" content="C&#43;&#43;20 리서치 - Module[9]">
+<meta name="twitter:title" content="C&#43;&#43;20 리서치 - Module[9]">
+<meta property="og:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="C&#43;&#43;20에 추가된 coroutine은 기존 sub-routine과 다르게 caller 함수와 협력 관계로 동작합니다.">
-<meta name="twitter:description" content="C&#43;&#43;20에 추가된 coroutine은 기존 sub-routine과 다르게 caller 함수와 협력 관계로 동작합니다.">
+<meta property="og:description" content="현재 글 작성 시점에 C&#43;&#43;20 표준의 module을 제대로 지원하는 컴파일러가 존재하지 않아, 간단한 개념과 사용 방법을 살펴보겠습니다.">
+<meta name="twitter:description" content="현재 글 작성 시점에 C&#43;&#43;20 표준의 module을 제대로 지원하는 컴파일러가 존재하지 않아, 간단한 개념과 사용 방법을 살펴보겠습니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-01-12T11:00:00">
+    <meta property="article:published_time" content="2021-01-12T12:00:00">
   
   
-    <meta property="article:modified_time" content="2021-01-12T11:00:00">
+    <meta property="article:modified_time" content="2021-01-12T12:00:00">
   
   
   
@@ -63,14 +63,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C&#43;&#43;20 리서치 - Coroutine[8]</title>
+    <title>C&#43;&#43;20 리서치 - Module[9]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/">
+    <link rel="canonical" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -233,13 +233,13 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      C&#43;&#43;20 리서치 - Coroutine[8]
+      C&#43;&#43;20 리서치 - Module[9]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-01-12T11:00:00&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-01-12T12:00:00&#43;09:00">
         
   January 12, 2021
 
@@ -262,179 +262,40 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>C++20에 추가된 coroutine은 기존 sub-routine과 다르게 caller 함수와 협력 관계로 동작합니다.</p>
+              <p>현재 글 작성 시점에 C++20 표준의 module을 제대로 지원하는 컴파일러가 존재하지 않아, 간단한 개념과 사용 방법을 살펴보겠습니다.</p>
 
-<h3 id="coroutine-개념-및-특징">Coroutine 개념 및 특징</h3>
+<h3 id="개념-및-특징">개념 및 특징</h3>
 
-<p><img src="https://ence2.github.io/img/coroutine.png" alt="structure" /></p>
-
-<ol>
-<li>co-routine은 호출 중간에 작업을 중단 하고 호출 위치로 복귀 이후, 중단 시점에서 다시 작업 재개가 가능합니다.</li>
-<li>Heap에 coroutine의 Stack frame을 보관하여 복귀 시점을 찾는 등의 동작으로 구현 되어 있습니다.</li>
-<li>C++20에서는 다른 언어의 co-routine 보다 사용이 다소 복잡하지만, 유연성을 제공합니다.</li>
-<li>single thread로 동작 할 수도 있고, multi thread로도 동작 할 수 있습니다.</li>
-<li>신규 헤더 : coroutine</li>
-<li>신규 키워드 : co_await, co_yield
+<ul>
+<li>파일에 함수를 작성하여 import &ldquo;모듈명&rdquo; 으로 패키지화 하여 사용 할 수 있습니다. (java의 import와 비슷합니다.)</li>
+<li>헤더 부분에 <code>import std.core;</code> 와 같은 표기법으로 사용하도록 지원 될 예정입니다.</li>
+<li>모듈을 이용하여 모듈화 프로그래밍이 수월해집니다.
 
 <br />
 
 <br /></li>
-</ol>
+</ul>
 
-<h3 id="기본-예제">기본 예제</h3>
+<h3 id="예제">예제</h3>
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;coroutine&gt;
-#include &lt;Windows.h&gt;
+<pre><code class="language-cpp">// math.ixx : 모듈 생성
 
-// Coroutine을 사용하기 위한 최소한의 구현 객체 Coroutine framework
-template&lt;typename T&gt;
-class Generator
+export module math;
+
+export int add(int first, int second)
 {
-public:
-    struct Promise
-    {
-private:
-        T value;
-public:
-        T Getvalue() { return value; }
-        Generator get_return_object()
-        {
-            return Generator{ std::coroutine_handle&lt;Promise&gt;::from_promise(*this) };
-        }
-        
-        auto yield_value(int n)
-        {
-            value = n;
-            return std::suspend_always{};
-        }
-        
-        auto initial_suspend() { return std::suspend_always{}; }
-        auto return_void() { return std::suspend_never{}; }
-        auto final_suspend() { return std::suspend_always{}; }
-        auto unhandled_exception() { return exit(1); }
-    };
-    using promise_type = Promise;
-    
-    std::coroutine_handle&lt;promise_type&gt; coro;
-    
-    Generator( std::coroutine_handle&lt;promise_type&gt; c ) : coro(c) {}
-    
-    ~Generator() { if ( coro ) coro.destroy(); }
-};
-
-Generator f()
-{
-    std::cout &lt;&lt; &quot;Run 1&quot; &lt;&lt; std::endl;
-    
-    Sleep(10000);
-    //co_await std::suspend_always {}; // 작업 중단 시점 명시, suspend_always -&gt; awaitable object
-    co_yiled 10;
-    
-    std::cout &lt;&lt; &quot;Run 2&quot; &lt;&lt; std::endl;
-    co_yield 20;
-    
-    std::cout &lt;&lt; &quot;Run 3&quot; &lt;&lt; std::endl;
+    return first + second;
 }
+
+#include &lt;iostream&gt;
+
+import math;
 
 int main()
 {
-    Generator&lt;int&gt; g = foo();
+    int n = add(10, 20);
     
-    std::cout &lt;&lt; &quot;main1&quot; &lt;&lt; std::endl;
-   
-    
-    while(true)
-    {
-         g.coro.resume();
-        
-        // 코루틴이 작업중인지 확인 가능
-        if( g.coro.done() ) break;
-    }
-    
-    std::cout &lt;&lt; g.coro.promise().getvalue() &lt;&lt; std::endl; // 코루틴과 값 주고 받기
-    
-    std::cout &lt;&lt; &quot;main2&quot; &lt;&lt; std::endl;
-    g.coro.resume();
-    
-    std::cout &lt;&lt; g.coro.promise().getvalue() &lt;&lt; std::endl;
-    
-    std::cout &lt;&lt; &quot;main3&quot; &lt;&lt; std::endl;
-}
-</code></pre>
-
-<h3 id="awatible-object-멀티-스레딩">Awatible object (멀티 스레딩)</h3>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;coroutine&gt;
-#include &lt;Windows.h&gt;
-
-// Coroutine을 사용하기 위한 최소한의 구현 객체 Coroutine framework
-template&lt;typename T&gt;
-class Generator
-{
-public:
-    struct Promise
-    {
-private:
-        T value;
-public:
-        T Getvalue() { return value; }
-        Generator get_return_object()
-        {
-            return Generator{ std::coroutine_handle&lt;Promise&gt;::from_promise(*this) };
-        }
-        
-        auto yield_value(int n)
-        {
-            value = n;
-            return std::suspend_always{};
-        }
-        
-        auto initial_suspend() { return std::suspend_always{}; }
-        auto return_void() { return std::suspend_never{}; }
-        auto final_suspend() { return std::suspend_always{}; }
-        auto unhandled_exception() { return exit(1); }
-    };
-    using promise_type = Promise;
-    
-    std::coroutine_handle&lt;promise_type&gt; coro;
-    
-    Generator( std::coroutine_handle&lt;promise_type&gt; c ) : coro(c) {}
-    
-    ~Generator() { if ( coro ) coro.destroy(); }
-};
-
-struct resume_new_thread
-{
-    void await_suspend(std::coroutine_handle&lt;&gt; handle)
-    {
-        std::thread t([handle]() { handle(); });
-        t.detach();
-    }
-    constexpr bool await_read() const noexcept { return false; }
-    constexpr bool await_resume() const noexcept { }
-}
-
-Generator f()
-{
-    std::cout &lt;&lt; &quot;Run 1 : &quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;
-    
-    co_wait resume_new_thread{}; //여기에 걸리면 새로운 thread를 만들어라
-    
-    std::cout &lt;&lt; &quot;Run 2 : &quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;
-}
-
-int main()
-{
-    Generator&lt;int&gt; g = foo();
-     g.coro.resume(); // resume시 새로운 스레드가 생겨서 Run 2 실행(멀티스레딩)
-    
-    std::cout &lt;&lt; &quot;main&quot; &lt;&lt; std::endl;
-    
-    int n;
-    std::cin &gt;&gt; n;
-
+    std::cout &lt;&lt; n &lt;&lt; std::endl;
 }
 </code></pre>
 
@@ -467,7 +328,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/" data-tooltip="C&#43;&#43;20 리서치 - Module[9]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -475,7 +336,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-reverse_view-filter_view7/" data-tooltip="C&#43;&#43;20 리서치 - range의 view, ref_view, reverse_view, filter_view[7]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/" data-tooltip="C&#43;&#43;20 리서치 - Coroutine[8]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -493,19 +354,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -553,7 +414,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/" data-tooltip="C&#43;&#43;20 리서치 - Module[9]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -561,7 +422,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-range%EC%9D%98-view-ref_view-reverse_view-filter_view7/" data-tooltip="C&#43;&#43;20 리서치 - range의 view, ref_view, reverse_view, filter_view[7]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/" data-tooltip="C&#43;&#43;20 리서치 - Coroutine[8]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -579,19 +440,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -621,19 +482,19 @@ int main()
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-coroutine8%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-module9%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-coroutine8%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-module9%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-coroutine8%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F01%2Fc-20-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-module9%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -725,9 +586,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9\/';
           
-            this.page.identifier = '\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-coroutine8\/'
+            this.page.identifier = '\/2021\/01\/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-module9\/'
           
         };
         (function() {
