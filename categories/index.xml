@@ -83,5 +83,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>Study</title>
+      <link>https://ence2.github.io/categories/study/</link>
+      <pubDate>Mon, 01 Feb 2021 20:14:52 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/categories/study/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Voca</title>
+      <link>https://ence2.github.io/categories/voca/</link>
+      <pubDate>Mon, 01 Feb 2021 20:14:52 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/categories/voca/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
