@@ -6,10 +6,21 @@
     <description>Recent content in 코틀린 on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 21 Feb 2021 15:12:30 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 21 Feb 2021 16:12:30 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/tags/%EC%BD%94%ED%8B%80%EB%A6%B0/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>코틀린 리서치 - 개발환경 세팅[2]</title>
+      <link>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/</link>
+      <pubDate>Sun, 21 Feb 2021 16:12:30 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/</guid>
+      <description>&lt;p&gt;코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)&lt;/p&gt;
+
+&lt;p&gt;이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>코틀린 리서치 - 소개[1]</title>

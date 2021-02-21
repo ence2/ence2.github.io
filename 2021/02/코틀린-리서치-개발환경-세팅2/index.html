@@ -8,57 +8,33 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="코틀린은 JVM 기반으로 동작하는 프로그래밍 언어이며, jet brains사에 의해 개발되었습니다.(2011, 7월)
+<meta name="description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
 
-Google사에서 안드로이드 개발 관련 공식 언어로 채택하였으며(2017), 개인적으로 안드로이드 관련 개발시 기존의 JAVA를 대체 할 것으로 예상합니다.
-
-클라이언트 사이드 뿐만 아니라 서버(백앤드) 사이드도 코틀린을 활용하여, 서버&lt;-&gt;클라이언트간 같은 소스코드의 공유 모듈을 활용하여 재사용성 있고 안정적인 서비스 아키텍쳐 구축이 가능 할 것으로 생각됩니다.
-
-본 시리즈에서는 코틀린의 소개, 개발환경(IDE) 세팅, 관련 문법, 코틀린을 활용한 코딩 문제 해결 등을 다룰 예정이며,
-
-이번 포스팅에서는 코틀린에 대한 간단한 소개를 진행합니다.">
+이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
 
 
-<meta property="og:description" content="코틀린은 JVM 기반으로 동작하는 프로그래밍 언어이며, jet brains사에 의해 개발되었습니다.(2011, 7월)
+<meta property="og:description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
 
-Google사에서 안드로이드 개발 관련 공식 언어로 채택하였으며(2017), 개인적으로 안드로이드 관련 개발시 기존의 JAVA를 대체 할 것으로 예상합니다.
-
-클라이언트 사이드 뿐만 아니라 서버(백앤드) 사이드도 코틀린을 활용하여, 서버&lt;-&gt;클라이언트간 같은 소스코드의 공유 모듈을 활용하여 재사용성 있고 안정적인 서비스 아키텍쳐 구축이 가능 할 것으로 생각됩니다.
-
-본 시리즈에서는 코틀린의 소개, 개발환경(IDE) 세팅, 관련 문법, 코틀린을 활용한 코딩 문제 해결 등을 다룰 예정이며,
-
-이번 포스팅에서는 코틀린에 대한 간단한 소개를 진행합니다.">
+이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="코틀린 리서치 - 소개[1]">
-<meta name="twitter:title" content="코틀린 리서치 - 소개[1]">
-<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">
+<meta property="og:title" content="코틀린 리서치 - 개발환경 세팅[2]">
+<meta name="twitter:title" content="코틀린 리서치 - 개발환경 세팅[2]">
+<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="코틀린은 JVM 기반으로 동작하는 프로그래밍 언어이며, jet brains사에 의해 개발되었습니다.(2011, 7월)
+<meta property="og:description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
 
-Google사에서 안드로이드 개발 관련 공식 언어로 채택하였으며(2017), 개인적으로 안드로이드 관련 개발시 기존의 JAVA를 대체 할 것으로 예상합니다.
+이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
+<meta name="twitter:description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
 
-클라이언트 사이드 뿐만 아니라 서버(백앤드) 사이드도 코틀린을 활용하여, 서버&lt;-&gt;클라이언트간 같은 소스코드의 공유 모듈을 활용하여 재사용성 있고 안정적인 서비스 아키텍쳐 구축이 가능 할 것으로 생각됩니다.
-
-본 시리즈에서는 코틀린의 소개, 개발환경(IDE) 세팅, 관련 문법, 코틀린을 활용한 코딩 문제 해결 등을 다룰 예정이며,
-
-이번 포스팅에서는 코틀린에 대한 간단한 소개를 진행합니다.">
-<meta name="twitter:description" content="코틀린은 JVM 기반으로 동작하는 프로그래밍 언어이며, jet brains사에 의해 개발되었습니다.(2011, 7월)
-
-Google사에서 안드로이드 개발 관련 공식 언어로 채택하였으며(2017), 개인적으로 안드로이드 관련 개발시 기존의 JAVA를 대체 할 것으로 예상합니다.
-
-클라이언트 사이드 뿐만 아니라 서버(백앤드) 사이드도 코틀린을 활용하여, 서버&lt;-&gt;클라이언트간 같은 소스코드의 공유 모듈을 활용하여 재사용성 있고 안정적인 서비스 아키텍쳐 구축이 가능 할 것으로 생각됩니다.
-
-본 시리즈에서는 코틀린의 소개, 개발환경(IDE) 세팅, 관련 문법, 코틀린을 활용한 코딩 문제 해결 등을 다룰 예정이며,
-
-이번 포스팅에서는 코틀린에 대한 간단한 소개를 진행합니다.">
+이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-02-21T15:12:30">
+    <meta property="article:published_time" content="2021-02-21T16:12:30">
   
   
-    <meta property="article:modified_time" content="2021-02-21T15:12:30">
+    <meta property="article:modified_time" content="2021-02-21T16:12:30">
   
   
   
@@ -97,14 +73,14 @@ Google사에서 안드로이드 개발 관련 공식 언어로 채택하였으�
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>코틀린 리서치 - 소개[1]</title>
+    <title>코틀린 리서치 - 개발환경 세팅[2]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">
+    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -257,13 +233,13 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      코틀린 리서치 - 소개[1]
+      코틀린 리서치 - 개발환경 세팅[2]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-02-21T15:12:30&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-02-21T16:12:30&#43;09:00">
         
   February 21, 2021
 
@@ -286,41 +262,54 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>코틀린은 JVM 기반으로 동작하는 프로그래밍 언어이며, jet brains사에 의해 개발되었습니다.(2011, 7월)</p>
+              <p>코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)</p>
 
-<p>Google사에서 안드로이드 개발 관련 공식 언어로 채택하였으며(2017), 개인적으로 안드로이드 관련 개발시 기존의 JAVA를 대체 할 것으로 예상합니다.</p>
+<p>이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.</p>
 
-<p>클라이언트 사이드 뿐만 아니라 서버(백앤드) 사이드도 코틀린을 활용하여, 서버&lt;-&gt;클라이언트간 같은 소스코드의 공유 모듈을 활용하여 재사용성 있고 안정적인 서비스 아키텍쳐 구축이 가능 할 것으로 생각됩니다.</p>
+<p>자바가 오라클에 인수 된 이후로부터 JDK의 라이센스는 상업적 이용시 구독 비용이 발생하게 되었으며, 회사의 RnD성 프로젝트에서는 돈이 남아 돌지 않는 이상 무료 라이센스인 open JDK를 권장합니다.(for free)</p>
 
-<p>본 시리즈에서는 코틀린의 소개, 개발환경(IDE) 세팅, 관련 문법, 코틀린을 활용한 코딩 문제 해결 등을 다룰 예정이며,</p>
+<p>본 블로그에서는 회사에서의 사용을 염두하여 openJDK 및 IntelliJ IDEA 환경에서 코틀린 리서치를 진행합니다.</p>
 
-<p>이번 포스팅에서는 코틀린에 대한 간단한 소개를 진행합니다.</p>
-
-<h3 id="코틀린의-목적">코틀린의 목적</h3>
-
-<p>코틀린은 JVM에서 구동되는 언어로 자바와 상호운용할 수 있도록 만들어졌습니다. JAVA를 완전히 대체할 수 있는 언어가 되는 것이 코틀린의 주목적입니다.</p>
-
-<p>Google에서 kotlin first로 삼은 만큼 미래에는 안드로이드 관련 개발시 코틀린이 mainly한 언어가 될 것으로 생각됩니다.</p>
-
-<p>그리고 항상 많이 쓰이는 언어는 생각지도 못한 곳으로 확장 됩니다. (자바 스크립트의 node.js와 같은 백앤드 아키텍쳐가 등장 할 줄 누가 알았을까요?)</p>
-
-<h3 id="코틀린의-장점">코틀린의 장점</h3>
+<h3 id="ide-설치">IDE 설치</h3>
 
 <ul>
-<li><p>매우 쉬운 문법</p></li>
-
-<li><p>정적 타입 언어</p></li>
-
-<li><p>함수형 프로그래밍 지원</p></li>
-
-<li><p>객체지향 프로그래밍 지원</p></li>
-
-<li><p>for free 오픈 소스 (그러나 회사에서 오라클 JDK 사용시 비용이 발생하며, Open JDK를 이용하여 무료 사용 가능)</p></li>
+<li><a href="https://www.jetbrains.com/ko-kr/idea/download/#section=windows">https://www.jetbrains.com/ko-kr/idea/download/#section=windows</a> 다음 주소에서 개발 플랫폼에 맞는 Community 다운로드 및 설치</li>
 </ul>
 
-<h3 id="마치며">마치며</h3>
+<h3 id="jdk-설치">JDK 설치</h3>
 
-<p>안드로이드 OS는 현재 우리가 살아가는 환경 곳곳에 존재하며(스마트폰, TV, 가전기기 등등 &hellip;) 그러한 환경을 제공하는 Google사에서 코틀린을 전적으로 선택한 이상, 코틀린 개발에 친숙한 개발자는 이런 환경에서 동작하는 어플리케이션 개발에 참여 할 수 있을 것입니다.</p>
+<ul>
+<li><a href="https://openjdk.java.net/">https://openjdk.java.net/</a> 다음 주소에서 개발 플랫폼 및 원하는 버전의 open JDK 다운로드(<a href="https://jdk.java.net/archive/">https://jdk.java.net/archive/</a> 아카이브)</li>
+<li>적당한 위치에 다운로드 받은 파일(ex : openjdk-11_windows-x64_bin.zip)의 압축 해제</li>
+<li>환경변수 -&gt; 시스템변수 -&gt; 새로만들기 -&gt; 이름 &ldquo;JAVA_HOME&rdquo;, 값 &ldquo;&ldquo;폴더 경로&rdquo;(ex : D:\openjdk-11_windows-x64_bin\jdk-11)</li>
+<li>시스템 변수 -&gt; 존재하는 Path에 %JAVA_HOME%\bin 값 추가</li>
+</ul>
+
+<h3 id="jdk-설치-확인">JDK 설치 확인</h3>
+
+<ul>
+<li>cmd -&gt; java -version 입력 -&gt; jdk 관련 출력 확인</li>
+</ul>
+
+<pre><code>  C:\Users\id&gt;java -version
+  openjdk version &quot;11&quot; 2018-09-25
+  OpenJDK Runtime Environment 18.9 (build 11+28)
+  OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
+</code></pre>
+
+<h3 id="idea에서-코틀린-프로젝트-생성">IDEA에서 코틀린 프로젝트 생성</h3>
+
+<ul>
+<li><p>IDEA 실행 -&gt; Projects -&gt; New Project</p>
+
+<ul>
+<li>Kotlin -&gt; 템플릿은 Console Application -&gt; Project JDK는 위에서 설치한 JDK -&gt; Next -&gt; JVM Target 설치한 JDK로 세팅 -&gt; Next -&gt; 자동으로 생성된 프로젝트 Build and Run -&gt; 실행하면 Configuration 세팅하라고 나오면 사진과 같이 설정 -&gt; 최종 HelloWorld 출력되면 세팅 완료</li>
+</ul></li>
+</ul>
+
+<p><img src="imgkotlin2_3.PNG" alt="" /></p>
+
+<p><img src="imgkotlin2_4.PNG" alt="" /></p>
               
             </div>
           </div>
@@ -351,7 +340,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/" data-tooltip="코틀린 리서치 - 개발환경 세팅[2]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -359,7 +348,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/" data-tooltip="뇌에서 clear된 수능 수준 영어 어휘">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="코틀린 리서치 - 소개[1]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -377,19 +366,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -437,7 +426,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/" data-tooltip="코틀린 리서치 - 개발환경 세팅[2]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -445,7 +434,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/" data-tooltip="뇌에서 clear된 수능 수준 영어 어휘">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="코틀린 리서치 - 소개[1]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -463,19 +452,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -505,19 +494,19 @@ if (!doNotTrack) {
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EC%2586%258C%25EA%25B0%259C1%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EA%25B0%259C%25EB%25B0%259C%25ED%2599%2598%25EA%25B2%25BD-%25EC%2584%25B8%25ED%258C%25852%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EC%2586%258C%25EA%25B0%259C1%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EA%25B0%259C%25EB%25B0%259C%25ED%2599%2598%25EA%25B2%25BD-%25EC%2584%25B8%25ED%258C%25852%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EC%2586%258C%25EA%25B0%259C1%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EA%25B0%259C%25EB%25B0%259C%25ED%2599%2598%25EA%25B2%25BD-%25EC%2584%25B8%25ED%258C%25852%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -609,9 +598,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852\/';
           
-            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1\/'
+            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852\/'
           
         };
         (function() {
