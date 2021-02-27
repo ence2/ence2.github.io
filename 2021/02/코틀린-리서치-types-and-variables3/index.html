@@ -8,26 +8,18 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
-
-이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
+<meta name="description" content="코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.">
 
 
-<meta property="og:description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
-
-이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
+<meta property="og:description" content="코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="코틀린 리서치 - 개발환경 세팅[2]">
-<meta name="twitter:title" content="코틀린 리서치 - 개발환경 세팅[2]">
-<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
+<meta property="og:title" content="코틀린 리서치 - Types and Variables[3]">
+<meta name="twitter:title" content="코틀린 리서치 - Types and Variables[3]">
+<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
-
-이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
-<meta name="twitter:description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
-
-이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
+<meta property="og:description" content="코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.">
+<meta name="twitter:description" content="코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.">
 <meta property="og:locale" content="en-us">
 
   
@@ -73,14 +65,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>코틀린 리서치 - 개발환경 세팅[2]</title>
+    <title>코틀린 리서치 - Types and Variables[3]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
+    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -233,7 +225,7 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      코틀린 리서치 - 개발환경 세팅[2]
+      코틀린 리서치 - Types and Variables[3]
     </h1>
   
   
@@ -262,58 +254,203 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)</p>
+              <p>코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.</p>
 
-<p>이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.</p>
+<p>코틀린은 정적 타입언어이며, 변수 타입의 종류는 JAVA와 유사합니다.</p>
 
-<p>자바가 오라클에 인수 된 이후로부터 JDK의 라이센스는 상업적 이용시 구독 비용이 발생하게 되었으며, 회사의 RnD성 프로젝트에서는 돈이 남아 돌지 않는 이상 무료 라이센스인 open JDK를 권장합니다.(for free)</p>
-
-<p>본 블로그에서는 회사에서의 사용을 염두하여 openJDK 및 IntelliJ IDEA 환경에서 코틀린 리서치를 진행합니다.</p>
-
-<h3 id="ide-설치">IDE 설치</h3>
+<h3 id="상수-변수-선언">상수/변수 선언</h3>
 
 <ul>
-<li><a href="https://www.jetbrains.com/ko-kr/idea/download/#section=windows">https://www.jetbrains.com/ko-kr/idea/download/#section=windows</a> 다음 주소에서 개발 플랫폼에 맞는 Community 다운로드 및 설치</li>
+<li>변수 선언 형식의 프로토타입은 다음과 같은 형태를 취합니다.</li>
 </ul>
 
-<h3 id="jdk-설치">JDK 설치</h3>
-
-<ul>
-<li><a href="https://openjdk.java.net/">https://openjdk.java.net/</a> 다음 주소에서 개발 플랫폼 및 원하는 버전의 open JDK 다운로드(<a href="https://jdk.java.net/archive/">https://jdk.java.net/archive/</a> 아카이브)</li>
-<li>적당한 위치에 다운로드 받은 파일(ex : openjdk-11_windows-x64_bin.zip)의 압축 해제</li>
-<li>환경변수 -&gt; 시스템변수 -&gt; 새로만들기 -&gt; 이름 &ldquo;JAVA_HOME&rdquo;, 값 &ldquo;&ldquo;폴더 경로&rdquo;(ex : D:\openjdk-11_windows-x64_bin\jdk-11)</li>
-<li>시스템 변수 -&gt; 존재하는 Path에 %JAVA_HOME%\bin 값 추가</li>
-</ul>
-
-<h3 id="jdk-설치-확인">JDK 설치 확인</h3>
-
-<ul>
-<li>cmd -&gt; java -version 입력 -&gt; jdk 관련 출력 확인</li>
-</ul>
-
-<pre><code>  C:\Users\id&gt;java -version
-  openjdk version &quot;11&quot; 2018-09-25
-  OpenJDK Runtime Environment 18.9 (build 11+28)
-  OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
+<pre><code class="language-kotlin">var 변수명:타입명 = 대입값 // 변수 타입
+val 변수명:타입명 = 대입값 // 상수 타입(불변)
 </code></pre>
 
-<h3 id="idea에서-코틀린-프로젝트-생성">IDEA에서 코틀린 프로젝트 생성</h3>
-
 <ul>
-<li><p>IDEA 실행 -&gt; Projects -&gt; New Project</p>
-
-<ul>
-<li>Kotlin -&gt; 템플릿은 Console Application -&gt; Project JDK는 위에서 설치한 JDK
-<img src="https://ence2.github.io/img/kotlin2_11.png" alt="1" /></li>
-<li>JVM Target 설치한 JDK로 세팅
-<img src="https://ence2.github.io/img/kotlin2_22.png" alt="2" /></li>
-<li>자동으로 생성된 프로젝트 Build and Run시 Configuration 세팅 요구 할 경우 다음과 같이 설정
-<img src="https://ence2.github.io/img/kotlin2_33.png" alt="3" /></li>
-<li>Build and Run 후 Output에 HelloWorld 정상 출력 확인
-<img src="https://ence2.github.io/img/kotlin2_44.png" alt="4" />
-<br /></li>
-</ul></li>
+<li>타입명을 생략 할 경우 컴파일러에서 대입값을 통해 타입을 추론합니다.</li>
 </ul>
+
+<pre><code class="language-kotlin">var a = 64 // a는 int
+var b = 10f // b는 float
+</code></pre>
+
+<h3 id="basic-type">Basic Type</h3>
+
+<ul>
+<li>정수형 (Unsigned는 변수타입명 앞에 U를 붙임, UShort)</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Size (bits)</th>
+<th>Min value</th>
+<th>Max value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Byte</td>
+<td>8</td>
+<td>-128</td>
+<td>127</td>
+</tr>
+
+<tr>
+<td>Short</td>
+<td>16</td>
+<td>-32768</td>
+<td>32767</td>
+</tr>
+
+<tr>
+<td>Int</td>
+<td>32</td>
+<td>-2,147,483,648 (-2 31)</td>
+<td>2,147,483,647 (2 31- 1)</td>
+</tr>
+
+<tr>
+<td>Long</td>
+<td>64</td>
+<td>-9,223,372,036,854,775,808 (-2 63)</td>
+<td>9,223,372,036,854,775,807 (2 63- 1)</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>실수형</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Size (bits)</th>
+<th>Significant bits</th>
+<th>Exponent bits</th>
+<th>Decimal digits</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Float</td>
+<td>32</td>
+<td>24</td>
+<td>8</td>
+<td>6-7</td>
+</tr>
+
+<tr>
+<td>Double</td>
+<td>64</td>
+<td>53</td>
+<td>11</td>
+<td>15-16</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>참/거짓 : Boolean</li>
+</ul>
+
+<pre><code class="language-kotlin">fun main(args: Array&lt;String&gt;) {
+    var_declarations()
+}
+
+fun var_declarations()
+{
+    val a:Int = 64 // val 불변(상수)
+    a = 10 // val은 상수 선언으로 변경 불가, error
+    var b:Long = 123
+    b = 14444 // OK
+
+    var c:Float = 2.3f // var는 변수 선언을 의미
+    var d:Double = 12.3e5
+
+    println(&quot;$a, $b, $c, $d&quot;)
+
+    val f:StringBuffer = StringBuffer(&quot;Hello~&quot;)
+    f.replace(0, 1, &quot;P&quot;)
+
+    println(f)
+}
+</code></pre>
+
+<h3 id="ranges-타입">Ranges 타입</h3>
+
+<p>Ranges는 특수화된 생성을 통해 여러가지 특징을 갖는 특별한 타입입니다.</p>
+
+<pre><code class="language-kotlin">fun ranges()
+{
+    val a: IntRange = 1..10 // 1, 2, 3, ..... , 10
+    var b = 1.rangeTo(10) // 같은 표현 type deduction
+    var c: IntProgression = 1.rangeTo(10).reversed() // sequence로 생성, 지연된 연산을 수행
+
+    for (x in a) println(x)
+    for (x in b) println(x)
+    for (x in c) println(x) // c의 경우 이 시점에서 실제 IntRange가 생성됨
+
+    var d = 10 downTo 1
+    for (x in d) println(x) // 10부터 1까지 출력
+    
+    var e = 100 downTo 1 step 3
+    for (x in e) println(x) // 3씩 건너 출력
+}
+</code></pre>
+
+<h3 id="arrays-type">Arrays Type</h3>
+
+<pre><code class="language-kotlin">fun arrays()
+{
+    var names: Array&lt;String&gt; = arrayOf(&quot;김&quot;, &quot;나&quot;, &quot;박&quot;, &quot;이&quot;)
+    names[0] = &quot;송&quot;
+    println(names.toList())
+
+    var ages = intArrayOf(44, 88, 11)
+    println(ages.toList())
+
+    var values = Array&lt;Double&gt;(10, {2.0})
+    println(values.toList()) // 2.0을 10개 출력
+
+    var squares = Array(10, {(it*it).toString()})
+    println(squares.toList()) // 어떻게 나올까?
+}
+</code></pre>
+
+<h3 id="string-type-and-string-interpolation">String Type and String Interpolation</h3>
+
+<pre><code class="language-kotlin">fun character_and_string()
+{
+    var a:Char = '\u0041'
+    if (a.toInt() == 65)
+        println(&quot;match&quot;)
+
+    val b:String = &quot;Hello&quot;
+    println(b)
+    println(b[0])
+    for (letter in b) println(letter)
+
+    var raw = &quot;&quot;&quot;hello
+    &quot;test&quot;
+    world~~~&quot;&quot;&quot; // &quot;&quot;&quot; 내용 &quot;&quot;&quot; 형태로 입력 할 경우 있는 그대로 대입 가능
+    println(raw)
+
+    var c = 123.0
+    var d = &quot;c = $c, price = ${c/10}&quot; // $변수, ${표현식}으로 string formating 가능
+    println(d)
+
+    val e = &quot;${(10 downTo 1).toList().map{it.toString().toCharArray()}.joinToString()}&quot;
+    println(e) // ?
+}
+</code></pre>
 
 <p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
               
@@ -346,7 +483,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/" data-tooltip="코틀린 리서치 - Types and Variables[3]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -354,7 +491,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="코틀린 리서치 - 소개[1]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/" data-tooltip="코틀린 리서치 - 개발환경 세팅[2]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -372,19 +509,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -432,7 +569,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/" data-tooltip="코틀린 리서치 - Types and Variables[3]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -440,7 +577,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="코틀린 리서치 - 소개[1]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/" data-tooltip="코틀린 리서치 - 개발환경 세팅[2]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -458,19 +595,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -500,19 +637,19 @@ if (!doNotTrack) {
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EA%25B0%259C%25EB%25B0%259C%25ED%2599%2598%25EA%25B2%25BD-%25EC%2584%25B8%25ED%258C%25852%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-types-and-variables3%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EA%25B0%259C%25EB%25B0%259C%25ED%2599%2598%25EA%25B2%25BD-%25EC%2584%25B8%25ED%258C%25852%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-types-and-variables3%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-%25EA%25B0%259C%25EB%25B0%259C%25ED%2599%2598%25EA%25B2%25BD-%25EC%2584%25B8%25ED%258C%25852%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-types-and-variables3%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -604,9 +741,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3\/';
           
-            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852\/'
+            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3\/'
           
         };
         (function() {
