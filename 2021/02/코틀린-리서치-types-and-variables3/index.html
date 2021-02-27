@@ -272,7 +272,7 @@ val 변수명:타입명 = 대입값 // 상수 타입(불변)
 <li>타입명을 생략 할 경우 컴파일러에서 대입값을 통해 타입을 추론합니다.</li>
 </ul>
 
-<pre><code class="language-kotlin">var a = 64 // a는 int
+<pre><code class="language-c#">var a = 64 // a는 int
 var b = 10f // b는 float
 </code></pre>
 
@@ -361,7 +361,7 @@ var b = 10f // b는 float
 <li>참/거짓 : Boolean</li>
 </ul>
 
-<pre><code class="language-kotlin">fun main(args: Array&lt;String&gt;) {
+<pre><code class="language-c#">fun main(args: Array&lt;String&gt;) {
     var_declarations()
 }
 
@@ -388,7 +388,7 @@ fun var_declarations()
 
 <p>Ranges는 특수화된 생성을 통해 여러가지 특징을 갖는 특별한 타입입니다.</p>
 
-<pre><code class="language-kotlin">fun ranges()
+<pre><code class="language-c#">fun ranges()
 {
     val a: IntRange = 1..10 // 1, 2, 3, ..... , 10
     var b = 1.rangeTo(10) // 같은 표현 type deduction
@@ -408,7 +408,7 @@ fun var_declarations()
 
 <h3 id="arrays-type">Arrays Type</h3>
 
-<pre><code class="language-kotlin">fun arrays()
+<pre><code class="language-c#">fun arrays()
 {
     var names: Array&lt;String&gt; = arrayOf(&quot;김&quot;, &quot;나&quot;, &quot;박&quot;, &quot;이&quot;)
     names[0] = &quot;송&quot;
@@ -427,7 +427,7 @@ fun var_declarations()
 
 <h3 id="string-type-and-string-interpolation">String Type and String Interpolation</h3>
 
-<pre><code class="language-kotlin">fun character_and_string()
+<pre><code class="language-c#">fun character_and_string()
 {
     var a:Char = '\u0041'
     if (a.toInt() == 65)
