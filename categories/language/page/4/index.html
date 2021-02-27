@@ -218,6 +218,122 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/">
+          std::chrono::high_resolution_clock
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-14T22:26:09&#43;09:00">
+        
+  November 14, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <p>5 years a go I’ve showed how to <a href="https://www.guyrutenberg.com/2007/09/22/profiling-code-using-clock_gettime/">use <code>clock_gettime</code></a> to do basic high_resolution profiling. The approach there is very useful, but unfortunately, not cross-platform. It works only on POSIX compliant systems (especially not windows).</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/stdchronohigh_resolution_clock/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/srw-lock/">
+          SRW Lock
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-14T22:16:16&#43;09:00">
+        
+  November 14, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <p><a href="http://msdn.microsoft.com/ko-kr/library/windows/desktop/aa904937(v=vs.85).aspx">Slim Reader Writer Lock</a>은 VS2010부터 지원되는 새로운 쓰레드 동기화 객체입니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/srw-lock/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://ence2.github.io/2020/11/%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%9C-shared_ptr-%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%98%EA%B2%8C-%EC%A7%80%EC%9A%B0%EB%8A%94-%EB%B2%95/">
           스마트한 shared_ptr 스마트하게 지우는 법
         </a>
@@ -501,133 +617,6 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
       
       <p>
         <a href="https://ence2.github.io/2020/11/stdinvoke_result-%ED%81%B4%EB%9E%98%EC%8A%A4/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdatomic-memory_order/">
-          std::atomic, memory_order
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-09T21:45:07&#43;09:00">
-        
-  November 9, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <pre><code class="language-cpp">std::atomic&lt;T&gt;
-</code></pre>
-
-<p>동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)</p>
-
-<pre><code class="language-cpp">std::atomic&lt;int&gt; x;
-std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
-</code></pre>
-
-<p>is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/stdatomic-memory_order/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/boostmake_ready_future/">
-          boost::make_ready_future
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-09T21:09:42&#43;09:00">
-        
-  November 9, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h4 id="making-immediate-futures-easier">Making immediate futures easier</h4>
-
-<p>일부 함수는 구성 시점에서 값을 알 수 있습니다. 이 경우 값을 즉시 사용할 수 있지만 future 또는 shared_future로 반환해야합니다. make_ready_future를 사용하면 공유 상태에서 미리 계산 된 결과를 보유하는 future를 만들 수 있습니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/boostmake_ready_future/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>

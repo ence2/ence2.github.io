@@ -12,12 +12,30 @@
     
     
     <item>
+      <title>코틀린 리서치 - Classes[6]</title>
+      <link>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/</link>
+      <pubDate>Sun, 21 Feb 2021 18:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/</guid>
+      <description>&lt;p&gt;코틀린의 클래스에 대해 알아보겠습니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>코틀린 리서치 - Control Flow[4]</title>
       <link>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/</link>
       <pubDate>Sun, 21 Feb 2021 18:00:00 +0900</pubDate>
       
       <guid>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/</guid>
       <description>&lt;p&gt;코틀린의 Nullability, When Expression에 대해 알아보겠습니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>코틀린 리서치 - Functions and Lambda[5]</title>
+      <link>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/</link>
+      <pubDate>Sun, 21 Feb 2021 18:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/</guid>
+      <description>&lt;p&gt;코틀린의 패키지, 함수 표현법, Lambda 표현식에 대해 알아보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>

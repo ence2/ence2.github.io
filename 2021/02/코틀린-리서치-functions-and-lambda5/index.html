@@ -8,18 +8,18 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="코틀린의 Nullability, When Expression에 대해 알아보겠습니다.">
+<meta name="description" content="코틀린의 패키지, 함수 표현법, Lambda 표현식에 대해 알아보겠습니다.">
 
 
-<meta property="og:description" content="코틀린의 Nullability, When Expression에 대해 알아보겠습니다.">
+<meta property="og:description" content="코틀린의 패키지, 함수 표현법, Lambda 표현식에 대해 알아보겠습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="코틀린 리서치 - Control Flow[4]">
-<meta name="twitter:title" content="코틀린 리서치 - Control Flow[4]">
-<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+<meta property="og:title" content="코틀린 리서치 - Functions and Lambda[5]">
+<meta name="twitter:title" content="코틀린 리서치 - Functions and Lambda[5]">
+<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="코틀린의 Nullability, When Expression에 대해 알아보겠습니다.">
-<meta name="twitter:description" content="코틀린의 Nullability, When Expression에 대해 알아보겠습니다.">
+<meta property="og:description" content="코틀린의 패키지, 함수 표현법, Lambda 표현식에 대해 알아보겠습니다.">
+<meta name="twitter:description" content="코틀린의 패키지, 함수 표현법, Lambda 표현식에 대해 알아보겠습니다.">
 <meta property="og:locale" content="en-us">
 
   
@@ -65,14 +65,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>코틀린 리서치 - Control Flow[4]</title>
+    <title>코틀린 리서치 - Functions and Lambda[5]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -225,7 +225,7 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      코틀린 리서치 - Control Flow[4]
+      코틀린 리서치 - Functions and Lambda[5]
     </h1>
   
   
@@ -254,57 +254,110 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>코틀린의 Nullability, When Expression에 대해 알아보겠습니다.</p>
+              <p>코틀린의 패키지, 함수 표현법, Lambda 표현식에 대해 알아보겠습니다.</p>
 
-<h3 id="nullability">Nullability</h3>
+<h3 id="top-level-functions">Top-Level Functions</h3>
 
-<p>코틀린에서 기본 타입은 null 대입이 불가능하나 타입에 Nullable 속성을 부여 할 경우, 기본 타입도 null 관련 처리가 가능합니다.</p>
+<p>코틀린에서 모든것은 패키지의 일부입니다.</p>
 
-<p>Nullable 타입 변수의 오버라이딩된 함수를 사용 할 때에는 ?. 와 같은 표현으로 사용해야 합니다.</p>
+<p>package name 형식으로 감싸진 모듈은 다른 파일에서 import하여 사용 할 수 있습니다.</p>
 
-<p>!!. 표현식은 nullable 타입 관련 컴파일 타임 문법 체크를 통과시킬 수 있습니다.</p>
+<pre><code class="language-python">//func.kt
+package ExampleModule.Hello
 
-<pre><code class="language-python">fun nullability()
+fun HelloModule()
 {
-    var y:String? = null // nullable string
+    println(&quot;called!&quot;)
+}
 
-    // println(y.length) // error
-    println(y?.length) // OK
+//main.kt
+package ExampleModule.Hello.*
 
-    println(y!!.length) // OK but 런타임 에러
+fun HelloModule()
+{
+    println(&quot;called!&quot;)
 }
 </code></pre>
 
-<h3 id="when-expression">When Expression</h3>
+<h3 id="return-type-and-arguments">Return Type and Arguments</h3>
 
-<p>코틀린에서 when 표현식은 C의 switch cast와 유사합니다.</p>
+<p>코틀린의 함수는 다음과 같은 형식으로 반환 형식과 input paramter를 지정 할 수 있습니다.</p>
 
-<pre><code class="language-python">fun when_exp()
+<pre><code class="language-python">fun main(args: Array&lt;String&gt;) {
+    square(10)
+    println(square(10))
+    println(triple(3))
+}
+
+fun square(x:Int = 5) : Int
 {
-    var code = 44
+    return x * x
+}
 
-    when (code)
+fun triple(x:Int) = x*3 // 이런 방식도 가능하다.
+</code></pre>
+
+<h3 id="local-a-k-a-inner-functions">Local (a.k.a Inner) Functions</h3>
+
+<p>함수 안에 함수를 선언하여 사용 할 수 있습니다.</p>
+
+<pre><code class="language-python">fun solve_quadratic_equation(a:Double, b:Double, c:Double) : Pair&lt;Double, Double&gt;
+{
+    fun calc_discriminant(a:Double, b:Double, c:Double = 5.0): Double
+    // fun calc_discriminant(): Double // 인자를 생략해도 내부적으로 캡쳐되어 사용 가능
     {
-        44 -&gt; println(&quot;UK&quot;)
-        46 -&gt; println(&quot;sweden&quot;)
-        39, 379 -&gt; println(&quot;vatican&quot;)
-        in 1..999 -&gt; println(&quot;i don't know&quot;)
-        else -&gt;
-        {
-            println(&quot;error&quot;)
-        }
+        return b*b-4*a*c
     }
 
-    var z:Any = &quot;Foo&quot;
+    var root_disc = Math.sqrt(calc_discriminant(a,b,c))
 
-    var output = when (z) 
-    {
-        is Int -&gt; print(&quot;this is int type&quot;) // is 키워드로 타입 검사 가능
-        is String -&gt; println(&quot;this is string type&quot;)
-        else -&gt; println(&quot;other type&quot;)
-    }
-    
-    println(output) // 변수에 담아 출력도 OK
+    return Pair((-b+root_disc)/(2*a),(-b-root_disc)/(2*a))
+}
+</code></pre>
+
+<h3 id="infix-functions">Infix Functions</h3>
+
+<p>코틀린에서 infix Function이라 불리는 특정 함수들은 다음과 같은 방법으로 사용이 가능합니다.</p>
+
+<pre><code class="language-python">fun InfixFunctionExample()
+{
+    val alphabat = 'z' downTo 'a' // downTo is Infix Function
+}
+</code></pre>
+
+<p>downTo 함수의 구현부를 살펴보면 infix 키워드로 구현 되어있음을 알 수 있습니다.</p>
+
+<pre><code class="language-python">public infix fun Char.downTo(to: Char): CharProgression {
+    return CharProgression.fromClosedRange(this, to, -1)
+}
+</code></pre>
+
+<p>이러한 방식으로 개발자도 custom infix 함수를 작성 할 수 있습니다.</p>
+
+<h3 id="lambda-functions">Lambda Functions</h3>
+
+<p>코틀린의 람다 함수는 다른 언어의 람다 표현식과 같은 개념이며 <code>{ 파라메터  -&gt; 계산식 }</code>으로 표현합니다.</p>
+
+<pre><code class="language-python">fun LambdaExample()
+{
+    var product:(int, int) -&gt; Int = {x, y -&gt; x*y}
+
+    var result = product(2, 3)
+
+    println(result)
+}
+</code></pre>
+
+<h3 id="extension-method">Extension method</h3>
+
+<p>코틀린에서는 기존에 존재하는 객체에 사용자가 특정 함수를 포함시킬 수 있습니다.</p>
+
+<pre><code class="language-python">fun ExtensionFuncExample()
+{
+    var MyIntFunc = fun Int.(value:Int) = this + value
+    var x = 1
+
+    print(x.MyIntFunc(10)) // Int 객체에 MyIntFunc가 포함된 것처럼 사용 가능하다.
 }
 </code></pre>
 
@@ -339,7 +392,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/" data-tooltip="코틀린 리서치 - Classes[6]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/" data-tooltip="코틀린 리서치 - Control Flow[4]">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -347,7 +400,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/" data-tooltip="코틀린 리서치 - Functions and Lambda[5]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/" data-tooltip="코틀린 리서치 - Types and Variables[3]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -365,19 +418,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -425,7 +478,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/" data-tooltip="코틀린 리서치 - Classes[6]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/" data-tooltip="코틀린 리서치 - Control Flow[4]">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -433,7 +486,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/" data-tooltip="코틀린 리서치 - Functions and Lambda[5]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/" data-tooltip="코틀린 리서치 - Types and Variables[3]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -451,19 +504,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -493,19 +546,19 @@ if (!doNotTrack) {
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-control-flow4%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-functions-and-lambda5%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-control-flow4%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-functions-and-lambda5%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-control-flow4%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-functions-and-lambda5%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -597,9 +650,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5\/';
           
-            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4\/'
+            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5\/'
           
         };
         (function() {

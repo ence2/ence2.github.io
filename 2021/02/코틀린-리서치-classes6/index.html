@@ -8,18 +8,18 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="코틀린의 Nullability, When Expression에 대해 알아보겠습니다.">
+<meta name="description" content="코틀린의 클래스에 대해 알아보겠습니다.">
 
 
-<meta property="og:description" content="코틀린의 Nullability, When Expression에 대해 알아보겠습니다.">
+<meta property="og:description" content="코틀린의 클래스에 대해 알아보겠습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="코틀린 리서치 - Control Flow[4]">
-<meta name="twitter:title" content="코틀린 리서치 - Control Flow[4]">
-<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+<meta property="og:title" content="코틀린 리서치 - Classes[6]">
+<meta name="twitter:title" content="코틀린 리서치 - Classes[6]">
+<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="코틀린의 Nullability, When Expression에 대해 알아보겠습니다.">
-<meta name="twitter:description" content="코틀린의 Nullability, When Expression에 대해 알아보겠습니다.">
+<meta property="og:description" content="코틀린의 클래스에 대해 알아보겠습니다.">
+<meta name="twitter:description" content="코틀린의 클래스에 대해 알아보겠습니다.">
 <meta property="og:locale" content="en-us">
 
   
@@ -65,14 +65,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>코틀린 리서치 - Control Flow[4]</title>
+    <title>코틀린 리서치 - Classes[6]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -225,7 +225,7 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      코틀린 리서치 - Control Flow[4]
+      코틀린 리서치 - Classes[6]
     </h1>
   
   
@@ -254,59 +254,7 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>코틀린의 Nullability, When Expression에 대해 알아보겠습니다.</p>
-
-<h3 id="nullability">Nullability</h3>
-
-<p>코틀린에서 기본 타입은 null 대입이 불가능하나 타입에 Nullable 속성을 부여 할 경우, 기본 타입도 null 관련 처리가 가능합니다.</p>
-
-<p>Nullable 타입 변수의 오버라이딩된 함수를 사용 할 때에는 ?. 와 같은 표현으로 사용해야 합니다.</p>
-
-<p>!!. 표현식은 nullable 타입 관련 컴파일 타임 문법 체크를 통과시킬 수 있습니다.</p>
-
-<pre><code class="language-python">fun nullability()
-{
-    var y:String? = null // nullable string
-
-    // println(y.length) // error
-    println(y?.length) // OK
-
-    println(y!!.length) // OK but 런타임 에러
-}
-</code></pre>
-
-<h3 id="when-expression">When Expression</h3>
-
-<p>코틀린에서 when 표현식은 C의 switch cast와 유사합니다.</p>
-
-<pre><code class="language-python">fun when_exp()
-{
-    var code = 44
-
-    when (code)
-    {
-        44 -&gt; println(&quot;UK&quot;)
-        46 -&gt; println(&quot;sweden&quot;)
-        39, 379 -&gt; println(&quot;vatican&quot;)
-        in 1..999 -&gt; println(&quot;i don't know&quot;)
-        else -&gt;
-        {
-            println(&quot;error&quot;)
-        }
-    }
-
-    var z:Any = &quot;Foo&quot;
-
-    var output = when (z) 
-    {
-        is Int -&gt; print(&quot;this is int type&quot;) // is 키워드로 타입 검사 가능
-        is String -&gt; println(&quot;this is string type&quot;)
-        else -&gt; println(&quot;other type&quot;)
-    }
-    
-    println(output) // 변수에 담아 출력도 OK
-}
-</code></pre>
+              <p>코틀린의 클래스에 대해 알아보겠습니다.</p>
 
 <p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
               
@@ -339,7 +287,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/" data-tooltip="코틀린 리서치 - Classes[6]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -347,7 +295,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/" data-tooltip="코틀린 리서치 - Functions and Lambda[5]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/" data-tooltip="코틀린 리서치 - Control Flow[4]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -365,19 +313,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -425,7 +373,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/" data-tooltip="코틀린 리서치 - Classes[6]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -433,7 +381,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-functions-and-lambda5/" data-tooltip="코틀린 리서치 - Functions and Lambda[5]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/" data-tooltip="코틀린 리서치 - Control Flow[4]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -451,19 +399,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -493,19 +441,19 @@ if (!doNotTrack) {
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-control-flow4%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-classes6%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-control-flow4%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-classes6%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-control-flow4%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-classes6%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -597,9 +545,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6\/';
           
-            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4\/'
+            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-classes6\/'
           
         };
         (function() {
