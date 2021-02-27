@@ -309,30 +309,31 @@ fun main(args: Array&lt;String&gt;) {
 
 <p>클래스의 멤버 변수 생성시 by 키워드를 통해 멤버 변수 set, get시 처리를 담당할 delegate 클래스를 전달 할 수 있으며, 이를 이용해 observable한 멤버 변수를 만들 수 있습니다.</p>
 
-<pre><code class="language-python">class NicePerson
-{
-    var name: String by MyObserver()
+<pre><code class="language-python">import kotlin.properties.Delegates
+import kotlin.reflect.KProperty
 
-    var lazyValue:String by lazy{
+class Delegate {
+    operator fun getValue(thisRef: Any?, property: KProperty&lt;*&gt;): String{
+        return &quot;$thisRef, thank you for delegating, ${property.name} to me&quot;
+    }
+
+    operator fun setValue(thisRef: Any?, property: KProperty&lt;*&gt;, value: String): String{
+        return &quot;$value, has been assigend to ${property.name} in $thisRef&quot;
+    }
+}
+
+class NicePerson
+{
+    var name: String by Delegate()
+
+    val lazyValue:String by lazy {
         println(&quot;init!!!&quot;)
         &quot;this Msg Will Inserted&quot;
     }
 
-    var otherName: String by MyObserver.myObserverLambda(&quot;king&quot;){
+    var otherName: String by Delegates.observable(&quot;king&quot;){
         prop, old, new -&gt; println(&quot;$old -&gt; $new&quot;)
     }
-}
-
-fun main(args: Array&lt;String&gt;) {
-    var np = NicePerson()
-    np.name = &quot;kkman&quot;
-    var s = np.name
-    println(s)
-    println(np.lazyValue)
-    println(np.lazyValue)
-    println(np.lazyValue)
-    np.otherName = &quot;kk222&quot;
-    np.otherName = &quot;hoho&quot;
 }
 </code></pre>
 
@@ -426,7 +427,7 @@ fun main(args: Array&lt;String&gt;) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-collection-operations7/" data-tooltip="코틀린 리서치 - Collection Operations[7]">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -512,7 +513,7 @@ fun main(args: Array&lt;String&gt;) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-collection-operations7/" data-tooltip="코틀린 리서치 - Collection Operations[7]">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
