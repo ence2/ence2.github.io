@@ -6,10 +6,19 @@
     <description>Recent content in Kotlin on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 21 Feb 2021 16:12:30 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 21 Feb 2021 18:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/categories/kotlin/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>코틀린 리서치 - Control Flow[4]</title>
+      <link>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/</link>
+      <pubDate>Sun, 21 Feb 2021 18:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/</guid>
+      <description>&lt;p&gt;코틀린의 Nullability, If 문, Smart Cast, loop 문, When 문에 대해 알아보겠습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>코틀린 리서치 - Types and Variables[3]</title>

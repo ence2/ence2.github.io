@@ -8,25 +8,25 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.">
+<meta name="description" content="코틀린의 Nullability, If 문, Smart Cast, loop 문, When 문에 대해 알아보겠습니다.">
 
 
-<meta property="og:description" content="코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.">
+<meta property="og:description" content="코틀린의 Nullability, If 문, Smart Cast, loop 문, When 문에 대해 알아보겠습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="코틀린 리서치 - Types and Variables[3]">
-<meta name="twitter:title" content="코틀린 리서치 - Types and Variables[3]">
-<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
+<meta property="og:title" content="코틀린 리서치 - Control Flow[4]">
+<meta name="twitter:title" content="코틀린 리서치 - Control Flow[4]">
+<meta property="og:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.">
-<meta name="twitter:description" content="코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.">
+<meta property="og:description" content="코틀린의 Nullability, If 문, Smart Cast, loop 문, When 문에 대해 알아보겠습니다.">
+<meta name="twitter:description" content="코틀린의 Nullability, If 문, Smart Cast, loop 문, When 문에 대해 알아보겠습니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-02-21T16:12:30">
+    <meta property="article:published_time" content="2021-02-21T18:00:00">
   
   
-    <meta property="article:modified_time" content="2021-02-21T16:12:30">
+    <meta property="article:modified_time" content="2021-02-21T18:00:00">
   
   
   
@@ -65,14 +65,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>코틀린 리서치 - Types and Variables[3]</title>
+    <title>코틀린 리서치 - Control Flow[4]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
+    <link rel="canonical" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -225,13 +225,13 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      코틀린 리서치 - Types and Variables[3]
+      코틀린 리서치 - Control Flow[4]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-02-21T16:12:30&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-02-21T18:00:00&#43;09:00">
         
   February 21, 2021
 
@@ -254,201 +254,24 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>코틀린에서 사용하는 타입들과 변수 선언에 관해 살펴보겠습니다.</p>
+              <p>코틀린의 Nullability, If 문, Smart Cast, loop 문, When 문에 대해 알아보겠습니다.</p>
 
-<p>코틀린은 정적 타입언어이며, 변수 타입의 종류는 JAVA와 유사합니다.</p>
+<h3 id="nullability">Nullability</h3>
 
-<h3 id="상수-변수-선언">상수/변수 선언</h3>
+<p>코틀린에서 기본 타입은 null 대입이 불가능하나 타입에 Nullable 속성을 부여 할 경우, 기본 타입도 null 관련 처리가 가능합니다.</p>
 
-<ul>
-<li>변수 선언 형식의 프로토타입은 다음과 같은 형태를 취합니다.</li>
-</ul>
+<p>Nullable 타입 변수의 오버라이딩된 함수를 사용 할 때에는 ?. 와 같은 표현으로 사용해야 합니다.</p>
 
-<pre><code class="language-kotlin">var 변수명:타입명 = 대입값 // 변수 타입
-val 변수명:타입명 = 대입값 // 상수 타입(불변)
-</code></pre>
+<p>!!. 표현식은 nullable 타입 관련 컴파일 타임 문법 체크를 통과시킬 수 있습니다.</p>
 
-<ul>
-<li>타입명을 생략 할 경우 컴파일러에서 대입값을 통해 타입을 추론합니다.</li>
-</ul>
-
-<pre><code class="language-c#">var a = 64 // a는 int
-var b = 10f // b는 float
-</code></pre>
-
-<h3 id="basic-type">Basic Type</h3>
-
-<ul>
-<li>정수형 (Unsigned는 변수타입명 앞에 U를 붙임, UShort)</li>
-</ul>
-
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Size (bits)</th>
-<th>Min value</th>
-<th>Max value</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>Byte</td>
-<td>8</td>
-<td>-128</td>
-<td>127</td>
-</tr>
-
-<tr>
-<td>Short</td>
-<td>16</td>
-<td>-32768</td>
-<td>32767</td>
-</tr>
-
-<tr>
-<td>Int</td>
-<td>32</td>
-<td>-2,147,483,648 (-2 31)</td>
-<td>2,147,483,647 (2 31- 1)</td>
-</tr>
-
-<tr>
-<td>Long</td>
-<td>64</td>
-<td>-9,223,372,036,854,775,808 (-2 63)</td>
-<td>9,223,372,036,854,775,807 (2 63- 1)</td>
-</tr>
-</tbody>
-</table>
-
-<ul>
-<li>실수형</li>
-</ul>
-
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Size (bits)</th>
-<th>Significant bits</th>
-<th>Exponent bits</th>
-<th>Decimal digits</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>Float</td>
-<td>32</td>
-<td>24</td>
-<td>8</td>
-<td>6-7</td>
-</tr>
-
-<tr>
-<td>Double</td>
-<td>64</td>
-<td>53</td>
-<td>11</td>
-<td>15-16</td>
-</tr>
-</tbody>
-</table>
-
-<ul>
-<li>참/거짓 : Boolean</li>
-</ul>
-
-<pre><code class="language-python">fun main(args: Array&lt;String&gt;) {
-    var_declarations()
-}
-
-fun var_declarations()
+<pre><code class="language-c#">fun nullability()
 {
-    val a:Int = 64 // val 불변(상수)
-    a = 10 // val은 상수 선언으로 변경 불가, error
-    var b:Long = 123
-    b = 14444 // OK
+    var y:String? = null // nullable string
 
-    var c:Float = 2.3f // var는 변수 선언을 의미
-    var d:Double = 12.3e5
+    // println(y.length) // error
+    println(y?.length) // OK
 
-    println(&quot;$a, $b, $c, $d&quot;)
-
-    val f:StringBuffer = StringBuffer(&quot;Hello~&quot;)
-    f.replace(0, 1, &quot;P&quot;)
-
-    println(f)
-}
-</code></pre>
-
-<h3 id="ranges-타입">Ranges 타입</h3>
-
-<p>Ranges는 특수화된 생성을 통해 여러가지 특징을 갖는 특별한 타입입니다.</p>
-
-<pre><code class="language-c#">fun ranges()
-{
-    val a: IntRange = 1..10 // 1, 2, 3, ..... , 10
-    var b = 1.rangeTo(10) // 같은 표현 type deduction
-    var c: IntProgression = 1.rangeTo(10).reversed() // sequence로 생성, 지연된 연산을 수행
-
-    for (x in a) println(x)
-    for (x in b) println(x)
-    for (x in c) println(x) // c의 경우 이 시점에서 실제 IntRange가 생성됨
-
-    var d = 10 downTo 1
-    for (x in d) println(x) // 10부터 1까지 출력
-    
-    var e = 100 downTo 1 step 3
-    for (x in e) println(x) // 3씩 건너 출력
-}
-</code></pre>
-
-<h3 id="arrays-type">Arrays Type</h3>
-
-<pre><code class="language-c#">fun arrays()
-{
-    var names: Array&lt;String&gt; = arrayOf(&quot;김&quot;, &quot;나&quot;, &quot;박&quot;, &quot;이&quot;)
-    names[0] = &quot;송&quot;
-    println(names.toList())
-
-    var ages = intArrayOf(44, 88, 11)
-    println(ages.toList())
-
-    var values = Array&lt;Double&gt;(10, {2.0})
-    println(values.toList()) // 2.0을 10개 출력
-
-    var squares = Array(10, {(it*it).toString()})
-    println(squares.toList()) // 어떻게 나올까?
-}
-</code></pre>
-
-<h3 id="string-type-and-string-interpolation">String Type and String Interpolation</h3>
-
-<pre><code class="language-c#">fun character_and_string()
-{
-    var a:Char = '\u0041'
-    if (a.toInt() == 65)
-        println(&quot;match&quot;)
-
-    val b:String = &quot;Hello&quot;
-    println(b)
-    println(b[0])
-    for (letter in b) println(letter)
-
-    var raw = &quot;&quot;&quot;hello
-    &quot;test&quot;
-    world~~~&quot;&quot;&quot; // &quot;&quot;&quot; 내용 &quot;&quot;&quot; 형태로 입력 할 경우 있는 그대로 대입 가능
-    println(raw)
-
-    var c = 123.0
-    var d = &quot;c = $c, price = ${c/10}&quot; // $변수, ${표현식}으로 string formating 가능
-    println(d)
-
-    val e = &quot;${(10 downTo 1).toList().map{it.toString().toCharArray()}.joinToString()}&quot;
-    println(e) // ?
+    println(y!!.length) // OK but 런타임 에러
 }
 </code></pre>
 
@@ -483,7 +306,7 @@ fun var_declarations()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/" data-tooltip="코틀린 리서치 - Control Flow[4]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -491,7 +314,7 @@ fun var_declarations()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/" data-tooltip="코틀린 리서치 - 개발환경 세팅[2]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/" data-tooltip="코틀린 리서치 - Types and Variables[3]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -509,19 +332,19 @@ fun var_declarations()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -569,7 +392,7 @@ fun var_declarations()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/" data-tooltip="코틀린 리서치 - Control Flow[4]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -577,7 +400,7 @@ fun var_declarations()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/" data-tooltip="코틀린 리서치 - 개발환경 세팅[2]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/" data-tooltip="코틀린 리서치 - Types and Variables[3]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -595,19 +418,19 @@ fun var_declarations()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -637,19 +460,19 @@ fun var_declarations()
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-types-and-variables3%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-control-flow4%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-types-and-variables3%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-control-flow4%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-types-and-variables3%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-control-flow4%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -741,9 +564,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4\/';
           
-            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-types-and-variables3\/'
+            this.page.identifier = '\/2021\/02\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-control-flow4\/'
           
         };
         (function() {
