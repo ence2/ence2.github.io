@@ -6,10 +6,21 @@
     <description>Recent content in Research on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 27 Feb 2021 23:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 22 Mar 2021 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/tags/research/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>코틀린 리서치 - Reflection[8]</title>
+      <link>https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/</link>
+      <pubDate>Mon, 22 Mar 2021 12:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/</guid>
+      <description>&lt;p&gt;리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.&lt;/p&gt;
+
+&lt;p&gt;이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>코틀린 리서치 - Collection Operations[7]</title>
