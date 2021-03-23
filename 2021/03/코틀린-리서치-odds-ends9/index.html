@@ -8,33 +8,25 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.
-
-이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.">
+<meta name="description" content="코틀린의 새로운 특징중 하나인 type aliases와 Enum class, 예외처리, 연산자 오버로딩에 대해 살펴보겠습니다.">
 
 
-<meta property="og:description" content="리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.
-
-이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.">
+<meta property="og:description" content="코틀린의 새로운 특징중 하나인 type aliases와 Enum class, 예외처리, 연산자 오버로딩에 대해 살펴보겠습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="코틀린 리서치 - Reflection[8]">
-<meta name="twitter:title" content="코틀린 리서치 - Reflection[8]">
-<meta property="og:url" content="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
+<meta property="og:title" content="코틀린 리서치 - Odds &amp; Ends[9]">
+<meta name="twitter:title" content="코틀린 리서치 - Odds &amp; Ends[9]">
+<meta property="og:url" content="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.
-
-이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.">
-<meta name="twitter:description" content="리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.
-
-이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.">
+<meta property="og:description" content="코틀린의 새로운 특징중 하나인 type aliases와 Enum class, 예외처리, 연산자 오버로딩에 대해 살펴보겠습니다.">
+<meta name="twitter:description" content="코틀린의 새로운 특징중 하나인 type aliases와 Enum class, 예외처리, 연산자 오버로딩에 대해 살펴보겠습니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-03-22T12:00:00">
+    <meta property="article:published_time" content="2021-03-22T18:00:00">
   
   
-    <meta property="article:modified_time" content="2021-03-22T12:00:00">
+    <meta property="article:modified_time" content="2021-03-22T18:00:00">
   
   
   
@@ -73,14 +65,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>코틀린 리서치 - Reflection[8]</title>
+    <title>코틀린 리서치 - Odds &amp; Ends[9]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
+    <link rel="canonical" href="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -233,13 +225,13 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      코틀린 리서치 - Reflection[8]
+      코틀린 리서치 - Odds &amp; Ends[9]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-03-22T12:00:00&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-03-22T18:00:00&#43;09:00">
         
   March 22, 2021
 
@@ -262,148 +254,118 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.</p>
+              <p>코틀린의 새로운 특징중 하나인 type aliases와 Enum class, 예외처리, 연산자 오버로딩에 대해 살펴보겠습니다.</p>
 
-<p>이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.</p>
+<p>​</p>
 
-<h3 id="class-reflection">Class Reflection</h3>
+<h3 id="type-aliases">Type Aliases</h3>
 
-<p>코틀린의 class 관련 refection 기능은 kotlin.reflect.KClass에 구현되어 있습니다.</p>
+<p>긴 이름을 축약해서 사용 할 수 있도록 합니다. 신규 키워드 : typealias</p>
 
-<p>refection 대상 객체를 명시 후 명시된 변수로부터 다양한 정보를 얻을 수 있습니다.</p>
+<pre><code class="language-python">typealias FloatSet = Set&lt;Float&gt;
 
-<pre><code class="language-python">import kotlin.reflect.KClass
+typealias MapWithStringKeys&lt;T&gt; = Map&lt;String, T&gt;
 
-data class Person(var name:String, var age:Int)
-open class Base(x:Int)
-class Derived(x:Int) : Base(x)
+typealias Predicate&lt;T&gt; = (T) -&gt; Boolean
 
-fun process(b:Base){
-    if (b is Derived) // Smart cast
+fun &lt;T&gt; where(items:Sequence&lt;T&gt;, p:Predicate&lt;T&gt;) : Sequence&lt;T&gt; { return items.filter { x -&gt; p(x) } }
+typealias PropertyChangedHandler = (Object, String) -&gt; Unit
+class Bike {
+    inner class Wheel {
+        
+    }
+}
+typealias BikeWheel = Bike.Wheel
+
+fun main(args: Array&lt;String&gt;)
+{
+    var f:FloatSet = setOf(1.2f, 2.3f)
+
+    var m:MapWithStringKeys&lt;Double&gt; = mapOf(&quot;hello&quot;.to(2.3))
+    println(m) // -&gt; {hello=2.3}
+}
+</code></pre>
+
+<h3 id="enumerations">Enumerations</h3>
+
+<pre><code class="language-python">enum class Direction { North, South, East, West }
+enum class Color(val rgb:Int){
+    Red(0xff0000) {
+        override fun example(): String {
+            return &quot;blood&quot;
+        }
+    },
+    Green(0x00ff00) {
+        override fun example(): String {
+            return &quot;grass&quot;
+        }
+    },
+    Blue(0x00ff00) {
+        override fun example(): String {
+            return &quot;Sky&quot;
+        }
+    };
+
+    abstract fun example():String
+}
+
+fun main(args: Array&lt;String&gt;)
+{
+    var dir = Direction.East;
+    println(dir)
+
+    var b = Color.Blue
+    println(&quot;b has the name ${b.name}, value = ${b.rgb}, pos = ${b.ordinal}&quot;) // -&gt; b has the name Blue, value = 255, pos = 2
+
+    println(&quot;$b is the color of ${b.example()}&quot;) // -&gt; Blue is the color of Sky
+
+    for (c in Color.values())
+        println(c)
+
+    println(&quot;value of red is ${Color.valueOf(&quot;Red&quot;).rgb}&quot;) // -&gt; value of red is 16711680
+}
+</code></pre>
+
+<h3 id="exceptions">Exceptions</h3>
+
+<pre><code class="language-python">fun main(args: Array&lt;String&gt;)
+{
+    val v = arrayOf(1, 2, 3)
+
+    try
     {
-        println(b::class.qualifiedName)
+        println(v[10])
+    }
+    catch (e:ArrayIndexOutOfBoundsException)
+    {
+        println(e.toString())
+    }
+    finally
+    {
+        println(&quot;반드시 실행되는 구간&quot;)
+    }
+
+    // try 구문을 변수에 담아서 사용 가능하다.
+    val text = &quot;123&quot;
+    val number:Int? = try {text.toInt()} catch (e:NumberFormatException) { null }
+    println(number)
+}
+</code></pre>
+
+<h3 id="operator-overloads">Operator Overloads</h3>
+
+<pre><code class="language-python">data class Vector(var x:Int, var y:Int) {
+    operator fun plus(other:Vector) : Vector {
+        return Vector(x + other.x, y + other.y)
     }
 }
 
 fun main(args: Array&lt;String&gt;)
 {
-    // kotlin의 refection
-    var c: KClass&lt;Person&gt; = Person::class // reflection 대상 객체
-
-    println(c.qualifiedName) // -&gt; kotlinMySample.Person
-    println(c.members.map{it.name}) // -&gt; [age, name, component1, component2, copy, equals, hashCode, toString]
-    println(&quot;Is it a companion? ${c.isCompanion}&quot;) // -&gt; false
-    var z:Base = Derived(10)
-    process(z) // 부모 변수로 자식 객체의 이름을 얻어 올 수 있음 -&gt; kotlinMySample.Person
-
-    // java의 refelction
-    var j = c.java
-    println(j.simpleName)
+    var v1 = Vector(3,4)
+    var v2 = Vector(11, 3)
+    println(v1 + v2)
 }
-</code></pre>
-
-<h3 id="function-references">Function References</h3>
-
-<pre><code class="language-python">fun isOdd(x:Int) = x and 1 == 1
-fun isOdd(s:String) = s == &quot;weird&quot; || s == &quot;strange&quot; || s == &quot;peculiar&quot;
-
-fun main(args: Array&lt;String&gt;)
-{
-    // function references 예제
-    var numbers = generateSequence(1, {it+1}).take(5)
-    println(numbers.filter(::isOdd).toList())
-    var predicate : (String) -&gt; Boolean = ::isOdd
-
-    // 활용하여 f(g(x)) 합성함수 구현
-    fun &lt;A,B,C&gt; compose(f:(B)-&gt;C,g:(A)-&gt;B) : (A) -&gt; C { return { x -&gt; f(g(x)) } }
-    var str = &quot;this is a fun experiment&quot;.split(' ')
-    var oddLength = compose(::isOdd, String::length)
-    println(str.filter(oddLength)) // -&gt; [a, fun]
-}
-</code></pre>
-
-<h3 id="property-references">Property References</h3>
-
-<p>프로퍼티 관련 reflection 처리는 kotlin.reflect.KProperty에 구현되어 있습니다. (var 관련 변수는 import kotlin.reflect.KMutableProperty0 사용)</p>
-
-<pre><code class="language-python">import kotlin.reflect.KMutableProperty0
-import kotlin.reflect.KProperty0
-import kotlin.reflect.jvm.javaField
-import kotlin.reflect.jvm.javaGetter
-
-var x = 1
-val y = 22
-class Human(var age:Int)
-val String.lastChar : Char
-    get() = this[length - 1]
-    
-fun main(args: Array&lt;String&gt;)
-{
-    val a: KMutableProperty0&lt;Int&gt; = ::x
-    val b: KProperty0&lt;Int&gt; = ::y
-
-    println(a.get()) // -&gt; 1
-    a.set(321)
-    println(a.get()) // -&gt; 321
-
-    val strA = &quot;this is fun&quot;.split(' ')
-    println(strA.map(String::length)) // -&gt; [4, 2, 3]
-
-    var human = Human(33)
-
-    var temp = Human::age
-    println(human.age)
-    temp.get(human)
-    println(temp.name) // -&gt; age
-    temp.set(human, 58)
-    println(human.age) // -&gt; 58
-
-    // 확장 Property
-    var ls = String::lastChar
-    println(ls.get(&quot;Hello World&quot;)) // -&gt; d
-
-    // java property reflection
-    var javaGetter: Method? = Human::age.javaGetter
-    var field: Field? = Person::age.javaField
-}
-</code></pre>
-
-<h3 id="constructor-references">Constructor References</h3>
-
-<pre><code class="language-python">class Man // empty class
-
-fun &lt;T&gt; makeAndPrint(generator: () -&gt; T)
-{
-    val x : T = generator()
-    println(x.toString())
-}
-
-fun main(args: Array&lt;String&gt;)
-{
-    makeAndPrint(::Man)
-}
-</code></pre>
-
-<h3 id="bound-references">Bound References</h3>
-
-<p>코틀린에서 bound 참조 또한 리플렉션 기반으로 동작합니다.</p>
-
-<pre><code class="language-python">fun main(args: Array&lt;String&gt;)
-{
-    var r: Regex = &quot;\\+&quot;.toRegex()
-    var isNumber = r::matches
-    var general = Regex::matches
-
-    println(isNumber(&quot;321&quot;)) // -&gt; false
-    println(general(r, &quot;321&quot;)) // -&gt; false
-
-    val strB = listOf(&quot;foo&quot;, &quot;123&quot;, &quot;1&quot;)
-    println(strB.filter(isNumber)) // -&gt; []
-
-    val lengthOfABC: KProperty0&lt;Int&gt; = &quot;ABC&quot;::length
-    println(lengthOfABC.get()) // -&gt; 3
-}
-
 </code></pre>
 
 <p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
@@ -437,7 +399,7 @@ fun main(args: Array&lt;String&gt;)
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/" data-tooltip="코틀린 리서치 - Odds &amp; Ends[9]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -445,7 +407,7 @@ fun main(args: Array&lt;String&gt;)
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-collection-operations7/" data-tooltip="코틀린 리서치 - Collection Operations[7]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/" data-tooltip="코틀린 리서치 - Reflection[8]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -463,19 +425,19 @@ fun main(args: Array&lt;String&gt;)
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -523,7 +485,7 @@ fun main(args: Array&lt;String&gt;)
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/" data-tooltip="코틀린 리서치 - Odds &amp; Ends[9]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -531,7 +493,7 @@ fun main(args: Array&lt;String&gt;)
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-collection-operations7/" data-tooltip="코틀린 리서치 - Collection Operations[7]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/" data-tooltip="코틀린 리서치 - Reflection[8]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -549,19 +511,19 @@ fun main(args: Array&lt;String&gt;)
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -591,19 +553,19 @@ fun main(args: Array&lt;String&gt;)
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F03%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-reflection8%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F03%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-odds-ends9%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F03%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-reflection8%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F03%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-odds-ends9%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F03%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-reflection8%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F03%2F%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A6%25AC%25EC%2584%259C%25EC%25B9%2598-odds-ends9%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -695,9 +657,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/03\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/03\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9\/';
           
-            this.page.identifier = '\/2021\/03\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8\/'
+            this.page.identifier = '\/2021\/03\/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9\/'
           
         };
         (function() {
