@@ -6,10 +6,19 @@
     <description>Recent content in Modern C&#43;&#43; on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 05 Apr 2021 16:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 06 Apr 2021 08:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/tags/modern-c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43; Template Programming - Template 기본 문법[3]</title>
+      <link>https://ence2.github.io/2021/04/c-template-programming-template-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</link>
+      <pubDate>Tue, 06 Apr 2021 08:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/04/c-template-programming-template-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</guid>
+      <description>&lt;p&gt;이번 항목에서는 템플릿의 기본 문법에 대해서 살펴 보겠습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>C&#43;&#43; Template Programming - Template Instantiation[2]</title>
