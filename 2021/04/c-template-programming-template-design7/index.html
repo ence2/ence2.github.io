@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="이번에는 템플릿 코드의 메모리 사용량을 줄이는 방법, CRTP, SFINAE typelinst 등에 대해서 살펴보겠습니다.">
+
+
+<meta property="og:description" content="이번에는 템플릿 코드의 메모리 사용량을 줄이는 방법, CRTP, SFINAE typelinst 등에 대해서 살펴보겠습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#43;&#43; Template Programming - Template Design[7]">
+<meta name="twitter:title" content="C&#43;&#43; Template Programming - Template Design[7]">
+<meta property="og:url" content="https://ence2.github.io/2021/04/c-template-programming-template-design7/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/04/c-template-programming-template-design7/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="이번에는 템플릿 코드의 메모리 사용량을 줄이는 방법, CRTP, SFINAE typelinst 등에 대해서 살펴보겠습니다.">
+<meta name="twitter:description" content="이번에는 템플릿 코드의 메모리 사용량을 줄이는 방법, CRTP, SFINAE typelinst 등에 대해서 살펴보겠습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-04-07T12:00:00">
+  
+  
+    <meta property="article:modified_time" content="2021-04-07T12:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Language">
+    
+      <meta property="article:section" content="C&#43;&#43;">
+    
+  
+  
+    
+      <meta property="article:tag" content="C&#43;&#43;">
+    
+      <meta property="article:tag" content="Modern C&#43;&#43;">
+    
+      <meta property="article:tag" content="C&#43;&#43; Template">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>C&#43;&#43; Template Programming - Template Design[7]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2021/04/c-template-programming-template-design7/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      C&#43;&#43; Template Programming - Template Design[7]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-04-07T12:00:00&#43;09:00">
+        
+  April 7, 2021
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>이번에는 템플릿 코드의 메모리 사용량을 줄이는 방법, CRTP, SFINAE typelinst 등에 대해서 살펴보겠습니다.</p>
+
+<p>​</p>
+
+<h3 id="thin-template">Thin template</h3>
+
+<p>템플릿을 사용하면 소스코드 용량이 늘어나게됩니다.</p>
+
+<pre><code class="language-cpp">// 멤버 함수 4개 * 3개 타입 =&gt; 12개 함수 생성
+template&lt;typename T&gt; class Vector
+{
+    T* buff;
+    int sz;
+public:
+    int size() const;
+    bool empty() const;
+    void push_front(const T&amp; a);
+    T&amp; front();
+};
+
+int main()
+{
+    Vector&lt;int&gt;    v1;
+    Vector&lt;short&gt;  v2;
+    Vector&lt;double&gt; v3;
+}
+</code></pre>
+
+<p>소스코드 용량을 줄이는 방법1</p>
+
+<pre><code class="language-cpp">// 방법 1. template parameter T를 사용하지 않은 멤버 함수는 기반 클래스로 옮기자
+// 멤버 함수 2개 * 3개 타입 + 기반 클래스 멤버 함수 2개 =&gt; 8개
+
+class VectorBase
+{
+protected:
+    int sz;
+public:
+    int size() const;
+    bool empty() const;
+};
+template&lt;typename T&gt; class Vector : public VectorBase
+{
+    T* buff;
+public:
+    void push_front(const T&amp; a);
+    T&amp; front();
+};
+
+int main()
+{
+    Vector&lt;int&gt;    v1;
+    Vector&lt;short&gt;  v2;
+    Vector&lt;double&gt; v3;
+}
+</code></pre>
+
+<p>소스코드 용량을 줄이는 방법2 -&gt; Thin template</p>
+
+<pre><code class="language-cpp">// 방법 2. void* 기반 컨테이너 + 캐스팅을 책임지는 파생 클래스
+// 멤버 함수 2개 * 3개 타입 + 기반 클래스 멤버 함수 2개 =&gt; 8개
+
+class VectorBase
+{
+protected:
+    void* buff;
+    int sz;
+public:
+    int size() const;
+    bool empty() const;
+
+    void  push_front(const void* a);
+    void* front();
+};
+
+// 캐스팅만 책임지는 파생 클래스
+template&lt;typename T&gt; class Vector : public VectorBase
+{
+public:
+    inline int size() const   { return VectorBase::size(); }
+    inline bool empty() const { return VectorBase::empty(); }
+    inline void push_front(const T&amp; a) { VectorBase::push_front(static_cast&lt;void*&gt;(a)); }
+    inline T&amp; front() { return static_casst&lt;T&amp;&gt;(VectorBase::front());   }
+};
+
+int main()
+{
+    Vector&lt;int&gt;    v1;
+    Vector&lt;short&gt;  v2;
+    Vector&lt;double&gt; v3;
+}
+</code></pre>
+
+<h3 id="crtp-curiously-recurring-template-patten">CRTP : Curiously Recurring Template Patten</h3>
+
+<p>기반 클래스(부모, 과거)에서  상속된 파생 클래스(자식, 미래)의 이름을 사용 할 수 있는 방법.</p>
+
+<p>파생 클래스를 만들 때 기반 클래스의 템플릿 인자로 자신의 이름을 전달하여 구현</p>
+
+<ul>
+<li>CRTP 활용 1 : 상속 관계에서 가상함수(virtual)을 사용하지 않고 다형성 구현 가능 -&gt; 장점 : 가상함수가 수백개 일 경우 메모리 사용량이 증가함</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// CRTP : Curiously Reccuring Template Pattern
+template&lt;typename T&gt; class Window
+{
+public:
+    void msgLoop() // void msgLoop(Window* this)
+    {
+        static_cast&lt;T*&gt;(this)-&gt;onKeyDown();  // T를 사용해서 자식의 onKeyDown 호출, virutal 없이 가상함수 처럼 동작
+    }
+    void onKeyDown() { cout &lt;&lt; &quot;Window onKeyDown&quot; &lt;&lt; endl; }
+};
+
+class MyWindow : public Window&lt;MyWindow&gt; // 상속시 T에 자기 이름 전달
+{
+public:
+    void onKeyDown() { cout &lt;&lt; &quot;Window onKeyDown&quot; &lt;&lt; endl; }
+};
+
+int main()
+{
+    MyWindow w;
+    w.msgLoop();
+}
+</code></pre>
+
+<ul>
+<li>CRTP 활용 2 : Singleton 패턴 구현</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;typename T&gt; class Singleton
+{
+public:
+    static T* instance;
+
+    static T&amp; getInstance()
+    {
+        if (instance == 0)
+            instance = new T;
+        return *instance;
+    }
+};
+
+template&lt;typename T&gt; T* Singleton&lt;T&gt;::instance = 0;
+
+class Cursor : public Singleton&lt;Cursor&gt;
+{
+};
+
+int main()
+{
+    Cursor&amp; c = Cursor::getInstance();
+}
+</code></pre>
+
+<ul>
+<li>CRTP 활용 3 : static 변수 적용 범위를 파생 클래스의 이름으로 그룹화 해서 관리하기</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;typename T&gt; struct Count
+{
+private:
+    static int cnt;
+public:
+    Count() { ++cnt; }
+    ~Count() { --cnt; }
+
+    static int count() { return cnt; }
+};
+template&lt;typename T&gt; int Count&lt;T&gt;::cnt = 0;
+
+class Mouse : public Count&lt;Mouse&gt;
+{
+};
+class Keyboard : public Count&lt;Keyboard&gt;
+{
+};
+int main()
+{
+    Mouse m1, m2;
+    Keyboard k1, k2;
+
+    cout &lt;&lt; k1.count() &lt;&lt; endl;
+}
+</code></pre>
+
+<h3 id="policy-based-design">Policy-based design</h3>
+
+<ol>
+<li><p>클래스가 사용하는 정책을 성능저하 없이 교체 할 수 있음, 이 기법을 사용하는 대표적인 라이브러리 -&gt; &ldquo;STL&rdquo;</p></li>
+
+<li><p>성능 저하 없이 정책을 교체 할 수 있음</p></li>
+</ol>
+
+<ul>
+<li>List를 제공 할 때 lock 사용 유/무 버전을 사용자가 선택 할 수 있도록 제공 하도록 구현 예제</li>
+</ul>
+
+<pre><code class="language-cpp">template&lt;typename T, typename ThreadModel&gt; class List
+{
+    ThreadModel tm;
+public:
+    void push_front(const T&amp; a)
+    {
+        tm.Lock();
+        //......
+        tm.Unlock();
+    }
+};
+
+// 동기화 정책을 담은 정책 클래스 : 반드시 Lock()/Unlock() 이 있어야 한다.
+struct NoLock
+{
+    inline void Lock() {}
+    inline void Unlock() {}
+};
+
+struct Win32Lock
+{
+    inline void Lock()   { } // implement lock using win32 api
+    inline void Unlock() { }
+};
+
+struct LinuxLock
+{
+    inline void Lock() { } // implement lock using linux system call
+    inline void Unlock() { }
+};
+
+
+List&lt;int, NoLock&gt; st; // NoLock 버전 제공
+
+int main()
+{
+    st.push_front(10);
+}
+</code></pre>
+
+<ul>
+<li>메모리 할당 방식을 사용자가 선택 할 수 있도록 제공하는 예제</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+template &lt;class T&gt; class ecAlloc 
+{
+public:
+    typedef T        value_type;
+    typedef T*       pointer;
+    typedef const T* const_pointer;
+    typedef T&amp;       reference;
+    typedef const T&amp; const_reference;
+    typedef std::size_t    size_type;
+    typedef std::ptrdiff_t difference_type;
+
+    // policy clone 을 위한 도구. &quot;rebind&quot; 동영상 참고.
+    template &lt;class U&gt; struct rebind 
+    {
+        typedef ecAlloc&lt;U&gt; other;
+    };
+
+    pointer address(reference value) const              { return &amp;value;    }
+    const_pointer address(const_reference value) const  { return &amp;value;    }
+
+    ecAlloc() noexcept { }
+    ecAlloc(const ecAlloc&amp;) noexcept { }
+    ~ecAlloc() noexcept { }
+    template &lt;class U&gt; ecAlloc(const ecAlloc&lt;U&gt;&amp;) noexcept {}
+
+    size_type max_size() const throw() {
+        return numeric_limits&lt;std::size_t&gt;::max() / sizeof(T);
+    }
+
+    // 메모리만 할당하는 함수. 초기화(생성자 호출) 하지 않습니다.
+    pointer allocate(size_type num, const void* = 0) 
+    {
+        cerr &lt;&lt; &quot;allocate &quot; &lt;&lt; num &lt;&lt; &quot; element(s)&quot;
+                  &lt;&lt; &quot; of size &quot; &lt;&lt; sizeof(T) &lt;&lt; endl;
+        pointer ret = (pointer)(::operator new(num * sizeof(T)));
+        cerr &lt;&lt; &quot; allocated at: &quot; &lt;&lt; (void*)ret &lt;&lt; endl;
+        return ret;
+    }
+
+    // 초기화(생성자 호출) 함수. Placement new를 사용합니다.
+    void construct(pointer p, const T&amp; value) {     
+        new((void*)p)T(value);
+    }
+
+    // 객체 파괴(소멸자 호출) 함수
+    void destroy(pointer p) {
+        p-&gt;~T();
+    }
+
+    // 메모리 해지
+    void deallocate(pointer p, size_type num) {
+        cerr &lt;&lt; &quot;deallocate &quot; &lt;&lt; num &lt;&lt; &quot; element(s)&quot;
+            &lt;&lt; &quot; of size &quot; &lt;&lt; sizeof(T)
+            &lt;&lt; &quot; at: &quot; &lt;&lt; (void*)p &lt;&lt; endl;
+        ::operator delete((void*)p);
+    }
+};
+// return that all specializations of this allocator are interchangeable
+template &lt;class T1, class T2&gt;
+bool operator== (const ecAlloc&lt;T1&gt;&amp;, const ecAlloc&lt;T2&gt;&amp;) noexcept
+{
+    return true;
+}
+template &lt;class T1, class T2&gt;
+bool operator!= (const ecAlloc&lt;T1&gt;&amp;, const ecAlloc&lt;T2&gt;&amp;) noexcept
+{
+    return false;
+}
+
+int main()
+{
+    vector&lt;int, ecAlloc&lt;int&gt;&gt; v(2, 0);
+
+    v.resize(4);
+}
+</code></pre>
+
+<h3 id="sfiae-subsitution-failure-is-not-an-error">SFIAE : Subsitution Failure is Not An Error</h3>
+
+<ul>
+<li>컴파일러가 이름으로 함수를 찾는 순서 : exactly matching -&gt; template -&gt; variable argument</li>
+<li>함수 템플릿을 사용시 T의 타입이 결정되고 함수를 생성하려고 할 때 리턴 타입이나 함수 인자 등에서 치환에 실패하면 컴파일 에러가 아니라, 함수 후보군에서 제외</li>
+<li>동일한 이름의 다른 함수가 있다면 그 함수를 사용하게 됨</li>
+</ul>
+
+<pre><code class="language-cpp">template&lt;typename T&gt;
+typename T::type foo(T t) //int::type foo(int t)
+{
+    cout &lt;&lt; &quot;T&quot; &lt;&lt; endl;
+    return 0;
+}
+
+void foo(...) { cout &lt;&lt; &quot;...&quot; &lt;&lt; endl; }
+
+int main()
+{
+    foo(3); // output : ...
+}
+</code></pre>
+
+<ul>
+<li><p>특정 타입에만 적용되는 템플릿을 구현하고 싶을 때</p>
+
+<ol>
+<li><p>static_assert를 활용 하여 구현 : 조건을 만족하지 않으면 컴파일 에러</p></li>
+
+<li><p>enable_if 방식으로 구현 : 조건을 만족하지 않으면 함수를 생성하지 않고, 동일 이름의 다른 함수가 있으면 사용</p></li>
+</ol></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;type_traits&gt;
+using namespace std;
+
+// foo 함수를 정수 계열에 대해서만 코드 생성되게 하고 싶다.
+// 방법 1. static_assert 
+// 특징 : T가 정수가 아니면 무조건 error 발생.
+template&lt;typename T&gt; void foo(T a)
+{
+    static_assert(is_integral&lt;T&gt;::value, &quot;error&quot;);
+}
+
+// 방법 2. enable_if
+// 특징 : T가 정수가 아니면 error가 아니라 코드 생성을 하지 않음. 호출 가능한 다른 foo()가 있으면 사용됨
+// enable_if 위치 1. 함수 리턴 타입에 적용
+template&lt;typename T&gt; typename enable_if&lt; is_integral&lt;T&gt;::value,void &gt;::type foo(T a)
+{
+}
+
+// enable_if 위치 2. 함수 인자 타입에 적용 - 생성자.. 
+template&lt;typename T&gt;   
+void foo(T a, typename enable_if&lt; is_integral&lt;T&gt;::value, void &gt;::type* p = nullptr )
+{
+}
+
+// enable_if 위치 3. 템플릿 인자에 적용
+// template&lt;typename T, void* = nullptr &gt;
+template&lt;typename T, typename enable_if&lt; is_integral&lt;T&gt;::value, void &gt;::type* = nullptr &gt;
+void foo(T a)
+{
+}
+
+void foo(...) {}
+
+int main()
+{
+    foo(3);
+}
+</code></pre>
+
+<h3 id="member-detect-idioms">Member detect idioms</h3>
+
+<p>클래스 안에 특정한 멤버함수, 멤버 데이터, 멤버 타입 등이 있는지 조사하는 방법</p>
+
+<ul>
+<li>특정 멤버 함수가 있는지 조사 방법</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;array&gt;
+#include &lt;type_traits&gt;
+using namespace std;
+
+template&lt;typename T&gt; struct has_resize
+{
+    using YES = char;
+    using NO = short;
+
+    template&lt;typename U&gt; static YES check(typename std::add_pointer&lt;decltype(U().resize(0))&gt;::type  a);
+    template&lt;typename U&gt; static NO  check(...);
+    
+    static constexpr bool value = (sizeof(check&lt;T&gt;(0)) == sizeof(YES));
+};
+
+int main()
+{
+    cout &lt;&lt; has_resize&lt;vector&lt;int&gt;&gt;::value &lt;&lt; endl;     // 1
+    cout &lt;&lt; has_resize&lt;array&lt;int, 10&gt;&gt;::value &lt;&lt; endl;  // 0
+}
+</code></pre>
+
+<ul>
+<li>멤버 변수가 value 타입을 갖고 있는지 여부 조사 방법</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct NoValueType
+{
+};
+
+struct HasValueType
+{
+    typedef int value_type;
+};
+
+template&lt;typename T&gt; struct has_value_type
+{
+    using YES = char;
+    using NO = short;
+
+    template&lt;typename U&gt; static YES check(typename U::value_type*  a);
+    template&lt;typename U&gt; static NO  check(...);
+
+    static constexpr bool value = (sizeof(check&lt;T&gt;(0)) == sizeof(YES));
+};
+
+int main()
+{
+    cout &lt;&lt; has_value_type&lt;HasValueType&gt;::value &lt;&lt; endl; // 1
+    cout &lt;&lt; has_value_type&lt;NoValueType&gt;::value &lt;&lt; endl;  // 0
+}
+</code></pre>
+
+<h3 id="typelist">Typelist</h3>
+
+<p>loki libaray의 Typelist의 구현 살펴보기</p>
+
+<ul>
+<li>type을 보관하는 list 형태 템플릿</li>
+</ul>
+
+<pre><code class="language-cpp">// 1. 값을 보관하지 않는다.
+// 2. N개의 타입을 보관한다.
+// 3. NullType 과 매크로 도입
+
+// Typelist : 타입을 여러개 보관하는 type의 list(값이 아님.)
+template&lt;typename T, typename U&gt; struct Typelist
+{
+    typedef T Head;
+    typedef U Tail;
+};
+
+struct NullType {}; // 모든 typelist의 끝은 NullType으로 표현
+
+// 매크로 도입
+#define TYPELIST_1(T1)       Typelist&lt;T1, NullType&gt;
+#define TYPELIST_2(T1, T2)   Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+#define TYPELIST_3(T1, T2, T3)   Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+#define TYPELIST_4(T1, T2, T3, T4)   Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+
+
+int main()
+{
+    Typelist&lt;int, NullType&gt; t1;
+    Typelist&lt;int, Typelist&lt;double, NullType&gt;&gt; t2;
+    //Typelist&lt;int, Typelist&lt;double, Typelist&lt;char, NullType&gt;&gt;&gt; t3;
+
+    TYPELIST_1(int) t4; // 
+    TYPELIST_4(int, double, char, short) t4; // 
+}
+</code></pre>
+
+<ul>
+<li>활용, 가변 인자 템플릿 없이 튜플에 여러 타입을 전달 할 수 있음</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;typename T, typename U&gt; struct Typelist
+{
+    typedef T Head;
+    typedef U Tail;
+};
+struct NullType {};
+
+#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
+#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+
+//-------------------------------------------
+template&lt;typename T&gt; class xtuple {};
+
+int main()
+{
+    //xtuple&lt;int&gt; t1;
+
+    xtuple&lt; TYPELIST_3(int, double, char) &gt; t1;
+
+}
+</code></pre>
+
+<ul>
+<li>typelist 요소의 갯수 구하기</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;typename T, typename U&gt; struct Typelist
+{
+    typedef T Head;
+    typedef U Tail;
+};
+struct NullType {};
+
+#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
+#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+//-----------------------------------------------------------------------------------------------------
+// Typelist의 요소 갯수 구하기.
+
+// 1. 사용하는 모습을 보고 primary template 작성.
+template&lt;typename T&gt; struct Length;
+//{
+//};
+
+// 2. 갯수를 구할수 있도록 부분 특수화
+template&lt;typename T, typename U&gt; struct Length&lt;Typelist&lt;T, U&gt;&gt;
+{
+    enum { value = Length&lt;U&gt;::value + 1 };
+};
+
+// 3. 재귀를 종료 하기 위한 전문화(특수화)
+template&lt;&gt; struct Length&lt;NullType&gt;
+{
+    enum { value = 0 };
+};
+
+
+template&lt;typename T&gt; void test()
+{
+    cout &lt;&lt; Length&lt;T&gt;::value &lt;&lt; endl; // 4
+}
+
+int main()
+{
+    test&lt; TYPELIST_4(int, char, short, double) &gt;();
+}
+</code></pre>
+
+<ul>
+<li>typelist의 at 구현 (n번째 요소의 타입)</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;typename T, typename U&gt; struct Typelist
+{
+    typedef T Head;
+    typedef U Tail;
+};
+struct NullType {};
+
+#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
+#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+//-----------------------------------------------------------------------------------------------------
+// Typelist의 N 번째 요소의 타입 구하기
+// 1. 사용하는 코드를 보고 primary template 작성.
+// T : Typelist
+template&lt;typename T, int N&gt; struct TypeAt;
+
+
+// 2. 원하는 타입을 구할수 있도록 부분특수화
+//  T : Typelist의 요소 타입
+/*
+template&lt;typename T, typename U, int N&gt; struct TypeAt&lt;Typelist&lt;T, U&gt;, N&gt;
+{
+    typedef ? type;
+};
+*/
+// N == 0 일때.
+template&lt;typename T, typename U&gt; struct TypeAt&lt;Typelist&lt;T, U&gt;, 0&gt;
+{
+    typedef T type;
+};
+
+// N != 0 일때.
+template&lt;typename T, typename U, int N&gt; struct TypeAt&lt;Typelist&lt;T, U&gt;, N&gt;
+{
+    typedef  typename  TypeAt&lt;U, N-1&gt;::type   type;
+};
+
+template&lt;typename T&gt; void test()
+{
+    typename TypeAt&lt;T, 3&gt;::type n;  // char
+
+    cout &lt;&lt; typeid(n).name() &lt;&lt; endl;
+
+}
+
+int main()
+{
+    test&lt;TYPELIST_4(int, char, double, long)&gt;();
+}
+</code></pre>
+
+<ul>
+<li>typelist에 type add하기</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;typename T, typename U&gt; struct Typelist
+{
+    typedef T Head;
+    typedef U Tail;
+};
+struct NullType {};
+
+#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
+#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+//-------------------------------------------------------------------------------------------
+// Typelist 끝에 타입 추가하기.
+
+template&lt;typename TL, typename T&gt; struct Append;
+
+
+//     TL         T
+// 1. NullType, NullType   =&gt; NullType
+template&lt;&gt; struct Append&lt;NullType, NullType&gt;
+{
+    typedef NullType type;
+};
+
+// 2. NullType, 임의의타입   =&gt; Typelist&lt;임의의타입, NullType&gt;
+template&lt;typename T&gt; struct Append&lt;NullType, T&gt;
+{
+    typedef Typelist&lt;T, NullType&gt; type;
+};
+
+// 3. NullType, Typelist&lt;Head, Tail&gt;  =&gt; Typelist&lt;Head, Tail&gt;
+template&lt;typename Head, typename Tail&gt; struct Append&lt;NullType, Typelist&lt;Head, Tail&gt; &gt;
+{
+    typedef Typelist&lt;Head, Tail&gt; type;
+};
+
+
+// 4. Typelist&lt;Head, Tail&gt;, NullType  =&gt; Typelist&lt;Head, Tail&gt;
+//    이번 단계의 코드는 없어도 됩니다. 5단계의 코드만 있으면 됩니다.
+template&lt;typename Head, typename Tail&gt; struct Append&lt;Typelist&lt;Head, Tail&gt;, NullType &gt;
+{
+    typedef Typelist&lt;Head, Tail&gt; type;
+};
+
+
+// 5. Typelist&lt;Head, Tail&gt;, T =&gt;  Typelist&lt;Head, Append&lt;Tail, T&gt;::type&gt; 
+template&lt;typename Head, typename Tail, typename T&gt; struct Append&lt;Typelist&lt;Head, Tail&gt;, T &gt;
+{
+    typedef Typelist&lt;Head, typename Append&lt;Tail, T&gt;::type&gt; type;
+};
+
+template&lt;typename T&gt; void test()
+{
+    typename Append&lt;T, int&gt;::type t1;
+
+    cout &lt;&lt; typeid(t1).name() &lt;&lt; endl;  // int, char, double, int, NullType
+}
+
+int main()
+{
+    test&lt;TYPELIST_3(int, char, double)&gt;();
+}
+</code></pre>
+
+<ul>
+<li>typelist 활용, GenScatterHierachy 구현 해보기</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;typename T, typename U&gt; struct Typelist
+{
+    typedef T Head;
+    typedef U Tail;
+};
+struct NullType {};
+
+#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
+#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+
+//-------------------------------------------------------------------------------------------
+// Typelist 활용 
+
+// Holder : 임의 타입의 data 하나 보관..
+template&lt;typename T&gt; struct Holder
+{
+    T value;
+};
+
+// loki 라이브러리의 GenScatterHierachy  =&gt; MakeCode
+
+template&lt;typename T, template&lt;typename&gt; class Unit&gt; 
+class MakeCode : public Unit&lt;T&gt; 
+{
+};
+
+template&lt;template&lt;typename&gt; class Unit&gt;
+class MakeCode&lt;NullType, Unit&gt;
+{
+};
+
+int main()
+{
+    MakeCode&lt;int, Holder&gt; mc1; // 기반 클래스 Holder&lt;int&gt; 이므로
+    MakeCode&lt;double, Holder&gt;  mc2; // Holder&lt;doulbe&gt;
+    MakeCode&lt;NullType, Holder&gt; mc3; // empty
+}
+</code></pre>
+
+<p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/modern-c&#43;&#43;/">Modern C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;-template/">C&#43;&#43; Template</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-template-programming-type-traits5/" data-tooltip="C&#43;&#43; Template Programming - Type Traits[5]">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-template-programming-template-%ED%8A%B9%EC%88%98%ED%99%944/" data-tooltip="C&#43;&#43; Template Programming - Template 특수화[4]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-template-programming-template-design7/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-template-programming-template-design7/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-template-programming-template-design7/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-template-programming-type-traits5/" data-tooltip="C&#43;&#43; Template Programming - Type Traits[5]">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-template-programming-template-%ED%8A%B9%EC%88%98%ED%99%944/" data-tooltip="C&#43;&#43; Template Programming - Template 특수화[4]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-template-programming-template-design7/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-template-programming-template-design7/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-template-programming-template-design7/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-template-programming-template-design7%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-template-programming-template-design7%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-template-programming-template-design7%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/04\/c-template-programming-template-design7\/';
+          
+            this.page.identifier = '\/2021\/04\/c-template-programming-template-design7\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
