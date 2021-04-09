@@ -3,6 +3,20 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence2.github.io/2021/04/c-template-programming-variadic-template6/</loc>
+    <lastmod>2021-04-07T18:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence2.github.io/2021/04/c-template-programming-type-traits5/</loc>
+    <lastmod>2021-04-07T16:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/2021/04/c-template-programming-template-%ED%8A%B9%EC%88%98%ED%99%944/</loc>
     <lastmod>2021-04-06T18:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -549,21 +563,21 @@
   
   <url>
     <loc>https://ence2.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2021-04-06T18:00:00+09:00</lastmod>
+    <lastmod>2021-04-07T18:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2021-04-06T18:00:00+09:00</lastmod>
+    <lastmod>2021-04-07T18:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/tags/c&#43;&#43;-template/</loc>
-    <lastmod>2021-04-06T18:00:00+09:00</lastmod>
+    <lastmod>2021-04-07T18:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -591,7 +605,7 @@
   
   <url>
     <loc>https://ence2.github.io/categories/</loc>
-    <lastmod>2021-04-06T18:00:00+09:00</lastmod>
+    <lastmod>2021-04-07T18:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -668,7 +682,7 @@
   
   <url>
     <loc>https://ence2.github.io/</loc>
-    <lastmod>2021-04-06T18:00:00+09:00</lastmod>
+    <lastmod>2021-04-07T18:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -696,7 +710,7 @@
   
   <url>
     <loc>https://ence2.github.io/categories/language/</loc>
-    <lastmod>2021-04-06T18:00:00+09:00</lastmod>
+    <lastmod>2021-04-07T18:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -724,7 +738,7 @@
   
   <url>
     <loc>https://ence2.github.io/tags/modern-c&#43;&#43;/</loc>
-    <lastmod>2021-04-06T18:00:00+09:00</lastmod>
+    <lastmod>2021-04-07T18:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -766,7 +780,7 @@
   
   <url>
     <loc>https://ence2.github.io/post/</loc>
-    <lastmod>2021-04-06T18:00:00+09:00</lastmod>
+    <lastmod>2021-04-07T18:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
