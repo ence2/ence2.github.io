@@ -6,10 +6,19 @@
     <description>Recent content in C&#43;&#43; on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Thu, 15 Apr 2021 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 15 Apr 2021 10:50:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 중요 기본 문법 다시보기[2]</title>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</link>
+      <pubDate>Thu, 15 Apr 2021 10:50:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</guid>
+      <description>&lt;p&gt;C++ 버전과 역사에 대해서 알아보고, 기본 문법의 This call, New, Name mangling, Conversion 등에 대해 알아보겠습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - 개요[1]</title>
