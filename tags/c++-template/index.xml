@@ -6,35 +6,24 @@
     <description>Recent content in C&#43;&#43; Template on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Thu, 15 Apr 2021 10:50:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 09 Apr 2021 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/tags/c++-template/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 중요 기본 문법 다시보기[2]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</link>
-      <pubDate>Thu, 15 Apr 2021 10:50:00 +0900</pubDate>
+      <title>C&#43;&#43; Template Programming - Template Design[7]</title>
+      <link>https://ence2.github.io/2021/04/c-template-programming-template-design7/</link>
+      <pubDate>Fri, 09 Apr 2021 12:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</guid>
-      <description>&lt;p&gt;C++ 버전과 역사에 대해서 알아보고, 기본 문법의 This call, New, Name mangling, Conversion 등에 대해 알아보겠습니다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>C&#43;&#43; 고급 문법/테크닉 - 개요[1]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</link>
-      <pubDate>Thu, 15 Apr 2021 09:00:00 +0900</pubDate>
-      
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</guid>
-      <description>&lt;p&gt;C++ 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C++ 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C++ 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C++&lt;sup&gt;98&lt;/sup&gt;&amp;frasl;&lt;sub&gt;03&lt;/sub&gt; 문법 뿐 아니라 C++&lt;sup&gt;11&lt;/sup&gt;&amp;frasl;&lt;sub&gt;14&lt;/sub&gt; 그리고 C++17/20의 내용도 배우게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;C++ 문법 뿐 아니라 C++ IDioms라고 알려져 있는 다양한 테크닉도 배우게 되며, 이 시리즈에서는 C++ 기본 문법을 다루지 않습니다.&lt;/p&gt;</description>
+      <guid>https://ence2.github.io/2021/04/c-template-programming-template-design7/</guid>
+      <description>&lt;p&gt;이번에는 템플릿 코드의 메모리 사용량을 줄이는 방법, CRTP, SFINAE typelinst 등에 대해서 살펴보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; Template Programming - Variadic Template[6]</title>
       <link>https://ence2.github.io/2021/04/c-template-programming-variadic-template6/</link>
-      <pubDate>Wed, 07 Apr 2021 18:00:00 +0900</pubDate>
+      <pubDate>Thu, 08 Apr 2021 18:00:00 +0900</pubDate>
       
       <guid>https://ence2.github.io/2021/04/c-template-programming-variadic-template6/</guid>
       <description>&lt;p&gt;이번 포스팅에서는 C++11 에서 추가된 가변인자 템플릿의 기본 문법과 활용에 대해서 알아보겠습니다.&lt;/p&gt;</description>
@@ -47,15 +36,6 @@
       
       <guid>https://ence2.github.io/2021/04/c-template-programming-type-traits5/</guid>
       <description>&lt;p&gt;이번 항목에서는 타입의 다양한 속성을 조사하는 traits 개념을 알아 보겠습니다. std 표준의 is_pointer, is_array 등이 내부적으로 traits를 통해 구현 되었습니다.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>C&#43;&#43; Template Programming - Template Design[7]</title>
-      <link>https://ence2.github.io/2021/04/c-template-programming-template-design7/</link>
-      <pubDate>Wed, 07 Apr 2021 12:00:00 +0900</pubDate>
-      
-      <guid>https://ence2.github.io/2021/04/c-template-programming-template-design7/</guid>
-      <description>&lt;p&gt;이번에는 템플릿 코드의 메모리 사용량을 줄이는 방법, CRTP, SFINAE typelinst 등에 대해서 살펴보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
