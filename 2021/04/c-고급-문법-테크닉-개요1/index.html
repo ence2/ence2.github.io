@@ -8,25 +8,33 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="이번 포스팅에서는 C&#43;&#43;11 에서 추가된 가변인자 템플릿의 기본 문법과 활용에 대해서 알아보겠습니다.">
+<meta name="description" content="C&#43;&#43; 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C&#43;&#43; 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C&#43;&#43; 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C&#43;&#43;98&frasl;03 문법 뿐 아니라 C&#43;&#43;11&frasl;14 그리고 C&#43;&#43;17/20의 내용도 배우게 됩니다.
+
+C&#43;&#43; 문법 뿐 아니라 C&#43;&#43; IDioms라고 알려져 있는 다양한 테크닉도 배우게 되며, 이 시리즈에서는 C&#43;&#43; 기본 문법을 다루지 않습니다.">
 
 
-<meta property="og:description" content="이번 포스팅에서는 C&#43;&#43;11 에서 추가된 가변인자 템플릿의 기본 문법과 활용에 대해서 알아보겠습니다.">
+<meta property="og:description" content="C&#43;&#43; 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C&#43;&#43; 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C&#43;&#43; 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C&#43;&#43;98&frasl;03 문법 뿐 아니라 C&#43;&#43;11&frasl;14 그리고 C&#43;&#43;17/20의 내용도 배우게 됩니다.
+
+C&#43;&#43; 문법 뿐 아니라 C&#43;&#43; IDioms라고 알려져 있는 다양한 테크닉도 배우게 되며, 이 시리즈에서는 C&#43;&#43; 기본 문법을 다루지 않습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#43;&#43; Template Programming - Variadic Template[6]">
-<meta name="twitter:title" content="C&#43;&#43; Template Programming - Variadic Template[6]">
-<meta property="og:url" content="https://ence2.github.io/2021/04/c-template-programming-variadic-template6/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/04/c-template-programming-variadic-template6/">
+<meta property="og:title" content="C&#43;&#43; 고급 문법/테크닉 - 개요[1]">
+<meta name="twitter:title" content="C&#43;&#43; 고급 문법/테크닉 - 개요[1]">
+<meta property="og:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="이번 포스팅에서는 C&#43;&#43;11 에서 추가된 가변인자 템플릿의 기본 문법과 활용에 대해서 알아보겠습니다.">
-<meta name="twitter:description" content="이번 포스팅에서는 C&#43;&#43;11 에서 추가된 가변인자 템플릿의 기본 문법과 활용에 대해서 알아보겠습니다.">
+<meta property="og:description" content="C&#43;&#43; 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C&#43;&#43; 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C&#43;&#43; 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C&#43;&#43;98&frasl;03 문법 뿐 아니라 C&#43;&#43;11&frasl;14 그리고 C&#43;&#43;17/20의 내용도 배우게 됩니다.
+
+C&#43;&#43; 문법 뿐 아니라 C&#43;&#43; IDioms라고 알려져 있는 다양한 테크닉도 배우게 되며, 이 시리즈에서는 C&#43;&#43; 기본 문법을 다루지 않습니다.">
+<meta name="twitter:description" content="C&#43;&#43; 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C&#43;&#43; 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C&#43;&#43; 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C&#43;&#43;98&frasl;03 문법 뿐 아니라 C&#43;&#43;11&frasl;14 그리고 C&#43;&#43;17/20의 내용도 배우게 됩니다.
+
+C&#43;&#43; 문법 뿐 아니라 C&#43;&#43; IDioms라고 알려져 있는 다양한 테크닉도 배우게 되며, 이 시리즈에서는 C&#43;&#43; 기본 문법을 다루지 않습니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-04-07T18:00:00">
+    <meta property="article:published_time" content="2021-04-15T09:00:00">
   
   
-    <meta property="article:modified_time" content="2021-04-07T18:00:00">
+    <meta property="article:modified_time" content="2021-04-15T09:00:00">
   
   
   
@@ -63,14 +71,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C&#43;&#43; Template Programming - Variadic Template[6]</title>
+    <title>C&#43;&#43; 고급 문법/테크닉 - 개요[1]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/04/c-template-programming-variadic-template6/">
+    <link rel="canonical" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -223,15 +231,15 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      C&#43;&#43; Template Programming - Variadic Template[6]
+      C&#43;&#43; 고급 문법/테크닉 - 개요[1]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-04-07T18:00:00&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-04-15T09:00:00&#43;09:00">
         
-  April 7, 2021
+  April 15, 2021
 
       </time>
     
@@ -252,371 +260,49 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>이번 포스팅에서는 C++11 에서 추가된 가변인자 템플릿의 기본 문법과 활용에 대해서 알아보겠습니다.</p>
+              <p>C++ 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C++ 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C++ 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C++<sup>98</sup>&frasl;<sub>03</sub> 문법 뿐 아니라 C++<sup>11</sup>&frasl;<sub>14</sub> 그리고 C++17/20의 내용도 배우게 됩니다.</p>
 
-<h3 id="variadic-template">Variadic template</h3>
+<p>C++ 문법 뿐 아니라 C++ IDioms라고 알려져 있는 다양한 테크닉도 배우게 되며, 이 시리즈에서는 C++ 기본 문법을 다루지 않습니다.</p>
 
-<ul>
-<li>가변 인자 템플릿(클래스, 함수)의 기본 모양</li>
-</ul>
-
-<pre><code class="language-cpp">// 가변인자 클래스 템플릿
-template&lt;typename ... Types&gt; class tuple
-{
-};
-
-// 가변인자 함수 템플릿
-template&lt;typename ... Types&gt; void foo(Types ... args) // args -&gt; Parameter Pack
-{
-}
-
-int main()
-{
-    tuple&lt;int&gt;      t1;   // Types : int
-    tuple&lt;int, int&gt; t2;   // Types : int, int
-    tuple&lt;int, int, char&gt; t3;
-
-    tuple&lt;&gt; t4;
-
-    foo(1);
-    foo(1, 3.4); // Types : int, double   args : 1, 3.4  =&gt; parameter pack
-    foo();
-}
-</code></pre>
-
-<h3 id="parameter-pack">Parameter pack</h3>
-
-<p>가변인자 템플릿에 전달되는 인자를 Parameter pack이라 함</p>
-
-<pre><code class="language-cpp">void goo(int n, double d, const char* s)
-{
-
-}
-// Parameter Pack
-template&lt;typename ... Types&gt; void foo(Types ... args)
-{
-    // args : Parameter Pack
-    cout &lt;&lt; sizeof...(args) &lt;&lt; endl; // 3
-    cout &lt;&lt; sizeof...(Types) &lt;&lt; endl; // 3
-
-                                      //goo(args); // error. 
-    goo(args...); // args... : pack 안의 요소들을 , 를 사용해서 나열해 달라.
-                  // goo( 1, 3.4, &quot;aaa&quot;)
-                  // args... : Pack Expansion
-}
-
-int main()
-{
-    foo();
-    foo(1);
-    foo(1, 3.4, &quot;aaa&quot;); // Types : int, double, const char*  
-                        // args : 1, 3.4, &quot;aaa&quot;
-}
-</code></pre>
-
-<h3 id="pack-expansion">Pack expansion</h3>
+<h3 id="실습-환경-windows">실습 환경(windows)</h3>
 
 <ul>
-<li><p>Parameter Pack을 사용하는 패턴 -&gt; 패턴1, 패턴2, 패턴3 &hellip;</p></li>
-
-<li><p>Pack Expansion은 함수 호출의 인자 또는 list 초기화를 사용한 표현식에만 사용 할 수 있음</p></li>
-</ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-void goo(int a, int b, int c)
-{
-    cout &lt;&lt; a &lt;&lt; &quot;, &quot; &lt;&lt; b &lt;&lt; &quot;, &quot; &lt;&lt; c &lt;&lt; endl;
-}
-
-int hoo(int a) { return -a; }
-
-// Pack Expansion
-template&lt;typename ... Types&gt; void foo(Types ... args) // args : 1,2,3 
-{
-    //int ar[] = { args... }; // 1, 2, 3
-
-    //int ar[] = { (++args)... }; // ++E1, ++E2, ++E3, ++1, ++2, ++3
-    //int ar[] = { hoo(args...) }; // hoo(1,2,3) error
-
-    int ar[] = { hoo(args)... }; // { hoo(1), hoo(2), hoo(3) }
-
-    goo(args...); // goo( 1, 2, 3)
-    goo(hoo(args)...); // goo( hoo(1), hoo(2), hoo(3))
-    goo(hoo(args...)); // goo( hoo( 1,2,3)) // error
-
-
-
-    for (int n : ar)
-        cout &lt;&lt; n &lt;&lt; endl;
-}
-
-int main()
-{
-    foo(1, 2, 3);
-}
-
-</code></pre>
+<li><p>using g++</p>
 
 <ul>
-<li>pair, tuple 관련 Pack Expansion 활용</li>
-</ul>
+<li>www.nuwen.net -&gt; C++ MinGW Distro 탭 -&gt; mingw-xx.x-without-git.exe 다운로드 및 압축 해제 -&gt; open_distro_windows 실행</li>
+<li>버전 확인 gcc &ndash;version</li>
+<li>컴파일 g++ hello.cpp</li>
+</ul></li>
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
-using namespace std;
-
-// Type Expansion
-template&lt;typename ... Types&gt; void foo()
-{
-    // Types : int, char
-    pair&lt;Types...&gt;  p1; // pair&lt;int, char&gt;   ok
-    tuple&lt;Types...&gt; t1; // tuple&lt;int, char&gt;  ok
-
-    tuple&lt;pair&lt;Types...&gt;&gt; t2; // tuple&lt;pair&lt;int, char&gt;&gt;
-
-                              //pair&lt;tuple&lt;Types...&gt;&gt; p2; // pair&lt; tuple&lt;int, char&gt; &gt;  error
-    pair&lt;tuple&lt;Types&gt;...&gt; p3; // pair&lt; tuple&lt;int&gt;, tuple&lt;char&gt;&gt; ok
-
-                              //tuple&lt;pair&lt;Types&gt;...&gt; t3; // tuple&lt; pair&lt;int&gt;, pair&lt;char&gt;&gt; error
-
-    tuple&lt;pair&lt;int, Types&gt;...&gt; t4; // tuple&lt; pair&lt;int, int&gt;, pair&lt;int, char&gt;&gt; ok..
-}
-
-int main()
-{
-    foo&lt;int, char&gt;();
-}
-</code></pre>
-
-<h3 id="paramter-pack의-각-요소-접근-방법">Paramter pack의 각 요소 접근 방법</h3>
+<li><p>using vc++</p>
 
 <ul>
-<li><p>Pack Exapnsion : 배열 또는 Tuple에 담아서 접근</p></li>
+<li><p>www.visualstudio.com/ko -&gt; IDE 다운로드 및 설치</p></li>
 
-<li><p>using recursive : 첫 번째 인자를 이름 있는 변수로 받아 재귀표현으로 처리</p></li>
+<li><p>vc++ 확장 문법 제거 : 프로젝트 속성 -&gt; C/C++ -&gt; 언어 -&gt; 언어 확장 사용 안 함(예/Za)</p></li>
 </ul>
 
-<pre><code class="language-cpp">void foo() {} // 재귀 종료 위해
-
-template&lt;typename T, typename ... Types&gt;
-void foo(T value, Types ... args)
+<pre><code class="language-c++">struct Pointer
 {
-    count &lt;&lt; value &lt;&lt; endl;
+    int x, y;
+}
     
-    foo(args...); // foo( 3.4, &quot;AA&quot;)
-                  // foo(&quot;AA&quot;)
-                  // foo()
-}
-
 int main()
 {
-    foo(1, 3.4, &quot;AA&quot;); // value : 1, args : 3.4, &quot;AA&quot;
+    Point&amp; p = Point(); // 표준 문법에 위배되지만 visual studo에서는 정상 컴파일됨
 }
 </code></pre>
 
 <ul>
-<li><p>fold expression 사용 ( C++ 17 )</p>
+<li>CL 컴파일러 사용하기 : VS 개발자 명령 프롬포트 -&gt; cl filename.cpp -&gt; 생성된 exe 파일 실행
 
-<ul>
-<li>이항 연산자를 사용해서 parameter pack 안에 있는 요소에 연산을 수행하는 문법</li>
+
+<br />
+
+<br /></li>
+</ul></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-    
-template&lt;typename ... Types&gt; void foo(Types ... args)
-{
-    int x[] = { args... }; // pack expansion 사용
-    
-    int n = (args + ...); // fold expression
-                          // E1 op ( E2 op ( E3 op ( E4 op E5) ) )
-                          // 1 + (2 + (3 + (4 + 5)))
-    
-    cout &lt;&lt; n &lt;&lt; endl;
-}
-int main()
-{
-    foo(1, 2, 3, 4, 5);
-}
-</code></pre>
-
-<ul>
-<li>4가지 형태 존재 (args와 &hellip; 의 위치에 따라)</li>
-</ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-    
-template&lt;typename ... Types&gt; void foo(Types ... args)
-{
-    int n1 = (args + ...);  // (1 + (2 + (3 + (4 + 5))))
-    int n2 = (... + args);  // ((((1 + 2) + 3) + 4) + 5)
-    
-    int n3 = (args + ... + 10);  // (1 + (2 + (3 + (4 + (5 + 10)))))
-    int n4 = (10 + ... + args);  // (((( 10 + 1) + 2) + 3) + 4) + 5)
-    
-    cout &lt;&lt; n1 &lt;&lt; endl;
-    cout &lt;&lt; n2 &lt;&lt; endl;
-    cout &lt;&lt; n3 &lt;&lt; endl;
-    cout &lt;&lt; n4 &lt;&lt; endl;
-}
-int main()
-{
-    foo(1, 2, 3, 4, 5);
-}
-</code></pre>
-
-<ul>
-<li>활용 패턴</li>
-</ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
-    
-vector&lt;int&gt; v;
-    
-template&lt;typename ... Types&gt; void foo(Types ... args)
-{
-    int n1 = (args + ...); // (1 + (2 + 3) )
-    
-    (v.push_back(args), ...); // ( v.push_back(1), (v.push_back(2), v.push_back(3)))
-    
-    for (auto n : v)
-        cout &lt;&lt; n &lt;&lt; endl;
-}
-    
-int main()
-{
-    foo(1, 2, 3);
-}
-</code></pre></li>
-</ul>
-
-<h3 id="함수-리턴타입-구하기">함수 리턴타입 구하기</h3>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-
-int f(int a, double b) { return 0; }
-
-
-// 가변 인자 템플릿 기술을 사용해서 함수의 리턴 타입을 구하는 코드 입니다.
-template&lt;typename T&gt; struct result
-{
-    typedef T type;
-};
-
-template&lt;typename R, typename ... Types&gt; struct result&lt;R(Types...)&gt;
-{
-    typedef R type;
-};
-
-template&lt;typename T&gt; void foo(T&amp; a) // 여기서 T는 int(int, double) 타입입니다.
-{
-    typename result&lt;T&gt;::type n;  
-
-    cout &lt;&lt; typeid(n).name() &lt;&lt; endl;  // int 가 나와야 합니다.
-}
-
-int main()
-{
-    foo(f);
-}
-</code></pre>
-
-<h3 id="가변인자-템플릿과-상속을-활용한-tuple-구현">가변인자 템플릿과 상속을 활용한 Tuple 구현</h3>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-// xtuple 
-template&lt;typename ... Types&gt; struct xtuple
-{
-    static constexpr int N = 0;
-};
-
-template&lt;typename T, typename ... Types&gt;
-struct xtuple&lt;T, Types...&gt; : public xtuple&lt;Types...&gt;
-{
-    T value;
-    xtuple() = default;
-    xtuple(const T&amp; v, const Types&amp; ... args) : value(v), xtuple&lt;Types...&gt;(args...) {}
-    static constexpr int N = xtuple&lt;Types...&gt;::N + 1;
-};
-
-// xtuple_element_type
-template&lt;int N, typename T&gt; struct xtuple_element_type;
-
-template&lt;typename T, typename ... Types&gt;
-struct xtuple_element_type&lt;0, xtuple&lt;T, Types...&gt;&gt;
-{
-    typedef T type;
-    typedef xtuple&lt;T, Types...&gt; tupleType;
-};
-
-template&lt;int N, typename T, typename ... Types&gt;
-struct xtuple_element_type&lt;N, xtuple&lt;T, Types...&gt;&gt;
-{
-    typedef typename xtuple_element_type&lt;N - 1, xtuple&lt;Types...&gt;&gt;::type      type;
-    typedef typename xtuple_element_type&lt;N - 1, xtuple&lt;Types...&gt;&gt;::tupleType tupleType;
-};
-
-// get
-template&lt;int N, typename T&gt; typename xtuple_element_type&lt;N, T&gt;::type&amp; xget(T&amp; tp)
-{
-    return static_cast&lt;typename xtuple_element_type&lt;N, T&gt;::tupleType&amp;&gt;(tp).value;
-}
-
-int main()
-{
-    xtuple&lt;int, double, char&gt; t3(1, 3.4, 'A');
-
-    xget&lt;0&gt;(t3) = 10;
-
-    cout &lt;&lt; xget&lt;0&gt;(t3) &lt;&lt; endl; // 10
-    cout &lt;&lt; xget&lt;1&gt;(t3) &lt;&lt; endl; // 3.4
-    cout &lt;&lt; xget&lt;2&gt;(t3) &lt;&lt; endl; // 'A'
-}
-</code></pre>
-
-<h3 id="tuple의-모든-요소-출력하기">Tuple의 모든 요소 출력하기</h3>
-
-<ul>
-<li>std tuple의 index 자리에는 변수를 사용 할 수 없으므로 loop 순회가 불가능</li>
-<li>std의 index_squence를 활용하면 모든 요소를 순회 하는 표현이 가능</li>
-</ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
-using namespace std;
-
-// template&lt;size_t ... N&gt; struct index_sequence {};
-
-template&lt;typename TP, size_t ... I &gt; 
-void print_tuple_imp(const TP&amp; tp, const index_sequence&lt;I...&gt;&amp; ) // I : 0, 1, 2
-{
-    int x[] = { get&lt;I&gt;(tp)... }; // get&lt;0&gt;(tp), get&lt;1&gt;(tp), get&lt;2&gt;(tp)
-
-    for (auto&amp; n : x)
-        cout &lt;&lt; n &lt;&lt; &quot;, &quot;;
-}
-
-template&lt;typename TP&gt; void print_tuple(const TP&amp; tp)
-{
-    print_tuple_imp(tp, make_index_sequence&lt;tuple_size&lt;TP&gt;::value&gt;());
-}
-
-int main()
-{
-    tuple&lt;int, int, int&gt; tp(1, 2, 3);
-
-    print_tuple(tp);
-}
-</code></pre>
 
 <p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
               
@@ -647,7 +333,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - 개요[1]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -655,7 +341,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-template-programming-type-traits5/" data-tooltip="C&#43;&#43; Template Programming - Type Traits[5]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-template-programming-variadic-template6/" data-tooltip="C&#43;&#43; Template Programming - Variadic Template[6]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -673,19 +359,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-template-programming-variadic-template6/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-template-programming-variadic-template6/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-template-programming-variadic-template6/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -733,7 +419,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - 개요[1]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -741,7 +427,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-template-programming-type-traits5/" data-tooltip="C&#43;&#43; Template Programming - Type Traits[5]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-template-programming-variadic-template6/" data-tooltip="C&#43;&#43; Template Programming - Variadic Template[6]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -759,19 +445,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-template-programming-variadic-template6/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-template-programming-variadic-template6/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-template-programming-variadic-template6/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -801,19 +487,19 @@ int main()
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-template-programming-variadic-template6%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-%25EA%25B0%259C%25EC%259A%25941%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-template-programming-variadic-template6%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-%25EA%25B0%259C%25EC%259A%25941%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-template-programming-variadic-template6%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-%25EA%25B0%259C%25EC%259A%25941%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -905,9 +591,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/04\/c-template-programming-variadic-template6\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941\/';
           
-            this.page.identifier = '\/2021\/04\/c-template-programming-variadic-template6\/'
+            this.page.identifier = '\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941\/'
           
         };
         (function() {
