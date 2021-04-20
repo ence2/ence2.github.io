@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Thu, 15 Apr 2021 10:50:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 20 Apr 2021 09:50:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 11/14 기본 문법[3]</title>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-11-14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</link>
+      <pubDate>Tue, 20 Apr 2021 09:50:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-11-14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</guid>
+      <description>&lt;p&gt;C++&lt;sup&gt;11&lt;/sup&gt;&amp;frasl;&lt;sub&gt;14&lt;/sub&gt; 에서 추가된 다양한 문법을 빠르게 소개합니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 중요 기본 문법 다시보기[2]</title>
