@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[5]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/</link>
+      <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[6]</title>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/</link>
       <pubDate>Thu, 22 Apr 2021 02:30:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/</guid>
       <description>&lt;p&gt;C++11에서 추가된 auto/decltype 문법은 쉬워 보이지만 컴파일러가 타입을 결정하는 규칙은 쉽지 않습니다. 또한, 배열과 auto 관계를 정확하게 이해 하기 위해서는 배열 이름의 의미를 정확히 파악하는 것이 좋습니다.&lt;/p&gt;</description>
     </item>
     

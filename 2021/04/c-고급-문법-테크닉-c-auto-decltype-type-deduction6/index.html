@@ -13,10 +13,10 @@
 
 <meta property="og:description" content="C&#43;&#43;11에서 추가된 auto/decltype 문법은 쉬워 보이지만 컴파일러가 타입을 결정하는 규칙은 쉽지 않습니다. 또한, 배열과 auto 관계를 정확하게 이해 하기 위해서는 배열 이름의 의미를 정확히 파악하는 것이 좋습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[5]">
-<meta name="twitter:title" content="C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[5]">
-<meta property="og:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/">
+<meta property="og:title" content="C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[6]">
+<meta name="twitter:title" content="C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[6]">
+<meta property="og:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="C&#43;&#43;11에서 추가된 auto/decltype 문법은 쉬워 보이지만 컴파일러가 타입을 결정하는 규칙은 쉽지 않습니다. 또한, 배열과 auto 관계를 정확하게 이해 하기 위해서는 배열 이름의 의미를 정확히 파악하는 것이 좋습니다.">
 <meta name="twitter:description" content="C&#43;&#43;11에서 추가된 auto/decltype 문법은 쉬워 보이지만 컴파일러가 타입을 결정하는 규칙은 쉽지 않습니다. 또한, 배열과 auto 관계를 정확하게 이해 하기 위해서는 배열 이름의 의미를 정확히 파악하는 것이 좋습니다.">
@@ -63,14 +63,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[5]</title>
+    <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[6]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/">
+    <link rel="canonical" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -223,7 +223,7 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[5]
+      C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[6]
     </h1>
   
   
@@ -508,19 +508,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -594,19 +594,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -636,19 +636,19 @@ int main()
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-c-auto-decltype-type-deduction5%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-c-auto-decltype-type-deduction6%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-c-auto-decltype-type-deduction5%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-c-auto-decltype-type-deduction6%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-c-auto-decltype-type-deduction5%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-c-auto-decltype-type-deduction6%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -740,9 +740,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6\/';
           
-            this.page.identifier = '\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction5\/'
+            this.page.identifier = '\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6\/'
           
         };
         (function() {
