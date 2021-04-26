@@ -6,10 +6,19 @@
     <description>Recent content in Language on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 26 Apr 2021 09:30:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 27 Apr 2021 06:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/categories/language/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43; 고급 문법/테크닉 - Perfect forwarding[8]</title>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</link>
+      <pubDate>Tue, 27 Apr 2021 06:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</guid>
+      <description>&lt;p&gt;Perfect forwarding 의 개념과 구현 방법을 배웁니다. forwarding reference 를 사용한 perfect forwarding을 알아 보겠습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - rvalue와 lvalue, move semantics[7]</title>
