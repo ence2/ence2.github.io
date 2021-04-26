@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="임시 객체,  rvalue, lvalue, 레퍼런스 붕괴 규칙, 우측값 참조, move semantics에 대해 알아 보겠습니다.">
+
+
+<meta property="og:description" content="임시 객체,  rvalue, lvalue, 레퍼런스 붕괴 규칙, 우측값 참조, move semantics에 대해 알아 보겠습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#43;&#43; 고급 문법/테크닉 - rvalue와 lvalue, move semantics[7]">
+<meta name="twitter:title" content="C&#43;&#43; 고급 문법/테크닉 - rvalue와 lvalue, move semantics[7]">
+<meta property="og:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="임시 객체,  rvalue, lvalue, 레퍼런스 붕괴 규칙, 우측값 참조, move semantics에 대해 알아 보겠습니다.">
+<meta name="twitter:description" content="임시 객체,  rvalue, lvalue, 레퍼런스 붕괴 규칙, 우측값 참조, move semantics에 대해 알아 보겠습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-04-26T09:30:00">
+  
+  
+    <meta property="article:modified_time" content="2021-04-26T09:30:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Language">
+    
+      <meta property="article:section" content="C&#43;&#43;">
+    
+  
+  
+    
+      <meta property="article:tag" content="C&#43;&#43;">
+    
+      <meta property="article:tag" content="Modern C&#43;&#43;">
+    
+      <meta property="article:tag" content="C&#43;&#43; Advanced">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>C&#43;&#43; 고급 문법/테크닉 - rvalue와 lvalue, move semantics[7]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      C&#43;&#43; 고급 문법/테크닉 - rvalue와 lvalue, move semantics[7]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-04-26T09:30:00&#43;09:00">
+        
+  April 26, 2021
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>임시 객체,  rvalue, lvalue, 레퍼런스 붕괴 규칙, 우측값 참조, move semantics에 대해 알아 보겠습니다.</p>
+
+<h3 id="임시객체의-개념과-수명">임시객체의 개념과 수명</h3>
+
+<ul>
+<li>사용자가 만들지 않아도, 컴파일러가 계산 중간시 임시 변수, 임시 객체를 만들어 사용함</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    int a = 1, b = 2, c = 3;
+
+    int sum = a + b + c;    // int temp = a + b;
+                            // int sum  = temp + c;
+}
+</code></pre>
+
+<ul>
+<li>사용자가 c++ 에서 지원하는 표현법을 통해 &ldquo;임시 객체&rdquo; 생성 가능
+
+<ul>
+<li>임시 객체는 이름이 없음</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// 핵심 1. 임시객체를 생성하는 방법 - &quot;클래스이름(생성자인자)&quot;
+//      2. 임시객체의 수명 - 문장의 끝.
+
+struct Point
+{
+    int x, y;
+    Point(int a = 0, int b = 0) { std::cout &lt;&lt; &quot;Point()&quot;  &lt;&lt; std::endl; }
+    ~Point()                    { std::cout &lt;&lt; &quot;~Point()&quot; &lt;&lt; std::endl; }
+};
+
+int main()
+{
+    Point p1(1, 2); //  named object.
+    Point(1, 2);    // unamed object. temporary. 임시 객체, 이 문장의 끝에서 파괴됨
+
+    Point(1, 2), std::cout &lt;&lt; &quot;X&quot; &lt;&lt; std::endl;
+
+    std::cout &lt;&lt; &quot;----------&quot; &lt;&lt; std::endl;
+}
+</code></pre>
+
+<h3 id="임시객체와-참조">임시객체와 참조</h3>
+
+<ul>
+<li>임시객체의 특성</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Point
+{
+    int x, y;
+    Point(int a = 0, int b = 0) { cout &lt;&lt; &quot;Point()&quot; &lt;&lt; endl; }
+    ~Point()                    { cout &lt;&lt; &quot;~Point()&quot; &lt;&lt; endl; }
+};
+
+int main()
+{
+    Point p1;   // 임시객체 아님. 이름있는 객체
+
+    // 핵심 1. 임시객체는 등호(=)의 왼쪽에(lvalue) 올 수 없다.
+    p1.x = 10;      // ok
+    //Point().x = 10;   // error
+
+    // 핵심 2. 임시객체는 주소를 구할수 없다.
+    Point* pp1 = &amp;p1;       // ok
+    Point* pp2 = &amp;Point();  // error
+
+    // 핵심 3. non-const reference 는 임시객체를 참조할 수 없다.
+    //         const     reference 는 임시객체를 참조할 수 있다.
+    Point&amp; r1 = p1;         // ok
+    Point&amp; r2 = Point();    // error
+
+    const Point&amp; r3 = p1;       // ok
+    const Point&amp; r4 = Point();  // ok, 임시 객체의 수명이 r4의 수명으로 연장됨
+
+    r4.x = 10; // error
+
+    // C++11 : rvalue reference는 상수성 없이 rvalue를 가리킬수있다.
+    Point&amp;&amp; r5 = p1; // error, rvalue reference 는 rvalue만 가리킬수 있다.
+    r5.x = 10; // PK
+    Point&amp;&amp; r6 = Point();
+}
+</code></pre>
+
+<h3 id="임시객체와-함수">임시객체와 함수</h3>
+
+<ul>
+<li>함수 호출을 위한 파라메터 생성시, 임시 객체를 전달 하면 함수가 종료 될 때 인자가 파괴됨</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Point
+{
+    int x, y;
+    Point(int a = 0, int b = 0) { cout &lt;&lt; &quot;Point()&quot; &lt;&lt; endl; }
+    ~Point()                    { cout &lt;&lt; &quot;~Point()&quot; &lt;&lt; endl; }
+};
+
+// 임시객체와 함수 인자
+void foo(const Point&amp; p) 
+{
+}
+
+int main()
+{
+    Point p(1,1);
+    foo(p); // 일반 변수를 전달
+
+    foo(Point(1, 1)); // 임시 객체 전달
+
+    // STL에서 임시객체를 전달하는 예
+    sort(x, x + 10, less&lt;int&gt;()); // less&lt;int&gt;() 임시객체
+
+    cout &lt;&lt; &quot;end&quot; &lt;&lt; endl;
+}
+</code></pre>
+
+<ul>
+<li>함수의 리턴값</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Point
+{
+    int x, y;
+    Point(int a = 0, int b = 0) { cout &lt;&lt; &quot;Point()&quot; &lt;&lt; endl; }
+    ~Point() { cout &lt;&lt; &quot;~Point()&quot; &lt;&lt; endl; }
+};
+
+Point foo()
+{
+    // NRVO : 최근 컴파일러들은 이렇게 리턴해도 RVO로 처리함(최적화 옵션 적용시)
+    Point pt(1, 1); // 2. 생성자 호출
+    return pt;      // return Point(pt) 임시객체 생성 호출, pt는 파괴됨
+                    // 3. 복사 생성자 호출
+
+    // 임시객체를 사용한 리턴, 불필요한 생성, 복사를 발생시키지 않음
+    // RVO ( Return Value Optimization )
+    return Point(1, 1);
+}                   
+int main()
+{
+    Point ret(0, 0); // 1. 생성자 호출
+    ret = foo();
+    cout &lt;&lt; endl;
+}
+</code></pre>
+
+<h3 id="참조-리턴-vs-값-리턴">참조 리턴 vs 값 리턴</h3>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Point
+{
+    int x, y;
+    Point(int a = 0, int b = 0) { cout &lt;&lt; &quot;Point()&quot; &lt;&lt; endl; }
+    ~Point() { cout &lt;&lt; &quot;~Point()&quot; &lt;&lt; endl; }
+};
+
+Point p; // 전역변수
+
+Point foo() // 값리턴 : 임시객체가 리턴된다.
+{
+    return p;
+}
+
+Point&amp; goo() // 참조리턴 : 임시객체가 생성되지 않는다.
+{
+    return p;
+}
+int main()
+{
+    //Point ret = foo();
+
+    foo().x = 10; // error
+    goo().x = 20; // ok
+    cout &lt;&lt; p.x &lt;&lt; endl;
+    
+    // 함수 호출 표현식이 왼쪽에 오는 경우는 생각보다 많다.
+    vector&lt;int&gt; v(10, 2);
+    v[0] = 10; // v.operator[](0) = 10;
+}
+</code></pre>
+
+<h3 id="임시객체가-생성되는-다양한-경우">임시객체가 생성되는 다양한 경우</h3>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Base
+{
+    int v = 10;
+};
+
+struct Derived : public Base
+{
+    int v = 20;
+};
+
+/* 재정의 불가능하지만, ++은 이런식으로 구현됨
+int operator++(int&amp; n, int ) // 후위형 -&gt; 임시객체 리턴
+{
+    int temp = n;
+    n = n + 1;
+    return temp;
+}
+
+int&amp; operator++(int&amp; n) // 전위형 -&gt; 참조 리턴
+{
+    n = n + 1;
+    return n;
+}
+*/
+
+int main()
+{
+    Derived d;
+    cout &lt;&lt; d.v &lt;&lt; endl; // 20
+    cout &lt;&lt; d.Base::v &lt;&lt; endl; // 10
+
+    // 값캐스팅 : 임시 객체 생성됨
+    cout &lt;&lt; (static_cast&lt;Base&gt;(d)).v &lt;&lt; endl; // 10, base 임시 객체가 생성되고 내부 10 값이 복사됨
+    cout &lt;&lt; (static_cast&lt;Base&amp;&gt;(d)).v &lt;&lt; endl; // 10
+
+    (static_cast&lt;Base&gt;(d)).v = 30; // error
+    (static_cast&lt;Base&amp;&gt;(d)).v = 30; // ok   
+    
+    int n = 3;
+    n++; // operator++(n, int)
+    ++n; // operator++(n)
+
+    ++(++n);
+
+    n++ = 10; // error
+    ++n = 10; // ok
+}
+</code></pre>
+
+<h3 id="임시객체와-멤버함수">임시객체와 멤버함수</h3>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+{
+public:
+    int data;
+
+    void foo() &amp;  { cout &lt;&lt; &quot;foo &amp;&quot; &lt;&lt; endl; } // lvalue 객체에 대해서만 호출 가능한 함수
+    void foo() &amp;&amp; { cout &lt;&lt; &quot;foo &amp;&amp;&quot; &lt;&lt; endl; } // rvalue 객체에 대해서만 호출 가능한 함수
+
+    int&amp; goo() &amp; { return data; }
+};
+
+int main()
+{
+    Test t;
+    t.foo();
+    int&amp; ret = t.goo();
+
+    int&amp; ret2 = Test().goo(); // error
+
+    Test().foo();
+}
+</code></pre>
+
+<p>​</p>
+
+<h3 id="lvalue와-rvalue">Lvalue와 Rvalue</h3>
+
+<ul>
+<li>lvalue
+
+<ol>
+<li>등호(=)의 왼쪽과 오른쪽에 모두 놓일 수 있음</li>
+<li>이름을 갖음</li>
+<li>문장을 벗어나서 사용 될 수 있음</li>
+<li>주소 연산자로 주소를 구할수 있음</li>
+<li>참조를 리턴하는 함수</li>
+</ol></li>
+<li>rvalue
+
+<ol>
+<li>등호(=)의 오른쪽에만 놓일 수 있음</li>
+<li>이름이 없음</li>
+<li>단일 문장에서만 사용됨</li>
+<li>주소 연산자로 주소를 구할 수 없음</li>
+<li>값을 리턴하는 함수, 임시객체, 정수/실수형 literal(값 자체)</li>
+</ol></li>
+</ul>
+
+<pre><code class="language-cpp">int x = 10;
+int  f1() { return x; }
+int&amp; f2() { return x; }
+
+int main()
+{
+    int v1 = 10, v2 = 10;
+    v1 = 20; // v1 : lvalue  20 : rvalue
+    20 = v1; // error
+    v2 = v1; //
+
+    int* p1 = &amp;v1; // ok
+    int* p2 = &amp;10; // error.
+
+    f1() = 10; // error
+    f2() = 20; // ok.
+
+    const int c = 10;
+    c = 20; // c는 rvalue 일지 lvalue 일지?
+            // c 는 수정 불가능한 lvalue
+
+    // rvalue가 모두 상수인 것은 아니다.
+    //Point().x = 10; // error
+    //Point().set(10, 20); // ok
+}
+</code></pre>
+
+<h3 id="연산자와-lvalue">연산자와 Lvalue</h3>
+
+<pre><code class="language-cpp">/* 표준에서 구현된 ++ 연산 참조 코드
+
+int operator++(int&amp; a, int)
+{
+    int temp = a;
+    a = a + 1;
+    return temp;
+}
+// 전위형 증가 연산자 - 참조리턴
+int&amp; operator++(int&amp; a)
+{
+    a = a + 1;
+    return a;
+}
+*/
+
+int main()
+{
+    int n = 0;
+    n = 10;
+
+    n++ = 20; // operator++(n, int) error.
+    ++n = 20; // operator++(n).   ok
+
+    //++(++n);
+
+    int a = 10, int b = 0;
+
+    a + b = 20; // error.
+
+    int x[3] = { 1,2,3 };
+    x[0] = 5; // x.operator[](0) = 5;  lvalue
+}
+</code></pre>
+
+<ul>
+<li>decltype에 변수 표현을 넣었을 때 판단 방법
+
+<ul>
+<li>표현식이 등호의 왼쪽에 놓을 수 있는 케이스(lvalue)일 경우 &amp;(참조) 타입으로 결정됨</li>
+<li>auto일 경우 예전에 공부 했던 규칙 (참조성 제거) 등 고려 해야함</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    int n = 0;
+    int* p = &amp;n;
+
+    decltype(n) n1; // int
+
+    decltype(p) d1; // int*
+
+    decltype(*p) d2; // int일지 int&amp; ?  // *p = 20
+                     // int&amp;.   error
+
+    int x[3] = { 1,2,3 };
+
+    decltype(x[0]) d3; // int&amp;. error
+    auto a1 = x[0];    // int
+
+    decltype(++n) d4; // int&amp;
+    decltype(n++) d5; // int
+}
+</code></pre>
+
+<h3 id="rvalue-reference">Rvalue reference</h3>
+
+<ol>
+<li>일반 참조(&amp;) 타입은 lvalue만 참조 가능</li>
+<li>const 참조(&amp;) 타입은 lvalue와 rvalue 둘다 참조 가능</li>
+<li>rvalue reference(&amp;&amp;)는 rvalue만 참조 가능</li>
+<li>move와 perfect forwarding에서 활용됨</li>
+</ol>
+
+<pre><code class="language-cpp">int main()
+{
+    int n = 10;
+
+    // 규칙 1. not const lvalue reference 는 lvalue 만 참조 가능
+    int&amp; r1 = n;    // ok
+    int&amp; r2 = 10;   // error
+
+    // 규칙 2. const lvalue reference 는 lvalue 와 rvalue를 모두 참조 가능
+    const int&amp; r3 = n;  // ok
+    const int&amp; r4 = 10; // ok   
+
+    // 참조는 가능하지만 상수성 때문에 값 변경 불가
+    const Point&amp; r = Point(1, 1);
+    r.x = 10; // 불가
+
+    // 규칙 3. rvalue reference 는 rvalue 만 가리킬수 있다. C++11 문법.
+    int&amp;&amp; r1 = n;   // error
+    int&amp;&amp; r2 = 10;  // ok.
+}
+</code></pre>
+
+<ul>
+<li>rvalue reference(&amp;&amp;)와 함수 오버로딩 관련 예제</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void foo(int&amp; a)       { cout &lt;&lt; &quot;int&amp;&quot; &lt;&lt; endl; }          // 1
+void foo(const int&amp; a) { cout &lt;&lt; &quot;const int&amp;&quot; &lt;&lt; endl; }    // 2
+void foo(int&amp;&amp; a)      { cout &lt;&lt; &quot;int&amp;&amp;&quot; &lt;&lt; endl; }         // 3
+
+int main()
+{
+    int n = 10;
+
+    foo(n); // lvalue -&gt; 1번, 1번이 없으면 2번 호출됨
+    foo(10);// rvalue -&gt; 3번, 3번이 없으면 2번 호출됨
+
+    int&amp; r1 = n;
+    foo(r1);    // lvalue -&gt; 1번, 없으면 2번
+
+    // 아주 중요
+    int&amp;&amp; r2 = 10;  // 10은 rvalue, 10을 가리키는 이름있는 
+                    //              r2 참조변수 자체는는 항상 lvalue 이다.
+    foo(r2);        // 1번. 
+
+    foo(static_cast&lt;int&amp;&amp;&gt;(r2));  // 3번을 호출하려면 캐스팅이 필요함
+                                  // 추후에 forwarding시 매우 중요한 개념
+}
+</code></pre>
+
+<h3 id="reference-collapse">reference collapse</h3>
+
+<ul>
+<li>C++에서 참조는 &amp;, &amp;&amp; 이것만 허용되는데 이 이상으로 중첩 될 경우 붕괴가 일어남</li>
+<li>템플릿이나 typedef, using 사용시 발생 가능</li>
+<li>쉽게 판단하는 규칙으로는 작은 개수(&amp;)로 and 연산 한다고 생각하면 편함
+
+<ul>
+<li>ex) &amp;와 &amp;&amp;가 만나면 &amp;가 남음, &amp;&amp;와 &amp;&amp;가 만나면 &amp;&amp;가 남음</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">using LREF = int&amp;;  // typedef int&amp;  LREF;
+using RREF = int&amp;&amp;; // typedef int&amp;&amp; RREF;
+
+template&lt;typename T&gt; void foo(T&amp; a) {}
+
+int main()
+{
+    int n = 10;
+
+    foo&lt;int&amp;&gt;(n ); // foo( int&amp; &amp; a) =&gt; foo(int&amp; a)
+
+    LREF r1 = n;
+    RREF r2 = 10;
+
+    LREF&amp;  r3 = n; // (int&amp;) + &amp; r3 -&gt; int&amp;
+    RREF&amp;  r4 = n; // (int&amp;&amp;) + &amp; -&gt; int&amp;
+    LREF&amp;&amp; r5 = n; // (int&amp;) + &amp;&amp; -&gt; int&amp;
+    RREF&amp;&amp; r6 = 10; // (int&amp;&amp;) + &amp;&amp; -&gt; int&amp;&amp;
+}
+</code></pre>
+
+<h3 id="forwarding-reference">forwarding reference</h3>
+
+<ul>
+<li>함수 인자 전달시 reference collapse 규칙을 고려해야 함</li>
+</ul>
+
+<pre><code class="language-cpp">void f1(int&amp;  a) {} // lvalue 만 인자로 전달 가능. f1(n) : ok.     f1(10) : error
+void f2(int&amp;&amp; a) {} // rvalue 만 인자로 전달 가능. f2(n) : error.  f2(10) : ok
+
+// 모든 타입의 lvalue 만 전달 가능한 f3
+template&lt;typename T&gt; void f3(T&amp; a) {} // T : int&amp;   T&amp; : int&amp; &amp;
+
+int main()
+{
+    int n = 10;
+
+    // T의 타입을 사용자가 지정할 경우
+    f3&lt;int&gt;(n); // f3( int &amp; a)  =&gt; lvalue 전달 가능.
+    f3&lt;int&amp;&gt;(n);    // f3( int&amp; &amp; a) =&gt; f3( int&amp; a) =&gt; lvalue 전달 가능.
+    f3&lt;int&amp;&amp;&gt;(n);   // f3( int&amp;&amp; &amp; a)=&gt; f3( int&amp; a) =&gt; lvalue 전달 가능.
+
+    // 사용자가 T 타입을 지정하지 않은 경우
+    f3(10); // f3 구조상 rvalue를 받을 수 없기 때문에 error
+    f3(n);  // T : int.  ok.
+}
+</code></pre>
+
+<ul>
+<li>T&amp;&amp; : forwarding reference, T가 lvalue 참조(&amp;) 일 수도, rvalue 참조(&amp;&amp;) 일 수도 있음
+
+<ul>
+<li>코딩시 레퍼런스 붕괴 규칙이 숙달 되야 빠르게 판단 가능</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">// T&amp;&amp; : lvalue 와 rvalue를 모두 전달 가능.
+//      lvalue 전달하면 T는 lvalue reference 로 결정
+//      rvalue 전달하면 T는 값 타입으로 결정..
+
+template&lt;typename T&gt; void f4(T&amp;&amp; a) {}
+
+int main()
+{
+    int n = 10;
+
+    // 사용자가 T의 타입을 명시적으로 전달할때
+    f4&lt;int&gt;(10);    // f4(int&amp;&amp; a)   =&gt; rvalue로 전달됨
+    f4&lt;int&amp;&gt;(n);    // f4(int&amp; &amp;&amp; a) =&gt; f4(int&amp; a) =&gt; lvalue로 전달됨
+    f4&lt;int&amp;&amp;&gt;(10); // f4(int&amp;&amp; &amp;&amp; a)=&gt; f4(int&amp;&amp; a) =&gt; rvalue로 전달됨
+
+    // T의 타입을 명시적으로 전달하지 않을때
+    f4(n);  // ok. 컴파일러가 T를 int&amp; 로 결정됨
+    f4(10); // ok. 컴파일러가 T를 int  로 결정됨 f4(T&amp;&amp; ) =&gt; f4(int &amp;&amp; ) 
+}
+</code></pre>
+
+<ul>
+<li>포워딩 레퍼런스 정리</li>
+</ul>
+
+<pre><code class="language-cpp">void f1(int&amp;  a) {} 
+void f2(int&amp;&amp; a) {} 
+template&lt;typename T&gt; void f3(T&amp;  a) {} 
+template&lt;typename T&gt; void f4(T&amp;&amp; a) {}
+
+// f1 : int&amp;  : int 형의 lvalue 전달 가능.
+// f2 : int&amp;&amp; : int 형의 rvalue 전달 가능.
+// f3 : T&amp;    : 모든 타입의 lvalue 전달 가능.(함수 생성)
+
+// f4 : T&amp;&amp;   : 모든 타입의 lvalue 와 rvalue 모두 전달 가능.(함수 생성)
+//         &quot;universal reference&quot;  =&gt; &quot;forwarding reference&quot;
+//          lvalue 를 전달하면 foo(n)  =&gt; T : int&amp;    T&amp;&amp; : int&amp; &amp;&amp; =&gt; int&amp;
+//          rvalue 를 전달하면 foo(10) =&gt; T : int     T&amp;&amp; : int&amp;&amp;    
+
+</code></pre>
+
+<ul>
+<li>T&amp;&amp; 관련 햇갈릴 수 있는 부분 (멤버 함수에서 T&amp;&amp;를 사용시)</li>
+</ul>
+
+<pre><code class="language-cpp">template&lt;typename T&gt; void foo(T&amp;&amp; a) {}
+
+template&lt;typename T&gt; class Test
+{
+public:
+    void goo(T&amp;&amp; a) {} // forwarding reference가 아님
+
+    template&lt;typename U&gt; void hoo(U&amp;&amp; a) {} // forwarding reference로 처리
+};
+
+int main()
+{
+    int n = 10;
+    
+    foo(n); // ok
+    foo(10);// ok
+
+    Test&lt;int&gt; t1; // T가 int임 void goo(int&amp;&amp; a)
+    t1.goo(n);  // error : 이미 객체 생성시 타입이 결정됨
+    t1.goo(10); // ok
+
+    Test&lt;int&amp;&gt; t2; // T int&amp; =&gt; void goo( int&amp; &amp;&amp; a) =&gt; void goo(int&amp; )
+    t2.goo(n); // ok
+    t2.goo(10); // error
+}
+</code></pre>
+
+<h3 id="복사생성자의-모양">복사생성자의 모양</h3>
+
+<pre><code class="language-cpp">class Point
+{
+    int x, y;
+public:
+    Point(int a = 0, int b = 0) : x(a), y(b) {}
+
+    // 복사 생성자
+    Point(const Point&amp; p) // lvalue객체와 rvalue 객체를 모두 받을수
+                          // 있다.
+    {
+        // 모든 멤버 복사.
+    }
+};
+
+Point foo()
+{
+    Point ret(0, 0);
+    return ret;
+}
+
+int main()
+{
+    Point p1(1, 1); // 생성자 호출
+    Point p2(p1);   // Point( Point )  복사 생성자.
+
+    Point p3( foo() ); // 임시 객체는 rvalue이므로 복사 생성자의 모양이 const &amp;
+}
+</code></pre>
+
+<h3 id="move-semantics">move semantics</h3>
+
+<ul>
+<li>동적 할당된 메모리를 갖고 있는 객체를 깊은 복사시 크래시 발생 가능성이 생길 수 있음</li>
+</ul>
+
+<pre><code class="language-cpp">
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+class Cat
+{
+    char* name;
+    int   age;
+public:
+    Cat(const char* n, int a) : age(a)
+    {
+        name = new char[strlen(n) + 1];
+        strcpy(name, n);
+    }
+    ~Cat() { delete[] name; }
+
+    Cat(const Cat&amp; c) : age(c.age)
+    {
+        name = new char[strlen(c.name) + 1];
+        strcpy(name, c.name);
+    }
+};
+
+int main()
+{
+    Cat c1(&quot;NABI&quot;, 2);
+    Cat c2 = c1; // deep copy, 이후 소멸자에서 두번 메모리 해제 -&gt; 크래시 발생
+}
+</code></pre>
+
+<ul>
+<li>이동 생성자 예제(소유권 이전, 자원 전달, 최적화)</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+class Cat
+{
+    char* name;
+    int   age;
+public:
+    Cat(const char* n, int a) : age(a)
+    {
+        name = new char[strlen(n) + 1];
+        strcpy(name, n);
+    }
+    ~Cat() { delete[] name; }
+
+    // 깊은 복사로 구현한 복사 생성자
+    Cat(const Cat&amp; c) : age(c.age)
+    {
+        name = new char[strlen(c.name) + 1];
+        strcpy(name, c.name);
+    }
+    // 소유권 이전(자원전달)의  이동(move) 생성자
+    // 
+    Cat(Cat&amp;&amp; c) : age(c.age), name(c.name)
+    {
+        c.name = 0; // 자원 포기
+    }
+};
+
+Cat foo()   // 값리턴 : 임시객체(rvalue)
+{
+    Cat cat(&quot;NABI&quot;, 2);
+    return cat; 
+}
+
+int main()
+{
+    Cat c = foo(); // 임시객체.
+
+}
+</code></pre>
+
+<ul>
+<li>이동 생성자 정리</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+{
+    int* resource;
+public:
+    Test()  {}  // 자원할당
+    ~Test() {}  // 자원해지
+    
+    // 복사 생성자 : 깊은복사 또는 참조계수
+    // 인자로 lvalue 와 rvalue 를 모두 받을수 있다
+    Test(const Test&amp; t) { cout &lt;&lt; &quot;Copy&quot; &lt;&lt; endl; }
+
+    // Move 생성자 : 소유권 이전(자원 전달)
+    // rvalue만 전달 받을수 있다.
+    Test(Test&amp;&amp; t)      { cout &lt;&lt; &quot;Move&quot; &lt;&lt; endl; }
+};
+Test foo()
+{
+    Test t;
+    return t;
+}
+int main()
+{
+    Test t1;
+    Test t2 = t1;       // 복사 생성자 호출
+    Test t3 = Test();   // 이동 생성자 호출, 없으면 복사 생성자
+    Test t4 = foo();
+}
+</code></pre>
+
+<h3 id="std-move">std::move</h3>
+
+<blockquote>
+<p>자원을 더 이상 사용하지 않고 전달 할 때</p>
+</blockquote>
+
+<ul>
+<li>lvalue 변수를 전달시 이동생성자 호출 방법
+
+<ol>
+<li>static_cast</li>
+<li>std::move</li>
+</ol></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+{
+public:
+    Test() {}   
+    ~Test() {}  
+    Test(const Test&amp; t) { cout &lt;&lt; &quot;Copy&quot; &lt;&lt; endl; }
+    Test(Test&amp;&amp; t)      { cout &lt;&lt; &quot;Move&quot; &lt;&lt; endl; }
+};
+
+int main()
+{
+    Test t1;
+    Test t2 = t1;       // Copy     
+    Test t3 = Test();   // Move
+    Test t4 = static_cast&lt;Test&amp;&amp;&gt;(t1);  // Move
+                                    // 복사가 아닌 move 생성자를 호출해 달라.
+    
+    Test t5 = move(t2); // move가 내부적으로 위처럼 캐스팅한다.
+}
+</code></pre>
+
+<ul>
+<li>이동 대입 연산자</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+{
+public:
+    Test() {}
+    ~Test() {}
+    Test(const Test&amp; t) { cout &lt;&lt; &quot;Copy&quot; &lt;&lt; endl; }
+    Test(Test&amp;&amp; t)      { cout &lt;&lt; &quot;Move&quot; &lt;&lt; endl; }
+
+    Test&amp; operator=(const Test&amp; t) { return *this; } // 복사 대입연산자
+    Test&amp; operator=(Test&amp;&amp; t)      { return *this; } // move 대입연산자
+};
+
+int main()
+{
+    Test t1;
+    Test t2 = t1;   // 초기화. 복사 생성자
+    t2 = t1;        // 대입.   대입 연산자
+
+    t2 = move(t1);
+}
+</code></pre>
+
+<h3 id="move-활용">move 활용</h3>
+
+<ul>
+<li>이동 swap 구현</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+class Test
+{
+public:
+    Test() {}
+    ~Test() {}
+    Test(const Test&amp; t) { cout &lt;&lt; &quot;Copy&quot; &lt;&lt; endl; }
+    Test(Test&amp;&amp; t)      { cout &lt;&lt; &quot;Move&quot; &lt;&lt; endl; }
+
+    Test&amp; operator=(const Test&amp; t) 
+    {
+        cout &lt;&lt; &quot;Copy=&quot; &lt;&lt; endl; 
+        return *this; 
+    } 
+    
+    Test&amp; operator=(Test&amp;&amp; t) 
+    {
+        cout &lt;&lt; &quot;Move=&quot; &lt;&lt; endl; 
+        return *this; 
+    } 
+};
+
+template&lt;typename T&gt; void Swap(T&amp; x, T&amp; y)
+{
+    Test temp = move(x); // static_cast&lt;Test&amp;&amp;&gt;
+    x = move(y);
+    y = move(temp);
+}
+
+int main()
+{
+    Test t1, t2;
+    Swap(t1, t2); // 이미 std::swap이 표준에 구현되어 있음
+}
+</code></pre>
+
+<ul>
+<li>stl 컨테이너 사용시 객체에서 이동 연산을 구현 할 경우 resize등에서 성능 최적화 가능
+
+<ul>
+<li>이동 생성자에 noexcept 키워드를 붙여야 vector에서 이동 연산을 수행함</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+class Test
+{
+public:
+    Test() {}
+    ~Test() {}
+    Test(const Test&amp; t) { cout &lt;&lt; &quot;Copy&quot; &lt;&lt; endl; }
+    Test(Test&amp;&amp; t) noexcept     { cout &lt;&lt; &quot;Move&quot; &lt;&lt; endl; }
+
+    Test&amp; operator=(const Test&amp; t)
+    {
+        cout &lt;&lt; &quot;Copy=&quot; &lt;&lt; endl;
+        return *this;
+    }
+    Test&amp; operator=(Test&amp;&amp; t) noexcept
+    {
+        cout &lt;&lt; &quot;Move=&quot; &lt;&lt; endl;
+        return *this;
+    }
+};
+
+int main()
+{
+    vector&lt;Test&gt; v(2);
+    v.resize(4);
+}
+</code></pre>
+
+<h3 id="move와-예외">move와 예외</h3>
+
+<p>이동 처리 중간 예외가 발생할 경우 복사 생성보다 리스크가 큼</p>
+
+<ul>
+<li>move_if_noexcept
+
+<ul>
+<li>이동 관련 예외가 없을 경우에만(noexcept 키워드 여부) move 캐스팅 처리</li>
+<li>stl의 표준 컨테이너에서 이동 연산 지원시 사용됨</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;type_traits&gt;
+#include &quot;Test.h&quot;       // class Test {}
+using namespace std;
+
+int main()
+{
+    Test t1;
+    Test t2 = t1; // copy
+    Test t3 = move(t2); // move
+     
+    bool b = is_nothrow_move_constructible&lt;Test&gt;::value; // 예외 여부 조사
+    cout &lt;&lt; b &lt;&lt; endl;
+
+    Test t4 = move_if_noexcept(t1);
+}
+</code></pre>
+
+<h3 id="std-move-구현해보기">std::move 구현해보기</h3>
+
+<ul>
+<li>lvalue 참조를 제거 후 캐스팅하는 방식, &amp;&amp; 타입으로 리턴하기 위해</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &quot;Test.h&quot;       
+using namespace std;
+
+// T&amp;  : lvalue 만 받을수 있다.
+// T&amp;&amp; : lvalue 와 rvalue를 모두 받을수 있다. 
+// 인자로 lvalue 전달 : T =&gt; Test&amp;  T&amp;&amp; : Test&amp; &amp;&amp; =&gt; Test&amp;
+//        rvalue 전달 : T =&gt; Test   T&amp;&amp; : Test &amp;&amp;  =&gt; Test&amp;&amp;
+template&lt;typename T&gt; 
+typename remove_reference&lt;T&gt;::type &amp;&amp;
+xmove(T&amp;&amp; obj)
+{
+    // 목표 : rvalue로 캐스팅.
+    //return static_cast&lt;T&amp;&amp;&gt;(obj);
+
+    return static_cast&lt;typename remove_reference&lt;T&gt;::type &amp;&amp;&gt;(obj);
+}
+
+int main()
+{
+    Test t1;
+    Test t2 = t1;        // copy
+    Test t3 = xmove(t1); // move
+    Test t4 = xmove( Test() ); // move
+}
+</code></pre>
+
+<h3 id="move와-상수객체">move와 상수객체</h3>
+
+<ul>
+<li>static_cast로 상수객체를 &amp;&amp; 캐스팅 할 경우 error가 발생하지만, move 연산은 OK</li>
+<li>그러나 move를 사용하더라도 상수 객체는 이동 연산이 아닌 복사 연산으로 호출됨</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &quot;Test.h&quot;
+using namespace std;
+
+// lvalue를 전달하면 T : lvalue 참조 -&gt; const Test&amp;
+template&lt;typename T&gt;
+typename remove_reference&lt;T&gt;::type &amp;&amp;
+xmove(T&amp;&amp; obj)  
+{
+    return static_cast&lt;const Test&amp;&amp;&gt;(obj);
+    return static_cast&lt;typename remove_reference&lt;T&gt;::type &amp;&amp;&gt;(obj);
+}
+
+int main()
+{
+    const Test t1;
+    //Test t2 = static_cast&lt;Test&amp;&amp;&gt;(t1); // error
+    Test t2 = xmove(t1); // not move, this is copy(const &amp;)
+}
+</code></pre>
+
+<h3 id="이동-생성자-활용-예제">이동 생성자 활용 예제</h3>
+
+<p>모든 멤버를 move 로 옮기도록 작성한다.</p>
+
+<ul>
+<li>int 등 타입도 move로 통일해주는 것이 좋음, 실수 방지</li>
+<li>이동 생성자를 구현하지 않으면, 복사 생성자를 컴파일러가 만들어 주는 것 처럼
+기본 이동 생성자를 구현해줌
+
+<ul>
+<li>동적할당이 필요한 객체의 멤버를 스마트포인터로 사용하면 동적할당 객체도 안전하게 이동 가능하며, 코드가 간결해짐</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &quot;Test.h&quot; // Test 객체는 noexcept 이동생성자를 제공한다고 가정
+using namespace std;
+
+class Buffer
+{
+    size_t sz;
+    int*   buf;
+    string tag;
+    Test   test;
+public:
+    Buffer(size_t s, string t) 
+        : sz(s), tag(t), buf(new int[s] ) {}
+
+    ~Buffer() { delete[] buf; }
+
+    // 깊은 복사
+    Buffer(const Buffer&amp; b) : sz(b.sz), tag(b.tag), test(b.test)
+    {
+        buf = new int[sz];
+        memcpy(buf, b.buf, sizeof(int)*sz);
+    }
+
+    // move 생성자 : 모든 멤버를 move 로 옮기도록 작성한다.
+    Buffer(Buffer&amp;&amp; b) noexcept
+        : sz(move(b.sz)), tag(move(b.tag)), test(move(b.test))
+    {
+        buf = move(b.buf);
+        b.buf = 0; // 자원 포기.
+    }
+    
+    // TODO:
+    // 대입연산자.
+    // move 대입연산자.
+};
+
+int main()
+{
+    Buffer b1(1024, &quot;SHARED&quot;);
+    //Buffer b2 = b1; // copy
+
+    Buffer b2 = move(b1); // copy
+}
+</code></pre>
+
+<pre><code>### glvalue, rvalue, lvalue
+</code></pre>
+
+<p>rvalue reference 타입(&amp;&amp;)과 value 타입은 둘다 우측값(rvalue)지만 &amp;&amp;는 다형성의 성질을 포함하고 있어 내부 개념적으로 이 둘을 구분 할 수 있음</p>
+
+<ul>
+<li>rvalue reference type(&amp;&amp;) : xvalue (파괴되는 rvalue), glvalue</li>
+<li>value : p rvalue(pure)</li>
+<li>lvalue reference(&amp;) : glvalue</li>
+</ul>
+
+<pre><code class="language-cpp">struct base
+{
+    virtual void foo() { cout &lt;&lt; &quot;B::foo&quot; &lt;&lt; endl; }
+}
+
+struct derived : public base
+{
+    virtual void foo() { cout &lt;&lt; &quot;D::foo&quot; &lt;&lt; endl; }
+}
+
+derived d;
+Base f1() { return d; }
+Base&amp; f2() { return d; }
+Bass&amp;&amp; f3() { return std::move(d); }
+
+int main()
+{
+    base b1 = f1(); // 임시객체를 리턴, 이동 생성자 호출됨
+    base b2 = f2(); // 복사 생성자 호출
+    base b3 = f3(); // 이동 생성자 호출
+    
+    // 위와 다르게 &amp;&amp;를 리턴 받은 객체는 다형성이 적용됨
+    f1().foo(); // B::foo
+    f2().foo(); // D::foo
+    f3().foo(); // D::foo
+    
+    // category
+    int n = 10;
+    n = 20; // n : lvalue, 20 : prvalue
+    int n3 = move(n); // xvalue
+}
+</code></pre>
+
+<p>​</p>
+
+<p>​</p>
+
+<p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/modern-c&#43;&#43;/">Modern C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;-advanced/">C&#43;&#43; Advanced</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[6]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[6]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-rvalue%25EC%2599%2580-lvalue-move-semantics7%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-rvalue%25EC%2599%2580-lvalue-move-semantics7%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-rvalue%25EC%2599%2580-lvalue-move-semantics7%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7\/';
+          
+            this.page.identifier = '\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
