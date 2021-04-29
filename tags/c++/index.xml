@@ -6,10 +6,19 @@
     <description>Recent content in C&#43;&#43; on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 27 Apr 2021 06:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 28 Apr 2021 08:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43; 고급 문법/테크닉 - Lambda expression[9]</title>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</link>
+      <pubDate>Wed, 28 Apr 2021 08:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</guid>
+      <description>&lt;p&gt;Lambda expression과 관련한 인라인 함수, function object, 람다 표현, closure object, 캡쳐 변수, 고급 람다 표현, invoke 등에 대해 알아보겠습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - Perfect forwarding[8]</title>

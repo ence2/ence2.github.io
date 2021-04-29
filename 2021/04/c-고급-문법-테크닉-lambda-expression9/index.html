@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="Lambda expression과 관련한 인라인 함수, function object, 람다 표현, closure object, 캡쳐 변수, 고급 람다 표현, invoke 등에 대해 알아보겠습니다.">
+
+
+<meta property="og:description" content="Lambda expression과 관련한 인라인 함수, function object, 람다 표현, closure object, 캡쳐 변수, 고급 람다 표현, invoke 등에 대해 알아보겠습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#43;&#43; 고급 문법/테크닉 - Lambda expression[9]">
+<meta name="twitter:title" content="C&#43;&#43; 고급 문법/테크닉 - Lambda expression[9]">
+<meta property="og:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="Lambda expression과 관련한 인라인 함수, function object, 람다 표현, closure object, 캡쳐 변수, 고급 람다 표현, invoke 등에 대해 알아보겠습니다.">
+<meta name="twitter:description" content="Lambda expression과 관련한 인라인 함수, function object, 람다 표현, closure object, 캡쳐 변수, 고급 람다 표현, invoke 등에 대해 알아보겠습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-04-28T08:00:00">
+  
+  
+    <meta property="article:modified_time" content="2021-04-28T08:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Language">
+    
+      <meta property="article:section" content="C&#43;&#43;">
+    
+  
+  
+    
+      <meta property="article:tag" content="C&#43;&#43;">
+    
+      <meta property="article:tag" content="Modern C&#43;&#43;">
+    
+      <meta property="article:tag" content="C&#43;&#43; Advanced">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>C&#43;&#43; 고급 문법/테크닉 - Lambda expression[9]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      C&#43;&#43; 고급 문법/테크닉 - Lambda expression[9]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-04-28T08:00:00&#43;09:00">
+        
+  April 28, 2021
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>Lambda expression과 관련한 인라인 함수, function object, 람다 표현, closure object, 캡쳐 변수, 고급 람다 표현, invoke 등에 대해 알아보겠습니다.</p>
+
+<h3 id="인라인-함수의-개념">인라인 함수의 개념</h3>
+
+<p>컴파일러에 의해 컴파일 타임에 함수 표현식이 해당 함수 구현부로 대체됨</p>
+
+<pre><code class="language-cpp">       int Add1(int a, int b) { return a + b; }
+inline int Add2(int a, int b) { return a + b; }
+
+int main()
+{
+    int n1 = Add1(1, 2); // 호출
+    int n2 = Add2(1, 2); // 치환
+                         // 장점 : 속도가 빠르다
+                         // 단점 : 목적 코드가 커질 수도 있음(무조건은 아님)
+
+    // 어셈블리 코드 확인해보기
+    // g++ inline1.cpp -S        =&gt; inline1.s
+    // cl  inline1.cpp /FAs /Ob1 =&gt; inline1.asm
+}
+
+</code></pre>
+
+<h3 id="인라인-함수와-함수-포인터">인라인 함수와 함수 포인터</h3>
+
+<ol>
+<li>인라인 함수 문법은 컴파일 시간 동작한다.</li>
+<li>인라인 함수라도 함수포인터에 담아서 사용하면 인라인 적용이 되지 않음</li>
+</ol>
+
+<pre><code class="language-cpp">       int Add1(int a, int b) { return a + b; }
+inline int Add2(int a, int b) { return a + b; }
+
+int main()
+{
+    int n1 = Add1(1, 2); // 호출
+    int n2 = Add2(1, 2); // 치환
+    
+    int(*f)(int, int);
+
+    f = &amp;Add2;
+    //if (사용자입력이 1 이면)
+    //  f = &amp;Add1;
+
+    int n3 = f(1, 2); // 호출 ? 치환 ?
+}
+</code></pre>
+
+<h3 id="linkage">linkage</h3>
+
+<ol>
+<li>.h와 .cpp로 구현이 나눠져 있을 경우 inline 키워드 사용시 링크 타임에서 오류 발생</li>
+<li>헤더에 구현부를 포함하면 해결됨</li>
+</ol>
+
+<pre><code class="language-cpp">// add.h
+       int Add1(int a, int b);
+
+inline int Add2(int a, int b)
+{
+    return a + b;
+}
+
+// add.cpp
+int Add1(int a, int b)
+{ 
+    return a + b; 
+}
+inline int Add2(int a, int b)
+{
+    return a + b;
+}
+
+// main.cpp
+#include &quot;add.h&quot;
+
+int main()
+{
+    Add(1, 2);
+    Add2(1, 2);
+}
+</code></pre>
+
+<h3 id="functor-function-object-의-개념">Functor(function object)의 개념</h3>
+
+<p>객체를 함수처럼 사용 하는 것</p>
+
+<blockquote>
+<p>a + b;  -&gt; a.operator+(b)
+  a - b;  -&gt; a.operator-(b)
+  a();    -&gt; a.operator()()
+  a(1,2); -&gt; a.operator()(1,2)</p>
+</blockquote>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// functor1.cpp
+// Function Object(functor)
+class Plus
+{
+public:
+    int operator()(int a, int b)
+    {
+        return a + b;
+    }
+};
+
+int main()
+{
+    Plus p; // Plus는 객체
+
+    int n = p(1, 2); // p.operator()(1,2)
+
+    cout &lt;&lt; n &lt;&lt; endl; // 3
+}
+</code></pre>
+
+<h3 id="functor의-장점">Functor의 장점</h3>
+
+<ul>
+<li>함수포인터를 전달할 경우 cmp 함수를 inline화 하여도 치환 되지 않음(성능향상 X)</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;algorithm&gt;    
+#include &lt;iostream&gt;
+using namespace std;
+
+// 일반함수는 자신만의 타입이 없다.
+// 함수는 리턴값과 파라메터가 동일하면 모두 같은 타입이다.
+void Sort(int* x, int n, bool(*cmp)(int, int))
+{
+    for (int i = 0; i &lt; n - 1; i++)
+    {
+        for (int j = i + 1; j &lt; n; j++)
+        {
+            //  if (x[i] &gt; x[j])
+
+            if (cmp(x[i], x[j]))
+                swap(x[i], x[j]);
+        }
+    }
+}
+
+inline bool cmp1(int a, int b) { return a &gt; b; }
+inline bool cmp2(int a, int b) { return a &lt; b; }
+
+int main()
+{
+    int x[10] = { 1,3,5,7,9,2,4,6,8,10 };
+    Sort(x, 10, cmp2);
+}
+</code></pre>
+
+<ul>
+<li>함수 객체를 사용하면 위의 최적화 이슈 해결 가능</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+// 함수 객체는 자신만의 타입이 있다.
+// 함수 객체는 리턴값과 파라메터가 동일 해도 모든 함수객체는 다른 타입이다.
+struct Less
+{
+    inline bool operator()(int a, int b) const  {   return a &lt; b; }
+};
+
+struct Greater
+{
+    inline bool operator()(int a, int b) const { return a &gt; b;  }
+};
+
+// 정책 변경가능하고 정책이 인라인 치환되는 함수. ( 템플릿 + 함수 객체)
+template&lt;typename T&gt; void Sort(int* x, int n, T cmp)
+{
+    for (int i = 0; i &lt; n - 1; i++)
+    {
+        for (int j = i + 1; j &lt; n; j++)
+        {
+            if (cmp(x[i], x[j]))
+                swap(x[i], x[j]);
+        }
+    }
+}
+
+int main()
+{
+    int x[10] = { 1,3,5,7,9,2,4,6,8,10 };
+    Less    f1; // 타입 Less
+    Greater f2; // 타입 Greater
+    Sort(x, 10, f1); // 
+    Sort(x, 10, f2); // 
+}
+</code></pre>
+
+<h3 id="function-vs-functor">function vs functor</h3>
+
+<pre><code class="language-cpp">#include &lt;algorithm&gt;
+using namespace std;
+
+// 일반 비교함수
+inline bool cmp1(int a, int b) { return a &gt; b; }
+inline bool cmp2(int a, int b) { return a &lt; b; }
+
+// 함수 객체 비교함수
+struct Less    { inline bool operator()(int a, int b) const { return a &lt; b; }};
+struct Greater { inline bool operator()(int a, int b) const { return a &gt; b; }};
+
+int main()
+{
+    int x[10] = { 1,3,5,7,9,2,4,6,8,10 };
+
+    // STL sort : 모든 인자가 템플릿으로 되어 있다
+    // 1. 비교정책으로 일반함수를 전달할때.
+    // 장점 : 정책을 교체해도 sort()기계어는 한개이다. - 코드 메모리 절약
+    // 단점 : 정책 함수가 인라인 치환될수 없다.
+    sort(x, x + 10, cmp1); // sort( int*, int*, bool(*)(int, int))
+    sort(x, x + 10, cmp2); // sort( int*, int*, bool(*)(int, int))
+
+    // 2. 비교정책으로 함수객체 전달할때.
+    // 장점 : 정책함수가 인라인 치환될수 있다 - 빠르다.!
+    // 단점 : 정책을 교체한 횟수 만큼의 sort()기계어 생성.
+    Less    f1;
+    Greater f2;
+    sort(x, x + 10, f1); // sort( int*, int*, Less) 함수 생성.
+    sort(x, x + 10, f2); // sort( int*, int*, Greater) 함수 생성.
+}
+</code></pre>
+
+<ul>
+<li>이미 구현되어 있는 stl 표준의 비교 함수</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;functional&gt;  // less&lt;&gt;, greater&lt;&gt;
+using namespace std;
+
+int main()
+{
+    int x[10] = { 1,3,5,7,9,2,4,6,8,10 };
+
+    less&lt;int&gt; f1;
+    sort(x, x + 10, f1);
+
+    sort(x, x + 10, less&lt;int&gt;());
+}
+</code></pre>
+
+<h3 id="상태를-가지는-함수">상태를 가지는 함수</h3>
+
+<blockquote>
+<p>일반함수 : 동작만 있고 상태가 없다.
+함수객체(fuctor) : 동작과 상태가 있다.</p>
+</blockquote>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;bitset&gt;
+using namespace std;
+
+class Random
+{
+    bitset&lt;10&gt; bs;
+public:
+    Random() {  bs.reset(); // 모든 비트를 0으로
+    }
+    int operator()()
+    {
+        int v = -1;
+        do
+        {
+            v = rand() % 10;
+        } while (bs.test(v));
+
+        bs.set(v);
+        return v;
+    }
+};
+
+int main()
+{
+    Random random;
+    Random random1;
+    for (int i = 0; i &lt; 10; i++)
+        cout &lt;&lt; random() &lt;&lt; &quot; &quot;;
+    random();
+}
+</code></pre>
+
+<h3 id="c-98-03-함수-객체-요점-정리">C++<sup>98</sup>&frasl;<sub>03</sub> 함수 객체 요점 정리</h3>
+
+<ul>
+<li>함수 객체
+
+<ol>
+<li>() 연산자를 정의한 클래스</li>
+<li>함수 포인터, 멤버함수 포인터</li>
+</ol></li>
+<li>일반 함수와 함수 객체의 차이점
+
+<ol>
+<li>일반 함수는 자신만의 타입이 없음</li>
+<li>함수 객체는 자신만의 타입이 있음</li>
+</ol></li>
+<li>함수 객체의 장점
+
+<ul>
+<li>다른 함수의 인자로 사용 될 때 &lsquo;인라인 치환&rsquo; 가능</li>
+<li>상태를 갖는 함수</li>
+</ul></li>
+</ul>
+
+<p>​</p>
+
+<h3 id="closure-object">Closure Object</h3>
+
+<ul>
+<li>비교 함수 전달시 함수를 만들지 않아도, 람다 표현식을 사용하여 비교 의미 전달 가능</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+bool cmp(int a, int b) { return a &lt; b; }
+
+int main()
+{
+    int x[10] = { 1,3,5,7,9,2,4,6,8,10 };
+
+    // 비교정책으로 함수 사용.
+    sort(x, x+10, cmp);
+
+    // 비교정책으로 함수객체 사용.
+    sort(x, x+10, less&lt;int&gt;());
+
+    // C++11. 람다 표현식(lambda expression)
+    sort(x, x + 10, 
+          [](int a, int b) { return a &lt; b; } );
+}
+</code></pre>
+
+<ul>
+<li>람다 표현식을 사용시 컴파일러에서 함수 객체를 생성하여 치환함,
+람다 표현식을 사용하여 컴파일러에 의해 생성되는 임시객체를 ClosureType이라 함</li>
+</ul>
+
+<pre><code class="language-cpp">// ClosureType.h
+// [](int a, int b) { return a &lt; b; }
+
+class ClosureType
+{
+public:
+    bool operator()(int a, int b) const
+    {
+        return a &lt; b;
+    }
+    ~ClosureType() = default;
+    ClosureType(const ClosureType&amp;) = default;
+    ClosureType(ClosureType&amp;&amp;) = default;
+    ClosureType&amp; operator=(const ClosureType&amp;) = delete;
+
+    // convert to function pointer
+    operator bool(*)(int, int)()  { return &amp;static_method; }
+
+    static bool static_method(int a, int b) 
+    {
+        return a &lt; b;
+    }
+};
+
+sort(x, x + 10, ClosureType() );
+</code></pre>
+
+<h3 id="람다-표현식의-활용">람다 표현식의 활용</h3>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main()
+{
+    // lambda expression 활용 1. 함수 인자로 사용
+    sort(x, x+10, [](int a, int b) { return a &lt; b; });
+
+    // lambda expression 활용 2. auto 변수에 담아서
+    //                      함수 처럼 사용.
+    auto f = [](int a, int b) { return a + b; };
+
+    cout &lt;&lt; f(1, 2) &lt;&lt; endl; // 3
+}
+</code></pre>
+
+<h3 id="람다-표현식과-타입">람다 표현식과 타입</h3>
+
+<ul>
+<li>같은 람다 표현식이어도 타입이 서로 다름(unique)</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;typeinfo&gt;
+using namespace std;
+
+int main()
+{
+    auto f1 = [](int a, int b) { return a + b; };
+        // class ClosureType{}; ClosureType();
+
+    auto f2 = [](int a, int b) { return a + b; };
+
+    //f2 = [](int a, int b) { return a + b; };
+    
+    cout &lt;&lt; typeid(f1).name() &lt;&lt; endl;
+    cout &lt;&lt; typeid(f2).name() &lt;&lt; endl;
+}
+</code></pre>
+
+<h3 id="lambda-function-agument">lambda &amp; function agument</h3>
+
+<ul>
+<li>람다 표현식을 담는 방법</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+int main()
+{
+    auto f1 = [](int a, int b) { return a + b; }; // 함수 객체
+
+    int(*f2)(int, int) = 
+              [](int a, int b) { return a + b; }; // 함수 포인터
+
+    //f2 = [](int a, int b) { return a - b; }; // f2에 다른 걸 담을 수 있음
+
+    function&lt;int(int, int)&gt; f3 =
+        [](int a, int b) { return a + b; };
+
+    f1(1, 2); // inline 치환 가능.
+    f2(1, 2); // inline 치환이 어렵다
+    f3(1, 2); // inline 치환이 어렵다
+}
+</code></pre>
+
+<ul>
+<li>람다 표현식의 함수 인자 전달 받는법
+
+<ol>
+<li>함수 포인터, function</li>
+<li>forwarding reference</li>
+<li>const &amp;</li>
+</ol></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+
+//void foo( int (*f)(int, int) ) // 함수포인터로 받으면 인라인 불가
+//void foo(function&lt;int(int, int)&gt; f) // function 으로 받으면 인라인 불가
+
+template&lt;typename T&gt; void foo(const T&amp; f) // 인라인 OK
+{
+    f(1, 2);
+}
+
+int main()
+{
+    foo( [](int a, int b) { return a + b; } );
+    foo( [](int a, int b) { return a - b; });
+
+}
+</code></pre>
+
+<h3 id="람다-표현식과-리턴-타입">람다 표현식과 리턴 타입</h3>
+
+<ul>
+<li>람다 표현식의 리턴타입을 명시 하고 싶을 경우 후위형 표기 ( -&gt; )</li>
+<li>컴파일러가 추론 불가능한 상황 일 경우 컴파일 에러 발생</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    auto f1 = [](int a, int b) { return a + b; };
+
+    auto f2 = [](int a, int b) -&gt; int { return a + b; };
+
+    auto f3 = [](int a, int b){ 
+                        if (a == 1)
+                            return a;
+                        else
+                            return b;
+                        };
+
+    auto f4 = [](int a, double b) -&gt; double {
+                        if (a == 1)
+                            return a;
+                        else
+                            return b;
+                    };
+}
+</code></pre>
+
+<p>​</p>
+
+<h3 id="람다-표현식과-변수-캡쳐">람다 표현식과 변수 캡쳐</h3>
+
+<ul>
+<li>람다표현식의 괄호에 캡쳐 하려는 변수 명시 -&gt; [v1, v2]
+
+<ul>
+<li>캡쳐한 지역 변수를 수정 하려면 mutable 키워드 사용</li>
+<li>일반 캡쳐시 복사본이 전달됨(copy)</li>
+<li>캡쳐된 변수는 임시 객체(closure)의 멤버 변수로 할당됨</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    int v1 = 0, v2 = 0;
+
+    // capture
+    auto f0 = []()       { return 0; };
+    auto f1 = [v1, v2]() { return v1 + v2; };
+    
+    auto f2 = [v1]() { v1 = 10 }; // error
+    auto f3 = [v1]() mutable { v1 = 10 }; // ok, but 복사본 수정
+
+    cout &lt;&lt; sizeof(f0) &lt;&lt; endl; // 1
+    cout &lt;&lt; sizeof(f1) &lt;&lt; endl; // 8
+}
+</code></pre>
+
+<ul>
+<li>참조 캡쳐
+
+<ul>
+<li>캡쳐시 &amp;(주소연산)으로 전달 할 경우 참조 캡쳐가 가능</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    int v1 = 0, v2 = 0;
+
+    // capture by value, capture by copy
+    //auto f1 = [v1, v2]() mutable { v1 = 10; v2 = 20; };
+
+    // capture by reference
+    auto f1 = [&amp;v1, &amp;v2]() { v1 = 10; v2 = 20; };
+
+
+    f1(); 
+
+    cout &lt;&lt; v1 &lt;&lt; endl; // 10
+    cout &lt;&lt; v2 &lt;&lt; endl; // 20
+
+}
+</code></pre>
+
+<ul>
+<li>캡쳐 규칙 정리
+
+<ul>
+<li>[=] 캡쳐를 할 경우 모든 지역변수가 캡쳐되지만 권장하지 않음</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;string&gt;
+#include &lt;tuple&gt;
+using namespace std;
+
+int main()
+{
+    int v1 = 0, v2 = 0, v3 = 0;
+
+    // capture by copy, capture by reference
+    auto f1 = [v1]() {};
+    auto f2 = [&amp;v1]() {};
+    auto f3 = [v1, &amp;v2]() {};
+
+    // default capture
+    auto f4 = [=]() {}; // capture by copy
+    auto f5 = [&amp;]() {}; // capture by reference
+    auto f6 = [=, &amp;v1]() {};
+    auto f7 = [&amp;, v1]() {};
+    //auto f8 = [=, v1]() {}; // error
+
+    auto f9  = [x = v1, v2 = v2, v3]() {};
+    auto f10 = [v1, y = v2, &amp;r = v3]() {};
+
+    string s = &quot;hello&quot;;
+    auto f11 = [s1 = move(s)] ()  { };
+
+    f11();
+    cout &lt;&lt; s &lt;&lt; endl; // empty string
+
+    unique_ptr&lt;int&gt; p(new int);
+    auto f12 = [p = move(p)]() {};
+}
+
+void foo(int a, int b)
+{
+    //int a, b;
+    auto f = [a, b]() { return a + b; }// ok
+    auto f = [=]() { return a + b; } // ok
+}
+
+template&lt;typename ... Types&gt; void goo(Types ... args)
+{
+    int x = 0;
+    auto f = [=]() { auto t = make_tuple(args...); };
+    auto f = [args...]() { auto t = make_tuple(args...); };
+}
+</code></pre>
+
+<ul>
+<li>클래스의 멤버 변수 캡쳐</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Test
+{
+    int data = 0;
+public:
+    void foo() // Test* const this
+    {
+        int v = 0;
+
+        auto f = [this]() { this-&gt;data = 10; };
+
+        // 멤버 데이타를 복사본으로 캡쳐 - C++17
+        // 멤버에 접근 하는 것을 제한 하고 싶을 때
+        // auto f = [*this]() mutable { data = 10; };
+        f();
+        cout &lt;&lt; data &lt;&lt; endl; // 10
+    }
+};
+
+int main()
+{
+    Test t;
+    t.foo();
+}
+</code></pre>
+
+<ul>
+<li><p>캡쳐관련 주의사항 -&gt; 람다 표현식을 함수 포인터로 변환 할 때 캡쳐 할 경우 컴파일 에러 발생(함수 포인터 변환시 컴파일러 내부 구현이 static으로 구현 되기 때문)</p>
+
+<ul>
+<li>클래스의 static 멤버 함수는 일반 멤버 변수에 접근이 불가능함</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">  int main()
+  {
+    int(*f)(int, int) = [](int a, int b) 
+    {
+        return a + b; 
+    };
+  
+    int v = 0;
+  
+    // capture 구문을 사용하면
+    // 함수포인터로 암시적 변환 될수 없다.
+    int(*f1)(int, int) = [v](int a, int b)
+    {
+        return a + b + v;
+    };
+  }
+</code></pre>
+
+<h3 id="람다-더-알아보기">람다 더 알아보기</h3>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    // generic lambda : C++14
+    auto f1 = [](auto a, auto b)  { return a + b; };
+    cout &lt;&lt; f1(1, 2.1) &lt;&lt; endl; // 3.1
+
+    // nullary lambda : 괄호 생략 가능
+    auto f2 = [] {return 10; }; 
+
+    // C++17 : 컴파일러가 () 오버라이딩시 constexpr 함수로 생성함
+    auto f3 = [](int a, int b) constexpr
+    {
+        return a + b; 
+    };
+
+    int y[f3(1, 2)]; // 배열 생성시 컴파일 타임에 이 표현이 가능해짐
+}
+</code></pre>
+
+<h3 id="람다-표현식-관련-테크닉">람다 표현식 관련 테크닉</h3>
+
+<ul>
+<li>가변 인자 람다 표현식(c++17 컨퍼런스에서 발표된 코드)</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template&lt;typename ... Types&gt; class mi : public Types...
+{
+public:
+    mi(Types&amp;&amp; ... args) : Types(args)... {} 
+
+    // 기반 클래스의 특정함수를 사용할수 있게
+    using Types::operator()...;
+};
+
+int main()
+{
+    // 클래스를 만들어서 임시객체 생성 : class lambda1{}; lambda1();
+    mi f([](int a, int b)        { return a + b; },         
+         [](int a, int b, int c) { return a + b + c; });
+
+    cout &lt;&lt; f(1, 2) &lt;&lt; endl; // 3
+    cout &lt;&lt; f(1, 2, 3) &lt;&lt; endl; // 6
+}
+</code></pre>
+
+<p>​</p>
+
+<h3 id="invoke">invoke</h3>
+
+<ul>
+<li>인자로 전달 받은 클래스의 멤버함수 호출 가능(C++17)</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+template&lt;typename F, typename ... Types&gt;
+decltype(auto) chronometry(F&amp;&amp; f, Types&amp;&amp; ... args)
+{
+    return invoke(std::forward&lt;F&gt;(f),
+        std::forward&lt;Types&gt;(args)...);
+
+}
+
+class Dialog
+{
+public:
+    void Close() {} 
+};
+
+int main()
+{
+    Dialog dlg;
+    chronometry(&amp;Dialog::Close, &amp;dlg);
+}
+</code></pre>
+
+<ul>
+<li>invoke는 일반함수, 멤버함수 호출 가능, 또한 클래스의 멤버 변수에도 접근 가능</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+void foo(int a, int b) {}
+
+class Dialog
+{
+public:
+    int color;
+
+    void setColor(int c) { color = c; }
+};
+
+int main()
+{
+    invoke(&amp;foo, 10, 20); // foo(10,20)
+    Dialog dlg;
+    invoke(&amp;Dialog::setColor, &amp;dlg, 2); 
+                        // dlg.setColor(2);
+
+    // 멤버 변수에 접근
+    invoke(&amp;Dialog::color, &amp;dlg) = 20;
+            // dlg.color = 20
+
+    cout &lt;&lt; dlg.color &lt;&lt; endl; // 20
+
+}
+</code></pre>
+
+<ul>
+<li>invoke에 전달 가능한 것들(Callable obejct)
+
+<ol>
+<li>function object
+
+<ul>
+<li>모든 종류의 함수 포인터</li>
+<li>() 연산자를 재정의한 클래스(함수 객체)</li>
+<li>람다 표현식</li>
+</ul></li>
+<li>클래스의 멤버
+
+<br /></li>
+</ol></li>
+</ul>
+
+<p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/modern-c&#43;&#43;/">Modern C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;-advanced/">C&#43;&#43; Advanced</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - Perfect forwarding[8]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - Perfect forwarding[8]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-lambda-expression9%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-lambda-expression9%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F04%2Fc-%25EA%25B3%25A0%25EA%25B8%2589-%25EB%25AC%25B8%25EB%25B2%2595-%25ED%2585%258C%25ED%2581%25AC%25EB%258B%2589-lambda-expression9%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9\/';
+          
+            this.page.identifier = '\/2021\/04\/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
