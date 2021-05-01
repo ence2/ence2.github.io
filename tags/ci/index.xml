@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ci on Keep calm carry on</title>
+    <link>https://ence2.github.io/tags/ci/</link>
+    <description>Recent content in Ci on Keep calm carry on</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Thu, 26 Nov 2020 18:33:54 +0900</lastBuildDate>
+    
+	<atom:link href="https://ence2.github.io/tags/ci/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>UnitTesting 관련 Google Test, gMock 정리</title>
+      <link>https://ence2.github.io/2020/11/unittesting-%EA%B4%80%EB%A0%A8-google-test-gmock-%EC%A0%95%EB%A6%AC/</link>
+      <pubDate>Thu, 26 Nov 2020 18:33:54 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2020/11/unittesting-%EA%B4%80%EB%A0%A8-google-test-gmock-%EC%A0%95%EB%A6%AC/</guid>
+      <description>&lt;p&gt;유닛 테스트는 프로그램의 품질과 안정성을 향상시킬 수 있지만 꽤나 번거로운 작업이고 어느정도의 테스트 케이스를 로직과 pair로 작성해야 하기 때문에 관리 비용이 들지만, 이러한 테스팅 환경을 구축하고 습관화 할 경우 어느날 치명적인 버그를 막아주는 경우가 있습닙니다. C#에서는 nUnit이라는 라이브러리를 사용했었는데, C++ 환경에서 Google Test 사용이 필요하여 관련 리서치 내용을 포스팅합닙니다.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
