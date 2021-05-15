@@ -8,47 +8,37 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="뇌에서 날라간 수능 수준 어휘를 본 포스팅에 정리 합니다.
-
-MD33000 수준(GRE) 어휘는 다른 포스팅에서 정리 예정">
+<meta name="description" content="udemy의 Apache Kafka for absolute beginners 강좌를 수강하며, 리마인드 할 만한 부분을 정리하는 시리즈입니다.">
 
 
-<meta property="og:description" content="뇌에서 날라간 수능 수준 어휘를 본 포스팅에 정리 합니다.
-
-MD33000 수준(GRE) 어휘는 다른 포스팅에서 정리 예정">
+<meta property="og:description" content="udemy의 Apache Kafka for absolute beginners 강좌를 수강하며, 리마인드 할 만한 부분을 정리하는 시리즈입니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="뇌에서 clear된 수능 수준 영어 어휘">
-<meta name="twitter:title" content="뇌에서 clear된 수능 수준 영어 어휘">
-<meta property="og:url" content="https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/">
+<meta property="og:title" content="아파치 Kafka for beginners[1]">
+<meta name="twitter:title" content="아파치 Kafka for beginners[1]">
+<meta property="og:url" content="https://ence2.github.io/2021-05-01-kafka_1/">
+<meta property="twitter:url" content="https://ence2.github.io/2021-05-01-kafka_1/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="뇌에서 날라간 수능 수준 어휘를 본 포스팅에 정리 합니다.
-
-MD33000 수준(GRE) 어휘는 다른 포스팅에서 정리 예정">
-<meta name="twitter:description" content="뇌에서 날라간 수능 수준 어휘를 본 포스팅에 정리 합니다.
-
-MD33000 수준(GRE) 어휘는 다른 포스팅에서 정리 예정">
+<meta property="og:description" content="udemy의 Apache Kafka for absolute beginners 강좌를 수강하며, 리마인드 할 만한 부분을 정리하는 시리즈입니다.">
+<meta name="twitter:description" content="udemy의 Apache Kafka for absolute beginners 강좌를 수강하며, 리마인드 할 만한 부분을 정리하는 시리즈입니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-02-01T20:14:52">
+    <meta property="article:published_time" content="2021-05-01T14:00:00">
   
   
-    <meta property="article:modified_time" content="2021-02-01T20:14:52">
+    <meta property="article:modified_time" content="2021-05-01T14:00:00">
   
-  
-  
-    
-      <meta property="article:section" content="Study">
-    
-      <meta property="article:section" content="English">
-    
   
   
     
-      <meta property="article:tag" content="Study">
+      <meta property="article:section" content="Common">
     
-      <meta property="article:tag" content="English">
+      <meta property="article:section" content="Kafka">
+    
+  
+  
+    
+      <meta property="article:tag" content="Kafka">
     
   
 
@@ -69,14 +59,14 @@ MD33000 수준(GRE) 어휘는 다른 포스팅에서 정리 예정">
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>뇌에서 clear된 수능 수준 영어 어휘</title>
+    <title>아파치 Kafka for beginners[1]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/">
+    <link rel="canonical" href="https://ence2.github.io/2021-05-01-kafka_1/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -109,7 +99,7 @@ if (!doNotTrack) {
 
   <body>
     <div id="blog">
-      <header id="header" data-behavior="5">
+      <header id="header" data-behavior="2">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
     <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
@@ -129,7 +119,7 @@ if (!doNotTrack) {
   
 </header>
 
-      <nav id="sidebar" data-behavior="5">
+      <nav id="sidebar" data-behavior="2">
   <div class="sidebar-container">
     
       <div class="sidebar-profile">
@@ -219,7 +209,7 @@ if (!doNotTrack) {
 
       
 
-      <div id="main" data-behavior="5"
+      <div id="main" data-behavior="2"
         class="
                hasCoverMetaIn
                ">
@@ -229,15 +219,15 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      뇌에서 clear된 수능 수준 영어 어휘
+      아파치 Kafka for beginners[1]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-02-01T20:14:52&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-05-01T14:00:00&#43;09:00">
         
-  February 1, 2021
+  May 1, 2021
 
       </time>
     
@@ -246,9 +236,9 @@ if (!doNotTrack) {
   
     <span>in</span>
     
-      <a class="category-link" href="https://ence2.github.io/categories/study">Study</a>, 
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>, 
     
-      <a class="category-link" href="https://ence2.github.io/categories/english">English</a>
+      <a class="category-link" href="https://ence2.github.io/categories/kafka">Kafka</a>
     
   
 
@@ -258,178 +248,153 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>뇌에서 날라간 수능 수준 어휘를 본 포스팅에 정리 합니다.</p>
+              <p>udemy의 Apache Kafka for absolute beginners 강좌를 수강하며, 리마인드 할 만한 부분을 정리하는 시리즈입니다.</p>
 
-<p>MD33000 수준(GRE) 어휘는 다른 포스팅에서 정리 예정</p>
+<p>​</p>
 
-<h3 id="수능-수준-last-update-21-02-06-progressed-16-9">수능 수준 (last update : 21-02-06, progressed : 16.9%)</h3>
+<h2 id="what-you-ll-learn">What you&rsquo;ll learn</h2>
 
 <ul>
-<li>**보자마자 안튀어나오는 유의어 or 전혀다른 뜻 or 단순 망각 등등.. **</li>
+<li>Apache Kafka Ecosystem, Components and Big Picture</li>
+<li>Kafka Architecture and Core Concepts</li>
+<li>Multi-node Confluent Community Kafka</li>
+<li>Kafka Storage Architecture in depth</li>
+<li>Kafka Cluster Architecture in depth</li>
+<li>Kafka Producer API Programming in Java</li>
+<li>Kafka Consumer API Programming in Java</li>
+<li>Idempotence and Transactions in Kafka</li>
+<li>JSON and AVRO Serialization</li>
+<li>Exactly Once Processing in Kafka</li>
 </ul>
 
-<table>
-<thead>
-<tr>
-<th align="center">단어</th>
-<th align="center">뜻 (드래그 하면 보입니다.)</th>
-</tr>
-</thead>
+<h2 id="section-1-kafka-ecosystem-the-big-picture">Section 1 : Kafka Ecosystem - The Big Picture</h2>
 
-<tbody>
-<tr>
-<td align="center">pitiless</td>
-<td align="center"><span style="color:white">무자비한</span></td>
-</tr>
+<h3 id="1-what-is-apache-kafka">1. What is Apache Kafka</h3>
 
-<tr>
-<td align="center">portable / potable</td>
-<td align="center"><span style="color:white">휴대용(의) / 마시기 적합한</span></td>
-</tr>
+<ul>
+<li><p>아파치 카프카는 분산 스트리밍 플랫폼</p>
 
-<tr>
-<td align="center">threat / treat</td>
-<td align="center"><span style="color:white">위협 / 치료하다</span></td>
-</tr>
+<ul>
+<li><p>실시간 데이터 스트림 생성</p></li>
 
-<tr>
-<td align="center">agitate / agitation</td>
-<td align="center"><span style="color:white">선동하다 / 불안, 동요</span></td>
-</tr>
+<li><p>실시간 데이터 스트림 처리</p></li>
+</ul></li>
 
-<tr>
-<td align="center">ethics / ethnic</td>
-<td align="center"><span style="color:white">윤리(도덕)적인 vs 민족(인종)의</span></td>
-</tr>
+<li><p>대량의 실시간 데이터 생성 -&gt; 카프카 서버 적재</p>
 
-<tr>
-<td align="center">exact</td>
-<td align="center"><span style="color:white">정확한 / 요구(강요)하다</span></td>
-</tr>
+<ul>
+<li>백앤드 서비스에서 카프카 서버에 적재된 데이터 활용</li>
+</ul></li>
 
-<tr>
-<td align="center">surroundings</td>
-<td align="center"><span style="color:white">환경, 주변</span></td>
-</tr>
+<li><p>카프카는 Pub/Sub 메세징 시스템 아키텍쳐 채택</p>
 
-<tr>
-<td align="center">tend / tendency</td>
-<td align="center"><span style="color:white">~하는 경향이 있다, 돌보다 / 경향 추세</span></td>
-</tr>
+<ul>
+<li>Publisher(Message Producer) -&gt; Broker -&gt; Subscriber(Message Consumer)</li>
+<li>Broker : 프로듀서의 메세지를 수신하여 local storage에 저장</li>
+</ul></li>
 
-<tr>
-<td align="center">relative / relativism</td>
-<td align="center"><span style="color:white">관계, 친척 / 상대주의 </span></td>
-</tr>
+<li><p>History</p>
 
-<tr>
-<td align="center">sew / saw / sow</td>
-<td align="center"><span style="color:white">꿰매다 / 씨를 뿌리다 / 톱(질하다)</span></td>
-</tr>
+<ul>
+<li>링크드인에서 오픈소스 프로젝트로 개발(2011)</li>
+<li>분산 처리 서비스가 커지고, 장비간 공유데이터 처리시 복잡도가(서버간 direct connection) 매우 증가 -&gt; 이를 해결하기 위해 개발(데이터 통합 솔루션)</li>
+</ul></li>
 
-<tr>
-<td align="center">devote</td>
-<td align="center"><span style="color:white">헌신하다</span></td>
-</tr>
+<li><p>카프카의 요소</p>
 
-<tr>
-<td align="center">be concerned (about / with)</td>
-<td align="center"><span style="color:white">~에 걱정하다 / ~에 관계하다</span></td>
-</tr>
+<ul>
+<li>Kafka Broker : 중앙 서버 시스템 제공</li>
 
-<tr>
-<td align="center">differentiate</td>
-<td align="center"><span style="color:white">구별하다 / 미분하다</span></td>
-</tr>
+<li><p>kafka Client : 프로듀서와 컨슈머 API 제공</p></li>
 
-<tr>
-<td align="center">considerable / considerably</td>
-<td align="center"><span style="color:white">중요한, 상당한 / 상당히, 꽤</span></td>
-</tr>
+<li><p>Kafka Connect : initial data integration problem for which Kafka was initially designed</p></li>
 
-<tr>
-<td align="center">considerate / consideration</td>
-<td align="center"><span style="color:white">사려 깊은 / 고찰, 고려</span></td>
-</tr>
+<li><p>Kafka Streams : creating real time extreme processing applications.</p></li>
 
-<tr>
-<td align="center">on purpose</td>
-<td align="center"><span style="color:white">고의로 -&gt; 의도가 있으니까</span></td>
-</tr>
+<li><p>KSQL : aiming to become a real time database and capture some market sharing Databases and DW/BI space.</p></li>
+</ul></li>
+</ul>
 
-<tr>
-<td align="center">hold</td>
-<td align="center"><span style="color:white">유지하다 / (모임을) 개최하다</span></td>
-</tr>
+<h3 id="2-apache-kafka-core-concepts">2. Apache Kafka Core Concepts</h3>
 
-<tr>
-<td align="center">contend</td>
-<td align="center"><span style="color:white">논쟁하다, 주장하다</span></td>
-</tr>
+<h4 id="producer">Producer</h4>
 
-<tr>
-<td align="center">be anxious (about / (for + 명사 / to + 동사))</td>
-<td align="center"><span style="color:white">~걱정하다 / ~열망하다</span></td>
-</tr>
+<ul>
+<li>작은 조각의 메세지(array of bytes)를 생성하여 전송</li>
+</ul>
 
-<tr>
-<td align="center">mean / means</td>
-<td align="center"><span style="color:white">의미하다, ~할 작정이다, 비열한 / 방법, 재산</span></td>
-</tr>
+<h4 id="consummer">Consummer</h4>
 
-<tr>
-<td align="center">originate</td>
-<td align="center"><span style="color:white">생기다, 비롯하다</span></td>
-</tr>
+<ul>
+<li>카프카 서버에 메세지 요청 -&gt; 메세지 처리 -&gt; 반복</li>
+</ul>
 
-<tr>
-<td align="center">conceive / perceive / deceive</td>
-<td align="center"><span style="color:white">생각(상상)하다 / 인지하다, 깨닫다 / 기만하다</span></td>
-</tr>
+<h4 id="broker">Broker</h4>
 
-<tr>
-<td align="center">tickle</td>
-<td align="center"><span style="color:white">자극하다</span></td>
-</tr>
+<ul>
+<li>브로커는 카프카 중앙 서버</li>
+<li>메세지 적재, 전달 처리</li>
+</ul>
 
-<tr>
-<td align="center">seldom</td>
-<td align="center"><span style="color:white">거의 ~ 않다</span></td>
-</tr>
+<h4 id="cluster">Cluster</h4>
 
-<tr>
-<td align="center">contrary (to)</td>
-<td align="center"><span style="color:white">정반대(의)</span></td>
-</tr>
+<ul>
+<li>분산 처리 시스템에서 공통 목적을 갖는 컴퓨터들의 그룹</li>
+<li>여러대의 Broker로 묶인 하나의 Cluster는 외부에서 볼 때 하나의 Instance로 동작</li>
+</ul>
 
-<tr>
-<td align="center">entire</td>
-<td align="center"><span style="color:white">완전한, 전체의</span></td>
-</tr>
+<h4 id="topic">Topic</h4>
 
-<tr>
-<td align="center">(be) content (with) / contentment</td>
-<td align="center"><span style="color:white">내용, 목록, + with : 만족한 / 만족</span></td>
-</tr>
+<ul>
+<li>메세지의 타입</li>
+<li>메세지들은 Topic으로 그룹화 됨</li>
+</ul>
 
-<tr>
-<td align="center">domestic / domesticate</td>
-<td align="center"><span style="color:white">가정의, 자국의 / (동물 등) 길들이다</span></td>
-</tr>
+<h4 id="topic-partitions">Topic Partitions</h4>
 
-<tr>
-<td align="center">treasurer</td>
-<td align="center"><span style="color:white">someone who is officially in charge of the money that is taken in and paid out by a government, business, organization, etc</span></td>
-</tr>
+<ul>
+<li>대용량 메세지를 처리 하기 위해(storage capacity problem) 브로커 클러스터는 토픽을 파티셔닝 하여 여러 장치에 분산 저장함</li>
+<li>카프카 브로커는 토픽당 몇개 파티션으로 처리 할 지 상관하지 않음</li>
+<li>토픽 생성시 사용자(개발자가 토픽의 파티션수를 디자인(결정)</li>
+<li>파티셔닝은 저장소 용량 문제 해결을 위한 것 뿐 아니라, 워크로드의 분산처리 목적이 더 중요</li>
+</ul>
 
-<tr>
-<td align="center">praise / praiseworthy</td>
-<td align="center"><span style="color:white">칭찬(하다) / 칭찬 할만한</span></td>
-</tr>
-</tbody>
-</table>
+<h4 id="partition-offset">Partition offset</h4>
 
-<p>p87, to be continue&hellip;</p>
+<ul>
+<li>파티션 안에서 브로커에 의해 각 메세지에 부여된 유니크한 순차 부여된 ID (도착 순서 보장)</li>
+<li>no global ordering, 각 파티션 내부에 한정된 순서</li>
+</ul>
+
+<h4 id="consumer-group">Consumer Group</h4>
+
+<ul>
+<li>컨슈머를 그룹으로 묶을 수 있음</li>
+<li>워크로드 분할을 위해</li>
+<li>초당 처리량 향상(컨슈머 클러스터링)
+
+<br /></li>
+</ul>
+
+<h3 id="3-kafka-connect-core-concepts">3. Kafka Connect Core Concepts</h3>
+
+<ul>
+<li><p>브로커와 통신( writing / reading) 을 전담하는 인스턴스, 직접 이 부분을 담당하는 서버를 구현해도 되지만 Connect가 그 역할을 할 수 있음</p></li>
+
+<li><p>브로커에게 Producing된 데이터를 전달하는 역할만 전담 할 수 있음 (Source Connector)</p></li>
+
+<li><p>브로커로부터 데이터를 Consume하는 역할만 전담 할 수 있음 (Sink Connector)</p></li>
+
+<li><p>Java API로 제공</p></li>
+
+<li><p>확장성 있음(클러스터링 가능, 로드 밸런싱, fault tolerant)</p></li>
+</ul>
+
+<h3 id="4-kafka-streams-core-concepts">4. Kafka Streams Core Concepts</h3>
+
+<h3 id="5-kafka-sql-core-concepts">5. Kafka SQL Core Concepts</h3>
+
+<h3 id="6-when-to-use-what">6. When to use What?</h3>
               
             </div>
           </div>
@@ -441,9 +406,7 @@ if (!doNotTrack) {
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/study/">Study</a>
-
-  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/english/">English</a>
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/kafka/">Kafka</a>
 
                   </div>
                 
@@ -456,7 +419,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="코틀린 리서치 - 소개[1]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -464,7 +427,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-stl%EC%9D%98-%EB%B3%80%ED%99%9410/" data-tooltip="C&#43;&#43;20 리서치 - STL의 변화[10]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -482,19 +445,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021-05-01-kafka_1/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021-05-01-kafka_1/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021-05-01-kafka_1/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -534,7 +497,7 @@ if (!doNotTrack) {
 </footer>
 
       </div>
-      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="2">
         <div class="post-actions-wrap">
   
       <nav >
@@ -542,7 +505,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/" data-tooltip="코틀린 리서치 - 소개[1]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -550,7 +513,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-stl%EC%9D%98-%EB%B3%80%ED%99%9410/" data-tooltip="C&#43;&#43;20 리서치 - STL의 변화[10]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -568,19 +531,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021-05-01-kafka_1/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021-05-01-kafka_1/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021-05-01-kafka_1/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -605,24 +568,24 @@ if (!doNotTrack) {
 </div>
 
       </div>
-      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+      <div id="share-options-bar" class="share-options-bar" data-behavior="2">
   <i id="btn-close-shareoptions" class="fa fa-close"></i>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EB%2587%258C%25EC%2597%2590%25EC%2584%259C-clear%25EB%2590%259C-%25EC%2588%2598%25EB%258A%25A5-%25EC%2588%2598%25EC%25A4%2580-%25EC%2598%2581%25EC%2596%25B4-%25EC%2596%25B4%25ED%259C%2598%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021-05-01-kafka_1%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EB%2587%258C%25EC%2597%2590%25EC%2584%259C-clear%25EB%2590%259C-%25EC%2588%2598%25EB%258A%25A5-%25EC%2588%2598%25EC%25A4%2580-%25EC%2598%2581%25EC%2596%25B4-%25EC%2596%25B4%25ED%259C%2598%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021-05-01-kafka_1%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F02%2F%25EB%2587%258C%25EC%2597%2590%25EC%2584%259C-clear%25EB%2590%259C-%25EC%2588%2598%25EB%258A%25A5-%25EC%2588%2598%25EC%25A4%2580-%25EC%2598%2581%25EC%2596%25B4-%25EC%2596%25B4%25ED%259C%2598%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021-05-01-kafka_1%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -714,9 +677,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/02\/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021-05-01-kafka_1\/';
           
-            this.page.identifier = '\/2021\/02\/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98\/'
+            this.page.identifier = '\/2021-05-01-kafka_1\/'
           
         };
         (function() {

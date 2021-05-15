@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>아파치 Kafka for beginners[1]</title>
+      <link>https://ence2.github.io/2021-05-01-kafka_1/</link>
+      <pubDate>Sat, 01 May 2021 14:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021-05-01-kafka_1/</guid>
+      <description>&lt;p&gt;udemy의 Apache Kafka for absolute beginners 강좌를 수강하며, 리마인드 할 만한 부분을 정리하는 시리즈입니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>아파치 Zookeeper 살펴보기</title>
       <link>https://ence2.github.io/2021/05/%EC%95%84%ED%8C%8C%EC%B9%98-zookeeper-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0/</link>
       <pubDate>Sat, 01 May 2021 14:00:00 +0900</pubDate>

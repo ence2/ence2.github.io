@@ -6,10 +6,19 @@
     <description>Recent content in Kafka on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 14 Nov 2020 21:00:32 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 01 May 2021 14:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>아파치 Kafka for beginners[1]</title>
+      <link>https://ence2.github.io/2021-05-01-kafka_1/</link>
+      <pubDate>Sat, 01 May 2021 14:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021-05-01-kafka_1/</guid>
+      <description>&lt;p&gt;udemy의 Apache Kafka for absolute beginners 강좌를 수강하며, 리마인드 할 만한 부분을 정리하는 시리즈입니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Kafka(카프카)란 무엇인가?</title>

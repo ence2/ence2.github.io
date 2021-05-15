@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence2.github.io/2021-05-01-kafka_1/</loc>
+    <lastmod>2021-05-01T14:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/2021/05/%EC%95%84%ED%8C%8C%EC%B9%98-zookeeper-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0/</loc>
     <lastmod>2021-05-01T14:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -758,6 +765,20 @@
   </url>
   
   <url>
+    <loc>https://ence2.github.io/tags/english/</loc>
+    <lastmod>2021-02-01T20:14:52+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence2.github.io/categories/english/</loc>
+    <lastmod>2021-02-01T20:14:52+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/tags/future/</loc>
     <lastmod>2020-11-08T23:31:17+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -780,7 +801,14 @@
   
   <url>
     <loc>https://ence2.github.io/tags/kafka/</loc>
-    <lastmod>2020-11-14T21:00:32+09:00</lastmod>
+    <lastmod>2021-05-01T14:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence2.github.io/categories/kafka/</loc>
+    <lastmod>2021-05-01T14:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -864,7 +892,7 @@
   
   <url>
     <loc>https://ence2.github.io/tags/none/</loc>
-    <lastmod>2021-02-01T20:14:52+09:00</lastmod>
+    <lastmod>2020-11-29T21:29:12+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -912,6 +940,13 @@
   </url>
   
   <url>
+    <loc>https://ence2.github.io/tags/study/</loc>
+    <lastmod>2021-02-01T20:14:52+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/categories/study/</loc>
     <lastmod>2021-02-01T20:14:52+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -935,13 +970,6 @@
   <url>
     <loc>https://ence2.github.io/tags/visaulstudio/</loc>
     <lastmod>2020-12-01T11:35:36+09:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ence2.github.io/categories/voca/</loc>
-    <lastmod>2021-02-01T20:14:52+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
