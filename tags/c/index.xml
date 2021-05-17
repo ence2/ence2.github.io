@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C# on Keep calm carry on</title>
+    <link>https://ence2.github.io/tags/c/</link>
+    <description>Recent content in C# on Keep calm carry on</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Mon, 17 May 2021 09:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://ence2.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>C# 중급 - Orientation[1]</title>
+      <link>https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/</link>
+      <pubDate>Mon, 17 May 2021 09:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/</guid>
+      <description>&lt;p&gt;C# 언어와 .Net Framework 중급 이상의 기술 학습을 진행하는 시리즈 입니다.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
