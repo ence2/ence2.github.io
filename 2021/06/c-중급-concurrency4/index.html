@@ -8,25 +8,25 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="C# 언어와 .Net Framework의 중급 이상의 기술 학습을 진행하는 시리즈 입니다.">
+<meta name="description" content="C#의 Thread, Task, Async에 대해 알아보겠습니다.">
 
 
-<meta property="og:description" content="C# 언어와 .Net Framework의 중급 이상의 기술 학습을 진행하는 시리즈 입니다.">
+<meta property="og:description" content="C#의 Thread, Task, Async에 대해 알아보겠습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C# 중급 - Orientation[1]">
-<meta name="twitter:title" content="C# 중급 - Orientation[1]">
-<meta property="og:url" content="https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/">
+<meta property="og:title" content="C# 중급 - Concurrency[4]">
+<meta name="twitter:title" content="C# 중급 - Concurrency[4]">
+<meta property="og:url" content="https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-concurrency4/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-concurrency4/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="C# 언어와 .Net Framework의 중급 이상의 기술 학습을 진행하는 시리즈 입니다.">
-<meta name="twitter:description" content="C# 언어와 .Net Framework의 중급 이상의 기술 학습을 진행하는 시리즈 입니다.">
+<meta property="og:description" content="C#의 Thread, Task, Async에 대해 알아보겠습니다.">
+<meta name="twitter:description" content="C#의 Thread, Task, Async에 대해 알아보겠습니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-05-17T09:00:00">
+    <meta property="article:published_time" content="2021-06-12T11:00:00">
   
   
-    <meta property="article:modified_time" content="2021-05-17T09:00:00">
+    <meta property="article:modified_time" content="2021-06-12T11:00:00">
   
   
   
@@ -61,14 +61,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C# 중급 - Orientation[1]</title>
+    <title>C# 중급 - Concurrency[4]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/">
+    <link rel="canonical" href="https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-concurrency4/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -221,15 +221,15 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      C# 중급 - Orientation[1]
+      C# 중급 - Concurrency[4]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-05-17T09:00:00&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-06-12T11:00:00&#43;09:00">
         
-  May 17, 2021
+  June 12, 2021
 
       </time>
     
@@ -250,67 +250,378 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>C# 언어와 .Net Framework의 중급 이상의 기술 학습을 진행하는 시리즈 입니다.</p>
+              <p>C#의 Thread, Task, Async에 대해 알아보겠습니다.</p>
 
-<p>본 시리즈에서는 다음과 같은 내용을 배울 수 있으며, 기본 문법은 다루지 않습니다.</p>
+<h2 id="thread">Thread</h2>
 
-<ol>
-<li><p>IL과 C# 언어</p></li>
+<h4 id="background-vs-foreground">Background vs Foreground</h4>
 
-<li><p>Net Framework 와 객체지향 디자인</p></li>
+<blockquote>
+<p>프로세스(메인 프로그램)의 종료 조건 : 모든 foreground 스레드가 작업을 마칠 때</p>
+</blockquote>
 
-<li><p>Assembly, CLR, AppDomain 등</p></li>
+<pre><code class="language-c#">using System;
+using System.Threading;
 
-<li><p>Concurrency in C#</p></li>
-</ol>
+class Program
+{
+    public static void Foo(string s, int ms)
+    {
+        Console.WriteLine($&quot;{s} Start&quot;);
+        Thread.Sleep(ms);
+        Console.WriteLine($&quot;{s} Finish&quot;);
+    }
 
-<h2 id="실습-환경">실습 환경</h2>
+    public static void Main()
+    {
+        Thread t1 = new Thread(() =&gt; Foo(&quot;A&quot;, 3000));
+        t1.IsBackground = false; // foreground
+        t1.Start();
 
-<h4 id="1-개발-도구">1. 개발 도구</h4>
+        Thread t2 = new Thread(() =&gt; Foo(&quot;B&quot;, 9000));
+        t2.IsBackground = true; // background
+        t2.Start();
+
+        Thread t3 = new Thread(() =&gt; Foo(&quot;C&quot;, 7000));
+        t3.IsBackground = false; // foreground
+        t3.Start();
+
+        Thread t4 = new Thread(() =&gt; Foo(&quot;D&quot;, 5000));
+        t4.IsBackground = true; // background
+        t4.Start();
+        // 주 스레드가 종료!!
+    }
+}
+</code></pre>
+
+<h4 id="스레드의-cooperative-cancel">스레드의 cooperative cancel</h4>
+
+<blockquote>
+<p>진행중인 스레드 우아하게 종료</p>
+</blockquote>
+
+<pre><code class="language-c#">using System;
+using System.Threading;
+
+class Program
+{
+    public static void Count(CancellationToken token, int cnt)
+    {
+        for (int i = 0; i &lt; cnt; i++)
+        {
+            if (token.IsCancellationRequested)
+            {
+                Console.WriteLine(&quot;Cancelling&quot;);
+                break;
+            }
+            Console.WriteLine(i);
+            Thread.Sleep(200);
+        }
+        if (token.IsCancellationRequested)
+        {
+            Console.WriteLine(&quot;Cancelled&quot;);
+        }
+        else
+            Console.WriteLine(&quot;Finish Count&quot;);
+    }
+
+    public static void Main()
+    {
+        CancellationTokenSource cts = new CancellationTokenSource();
+
+        CancellationTokenRegistration m1 = cts.Token.Register(() =&gt; Console.WriteLine(&quot;Cancelled 1&quot;));
+        cts.Token.Register(() =&gt; Console.WriteLine(&quot;Cancelled 2&quot;));
+
+        m1.Dispose(); // 등록된 함수 제거.
+
+        Thread t = new Thread(o =&gt; Count(cts.Token, 1000));
+        t.Start();
+
+        //cts.Cancel();
+        cts.CancelAfter(2000);
+
+        Console.ReadLine();
+    }
+}
+</code></pre>
+
+<h2 id="task">Task</h2>
+
+<h4 id="task-간단-예">Task 간단 예</h4>
+
+<blockquote>
+<p>Action : 반환값이 없는 메소드</p>
+
+<p>Func : 반환값이 있는 메소드</p>
+
+<p>task 종료 대기 : Wait()</p>
+
+<p>tasj 반환 값 얻기 : t.Result; // task가 실행중인 경우 종료 될 때 까지 블락</p>
+</blockquote>
+
+<pre><code class="language-c#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    static void F1()           { Console.WriteLine(&quot;F1&quot;); }
+    static void F2(object obj) { Console.WriteLine(&quot;F2&quot;); }
+    static int  F3()           { Console.WriteLine(&quot;F3&quot;); return 100; }
+    static int  F4(object obj) { Console.WriteLine(&quot;F4&quot;); Thread.Sleep(3000); return 200; }
+
+    static void Main()
+    {
+        Task t1 = new Task(F1);
+        t1.Start();
+
+        Task t2 = new Task(F2, &quot;Hello&quot;);
+        t2.Start();
+
+        Task&lt;int&gt; t3 = new Task&lt;int&gt;(F3);
+        t3.Start();
+
+        Task&lt;int&gt; t4 = new Task&lt;int&gt;(F4, &quot;Hello&quot;);
+        t4.Start();
+        
+        Console.WriteLine($&quot;{t4.Result}&quot;); // 반환 될 때 까지 block
+    }
+}
+</code></pre>
+
+<h4 id="task-생성시-스레드-풀-사용하지-않는-방법-블락-되거나-무한히-작업되는-task">Task 생성시 스레드 풀 사용하지 않는 방법(블락 되거나 무한히 작업되는 task)</h4>
+
+<pre><code class="language-c#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    static void F1() 
+    {
+        Console.WriteLine($&quot;{Thread.CurrentThread.IsThreadPoolThread}&quot;);
+        Console.WriteLine($&quot;{Thread.CurrentThread.IsBackground}&quot;);
+    }
+
+    static void Main()
+    {
+        //Task t1 = new Task(F1); 
+        Task t1 = new Task(F1, TaskCreationOptions.LongRunning);
+
+        t1.Start();
+        t1.Wait();
+
+        Task t2 = Task.Run(F1); // Run은 무조건 Pool 사용
+    }
+}
+</code></pre>
+
+<h4 id="task-연속-실행-a-task-완료-후-b-task-실행">Task 연속 실행 (A task 완료 후 B task 실행)</h4>
 
 <ul>
-<li>Visual Studio 2019 Community
-
-<ul>
-<li><a href="https://visualstudio.microsoft.com/ko/">https://visualstudio.microsoft.com/ko/</a>
-
-<br /></li>
-</ul></li>
+<li>예제 ( pool의 워커 스레드가 같도록 명시 가능 )</li>
 </ul>
 
-<h4 id="2-프로젝트-생성">2. 프로젝트 생성</h4>
+<pre><code class="language-c#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    public static int Sum(int cnt)
+    {
+        Console.WriteLine($&quot;Sum : {Thread.CurrentThread.ManagedThreadId}&quot;);
+        int s = 0;
+        for (int i = 0; i &lt;= cnt; i++)
+            s += i;
+        Console.WriteLine(&quot;Finish Sum&quot;);
+        return s;
+    }
+    public static void Main()
+    {
+        Console.WriteLine($&quot;Main : {Thread.CurrentThread.ManagedThreadId}&quot;);
+        Task&lt;int&gt; t = Task.Run(() =&gt; Sum(1000));
+
+        t.ContinueWith(Foo, TaskContinuationOptions.ExecuteSynchronously) ;
+
+        t.ContinueWith(Goo, TaskContinuationOptions.ExecuteSynchronously);
+
+        //t.ContinueWith((task) =&gt; Console.WriteLine(&quot;lambda&quot;));
+
+        Console.ReadLine();  
+    }
+
+    public static void Foo(Task&lt;int&gt; t)
+    {
+        Console.WriteLine($&quot;Foo : {Thread.CurrentThread.ManagedThreadId}&quot;);
+        Console.WriteLine($&quot;Foo : {t.Result}&quot;);
+    }
+    public static void Goo(Task&lt;int&gt; t)
+    {
+        Console.WriteLine($&quot;Goo : {Thread.CurrentThread.ManagedThreadId}&quot;);
+        Console.WriteLine($&quot;Goo : {t.Result}&quot;);
+    }
+}
+</code></pre>
+
+<h2 id="async">Async</h2>
+
+<h4 id="비동기-함수-none-block-동시성">비동기 함수 : none-block, 동시성</h4>
 
 <ul>
-<li>파일 -&gt; 새로 만들기 -&gt; 프로젝트 선택</li>
-
-<li><p>언어 : C#, 프로젝트 형태 : 콘솔</p>
-
-<ul>
-<li>없을 경우 : 추가 도구 및 기능 설치 -&gt; .NET 데스크톱 개발, 체크 후 설치</li>
-</ul></li>
-
-<li><p>빌드</p>
-
-<ul>
-<li>IDE 환경 빌드 : Ctrl + F5 / F5</li>
-<li>C# 컴파일러(csc.exe) 빌드</li>
-<li>Development Command Promt for VS2019 실행</li>
-<li>csc 입력</li>
-<li>소스 폴드 폴더로 이동(cd + 폴더)</li>
-<li>csc 소스이름.cs</li>
-<li>생성된 실행파일(exe) 실행
-
-<br /></li>
-</ul></li>
+<li>예제</li>
 </ul>
 
-<h4 id="3-ildsam-유틸리티">3. ILdsam 유틸리티</h4>
+<pre><code class="language-c#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    public static int Sum(int first, int last)
+    {
+        int s = 0;
+        for (int i = first; i &lt;= last; i++)
+        {
+            s += i;
+            Thread.Sleep(10);
+        }
+        return s;
+    }
+
+    public static Task&lt;int&gt; SumAsync(int first, int last)
+    {
+        Task&lt;int&gt; t = Task.Run(() =&gt;
+        {
+            int s = 0;
+            for (int i = first; i &lt;= last; i++)
+            {
+                s += i;
+                Thread.Sleep(10);
+            }
+            return s;
+        });
+        return t;
+    }
+
+    public static void Main()
+    {
+        Task&lt;int&gt; ret = SumAsync(1, 200); // 비동기
+
+        Console.WriteLine(&quot;Main&quot;);
+        Console.WriteLine($&quot;{ret.Result}&quot;);
+
+
+        //int ret = Sum(1, 200); // Blocking
+        //Task&lt;int&gt; t = Task.Run(() =&gt; Sum(1, 200));
+        
+        //Console.WriteLine(&quot;Main&quot;);
+
+        //Console.WriteLine($&quot;{t.Result}&quot;);
+    }
+}
+</code></pre>
+
+<h4 id="async-await">async / await</h4>
 
 <ul>
-<li>실행파일 내부의 .net 기계어 코드(CIL)을 분석해서 클래스 내용을 보여주는 유틸리티</li>
-<li>다양한 C# 문법의 원리를 이해하기 위한 필수 도구</li>
-<li>개발자 프롬포트 실행 -&gt; Ildasm 실행파일이름.exe</li>
+<li>async / await 키워드를 사용하지 않을 경우 비동기 로직 작성시 코드가 복잡해짐</li>
 </ul>
+
+<pre><code class="language-c#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    public static Task&lt;int&gt; SumAsync(int first, int last)
+    {
+        return Task.Run(() =&gt;
+        {
+            int s = 0;
+            for (int i = first; i &lt;= last; i++)
+            {
+                s += i;
+                Thread.Sleep(10);
+            }
+            return s;
+        });
+    }
+
+    public static void UpdateResult()
+    {
+
+        Task&lt;int&gt; t = SumAsync(1, 200);
+
+        //Console.WriteLine($&quot;{t.Result}&quot;); // 여기서 받아오면 block 발생
+
+        var awaiter = t.GetAwaiter();
+
+        awaiter.OnCompleted( () =&gt;
+            Console.WriteLine($&quot;{awaiter.GetResult()}&quot;)); // 완료 될 경우 처리 할 람다 명시
+   }
+
+    public static void Main()
+    {
+        UpdateResult();
+
+        Console.WriteLine(&quot;Main : Run Event Loop&quot;);
+        Console.ReadLine();
+    }
+}
+</code></pre>
+
+<ul>
+<li>async / await 활용 예제 -&gt; 마치 동기 로직 처럼 코딩 가능</li>
+</ul>
+
+<blockquote>
+<p>반환 타입 앞에 async 명시</p>
+
+<p>함수 내에서 await를 사용하면 수행시 해당 문맥에서 호출된 스레드로 리턴됨</p>
+
+<p>비동기 함수의 반환 타입은 void, task, task<T></p>
+</blockquote>
+
+<pre><code class="language-c#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    public static Task&lt;int&gt; SumAsync(int first, int last)
+    {
+        return Task.Run(() =&gt;
+        {
+            int s = 0;
+            for (int i = first; i &lt;= last; i++)
+            {
+                s += i;
+                Thread.Sleep(10);
+            }
+            return s;
+        });
+    }
+
+
+    public static async void UpdateResult()
+    {
+        Console.WriteLine(&quot;UpdateResult&quot;);
+
+        int ret = await SumAsync(1, 200); // 비동기 함수를 동기 함수 처럼 사용
+
+        Console.WriteLine($&quot;{ret}&quot;);
+    }
+
+    public static void Main()
+    {
+        UpdateResult();
+
+        Console.WriteLine(&quot;Main : Run Event Loop&quot;);
+        Console.ReadLine();
+    }
+}
+</code></pre>
               
             </div>
           </div>
@@ -337,7 +648,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-c-%EC%9D%98-%EC%9B%90%EB%A6%AC2/" data-tooltip="C# 중급 - C#의 원리[2]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -345,7 +656,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/05/%EC%8B%A4%EB%AC%B4%EC%97%90%EC%84%9C-%EB%B0%94%EB%A1%9C-%EC%93%B0%EB%8A%94-%EC%98%81%EC%96%B4-%EC%9D%B4%EB%A9%94%EC%9D%BC/" data-tooltip="실무에서 바로 쓰는 영어 이메일">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-%EC%B5%9C%EC%8B%A0-%EB%AC%B8%EB%B2%953/" data-tooltip="C# 중급 - 최신 문법[3]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -363,19 +674,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-concurrency4/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-concurrency4/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-concurrency4/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -423,7 +734,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-c-%EC%9D%98-%EC%9B%90%EB%A6%AC2/" data-tooltip="C# 중급 - C#의 원리[2]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -431,7 +742,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/05/%EC%8B%A4%EB%AC%B4%EC%97%90%EC%84%9C-%EB%B0%94%EB%A1%9C-%EC%93%B0%EB%8A%94-%EC%98%81%EC%96%B4-%EC%9D%B4%EB%A9%94%EC%9D%BC/" data-tooltip="실무에서 바로 쓰는 영어 이메일">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-%EC%B5%9C%EC%8B%A0-%EB%AC%B8%EB%B2%953/" data-tooltip="C# 중급 - 최신 문법[3]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -449,19 +760,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-concurrency4/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-concurrency4/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/05/c-%EC%A4%91%EA%B8%89-orientation1/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-concurrency4/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -491,19 +802,19 @@ if (!doNotTrack) {
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F05%2Fc-%25EC%25A4%2591%25EA%25B8%2589-orientation1%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc-%25EC%25A4%2591%25EA%25B8%2589-concurrency4%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F05%2Fc-%25EC%25A4%2591%25EA%25B8%2589-orientation1%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc-%25EC%25A4%2591%25EA%25B8%2589-concurrency4%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F05%2Fc-%25EC%25A4%2591%25EA%25B8%2589-orientation1%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc-%25EC%25A4%2591%25EA%25B8%2589-concurrency4%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -595,9 +906,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/05\/c-%EC%A4%91%EA%B8%89-orientation1\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/06\/c-%EC%A4%91%EA%B8%89-concurrency4\/';
           
-            this.page.identifier = '\/2021\/05\/c-%EC%A4%91%EA%B8%89-orientation1\/'
+            this.page.identifier = '\/2021\/06\/c-%EC%A4%91%EA%B8%89-concurrency4\/'
           
         };
         (function() {
