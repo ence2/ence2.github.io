@@ -6,10 +6,19 @@
     <description>Recent content in Language on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 12 Jun 2021 11:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 14 Jun 2021 11:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/categories/language/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C# 중급 - FRAMEWORK[5]</title>
+      <link>https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-framework5/</link>
+      <pubDate>Mon, 14 Jun 2021 11:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/06/c-%EC%A4%91%EA%B8%89-framework5/</guid>
+      <description>&lt;p&gt;이번 시간에는 Stream / Decorator / Adapter / MISC에 대해 알아보겠습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>C# 중급 - Concurrency[4]</title>
