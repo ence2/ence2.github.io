@@ -8,53 +8,25 @@
 <meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="이번 시간에는 다음 내용을 살펴보겠습니다.
+<meta name="description" content="이번 시간에는 STL의 동시성 처리 관련 라이브러리를 살펴보겠습니다.">
 
 
-제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)
-STL의 구조와 유사한 방식으로 간략한 라이브러리 설계
-예제
-C&#43;&#43;17 이후의 STL 변화
-">
-
-
-<meta property="og:description" content="이번 시간에는 다음 내용을 살펴보겠습니다.
-
-
-제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)
-STL의 구조와 유사한 방식으로 간략한 라이브러리 설계
-예제
-C&#43;&#43;17 이후의 STL 변화
-">
+<meta property="og:description" content="이번 시간에는 STL의 동시성 처리 관련 라이브러리를 살펴보겠습니다.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#43;&#43; STL - STL 설계 철학[2]">
-<meta name="twitter:title" content="C&#43;&#43; STL - STL 설계 철학[2]">
-<meta property="og:url" content="https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/">
-<meta property="twitter:url" content="https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/">
+<meta property="og:title" content="C&#43;&#43; STL - Concurrency[7]">
+<meta name="twitter:title" content="C&#43;&#43; STL - Concurrency[7]">
+<meta property="og:url" content="https://ence2.github.io/2021/07/c-stl-concurrency7/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/07/c-stl-concurrency7/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="이번 시간에는 다음 내용을 살펴보겠습니다.
-
-
-제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)
-STL의 구조와 유사한 방식으로 간략한 라이브러리 설계
-예제
-C&#43;&#43;17 이후의 STL 변화
-">
-<meta name="twitter:description" content="이번 시간에는 다음 내용을 살펴보겠습니다.
-
-
-제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)
-STL의 구조와 유사한 방식으로 간략한 라이브러리 설계
-예제
-C&#43;&#43;17 이후의 STL 변화
-">
+<meta property="og:description" content="이번 시간에는 STL의 동시성 처리 관련 라이브러리를 살펴보겠습니다.">
+<meta name="twitter:description" content="이번 시간에는 STL의 동시성 처리 관련 라이브러리를 살펴보겠습니다.">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2021-06-26T09:00:00">
+    <meta property="article:published_time" content="2021-07-10T08:00:00">
   
   
-    <meta property="article:modified_time" content="2021-06-26T09:00:00">
+    <meta property="article:modified_time" content="2021-07-10T08:00:00">
   
   
   
@@ -93,14 +65,14 @@ C&#43;&#43;17 이후의 STL 변화
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>C&#43;&#43; STL - STL 설계 철학[2]</title>
+    <title>C&#43;&#43; STL - Concurrency[7]</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/">
+    <link rel="canonical" href="https://ence2.github.io/2021/07/c-stl-concurrency7/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -253,15 +225,15 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      C&#43;&#43; STL - STL 설계 철학[2]
+      C&#43;&#43; STL - Concurrency[7]
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-06-26T09:00:00&#43;09:00">
+      <time itemprop="datePublished" datetime="2021-07-10T08:00:00&#43;09:00">
         
-  June 26, 2021
+  July 10, 2021
 
       </time>
     
@@ -282,268 +254,273 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>이번 시간에는 다음 내용을 살펴보겠습니다.</p>
+              <p>이번 시간에는 STL의 동시성 처리 관련 라이브러리를 살펴보겠습니다.</p>
 
-<ol>
-<li>제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)</li>
-<li>STL의 구조와 유사한 방식으로 간략한 라이브러리 설계</li>
-<li>예제</li>
-<li>C++17 이후의 STL 변화</li>
-</ol>
+<h2 id="thread">Thread</h2>
 
-<p>​</p>
-
-<h2 id="stl-find-algorithm">STL Find algorithm</h2>
-
-<h3 id="1-c언어의-strchr-함수">1. C언어의 strchr() 함수</h3>
+<h3 id="1-기본">1. 기본</h3>
 
 <ul>
-<li>문자열에서 문자를 검색시 널 문자(&rsquo;\0&rsquo;)를 만날 때 까지 검색(구간 종료 조건도 검색 대상에 포함)</li>
-<li>검색 실패시 NULL 포인터(0) 리턴</li>
-<li>개선점 -&gt; 부분 문자열 검사 불가, 종료 조건을 정의 할 수 없음, char 타입만 검색 가능</li>
-</ul>
+<li><p>헤더 : <thread></p></li>
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;cstring&gt;
-using namespace std;
-
-int main()
-{
-    char s[] = &quot;abcdefg&quot;;
-
-    char* p = strchr(s, 'c');
-
-    if (p == 0)
-        cout &lt;&lt; &quot;fail&quot; &lt;&lt; endl;
-    else
-        cout &lt;&lt; &quot;success : &quot; &lt;&lt; *p &lt;&lt; endl;
-}
-</code></pre>
-
-<h3 id="2-strchr-의-문제점을-개선한-함수-efind-함수">2. strchr()의 문제점을 개선한 함수 efind 함수</h3>
+<li><p>std::this_thread</p>
 
 <ul>
-<li>검색 대상 -&gt; 모든 타입의 배열</li>
-<li>검색 구간 first, last(last는 검색에 포함 되지 않음 -&gt; half open range)</li>
-<li>구간의 표현 -&gt; 포인터 뿐 아니라 객체도 가능(단 ++, *, !=, == 연산이 가능해야 함)</li>
-<li>구간의 이동 -&gt; 전위 연산 ++</li>
-<li>검색 실패시 -&gt; last 위치 리턴</li>
-</ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-template&lt;typename T1, typename T2&gt;
-T1 efind(T1 first, T1 last, T2 value)
-{
-    while (first != last &amp;&amp; *first != value)
-        ++first;
-
-    return first;
-}
-
-int main()
-{
-    double x[10] = { 1,2,3,4,5,6,7,8,9,10 };
-
-    double* p = find(x, x + 10, 5);
-
-    if (p == x + 10)
-        cout &lt;&lt; &quot;fail&quot; &lt;&lt; endl;
-    else
-        cout &lt;&lt; &quot;success : &quot; &lt;&lt; *p &lt;&lt; endl;
-}
-</code></pre>
-
-<h2 id="stl-container-iterator">STL Container &amp; iterator</h2>
-
-<h4 id="container">Container</h4>
-
-<ul>
-<li>데이터 저장소 Node를 갖는 연결리스트</li>
-<li>위에서 만든 efind는 slist의 요소 검색 불가</li>
-</ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-
-template&lt;typename T&gt; struct Node
-{
-    T     data;
-    Node* next;
-
-    Node(const T&amp; a, Node* n) : data(a), next(n) {}
-};
-
-template&lt;typename T&gt; class slist
-{
-    Node&lt;T&gt;* head = 0;
-public:
-    void push_front(const T&amp; a)
-    {
-        head = new Node&lt;T&gt;(a, head);
-    }
-};
-
-int main()
-{
-    slist&lt;int&gt; s;
-
-    s.push_front(10);
-    s.push_front(20);
-    s.push_front(30);
-    s.push_front(40);
-    s.push_front(50);
-}
-</code></pre>
-
-<h3 id="container와-알고리즘의-결합">Container와 알고리즘의 결합</h3>
-
-<ul>
-<li>efind 함수 개선
-
-<ul>
-<li>node 탐색을 위해 pointer를 전달 받는 것이 아닌, node의 주소를 순회 할 수 있는 객체를 정의 -&gt; iterator</li>
-<li>iterator 덕분에 efind는 배열 뿐 아니라, 모든 선형 자료구조에 대해 선형 탐색 수행 가능</li>
+<li>get_id() : 스레드 ID 반환</li>
+<li>sleep_for : duration 동안 스레드 pause</li>
+<li>sleep_until : time_point 동안 스레드 pause</li>
+<li>yield() : 다른 스레드 스케쥴링</li>
 </ul></li>
 </ul>
 
-<pre><code class="language-cpp">ntributor
-107 lines (76 sloc)  1.61 KB
-#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; class slist_iterator
+<pre><code class="language-cpp">int main()
 {
-    Node&lt;T&gt;* current = 0;
-public:
-    slist_iterator(Node&lt;T&gt;* p = 0) : current(p) {}
+    thread::id id = this_thread::get_id();
 
-    slist_iterator&amp; operator++()
-    {
-        current = current-&gt;next;
-        return *this;
-    }
-    T&amp; operator*() { return current-&gt;data; }
+    cout &lt;&lt; id &lt;&lt; endl;
+    
+    this_thread::sleep_for( 3s );
+    this_thread::sleep_until( chrono::system_clock::now() + 3s);
+    this_thread::yield();
 
-    bool operator ==(const slist_iterator&amp; it)
-    {
-        return current == it.current;
-    }
-    bool operator !=(const slist_iterator&amp; it)
-    {
-        return current != it.current;
-    }
-};
-
-template&lt;typename T&gt; class slist
-{
-    Node&lt;T&gt;* head = 0;
-public:
-    void push_front(const T&amp; a)
-    {
-        head = new Node&lt;T&gt;(a, head);
-    }
-
-    using iterator = slist_iterator&lt;T&gt;;
-
-    iterator begin() { return iterator(head);}
-    iterator end()   { return iterator(0);  }
-};
-
-int main()
-{
-    slist&lt;int&gt; s;
-
-    s.push_front(10);
-    s.push_front(20);
-    s.push_front(30);
-    s.push_front(40);
-    s.push_front(50);
-
-    slist&lt;int&gt;::iterator p = s.begin();
-
-    slist&lt;int&gt;::iterator p2 =
-                efind(s.begin(), s.end(), 120);
-
-    if (p2 == s.end())
-        cout &lt;&lt; &quot;fail&quot; &lt;&lt; endl;
-    else
-        cout &lt;&lt; *p2 &lt;&lt; endl; // 20;
 }
 </code></pre>
 
-<h3 id="stl-구조-핵심정리">STL 구조 핵심정리</h3>
-
-<ol>
-<li>템플릿을 통한 불필요한 함수 구현을 줄임</li>
-<li>자료구조와 알고리즘이 분리된 라이브러리
+<h3 id="2-생성-방법">2. 생성 방법</h3>
 
 <ul>
-<li>알고리즘 함수는 자신이 어떤 자료구조에 대해 연산을 수행하는지 모름</li>
-</ul></li>
-</ol>
-
-<h2 id="stl-구조와-특징">STL 구조와 특징</h2>
-
-<h3 id="member-type">Member Type</h3>
-
-<ul>
-<li>모든 stl 컨테이너는 value_type을(자료형의 타입) 멤버로 갖도록 설계됨</li>
-<li>size_type, iterator, pointer .. 등등 여러 메타정보를 멤버로 갖고 있음</li>
-<li>컨테이너의 타입을 출력하는 함수 예제</li>
-</ul>
-
-<pre><code class="language-cpp">template&lt;typename T&gt;
-void print(T&amp; c)
-{
-    typename T::value_type n = c.front(); // double
-
-    cout &lt;&lt; n &lt;&lt; endl;
-}
-
-int main()
-{
-    list&lt;double&gt; v = { 1,2,3 };
-    print(v);
-}
-</code></pre>
-
-<h3 id="c-17과-stl">C++17과 STL</h3>
-
-<ul>
-<li>C++17 이후 컨테이너 사용시 템플릿 인자 생략 가능</li>
+<li>기본</li>
 </ul>
 
 <pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
+#include &lt;thread&gt;
 using namespace std;
 
-template&lt;typename T&gt; class List
+void foo()
 {
-public:
-    List(int sz, T initValue) {}
+    cout &lt;&lt; &quot;thread start&quot; &lt;&lt; endl;
+    this_thread::sleep_for(2s);
+    cout &lt;&lt; &quot;thread end&quot; &lt;&lt; endl;
+}
+
+int main()
+{
+    thread t(&amp;foo);
+
+    t.join(); // 스레드 종료 대기.
+    //t.detach(); // join과 같지만 주 스레드가 종료되면 같이 종료됨
+}
+</code></pre>
+
+<ul>
+<li>멤버 함수도 수행 가능</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+using namespace std;
+
+void f1()      {}
+void f2(int a) {}
+
+struct Worker
+{
+    void Main() {}
+};
+
+struct Functor
+{
+    void operator()() {}
 };
 
 int main()
 {
-    List&lt;int&gt; s1(10, 0);
-    List      s2(10, 0); // C++17 ok.
+    thread t1(&amp;f1);
+    thread t2(&amp;f2, 5);
 
-    list&lt;int&gt; s3 = { 1,2,3 };
-    list      s4 = { 1,2,3 }; // C++17 style
+    Worker w;
+    thread t3(&amp;Worker::Main, &amp;w);
+
+    Functor f; f();
+    thread t4(f);
+
+    thread t5( []() {cout &lt;&lt; &quot;thread t5&quot; &lt;&lt; endl;});
+
+
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+    t5.join();
 }
 </code></pre>
 
-<h3 id="concept-c-20-이후">Concept (C++20 이후)</h3>
+<h3 id="3-synchronization">3. Synchronization</h3>
 
 <ul>
-<li>특정 함수(클래스)를 사용하기 위해 타입이 가져야하는 조건을 코드에 명시 가능</li>
-<li>함수 전달 인자에 제약 조건을 명시 할 수 있음</li>
-<li>템플릿 작성시 모든 타입이 아닌, 조건을 만족하는 타입에 대해서 동작하도록 설계 가능</li>
+<li>mutex</li>
 </ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;string&gt;
+#include &lt;mutex&gt;
+using namespace std;
+
+int global = 0;
+mutex m;
+
+void f1()
+{
+    lock_guard&lt;mutex&gt; lg(m); // 생성자에서 m.lock, 소멸자에서 m.unlock
+
+    //m.lock();
+    global = 100;
+    global = global + 1;
+    //m.unlock();
+}
+
+int main()
+{
+    thread t1(&amp;f1);
+    thread t2(&amp;f1);
+
+    t1.join();
+    t2.join();
+}
+</code></pre>
+
+<ul>
+<li>promise, future
+
+<ul>
+<li>promise : <T> 값을 받을 수 있다는 약속</li>
+<li>future : 미래의 결과값이 담길 예정인 객체</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;future&gt;
+using namespace std;
+
+void f1( promise&lt;int&gt;&amp; p )
+{
+    this_thread::sleep_for(3s);
+    p.set_value(10);
+}
+
+int main()
+{
+    promise&lt;int&gt; p;
+    future&lt;int&gt; ft = p.get_future();
+
+    thread t(&amp;f1, ref(p));
+    cout &lt;&lt; &quot;wait value &quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;value : &quot; &lt;&lt; ft.get() &lt;&lt; endl; // 대기
+
+    t.join();
+}
+</code></pre>
+
+<h2 id="async">async</h2>
+
+<h3 id="1-스레드를-생성하는-2가지-방법">1. 스레드를 생성하는 2가지 방법</h3>
+
+<ul>
+<li>thread 클래스 사용 - low level api</li>
+<li>async 함수 사용 - high level api
+
+<ul>
+<li>async 객체의 소멸자에서 내부적으로 get()이 발생</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;future&gt;
+using namespace std;
+
+int f1()
+{
+    this_thread::sleep_for(3s);
+    return 10;
+}
+
+int main()
+{
+    future&lt;int&gt; ft = async( launch::async, &amp;f1);
+
+    cout &lt;&lt; &quot;main routine&quot; &lt;&lt; endl;
+}
+</code></pre>
+
+<h3 id="2-std-launch">2. std::launch</h3>
+
+<ul>
+<li><p>launch policty</p>
+
+<ul>
+<li>launch::async : 비동기로 실행(스레드 생성) , 생성 실패시 예외 발생</li>
+<li>launch::deferred: 지연된 실행(get() 호출시)</li>
+<li>launch::async | launch::deferred : 생성이 가능하면 생성, 그렇지 않으면 지연된 실행</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">  int f1()
+  {
+      cout &lt;&lt; &quot;f1 : &quot; &lt;&lt; this_thread::get_id() &lt;&lt; endl;
+      this_thread::sleep_for(3s);
+      return 10;
+  }
+  
+  int main()
+  {
+      cout &lt;&lt; &quot;main : &quot; &lt;&lt; this_thread::get_id() &lt;&lt; endl;
+  
+      //future&lt;int&gt; ft = async( launch::async, &amp;f1);
+  
+      // f1을 지연된 실행(get을 호출할때).
+      //future&lt;int&gt; ft = async( launch::deferred, &amp;f1);
+  
+      future&lt;int&gt; ft = async( launch::deferred | launch::async, &amp;f1);
+  
+      this_thread::sleep_for(1s);
+  
+      cout &lt;&lt; &quot;main routine&quot; &lt;&lt; endl;
+  
+      cout &lt;&lt; ft.get() &lt;&lt; endl;
+  }
+</code></pre>
+
+<h3 id="3-asnyc의-return-값을-수령하지-않았을-때">3. asnyc의 return 값을 수령하지 않았을 때</h3>
+
+<ul>
+<li>async의 리턴값 임시객체의 소멸자에서 get이 호출되므로 해당 라인에서 block됨</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;future&gt;
+using namespace std;
+
+int f1()
+{
+    this_thread::sleep_for(3s);
+    cout &lt;&lt; &quot;f1 end&quot; &lt;&lt; endl;
+    return 10;
+}
+
+int main()
+{
+    async( launch::async, &amp;f1); // 리턴값으로 future&lt;int&gt; 객체
+                                // 이 라인에서 block 되버림
+
+    future&lt;int&gt; ft = async( launch::async, &amp;f1);
+
+    cout &lt;&lt; &quot;main routine&quot; &lt;&lt; endl;
+}
+</code></pre>
               
             </div>
           </div>
@@ -574,7 +551,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-utility6/" data-tooltip="C&#43;&#43; STL - Utility[6]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -582,7 +559,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-preview1/" data-tooltip="C&#43;&#43; STL - Preview[1]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-algorithm4/" data-tooltip="C&#43;&#43; STL - Algorithm[4]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -600,19 +577,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/07/c-stl-concurrency7/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/07/c-stl-concurrency7/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/07/c-stl-concurrency7/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -660,7 +637,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-utility6/" data-tooltip="C&#43;&#43; STL - Utility[6]">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -668,7 +645,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-preview1/" data-tooltip="C&#43;&#43; STL - Preview[1]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-algorithm4/" data-tooltip="C&#43;&#43; STL - Algorithm[4]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -686,19 +663,19 @@ int main()
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/07/c-stl-concurrency7/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/07/c-stl-concurrency7/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/07/c-stl-concurrency7/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -728,19 +705,19 @@ int main()
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc-stl-stl-%25EC%2584%25A4%25EA%25B3%2584-%25EC%25B2%25A0%25ED%2595%25992%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F07%2Fc-stl-concurrency7%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc-stl-stl-%25EC%2584%25A4%25EA%25B3%2584-%25EC%25B2%25A0%25ED%2595%25992%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F07%2Fc-stl-concurrency7%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc-stl-stl-%25EC%2584%25A4%25EA%25B3%2584-%25EC%25B2%25A0%25ED%2595%25992%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F07%2Fc-stl-concurrency7%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -832,9 +809,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2021\/06\/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/07\/c-stl-concurrency7\/';
           
-            this.page.identifier = '\/2021\/06\/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992\/'
+            this.page.identifier = '\/2021\/07\/c-stl-concurrency7\/'
           
         };
         (function() {

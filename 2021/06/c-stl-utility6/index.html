@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="이번 시간에는 STL의 스마트 포인터, , 에 대해 살펴보겠습니다.">
+
+
+<meta property="og:description" content="이번 시간에는 STL의 스마트 포인터, , 에 대해 살펴보겠습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#43;&#43; STL - Utility[6]">
+<meta name="twitter:title" content="C&#43;&#43; STL - Utility[6]">
+<meta property="og:url" content="https://ence2.github.io/2021/06/c-stl-utility6/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/06/c-stl-utility6/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="이번 시간에는 STL의 스마트 포인터, , 에 대해 살펴보겠습니다.">
+<meta name="twitter:description" content="이번 시간에는 STL의 스마트 포인터, , 에 대해 살펴보겠습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-06-27T08:00:00">
+  
+  
+    <meta property="article:modified_time" content="2021-06-27T08:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Language">
+    
+      <meta property="article:section" content="C&#43;&#43;">
+    
+  
+  
+    
+      <meta property="article:tag" content="C&#43;&#43;">
+    
+      <meta property="article:tag" content="Modern C&#43;&#43;">
+    
+      <meta property="article:tag" content="C&#43;&#43; STL">
+    
+      <meta property="article:tag" content="STL">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>C&#43;&#43; STL - Utility[6]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2021/06/c-stl-utility6/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      C&#43;&#43; STL - Utility[6]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-06-27T08:00:00&#43;09:00">
+        
+  June 27, 2021
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>이번 시간에는 STL의 스마트 포인터, <chrono>, <function>에 대해 살펴보겠습니다.</p>
+
+<h2 id="smart-pointer">Smart pointer</h2>
+
+<h3 id="스마트-포인터의-개념">스마트 포인터의 개념</h3>
+
+<ul>
+<li>포인터와 유사하게 동작하는 추상화된 타입으로 포인터의 기능 외에 자동화된 자원관리 등의 기능을 추가로 제공한다.</li>
+</ul>
+
+<h3 id="shared-ptr">Shared_ptr</h3>
+
+<ul>
+<li>헤더 -&gt; <memory></li>
+<li>자원을 공유하며 참조 count가 0이 될 때 동적 할당된 메모리가 해제됨</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+//    int a = 0; // copy initialization/
+//    int a(0);  // direct initialization
+
+    //shared_ptr&lt;Car&gt; p = new Car; // error
+    shared_ptr&lt;Car&gt; p(new Car);  // ok
+    shared_ptr&lt;Car&gt; p1(new Car);
+    cout &lt;&lt; sizeof(p1) &lt;&lt; endl;
+
+//    shared_ptr&lt;Car&gt; p2 = p1;
+
+}
+</code></pre>
+
+<ul>
+<li>커스텀 deleter 전달 가능 (함수, 함수 객체, 람다 가능)
+
+<ul>
+<li>할당자 생략 가능</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    shared_ptr&lt;Car&gt; p( new Car,
+                      [](Car* p) { delete p; },
+                     MyAlloc&lt;Car&gt;() );
+}
+</code></pre>
+
+<ul>
+<li>shared_ptr과 배열(C++17 이후 삭제자를 제공하지 않아도 safe함)
+
+<ul>
+<li>C++17 이후 배열 첨자 연산 가능</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    shared_ptr&lt;Car[]&gt; p1( new Car[10]); //  delete[],   []연산있음
+
+    p1[0].Go();
+}
+</code></pre>
+
+<ul>
+<li>기본 연산</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &quot;Car.h&quot;
+using namespace std;
+
+int main()
+{
+    shared_ptr&lt;Car&gt; p1( new Car ); //1
+
+    p1-&gt;Go();  // Car 의 멤버 접근.
+
+    Car* p = p1.get();
+    cout &lt;&lt; p &lt;&lt; endl;
+
+    shared_ptr&lt;Car&gt; p2 = p1; // 2
+    cout &lt;&lt; p1.use_count() &lt;&lt; endl; // 2
+
+    //p1 = new Car; // error
+    p1.reset( new Car); // ok
+    p1.reset();
+    p1.swap(p2);
+
+}
+</code></pre>
+
+<ul>
+<li>new 직접 할당시 메모리 할당이 2번 발생(제어블록, 객체)
+
+<ul>
+<li>해결방법 -&gt; make_shared</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">void* operator new( size_t sz)
+{
+    cout &lt;&lt; &quot;new sz : &quot; &lt;&lt; sz &lt;&lt; endl;
+    return malloc(sz);
+}
+
+int main()
+{
+    //shared_ptr&lt;Car&gt; p1( new Car ) ; // 비효율
+
+    shared_ptr&lt;Car&gt; p1 = make_shared&lt;Car&gt;();
+    shared_ptr&lt;Car&gt; p1 (make_shared&lt;Car&gt;());
+    shared_ptr&lt;Car&gt; p1 = allocate_shared&lt;Car&gt;(MyAlloc&lt;Car&gt;() );
+}
+</code></pre>
+
+<ul>
+<li>raw 메모리로 2개의 shared_ptr을 초기화 할 경우 문제 발생</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    Car* p = new Car;
+
+    shared_ptr&lt;Car&gt; sp1(p);  // 제어 블럭 생성.
+    shared_ptr&lt;Car&gt; sp2(p);  // 제어 블럭 생성.
+
+    shared_ptr&lt;Car&gt; sp3 = make_shared&lt;Car&gt;(); // make_shared 권장
+}
+</code></pre>
+
+<ul>
+<li>enable_shared_from_this -&gt; CRTP
+
+<ul>
+<li>this를 가지고 제어 블럭을 공유하는 shared_ptr을 만들 수 있게함</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">class Worker : public enable_shared_from_this&lt;Worker&gt; // CRTP
+{
+    Car c;
+    shared_ptr&lt;Worker&gt; holdMe;
+public:
+    void Run()
+    {
+        //holdMe = this;
+        //holdMe = p
+
+        holdMe = shared_from_this();
+
+        thread t(&amp;Worker::Main, this);
+        t.detach();
+    }
+    void Main()
+    {
+        c.Go();     // 멤버 data(Car) 사용
+        cout &lt;&lt; &quot;finish thread&quot; &lt;&lt; endl;
+
+        holdMe.reset();
+    }
+};
+
+int main()
+{
+    {
+        shared_ptr&lt;Worker&gt; sp = make_shared&lt;Worker&gt;();
+        sp-&gt;Run();
+    } // 여기서 sp 파괴를 시도함 but, shared_from_this로 막을 수 있음
+    getchar();
+}
+
+</code></pre>
+
+<h3 id="weak-ptr">Weak_ptr</h3>
+
+<ul>
+<li>shared_ptr의 상호 참조 이슈</li>
+</ul>
+
+<pre><code class="language-cpp">struct People
+{
+    People(string s) : name(s) {}
+    ~People() { cout &lt;&lt; &quot;~People : &quot; &lt;&lt; name &lt;&lt; endl;}
+
+    string name;
+    shared_ptr&lt;People&gt; bf; // best friend
+};
+
+int main()
+{
+    shared_ptr&lt;People&gt; p1( new People(&quot;KIM&quot;));
+    shared_ptr&lt;People&gt; p2( new People(&quot;LEE&quot;));
+
+    p1-&gt;bf = p2;
+    p2-&gt;bf = p1;
+}
+</code></pre>
+
+<ul>
+<li>상호 참조 이슈 해결방법 -&gt; weak_ptr
+
+<ul>
+<li>weak_ptr은 참조 계수를 증가시키지 않음</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    //shared_ptr&lt;Car&gt; wp; // use count 증가
+
+    weak_ptr&lt;Car&gt; wp; // use count 증가 안함.
+
+
+    shared_ptr&lt;Car&gt; sp( new Car );
+    wp = sp;
+    cout &lt;&lt; sp.use_count() &lt;&lt; endl; // 1
+
+    if ( wp.expired() )
+        cout &lt;&lt; &quot;destroy&quot; &lt;&lt; endl;
+    else
+    {
+        cout &lt;&lt; &quot;not destroy&quot; &lt;&lt; endl;
+
+        // weak_ptr을 사용해서는 대상객체에 접근할수 없다.
+        //wp-&gt;Go(); // error.
+
+        // weak_ptr을 가지고 다시 shared_ptr을 만들어야 한다.
+
+        shared_ptr&lt;Car&gt; sp2 = wp.lock();
+
+        if ( sp2 )
+            sp2-&gt;Go();
+    }
+}
+</code></pre>
+
+<ul>
+<li>대상 객체가 진짜 파괴 되는 시점
+
+<ul>
+<li>use count(shared_ptr 참조 카운트) == 0 &amp;&amp; weak count(waek_ptr 참조 카운트) = 0 일 때</li>
+</ul></li>
+</ul>
+
+<h3 id="unique-ptr">Unique_ptr</h3>
+
+<ul>
+<li>공유 없이, 자원 독점, 자동 메모리 해제</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    shared_ptr&lt;Car&gt; sp1(new Car);
+    shared_ptr&lt;Car&gt; sp2 = sp1;  // ok. 참조 계수 2.
+
+    auto f = [](Car* p) { delete p;}
+    unique_ptr&lt;Car, decltype(f)&gt; up1(new Car, f); // 자원 독점
+
+    unique_ptr&lt;Car, void(*)(Car*)&gt; up1(new Car, foo); // 자원 독점
+
+    //unique_ptr&lt;Car&gt; up2 = up1; // error.
+
+    cout &lt;&lt; sizeof(sp1) &lt;&lt; endl;
+    cout &lt;&lt; sizeof(up1) &lt;&lt; endl;
+}
+</code></pre>
+
+<ul>
+<li>복사는 될 수 없지만, move는 가능</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    unique_ptr&lt;int&gt; up1(new int);
+    //unique_ptr&lt;int&gt; up2 = up1; // error.
+
+    unique_ptr&lt;int&gt; up2 = move(up1); // ok. 
+}
+</code></pre>
+
+<ul>
+<li>삭제자 변경</li>
+</ul>
+
+<pre><code class="language-cpp">void foo(int* p )
+{
+    cout &lt;&lt; &quot;foo&quot; &lt;&lt; endl;
+    delete p;
+}
+
+struct Deleter
+{
+    void operator()(int* p ) const
+    {
+         delete p;
+    }
+};
+
+
+int main()
+{
+    //shared_ptr&lt;int&gt; sp( new int, foo);
+
+    // 1. 함수객체 사용
+    // unique_ptr&lt;int, Deleter&gt; up( new int);
+
+    // 2. 함수 포인터 사용
+    // unique_ptr&lt;int, void(*)(int*) &gt; up( new int, foo);
+
+    // 3. 람다 표현식 사용.
+    auto f = [](int* p ) { delete p; cout &lt;&lt; &quot;lambda&quot; &lt;&lt; endl;};
+
+    unique_ptr&lt;int, decltype(f) &gt; up( new int, f);
+
+    unique_ptr&lt;int[] &gt; up( new int[10]);
+}
+</code></pre>
+
+<ul>
+<li>shared_ptr와의 호환성 -&gt; unique_ptr -&gt; move -&gt; shared_ptr 만 가능(나머지 X)</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    shared_ptr&lt;int&gt; sp(new int);
+    unique_ptr&lt;int&gt; up(new int);
+
+    shared_ptr&lt;int&gt; sp1 = up;       // error
+    shared_ptr&lt;int&gt; sp2 = move(up); // ok
+
+    unique_ptr&lt;int&gt; up1 = sp;       // error.
+    unique_ptr&lt;int&gt; up2 = move(sp); // error.
+}
+</code></pre>
+
+<h2 id="chrono">Chrono</h2>
+
+<h3 id="ratio">ratio</h3>
+
+<ul>
+<li>컴파일 시간 분수 값을 나타내는 템플릿
+
+<ul>
+<li>분자, 분모는 약분된 상태로 저장됨</li>
+<li>실행 시간에 메모리에 보관하는 값은 없고, 컴파일 시간에 사용되는 상수</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    ratio&lt;2, 4&gt; r1; // 2/4  =&gt; 1/2
+
+    cout &lt;&lt; sizeof(r1) &lt;&lt; endl; // 1
+
+    cout &lt;&lt; r1.num &lt;&lt; endl; // 분자
+    cout &lt;&lt; r1.den &lt;&lt; endl; // 분모
+
+    cout &lt;&lt; ratio&lt;2, 4&gt;::num &lt;&lt; endl;  // 1
+    cout &lt;&lt; ratio&lt;2, 4&gt;::den &lt;&lt; endl;  // 2
+}
+</code></pre>
+
+<ul>
+<li>ratio간 연산도 가능</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    ratio_add&lt; ratio&lt;1,4&gt;, ratio&lt;2,4&gt; &gt; r2; // 3/4
+
+    cout &lt;&lt; r2.num &lt;&lt; endl; // 3
+    cout &lt;&lt; r2.den &lt;&lt; endl; // 4
+
+    ratio&lt;1, 1000&gt; r3; // milli
+    ratio&lt;1000, 1&gt; r4; // kilo
+
+    milli m;
+    kilo  k;
+    cout &lt;&lt; k.num &lt;&lt; endl; // 1000
+    cout &lt;&lt; k.den &lt;&lt; endl; // 1
+}
+</code></pre>
+
+<h3 id="duration">duration</h3>
+
+<ul>
+<li><chrono> 헤더, ratio로 표현되는 단위(주기)에 대한 값을 보관하는 클래스</li>
+<li>오직 하나의 값만을 보관하며, 컴파일 타임에 연산됨</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+//    double distance = 3; // 3m, 3km, 3cm
+
+    duration&lt;double, ratio&lt;1,1&gt;&gt; d1(3); // 3m
+//    duration&lt;double, ratio&lt;1,1000&gt;&gt; d2(d1); // milli 3000
+//    duration&lt;double, ratio&lt;1000,1&gt;&gt; d3(d1); // km
+
+    duration&lt;double, milli&gt; d2(d1); // milli 3000
+    duration&lt;double, kilo&gt; d3(d1); // km
+    cout &lt;&lt; d2.count() &lt;&lt; endl; // 3000
+    cout &lt;&lt; d3.count() &lt;&lt; endl; // 0.003
+
+    using MilliMeter = duration&lt;double, milli&gt;;
+    using KiloMeter = duration&lt;double, kilo&gt;;
+    using Meter = duration&lt;double, ratio&lt;1,1&gt;&gt;;
+
+    Meter m(3);
+    KiloMeter km(m);
+
+    cout &lt;&lt; km.count() &lt;&lt; endl; // 0.003
+}
+</code></pre>
+
+<ul>
+<li>주의사항, 형변환시 손실이 발생 할 수 있으므로 cast 필요</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    using MilliMeter = duration&lt;int, milli&gt;;
+    using KiloMeter  = duration&lt;int, kilo&gt;;
+    using Meter      = duration&lt;int, ratio&lt;1,1&gt;&gt;;
+
+    Meter      m(400);  // 600m
+    MilliMeter mm(m);   // 600000    ok.. data 손실없다.
+    //KiloMeter  km(m);   // 0.6 =&gt; 0 또는 1 error.
+
+//    KiloMeter  km = duration_cast&lt;KiloMeter&gt;(m); // 버림.
+    KiloMeter  km = round&lt;KiloMeter&gt;(m); // 반올림.
+
+    cout &lt;&lt; mm.count() &lt;&lt; endl; // 600000
+    cout &lt;&lt; km.count() &lt;&lt; endl; //
+}
+</code></pre>
+
+<h3 id="chrono-1">chrono</h3>
+
+<ul>
+<li>시간 관련 타입 제공</li>
+</ul>
+
+<pre><code class="language-cpp">int main()
+{
+    /*
+    using seconds      = duration&lt;int&gt;; // duration&lt;int, ratio&lt;1,1&gt;&gt;
+    using minutes      = duration&lt;int, ratio&lt;60,1&gt;&gt;;
+    using hours        = duration&lt;int, ratio&lt;3600&gt;&gt;; // ratio&lt;3600,1&gt;
+    using milliseconds = duration&lt;int, milli&gt;;
+    */
+    hours h(1);
+    minutes m(h); // 60
+    seconds s(h); // 3600
+
+    cout &lt;&lt; m.count() &lt;&lt; endl;
+    cout &lt;&lt; s.count() &lt;&lt; endl;
+
+    //hours h2( s); // 1 error
+    hours h2 = duration_cast&lt;hours&gt;(s);
+
+    cout &lt;&lt; h2.count() &lt;&lt; endl;
+
+    using days = duration&lt;int, ratio&lt;3600 * 24, 1&gt;&gt;;
+
+    days d(1);
+
+    minutes m2(d);
+
+    cout &lt;&lt; m2.count() &lt;&lt; endl;  // 60 * 24
+}
+</code></pre>
+
+<ul>
+<li>초기화 방법 및 연산 방법</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;chrono&gt;
+using namespace std;
+using namespace chrono;
+
+
+void foo( seconds s) {}  // seconds s = 3
+
+
+int main()
+{
+    // seconds =&gt; duration&lt;int, ratio&lt;1,1&gt;&gt;
+
+    seconds s1(3);  // ok
+    //seconds s2 = 3; // error
+    seconds s3 = 3s;// ok.   seconds operator&quot;&quot;s(3)
+    seconds s4 = 3min;
+
+    cout &lt;&lt; s4.count() &lt;&lt; endl; // 180
+
+    //foo( 3 ); // error.
+    foo( 3s); // ok
+
+    //this_thread::sleep_for( 3min )
+
+    seconds s5 = 3min + 40s;
+
+    cout &lt;&lt; s5.count() &lt;&lt; endl; // 220
+}
+</code></pre>
+
+<ul>
+<li>시간 구하는 방법
+
+<ul>
+<li>time_point : 기간의 시작과, 경과 개수를 나타내는 타입</li>
+<li>epoch time : 1970년 1월 1일 0시를 기점으로 경과된 시간 단위</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;chrono&gt;
+#include &lt;string&gt;
+using namespace std;
+using namespace chrono;
+
+int main()
+{
+
+    system_clock::time_point tp = system_clock::now();
+
+    // 1970년 1월 1일 0시 기준.
+    nanoseconds ns = tp.time_since_epoch();
+
+    cout &lt;&lt; ns.count() &lt;&lt; endl;
+
+    hours h = duration_cast&lt;hours&gt;(ns);
+    cout &lt;&lt; h.count() &lt;&lt; endl;
+
+    // time_point =&gt; string
+    time_t t = system_clock::to_time_t(tp);
+    string s = ctime(&amp;t);
+    cout &lt;&lt; s &lt;&lt; endl; // 현재 날짜 출력
+}
+</code></pre>
+
+<h2 id="function">Function</h2>
+
+<h3 id="bind">bind</h3>
+
+<ul>
+<li>참조로 bind 하는 방법</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+using namespace std::placeholders;
+
+void f1(int a, int b, int c) { printf(&quot;f1 : %d, %d, %d\n&quot;, a,b,c);}
+void f2(int&amp; a)              { a = 20;}
+
+int main()
+{
+    int n = 0;
+    bind(&amp;f2, ref(n))(); // cref : const 참조
+    cout &lt;&lt; n &lt;&lt; endl; // 20 ?  0
+}
+</code></pre>
+
+<ul>
+<li>멤버 함수, 멤버 데이터 bind 하는 방법</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+using namespace std::placeholders;
+
+class Test
+{
+public:
+    int data = 0;
+
+    void f(int a, int b) // void f( Test* this, int a, int b)
+    {
+        data = a;
+        printf(&quot;f : %d, %d\n&quot;, a, b);
+    }
+};
+
+int main()
+{
+    Test t;
+
+    // 객체를 고정하는 경우
+    bind(&amp;Test::f, &amp;t, 1, 2)(); // t.f(1,2)
+    bind(&amp;Test::f, t, 1, 2)(); // 복사본을 고정함
+    bind(&amp;Test::f, ref(t), 1, 2)(); // 참조
+
+    // 객체를 인자로 전달하는 경우.
+    bind(&amp;Test::f, _1, 1, 2)(&amp;t); // 참조
+    bind(&amp;Test::f, _1, 1, 2)(t); // 값
+
+
+    bind(&amp;Test::data, &amp;t)() = 10; // t.data = 10
+
+    cout &lt;&lt; t.data &lt;&lt; endl; // 1
+}
+</code></pre>
+
+<h3 id="function-1">function</h3>
+
+<ul>
+<li>함수 포인터의 단점 -&gt; signature가 동일한 함수만 담을 수 있음</li>
+<li>std::function -&gt; 함수 포인터를 일반화한 개념</li>
+<li>시그니처가 다를 경우 bind와 결합하여 사용 가능</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+using namespace std::placeholders;
+
+void f1(int a )              { printf(&quot;f1 : %d\n&quot;, a);}
+void f2(int a, int b, int c) { printf(&quot;f2 : %d, %d, %d\n&quot;, a,b,c);}
+
+
+int main()
+{
+    //void(*f)(int) = &amp;f1;
+    //void(*f)(int) = &amp;f2; // error
+
+    function&lt;void(int)&gt; f;
+
+    f = &amp;f1; // ok
+    f(10); // f1(10);
+
+    f = bind(&amp;f2,1, 2, _1); // f2를 대입하려면 bind 필요
+    f(10); // f2(1,2,10);
+}
+</code></pre>
+
+<ul>
+<li>member 함수와 function</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+using namespace std::placeholders;
+
+class Test
+{
+public:
+    int data = 0;
+
+    void f(int a, int b)
+    {
+        data = a;
+        printf(&quot;f : %d, %d\n&quot;, a, b);
+    }
+};
+
+int main()
+{
+    Test t;
+
+    // 1. 일반 함수 모양의 function
+    function&lt;void(int)&gt; f1;
+
+    f1 = bind(&amp;Test::f, &amp;t, _1, 20);
+
+    f1(10); // t.f(10, 20)
+
+    // 2. 객체를 function 의 인자로 받는 방법
+    function&lt;void(Test*, int)&gt; f2;
+    f2 = bind(&amp;Test::f, _1, _2, 20);
+    f2(&amp;t, 100); // t.f(100, 20)
+    function&lt;void(Test, int)&gt; f3;
+    f3 = bind(&amp;Test::f, _1, _2, 20);
+    f3(t, 200); // t.f(200, 20)
+
+    function&lt;void(Test&amp;, int)&gt; f4;
+    f4 = bind(&amp;Test::f, _1, _2, 20);
+    f4(t, 300); // t.f(300, 20)
+    cout &lt;&lt; t.data &lt;&lt; endl; // 300
+}
+</code></pre>
+
+<ul>
+<li>멤버 변수와 function</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;functional&gt;
+using namespace std;
+using namespace std::placeholders;
+
+class Test
+{
+public:
+    int data = 10;
+};
+
+int main()
+{
+    Test t1, t2;
+
+    // 1.
+    function&lt;int&amp;()&gt; f1;
+    f1 = bind( &amp;Test::data, &amp;t1); // t1.data를 보관
+    cout &lt;&lt; f1() &lt;&lt; endl; // t1.data . getter
+    f1() = 20; // t1.data = 20
+    cout &lt;&lt; t1.data &lt;&lt; endl; // 20
+
+    // 2. 객체를 function 인자로 전달하는 방식
+
+    function&lt;int&amp;(Test*)&gt; f2;
+
+    f2 = bind(&amp;Test::data, _1);
+    f2(&amp;t1) = 20;
+    f2(&amp;t2) = 30;
+
+    cout &lt;&lt; t1.data &lt;&lt; endl; // 20;
+    cout &lt;&lt; t2.data &lt;&lt; endl; // 30;
+}
+</code></pre>
+
+<ul>
+<li>활용 예제</li>
+</ul>
+
+<pre><code class="language-cpp">  
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;functional&gt;
+#include &lt;map&gt;
+#include &lt;vector&gt;
+using namespace std;
+using namespace std::placeholders;
+
+class NotificationCenter
+{
+    using HANDLER = function&lt;void(void*)&gt;;
+
+    map&lt;string, vector&lt;HANDLER&gt;&gt; notif_map;
+public:
+    void Register(string key, HANDLER h)
+    {
+        notif_map[key].push_back(h);
+    }
+    void Notify( string key, void* param)
+    {
+        vector&lt;HANDLER&gt;&amp; v = notif_map[key];
+
+        for( auto f : v)
+            f(param);
+    }
+};
+
+void f1(void* p) { cout &lt;&lt; &quot;f1&quot; &lt;&lt; endl;}
+void f2(void* p, int a, int b) { cout &lt;&lt; &quot;f2&quot; &lt;&lt; endl;}
+
+int main()
+{
+    NotificationCenter nc;
+    nc.Register(&quot;CONNECT_WIFI&quot;, &amp;f1);
+    nc.Register(&quot;CONNECT_WIFI&quot;, bind(&amp;f2, _1, 0, 0) );
+
+
+    nc.Notify(&quot;CONNECT_WIFI&quot;, (void*)0);
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/modern-c&#43;&#43;/">Modern C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;-stl/">C&#43;&#43; STL</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/stl/">STL</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-container5/" data-tooltip="C&#43;&#43; STL - Container[5]">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/" data-tooltip="C&#43;&#43; STL - STL 설계 철학[2]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/06/c-stl-utility6/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/06/c-stl-utility6/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/06/c-stl-utility6/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-container5/" data-tooltip="C&#43;&#43; STL - Container[5]">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/" data-tooltip="C&#43;&#43; STL - STL 설계 철학[2]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/06/c-stl-utility6/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/06/c-stl-utility6/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/06/c-stl-utility6/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc-stl-utility6%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc-stl-utility6%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc-stl-utility6%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/06\/c-stl-utility6\/';
+          
+            this.page.identifier = '\/2021\/06\/c-stl-utility6\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
