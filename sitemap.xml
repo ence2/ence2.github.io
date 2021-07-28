@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence2.github.io/2021/07/design-pattern-in-c-intro1/</loc>
+    <lastmod>2021-07-28T08:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/2021/07/c-stl-concurrency7/</loc>
     <lastmod>2021-07-10T08:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -766,14 +773,14 @@
   
   <url>
     <loc>https://ence2.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2021-07-10T08:00:00+09:00</lastmod>
+    <lastmod>2021-07-28T08:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2021-07-10T08:00:00+09:00</lastmod>
+    <lastmod>2021-07-28T08:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -884,6 +891,13 @@
   </url>
   
   <url>
+    <loc>https://ence2.github.io/tags/design-pttern/</loc>
+    <lastmod>2021-07-28T08:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/tags/english/</loc>
     <lastmod>2021-05-15T20:14:52+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -934,7 +948,7 @@
   
   <url>
     <loc>https://ence2.github.io/</loc>
-    <lastmod>2021-07-10T08:00:00+09:00</lastmod>
+    <lastmod>2021-07-28T08:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -962,7 +976,7 @@
   
   <url>
     <loc>https://ence2.github.io/categories/language/</loc>
-    <lastmod>2021-07-10T08:00:00+09:00</lastmod>
+    <lastmod>2021-07-28T08:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -1032,7 +1046,7 @@
   
   <url>
     <loc>https://ence2.github.io/post/</loc>
-    <lastmod>2021-07-10T08:00:00+09:00</lastmod>
+    <lastmod>2021-07-28T08:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -1103,6 +1117,13 @@
   <url>
     <loc>https://ence2.github.io/tags/zookeeper/</loc>
     <lastmod>2021-05-01T14:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence2.github.io/tags/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4/</loc>
+    <lastmod>2021-07-28T08:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
