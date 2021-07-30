@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="이번시간에는 변하는 것을 분리하는 방법, 단위 전략 디자인, 상태 패턴 등에 대해 알아보겠습니다.">
+
+
+<meta property="og:description" content="이번시간에는 변하는 것을 분리하는 방법, 단위 전략 디자인, 상태 패턴 등에 대해 알아보겠습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Design pattern in C&#43;&#43; - 공통성과 가변성의 분리[2]">
+<meta name="twitter:title" content="Design pattern in C&#43;&#43; - 공통성과 가변성의 분리[2]">
+<meta property="og:url" content="https://ence2.github.io/2021/07/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/07/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="이번시간에는 변하는 것을 분리하는 방법, 단위 전략 디자인, 상태 패턴 등에 대해 알아보겠습니다.">
+<meta name="twitter:description" content="이번시간에는 변하는 것을 분리하는 방법, 단위 전략 디자인, 상태 패턴 등에 대해 알아보겠습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-07-30T08:00:00">
+  
+  
+    <meta property="article:modified_time" content="2021-07-30T08:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Language">
+    
+      <meta property="article:section" content="C&#43;&#43;">
+    
+  
+  
+    
+      <meta property="article:tag" content="C&#43;&#43;">
+    
+      <meta property="article:tag" content="Design pttern">
+    
+      <meta property="article:tag" content="디자인패턴">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>Design pattern in C&#43;&#43; - 공통성과 가변성의 분리[2]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2021/07/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Design pattern in C&#43;&#43; - 공통성과 가변성의 분리[2]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-07-30T08:00:00&#43;09:00">
+        
+  July 30, 2021
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>이번시간에는 변하는 것을 분리하는 방법, 단위 전략 디자인, 상태 패턴 등에 대해 알아보겠습니다.</p>
+
+<h2 id="1-변하는-것을-분리하는-방법">1. 변하는 것을 분리하는 방법</h2>
+
+<h3 id="변하는-것을-가상함수로-상속-기반-template-method">변하는 것을 가상함수로(상속 기반, template method)</h3>
+
+<ul>
+<li>변하지 않는 코드(전체 흐름) 안에 있는 변해야 하는 부분(정책)은 분리하는 것이 좋다
+
+<ul>
+<li>변해야 하는 부분(아래 코드에서는 유효성 체크 부분)을 별도의 가상함수로 분리</li>
+<li>변하는 것을 가상함수로 분리 할 때의 장점</li>
+<li>파생 클래스를 만들어 가상함수를 재정의 하면 됨</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;conio.h&gt;
+using namespace std;
+
+class Edit
+{
+    string data;
+public:
+
+    virtual bool validate(char c)
+    {
+        return isdigit(c);
+    }
+
+    string getData()
+    {
+        data.clear();
+
+        while( 1 )
+        {
+            char c = getch();
+
+            if ( c == 13 ) break;
+
+            if ( validate(c) )
+            {
+                data.push_back(c);
+                cout &lt;&lt; c;
+            }
+        }
+        cout &lt;&lt; endl;
+        return data;
+    }
+};
+//--------------------
+class AddressEdit : public Edit
+{
+public:
+    virtual bool validate(char c)
+    {
+        return true;
+    }
+};
+
+int main()
+{
+    AddressEdit edit;
+
+    while(1)
+    {
+        string s = edit.getData();
+        cout &lt;&lt; s &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<h3 id="변하는-것을-다른-클래스로-포함-관계-strategy-pattern">변하는 것을 다른 클래스로(포함 관계, Strategy pattern)</h3>
+
+<ul>
+<li>인터페이스를 기반으로 약한 결합 처리</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;conio.h&gt;
+using namespace std;
+
+// validation 을 위한 인터페이스
+struct IValidator
+{
+    virtual bool validate(string s, char c) = 0;
+    virtual bool iscomplete(string s)  { return true;}
+
+    virtual ~IValidator() {}
+};
+
+// 주민 번호 : 801    1   확인.
+class Edit
+{
+    string data;
+    //---------------------
+    IValidator* pVal = 0;
+public:
+    void setValidator(IValidator* p ) { pVal = p;}
+    //---------------------------
+
+    string getData()
+    {
+        data.clear();
+
+        while( 1 )
+        {
+            char c = getch();
+
+            if ( c == 13 &amp;&amp;
+                ( pVal == 0 || pVal-&gt;iscomplete(data)  ) ) break;
+
+            if ( pVal == 0 || pVal-&gt;validate(data, c) )
+            {
+                data.push_back(c);
+                cout &lt;&lt; c;
+            }
+        }
+        cout &lt;&lt; endl;
+        return data;
+    }
+};
+
+class LimitDigitValidator : public IValidator
+{
+    int value;
+public:
+    LimitDigitValidator(int n) : value(n) {}
+
+    virtual bool validate( string s, char c )
+    {
+        return s.size() &lt; value &amp;&amp; isdigit(c);
+    }
+
+    virtual bool iscomplete( string s)
+    {
+        return s.size() == value;
+    }
+};
+
+int main()
+{
+    Edit edit;
+    LimitDigitValidator v(5);
+    edit.setValidator(&amp;v);
+
+    while(1)
+    {
+        string s = edit.getData();
+        cout &lt;&lt; s &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<h3 id="template-method-vs-strategy-pattern-장단점">Template method vs strategy pattern 장단점</h3>
+
+<ul>
+<li>Strategy 패턴
+
+<ul>
+<li>정책을 재사용 할 수 있고, 런타임에 정책을 교체 할 수 있음</li>
+<li>인터페이스를 통해 독립적으로 알고리즘을 변경 할 수 있음</li>
+</ul></li>
+<li>Template method
+
+<ul>
+<li>알고리즘의 구조를 유지하면서, 동작의 일부를 파생 클래스에서 처리하도록 구현 가능(hook method)</li>
+<li>유연성이 떨어짐(런타임에 전략 교체 불가, 상속 관계로 구현하기 때문)
+
+<br /></li>
+</ul></li>
+</ul>
+
+<h2 id="2-policy-base-design">2. Policy base design</h2>
+
+<h3 id="policy-base-design-단위-전략-디자인">Policy base design(단위 전략 디자인)</h3>
+
+<ul>
+<li>template 인자를 사용해서 정책 클래스를 교체하는 기법</li>
+<li>사용자에게 특정 기능을 선택하도록 제공
+
+<ul>
+<li>동기화 버전 list 제공 예제</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+
+template&lt;typename T, typename ThreadModel = NoLock&gt; class List
+{
+    ThreadModel tm; // 동기화 정책을 담은 클래스
+public:
+    void push_front(const T&amp; a)
+    {
+        tm.Lock();
+        //...
+        tm.Unlock();
+    }
+};
+
+class MutexLock
+{
+public:
+    inline void Lock()   { cout &lt;&lt; &quot;mutex lock&quot; &lt;&lt; endl;}
+    inline void Unlock() { cout &lt;&lt; &quot;mutex Unlock&quot; &lt;&lt; endl;}
+};
+class NoLock
+{
+public:
+    inline void Lock()   {}
+    inline void Unlock() {}
+};
+
+List&lt;int, MutexLock&gt; s;
+
+int main()
+{
+    s.push_front(10);
+}
+</code></pre>
+
+<ul>
+<li>단위 전략 vs Strategy 패턴 비교</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>구 분</th>
+<th>속도</th>
+<th>유연성</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>전략 패턴</td>
+<td>가상 함수 기반, 느림</td>
+<td>런타임 정책 교체 가능</td>
+</tr>
+
+<tr>
+<td>단위 전략 패턴</td>
+<td>인라인 치환 가능, 빠름</td>
+<td>컴파일 타임 결정(런타임 X)</td>
+</tr>
+</tbody>
+</table>
+
+<p>​</p>
+
+<h3 id="application-framework">Application Framework</h3>
+
+<blockquote>
+<p>각 분야의 프로그램은 전체적인 흐름이 항상 유사</p>
+
+<ul>
+<li>GUI, 게임, 앱 등</li>
+</ul>
+
+<p>main 함수에 전체적인 흐름을 담아서 라이브러리 내부에 감추자 -&gt; application framework</p>
+
+<ul>
+<li>MFC, IOS, Android 등등..</li>
+</ul>
+</blockquote>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+
+class CWinApp; // 클래스 전방 선언.
+
+CWinApp* g_app = 0;
+
+class CWinApp
+{
+public:
+    CWinApp()    { g_app = this;}
+    virtual bool InitInstance() { return false; }
+    virtual int  ExitInstance() { return false; }
+    virtual int  Run()          { return 0; }
+};
+
+int main()
+{
+    if ( g_app-&gt;InitInstance() == true)
+        g_app-&gt;Run();
+    g_app-&gt;ExitInstance();
+}
+
+//-----------------------
+// 라이브러리 사용자
+// 1. CWinApp 의 파생 클래스 만들어야 한다.
+// 2. 사용자 클래스를 전역객체 생성
+class MyApp : public CWinApp
+{
+public:
+    virtual bool InitInstance()
+    {
+        cout &lt;&lt; &quot;initialization&quot; &lt;&lt; endl;
+        return true;
+    }
+
+    virtual int  ExitInstance()
+    {
+        cout &lt;&lt; &quot;finish&quot; &lt;&lt; endl;
+        return 0;
+    }
+};
+
+MyApp theApp;
+</code></pre>
+
+<h3 id="함수와-정책-변해야-할-수-있는-정책은-인자화">함수와 정책(변해야 할 수 있는 정책은 인자화)</h3>
+
+<ul>
+<li>정렬 정책을 함수포인터로 전달</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+void Sort(int* x, int sz, bool(*cmp)(int, int))
+{
+    for (int i = 0; i &lt; sz-1; i++)
+    {
+        for( int j = i + 1; j &lt; sz; j++)
+        {
+            if ( cmp( x[i],  x[j])  )
+                swap( x[i], x[j] );
+         }
+     }
+}
+
+bool cmp1( int a, int b) { return a &lt; b;}
+bool cmp2( int a, int b) { return a &gt; b;}
+int main()
+{
+    int x[10] = { 1,3,5,7,9,2,4,6,8,10};
+
+    Sort( x, 10, &amp;cmp2);
+
+    for ( auto n : x)
+        cout &lt;&lt; n &lt;&lt; &quot;, &quot;;
+}
+</code></pre>
+
+<ul>
+<li>템플릿(인라인 치환을 위해) + 람다 표현식으로 정책 전달</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+template&lt;typename T&gt;
+void Sort(int* x, int sz, T cmp)
+{
+    for (int i = 0; i &lt; sz-1; i++)
+    {
+        for( int j = i + 1; j &lt; sz; j++)
+        {
+            if ( cmp( x[i],  x[j])  )
+                swap( x[i], x[j] );
+         }
+     }
+}
+
+bool cmp1( int a, int b) { return a &lt; b;}
+bool cmp2( int a, int b) { return a &gt; b;}
+
+int main()
+{
+    int x[10] = { 1,3,5,7,9,2,4,6,8,10};
+    Sort( x, 10, [](int a, int b) { return a &gt; b;});
+
+    for ( auto n : x)
+        cout &lt;&lt; n &lt;&lt; &quot;, &quot;;
+}
+</code></pre>
+
+<h2 id="3-state-pattern">3. State pattern</h2>
+
+<h4 id="특정-조건에-따라-다른-처리를-해야-할-때-분기문-if-switch-case-을-사용-할-경우-조건이-추가-될-경우-분기문의-양이-늘어나는-문제가-발생">특정 조건에 따라 다른 처리를 해야 할 때 분기문(if, switch case)을 사용 할 경우, 조건이 추가 될 경우 분기문의 양이 늘어나는 문제가 발생</h4>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Character
+{
+    int gold = 0;
+    int item = 0;
+public:
+    void run()
+    {
+        if ( item == 1)
+            cout &lt;&lt; &quot;run&quot;    &lt;&lt; endl;
+        else if ( item == 2 )
+            cout &lt;&lt; &quot;fast run&quot; &lt;&lt; endl;
+    }
+    void attack()
+    {
+        if ( item == 1)
+             cout &lt;&lt; &quot;attack&quot; &lt;&lt; endl;
+        else if ( item == 2 )
+             cout &lt;&lt; &quot;attack2&quot; &lt;&lt; endl;
+    }
+};
+
+int main()
+{
+    Character* p = new Character;
+    p-&gt;run();
+    p-&gt;attack();
+}
+</code></pre>
+
+<ul>
+<li>해결 방법1 : 변하는 부분을 가상함수로 처리
+
+<ul>
+<li>모든 동작을 가상함수화</li>
+<li>기존 객체의 동작이 변경된 것이 아닌, 동작이 변경된 새로운 객체가 생성 된 것</li>
+<li>객체의 변화가 아닌 클래스에 의한 변화</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Character
+{
+    int gold = 0;
+    int item = 0;
+public:
+    void run()    { runImp(); }
+    void attack() { attackImp(); }
+
+    virtual void runImp() {}
+    virtual void attackImp() {}
+};
+
+class PowerItemCharacter : public Character
+{
+public:
+    virtual void runImp() { cout &lt;&lt; &quot;fast run&quot; &lt;&lt; endl;}
+    virtual void attackImp() { cout &lt;&lt; &quot;attack&quot; &lt;&lt; endl;}
+};
+
+class NormalCharacter : public Character
+{
+public:
+    virtual void runImp() { cout &lt;&lt; &quot;run&quot; &lt;&lt; endl;}
+    virtual void attackImp() { cout &lt;&lt; &quot;power attack&quot; &lt;&lt; endl;}
+};
+
+int main()
+{
+    Character* p = new NormalCharacter;
+    p-&gt;run();
+    p-&gt;attack();
+
+    p = new PowerItemCharacter;
+    p-&gt;run();
+    p-&gt;attack();
+}
+</code></pre>
+
+<ul>
+<li><p>해결 방법2 : State pattern 사용</p>
+
+<ul>
+<li><p>상태에 따라 변경되는 동작들을 다른 클래스로 분리</p></li>
+
+<li><p>동작의 인터페이스를 정의</p></li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct IState
+{
+    virtual void run() = 0;
+    virtual void attack() = 0;
+    virtual ~IState() {}
+};
+
+class Character
+{
+    int gold = 0;
+    int item = 0;
+    IState* state;
+public:
+    void changeState(IState* p) { state = p;}
+    void run()    { state-&gt;run(); }
+    void attack() { state-&gt;attack(); }
+};
+
+class NormalState : public IState
+{
+    virtual void run()   { cout &lt;&lt; &quot;run&quot; &lt;&lt; endl;}
+    virtual void attack(){ cout &lt;&lt; &quot;attack&quot; &lt;&lt; endl;}
+};
+class PowerItemState : public IState
+{
+    virtual void run()   { cout &lt;&lt; &quot;fast run&quot; &lt;&lt; endl;}
+    virtual void attack(){ cout &lt;&lt; &quot;power attack&quot; &lt;&lt; endl;}
+};
+
+int main()
+{
+    NormalState ns;
+    PowerItemState ps;
+
+    Character* p = new Character;
+    p-&gt;changeState(&amp;ns);
+    p-&gt;run();
+    p-&gt;attack();
+    
+    p-&gt;changeState(&amp;ps); // 아이템 획득.
+    p-&gt;run();
+    p-&gt;attack();
+}
+</code></pre>
+
+<p>#### State pattern 정리</p>
+
+<ul>
+<li>객체 자신의 내부 상태에 따라 행위(동작)을 변경하도록 처리
+객체는 마치 클래스를 바꾸는 것 처럼 보임</li>
+<li>앞서 살펴본 Strategy  pattern(전략 패턴)과 클래스 다이어그램 및 구조는 동일
+
+<ul>
+<li>전략 패턴은 알고리즘 교체의 의미</li>
+<li>State 패턴은 동작 교체의 의미
+
+<br /></li>
+</ul></li>
+</ul>
+
+<h2 id="4-summary">4. Summary</h2>
+
+<h4 id="변하지-않는-코드에서-변해야-하는-부분을-분리">변하지 않는 코드에서 변해야 하는 부분을 분리</h4>
+
+<ul>
+<li>일반 함수에서 변하는 것 -&gt; 함수 인자로 분리(함수 포인터 or 함수 객체 or 람다)</li>
+<li>멤버 함수에서 변하는 것
+
+<ul>
+<li>가상 함수로 분리(template method) 하는 방법</li>
+<li>실행 시간에 교체 X, 코드 재사용 불가</li>
+<li>상속 기반 패턴</li>
+<li>다른 클래스로 분리 하는 방법</li>
+<li>변하는 코드(정책) 재사용 가능</li>
+<li>교체 방법 2가지
+
+<ol>
+<li>인터페이스 활용 : Strategy, State pattern
+
+<ul>
+<li>실행시간 교체 가능, 가상함수 기반(느림)</li>
+</ul></li>
+<li>템플릿 인자 활용 : Policy base design
+
+<ul>
+<li>실행시간 교체 불가, 인라인 치환 가능(빠른 성능)</li>
+</ul></li>
+</ol></li>
+</ul></li>
+</ul>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/design-pttern/">Design pttern</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4/">디자인패턴</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/07/design-pattern-in-c-intro1/" data-tooltip="Design pattern in C&#43;&#43; - Intro[1]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/07/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/07/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/07/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/07/design-pattern-in-c-intro1/" data-tooltip="Design pattern in C&#43;&#43; - Intro[1]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/07/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/07/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/07/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F07%2Fdesign-pattern-in-c-%25EA%25B3%25B5%25ED%2586%25B5%25EC%2584%25B1%25EA%25B3%25BC-%25EA%25B0%2580%25EB%25B3%2580%25EC%2584%25B1%25EC%259D%2598-%25EB%25B6%2584%25EB%25A6%25AC2%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F07%2Fdesign-pattern-in-c-%25EA%25B3%25B5%25ED%2586%25B5%25EC%2584%25B1%25EA%25B3%25BC-%25EA%25B0%2580%25EB%25B3%2580%25EC%2584%25B1%25EC%259D%2598-%25EB%25B6%2584%25EB%25A6%25AC2%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F07%2Fdesign-pattern-in-c-%25EA%25B3%25B5%25ED%2586%25B5%25EC%2584%25B1%25EA%25B3%25BC-%25EA%25B0%2580%25EB%25B3%2580%25EC%2584%25B1%25EC%259D%2598-%25EB%25B6%2584%25EB%25A6%25AC2%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/07\/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2\/';
+          
+            this.page.identifier = '\/2021\/07\/design-pattern-in-c-%EA%B3%B5%ED%86%B5%EC%84%B1%EA%B3%BC-%EA%B0%80%EB%B3%80%EC%84%B1%EC%9D%98-%EB%B6%84%EB%A6%AC2\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
