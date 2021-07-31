@@ -6,10 +6,19 @@
     <description>Recent content in C&#43;&#43; on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 30 Jul 2021 08:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 31 Jul 2021 09:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Design pattern in C&#43;&#43; - 재귀적 포함[3]</title>
+      <link>https://ence2.github.io/2021/07/design-pattern-in-c-%EC%9E%AC%EA%B7%80%EC%A0%81-%ED%8F%AC%ED%95%A83/</link>
+      <pubDate>Sat, 31 Jul 2021 09:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/07/design-pattern-in-c-%EC%9E%AC%EA%B7%80%EC%A0%81-%ED%8F%AC%ED%95%A83/</guid>
+      <description>&lt;p&gt;이번시간에는 Composite 패턴, Decorator 패턴에 대해 살펴보겠습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Design pattern in C&#43;&#43; - 공통성과 가변성의 분리[2]</title>
