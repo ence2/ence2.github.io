@@ -6,10 +6,19 @@
     <description>Recent content in C&#43;&#43; on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 02 Aug 2021 07:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 06 Aug 2021 07:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://ence2.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Design pattern in C&#43;&#43; - 통보, 열거, 방문[5]</title>
+      <link>https://ence2.github.io/2021/08/design-pattern-in-c-%ED%86%B5%EB%B3%B4-%EC%97%B4%EA%B1%B0-%EB%B0%A9%EB%AC%B85/</link>
+      <pubDate>Fri, 06 Aug 2021 07:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/08/design-pattern-in-c-%ED%86%B5%EB%B3%B4-%EC%97%B4%EA%B1%B0-%EB%B0%A9%EB%AC%B85/</guid>
+      <description>&lt;p&gt;이번 시간에는 Observer 패턴, Container 설계의 기술, Iterator 패턴, Visitor 패턴에 대해 알아보겠습니다.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Design pattern in C&#43;&#43; - 간접층의 원리[4]</title>
