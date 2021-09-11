@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="이번 시간에는 객체 생성 관련 패턴을 알아보겠습니다.">
+
+
+<meta property="og:description" content="이번 시간에는 객체 생성 관련 패턴을 알아보겠습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Design pattern in C&#43;&#43; - 객체를 생성하는 방법[6]">
+<meta name="twitter:title" content="Design pattern in C&#43;&#43; - 객체를 생성하는 방법[6]">
+<meta property="og:url" content="https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="이번 시간에는 객체 생성 관련 패턴을 알아보겠습니다.">
+<meta name="twitter:description" content="이번 시간에는 객체 생성 관련 패턴을 알아보겠습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-08-07T07:00:00">
+  
+  
+    <meta property="article:modified_time" content="2021-08-07T07:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Language">
+    
+      <meta property="article:section" content="C&#43;&#43;">
+    
+  
+  
+    
+      <meta property="article:tag" content="C&#43;&#43;6">
+    
+      <meta property="article:tag" content="Design pttern">
+    
+      <meta property="article:tag" content="디자인패턴">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>Design pattern in C&#43;&#43; - 객체를 생성하는 방법[6]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Design pattern in C&#43;&#43; - 객체를 생성하는 방법[6]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-08-07T07:00:00&#43;09:00">
+        
+  August 7, 2021
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>이번 시간에는 객체 생성 관련 패턴을 알아보겠습니다.</p>
+
+<h2 id="객체-생성-방법">객체 생성 방법</h2>
+
+<h4 id="1-사용자가-직접-객체를-생성-stack-or-heap">1. 사용자가 직접 객체를 생성(stack or heap)</h4>
+
+<ul>
+<li>가장 자유로운 방법이나 객체 생성에 대한 제약이 없음</li>
+</ul>
+
+<pre><code class="language-cpp">class Shape
+{
+public:
+    virtual ~Shape() {}
+};
+
+class Rect : public Shape
+{
+public:
+};
+class Circle : public Shape
+{
+public:
+};
+
+int main()
+{
+    Rect r;
+
+    Shape* p = new Rect;
+
+}
+</code></pre>
+
+<h4 id="2-static-멤버-함수를-사용한-객체-생성">2. static 멤버 함수를 사용한 객체 생성</h4>
+
+<ul>
+<li>생성자를 private 처리하고 객체 생성 함수를 제공</li>
+<li>객체 생성을 한 곳에서 수행</li>
+<li>다양한 제약 조건을 만들 수 있음(개수 제한, 자원 공유 등)</li>
+<li>객체 생성 함수를 함수의 생성 인자로 전달 할 수 있음</li>
+</ul>
+
+<pre><code class="language-cpp">class Shape
+{
+public:
+    virtual ~Shape() {}
+};
+
+class Rect : public Shape
+{
+    Rect() {}  // private 생성자.
+public:
+    static Shape* Create() { return new Rect;}
+};
+class Circle : public Shape
+{
+    Circle() {}
+public:
+    static Shape* Create() { return new Circle;}
+};
+
+// 도형을 만들어서 그림을 그리는 함수, 함수 포인터 전달
+void CreateAndDraw(Shape* (*f)() )
+{
+    Shape* p = f();
+    p-&gt;Draw();
+}
+
+
+int main()
+{
+    CreateAndDraw(&amp;Rect::Create );
+}
+</code></pre>
+
+<h4 id="3-객체-생성을-위한-전용-클래스-사용">3. 객체 생성을 위한 전용 클래스 사용</h4>
+
+<ul>
+<li>객체 생성을 한곳에 집중시킴</li>
+<li>객체 본래의 기능과, 생성을 위한 코드를 분리</li>
+</ul>
+
+<pre><code class="language-cpp">class Shape
+{
+public:
+    virtual ~Shape() {}
+};
+
+class Rect : public Shape
+{
+    Rect() {}
+public:
+    friend class ShapeFactory;
+};
+
+class Circle : public Shape
+{
+    Circle() {}
+public:
+    friend class ShapeFactory;
+};
+
+class ShapeFactory
+{
+public:
+    Shape* CreateShape( int type )
+    {
+        Shape* p = 0;
+        switch( type )
+        {
+        case 1: p = new Rect; break;
+        case 2: p = new Circle; break;
+        }
+        return p;
+    }
+};
+
+int main()
+{
+    ShapeFactory factory;
+    Shape* p = factory.CreateShape(1);
+
+}
+</code></pre>
+
+<h4 id="4-기존-존재하는-객체를-복사해서-새로운-객체-생성">4. 기존 존재하는 객체를 복사해서 새로운 객체 생성</h4>
+
+<ul>
+<li>prototype</li>
+</ul>
+
+<pre><code class="language-cpp">class Shape
+{
+public:
+    virtual ~Shape() {}
+
+    virtual Shape* Clone() = 0;
+};
+
+class Rect : public Shape
+{
+public:
+    virtual Shape* Clone() { return new Rect(*this);}
+};
+class Circle : public Shape
+{
+public:
+    virtual Shape* Clone() { return new Circle(*this);}
+};
+
+int main()
+{
+    Shape* p = new Rect;
+
+    Shape* p2 = p-&gt;Clone();
+}
+</code></pre>
+
+<h2 id="singleton-pattern">Singleton pattern</h2>
+
+<h4 id="정의">정의</h4>
+
+<ul>
+<li>클래스의 인스턴스가 오직 하나임을 보장하며 이에 대한 접근은 어디에서 든지 하나로 통일하여 제공</li>
+</ul>
+
+<h4 id="구현">구현</h4>
+
+<ul>
+<li>생성자를 private 처리</li>
+<li>static 멤버 함수를 통해서 오직 하나의 객체를 생성한 후 참조를 반환</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// CRTP : Curiously Recurring Template Pattern
+template&lt;typename TYPE&gt; class Singleton
+{
+protected:
+    Singleton() { }
+    Singleton(const Singleton&amp;) = delete;
+    void operator=(const Singleton&amp;) = delete;
+public:
+    static TYPE&amp; getInstance()
+    {
+        static TYPE instance;
+        return instance;
+    }
+};
+
+class Mouse : public Singleton&lt; Mouse &gt;
+{
+};
+
+int main()
+{
+    Mouse&amp; c1 = Mouse::getInstance();
+}
+</code></pre>
+
+<h2 id="factory-pattern">Factory  pattern</h2>
+
+<h4 id="정의-1">정의</h4>
+
+<ul>
+<li>새로운 객체가 필요 할 때 다형적 생성이 가능한 구조를 제공하는 패턴</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &quot;Singleton.hpp&quot;
+using namespace std;
+
+class Shape
+{
+public:
+    virtual void Draw() { cout &lt;&lt; &quot;Draw Shape&quot; &lt;&lt; endl;}
+};
+
+class ShapeFactory
+{
+    MAKE_SINGLETON(ShapeFactory)
+    typedef Shape* (*CREATOR)();
+    map&lt;int, CREATOR&gt; create_map;
+public:
+    void Register( int type, CREATOR f )
+    {
+        create_map[type] = f;
+    }
+
+    Shape* CreateShape(int type )
+    {
+        Shape* p = 0;
+        auto ret = create_map.find( type );
+        if ( ret == create_map.end() )
+            return 0;
+        p = create_map[type]();
+
+        return p;
+    }
+};
+
+struct RegisterShape
+{
+    RegisterShape( int type, Shape*(*f)() )
+    {
+        ShapeFactory&amp; factory = ShapeFactory::getInstance();
+
+        factory.Register(type, f);
+    }
+};
+
+// 모든 도형이 지켜야 하는 규칙을 매크로로 제공
+#define DECLARE_SHAPE( classname )                  \
+    static Shape* Create() { return new classname;}      \
+    static RegisterShape rs;
+
+#define IMPLEMENT_SHAPE( type, classname )                \
+    RegisterShape classname::rs(type, &amp;classname::Create);
+
+class Circle : public Shape
+{
+public:
+    virtual void Draw() { cout &lt;&lt; &quot;Circle Rect&quot; &lt;&lt; endl;}
+
+    DECLARE_SHAPE( Circle )
+};
+IMPLEMENT_SHAPE( 1, Circle )
+
+
+class Triangle : public Shape
+{
+public:
+    virtual void Draw() { cout &lt;&lt; &quot;Triangle Rect&quot; &lt;&lt; endl;}
+
+    DECLARE_SHAPE( Triangle )
+};
+IMPLEMENT_SHAPE( 2, Triangle )
+
+int main()
+{
+    ShapeFactory&amp; factory = ShapeFactory::getInstance();
+
+    vector&lt;Shape*&gt; v;
+
+    while( 1 )
+    {
+        int cmd;
+        cin &gt;&gt; cmd;
+
+        //
+        if ( cmd &gt;=1 &amp;&amp; cmd &lt;= 5 )
+        {
+            Shape* p = factory.CreateShape(cmd);
+
+            if ( p != 0 )
+                v.push_back( p );
+        }
+        else if ( cmd == 9 )
+        {
+            for ( auto p : v )
+                p-&gt;Draw(); // 다형성
+        }
+    }
+}
+</code></pre>
+
+<h4 id="factory-패턴-응용-prototype-패턴">factory 패턴 응용 -&gt; Prototype 패턴</h4>
+
+<ul>
+<li>같은 타입에, 데이터가 다를 경우 -&gt; 이것을 복사해서 전달하는 형태</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &quot;Singleton.hpp&quot;
+using namespace std;
+
+class Shape
+{
+public:
+    virtual void Draw() { cout &lt;&lt; &quot;Draw Shape&quot; &lt;&lt; endl;}
+
+    virtual Shape* Clone() = 0;
+};
+
+class Rect : public Shape
+{
+public:
+    virtual void Draw() { cout &lt;&lt; &quot;Draw Rect&quot; &lt;&lt; endl;}
+
+    static Shape* Create() { return new Rect;}
+
+    virtual Shape* Clone() { return new Rect(*this);}
+};
+
+class Circle : public Shape
+{
+public:
+    virtual void Draw() { cout &lt;&lt; &quot;Circle Rect&quot; &lt;&lt; endl;}
+
+    static Shape* Create() { return new Circle;}
+
+    virtual Shape* Clone() { return new Circle(*this);}
+};
+
+class ShapeFactory
+{
+    MAKE_SINGLETON(ShapeFactory)
+
+
+    map&lt;int, Shape*&gt; protype_map;
+
+public:
+    void Register( int type, Shape* sample )
+    {
+        protype_map[type] = sample;
+    }
+
+    Shape* CreateShape(int type )
+    {
+        Shape* p = 0;
+        auto ret = protype_map.find( type );
+        if ( ret == protype_map.end() )
+            return 0;
+
+        p = protype_map[type]-&gt;Clone();
+
+        return p;
+    }
+};
+
+int main()
+{
+    ShapeFactory&amp; factory = ShapeFactory::getInstance();
+
+    Rect* r1 = new Rect;// 빨간색 크기 5
+    Rect* r2 = new Rect;// 파란색 크기 10
+
+    // 공장에 객체 등록
+    factory.Register( 1, r1);
+    factory.Register( 2, r2);
+
+    vector&lt;Shape*&gt; v;
+
+    while( 1 )
+    {
+        int cmd;
+        cin &gt;&gt; cmd;
+
+        if ( cmd &gt;=1 &amp;&amp; cmd &lt;= 5 )
+        {
+            Shape* p = factory.CreateShape(cmd);
+
+            if ( p != 0 )
+                v.push_back( p );
+        }
+        else if ( cmd == 9 )
+        {
+            for ( auto p : v )
+                p-&gt;Draw(); // 다형성
+        }
+    }
+}
+</code></pre>
+
+<h2 id="abstract-factory-pattern">Abstract Factory  pattern</h2>
+
+<h4 id="정의-2">정의</h4>
+
+<ul>
+<li>여러 객체의 군을 생성하기 위한 인터페이스를 제공</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string.h&gt;
+using namespace std;
+
+struct IEdit
+{
+    virtual void Draw() = 0;
+    virtual ~IEdit() {}
+};
+
+struct IButton
+{
+    virtual void Draw() = 0;
+    virtual ~IButton() {}
+};
+
+struct WinButton : public IButton { void Draw() { cout &lt;&lt; &quot;Draw WinButton&quot; &lt;&lt; endl;}};
+struct GTKButton : public IButton{ void Draw() { cout &lt;&lt; &quot;Draw GTKButton&quot; &lt;&lt; endl;}};
+
+struct WinEdit : public IEdit { void Draw() { cout &lt;&lt; &quot;Draw WinEdit&quot; &lt;&lt; endl;}};
+struct GTKEdit : public IEdit { void Draw() { cout &lt;&lt; &quot;Draw GTKEdit&quot; &lt;&lt; endl;}};
+
+//-------------------------------------
+// Factory 의 공통의 기반 클래스
+struct IFactory
+{
+    virtual IButton* CreateButton() = 0;
+    virtual IEdit*   CreateEdit() = 0;
+    virtual ~IFactory() {}
+};
+
+struct WinFactory : public IFactory
+{
+    IButton* CreateButton() { return new WinButton;}
+    IEdit*   CreateEdit()   { return new WinEdit;}
+};
+
+struct GTKFactory : public IFactory
+{
+    IButton* CreateButton() { return new GTKButton;}
+    IEdit*   CreateEdit()   { return new GTKEdit;}
+};
+
+int main(int argv, char** argc)
+{
+    IFactory* pFactory;
+    if ( strcmp(argc[1], &quot;Windows&quot;) == 0)
+        pFactory = new WinFactory;
+    else
+        pFactory = new GTKFactory;
+
+    IButton* pBtn = pFactory-&gt;CreateButton();
+    pBtn-&gt;Draw();
+}
+</code></pre>
+
+<h2 id="factory-method-pattern">Factory Method  pattern</h2>
+
+<h4 id="정의-3">정의</h4>
+
+<ul>
+<li>객체를 생성하기 위한 인터페이스를 정의 하지만, 어떤 인스턴스로 생석 할 지에 대한 결정은 하위 클래스에서 재정의</li>
+<li>Factory Method 패턴에서는 클래스의 인스턴스 생성 시점을 하위 클래스로 연기함</li>
+<li>template method와 유사한 형태
+
+<ul>
+<li>리마인드 : 템플릿 메소드는 알고리즘이나 정책을 하위 클래스에서 재정의 하는 것</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct IEdit
+{
+    virtual void Draw() = 0;
+    virtual ~IEdit() {}
+};
+struct IButton
+{
+    virtual void Draw() = 0;
+    virtual ~IButton() {}
+};
+
+struct WinButton : public IButton { void Draw() { cout &lt;&lt; &quot;Draw WinButton&quot; &lt;&lt; endl;}};
+struct GTKButton : public IButton { void Draw() { cout &lt;&lt; &quot;Draw GTKButton&quot; &lt;&lt; endl;}};
+
+struct WinEdit : public IEdit { void Draw() { cout &lt;&lt; &quot;Draw WinEdit&quot; &lt;&lt; endl;}};
+struct GTKEdit : public IEdit { void Draw() { cout &lt;&lt; &quot;Draw GTKEdit&quot; &lt;&lt; endl;}};
+
+//---------------------------------------------------
+
+class BaseDialog
+{
+public:
+    void Init()
+    {
+        IButton* pBtn = CreateButton();
+        IEdit*   pEdit = CreateEdit();
+
+        pBtn-&gt;Draw();
+        pEdit-&gt;Draw();
+    }
+    virtual IButton* CreateButton() = 0;
+    virtual IEdit*   CreateEdit() = 0;
+};
+
+
+class WinDialog : public BaseDialog
+{
+public:
+    virtual IButton* CreateButton() { return new WinButton;}
+    virtual IEdit* CreateEdit()    { return new WinEdit;}
+};
+
+class GTKDialog : public BaseDialog
+{
+public:
+    virtual IButton* CreateButton() { return new GTKButton;}
+    virtual IEdit* CreateEdit()   { return new GTKEdit;}
+};
+
+int main()
+{
+    WinDialog dlg;
+    dlg.Init();
+}
+</code></pre>
+
+<h2 id="builder-pattern">Builder pattern</h2>
+
+<h4 id="정의-4">정의</h4>
+
+<ul>
+<li>객체를 생성하는 방법과 표현하는 방법을 정의하는 클래스를 별도로 분리하여 서로 다른 표현이라도 이를 생성 할 수 있는 동일한 인터페이스를 제공하도록 함</li>
+<li>state / strategy 패턴과 유사
+
+<ul>
+<li>전략 패턴은 교체 되는 부분이 -&gt; 알고리즘</li>
+<li>상태 패턴은 교체 되는 부분이 -&gt; 행동</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// 입학 지원서
+using Application = string; // class Application {}
+
+// 지원서의 각 단계의 표현을 만드는 빌더 인터페이스
+struct IBuilder
+{
+    virtual ~IBuilder() {}
+    virtual void makeName(string name) =  0;
+    virtual void makePhone(string phone) =  0;
+    virtual void makeAddress(string addr) =  0;
+
+    virtual Application getResult() = 0;
+};
+
+// 지원서 만드는 클래스
+class Director
+{
+    string name = &quot;HONG&quot;;
+    string phone = &quot;010-111-1111&quot;;
+    string address = &quot;SEOUL KANGNAMGU&quot;;
+    IBuilder* pBuilder;
+public:
+    void setBuilder( IBuilder* p ) { pBuilder = p;}
+
+    Application construct()
+    {
+        pBuilder-&gt;makeName(name);
+        pBuilder-&gt;makePhone(phone);
+    //    pBuilder-&gt;makeAddress(address);
+
+        return pBuilder-&gt;getResult();
+    }
+};
+
+class XMLBuilder : public IBuilder
+{
+    Application app;
+public:
+    virtual void makeName(string name)
+    {
+        app += &quot;&lt;NAME&gt;&quot; + name + &quot;&lt;/NAME&gt;\n&quot;;
+    }
+    virtual void makePhone(string phone)
+    {
+        app += &quot;&lt;PHONE&gt;&quot; + phone + &quot;&lt;/PHONE&gt;\n&quot;;
+    }
+    virtual void makeAddress(string addr)
+    {
+        app += &quot;&lt;ADDRESS&gt;&quot; + addr + &quot;&lt;/ADDRESS&gt;\n&quot;;
+    }
+
+    virtual Application getResult() { return app;}
+};
+
+class TextBuilder : public IBuilder
+{
+    Application app;
+public:
+    virtual void makeName(string name)
+    {
+        app += name + &quot;\n&quot;;
+    }
+    virtual void makePhone(string phone)
+    {
+        app += phone + &quot;\n&quot;;
+    }
+    virtual void makeAddress(string addr)
+    {
+        app +=  addr + &quot;\n&quot;;
+    }
+
+    virtual Application getResult() { return app;}
+};
+
+int main()
+{
+    Director d;
+    XMLBuilder xb;
+    d.setBuilder(&amp;xb);
+
+    Application app = d.construct();
+    cout &lt;&lt; app &lt;&lt; endl;
+
+    TextBuilder tb;
+    d.setBuilder(&amp;tb);
+    app = d.construct();
+    cout &lt;&lt; app &lt;&lt; endl;
+}
+</code></pre>
+
+<h2 id="전체-요약">전체 요약</h2>
+
+<h4 id="gof-s-디자인-패턴의-분류">GoF&rsquo;s 디자인 패턴의 분류</h4>
+
+<ul>
+<li>생성 패턴 - 5종
+
+<ul>
+<li>Singleton : 클래스의 인스턴스는 오직 하나임을 보장하며 이에 대한 접근은 어디에서든 하나로만 통일하여 제공</li>
+<li>Abstract Factory : 상세화된 서브 클래스를 정의 하지 않고도 서로 관련성 있거나 독립적인 여러 객체의 군을 생성하기 위한 인터페이스를 제공</li>
+<li>Prototype : 견본 인스턴스를 사용하여 생성할 객체의 종류를 명시하고 견본을 복사하여 새로운 객체를 생성</li>
+<li>Builder : 복잡한 객체를 생성하는 방법과 표현하는 방법을 정의하는 클래스를 별도로 분리하여 서로 다른 표현이라도 이를 생성 할 수 있는 동일한 구축 공정을 제공</li>
+<li>Factory Method : 객체를 생성하기 위한 인터페이스를 정의 하지만, 어떤 클래스의 인터페이스를 생성 할 지에 대한 결정은 서브 클래스에 위임</li>
+</ul></li>
+<li>구조 패턴 - 7종
+
+<ul>
+<li>Adapter, Proxy, Bridge, Facade : 문제를 해결하기 위해 간접층을 만드는 패턴</li>
+<li>Composite, Decorator : 재귀적 포함을 사용하는 패턴</li>
+<li>Flyweight</li>
+</ul></li>
+<li>행위 패턴 - 11종
+
+<ul>
+<li>template method</li>
+<li>strategy</li>
+<li>state</li>
+<li>iterator</li>
+<li>visitor</li>
+<li>observer</li>
+<li>command</li>
+<li>memento</li>
+<li>interpret</li>
+<li>mediator</li>
+<li>chain of responsibility</li>
+</ul></li>
+</ul>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;6/">C&#43;&#43;6</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/design-pttern/">Design pttern</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4/">디자인패턴</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/08/design-pattern-in-c-%ED%86%B5%EB%B3%B4-%EC%97%B4%EA%B1%B0-%EB%B0%A9%EB%AC%B85/" data-tooltip="Design pattern in C&#43;&#43; - 통보, 열거, 방문[5]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/08/design-pattern-in-c-%ED%86%B5%EB%B3%B4-%EC%97%B4%EA%B1%B0-%EB%B0%A9%EB%AC%B85/" data-tooltip="Design pattern in C&#43;&#43; - 통보, 열거, 방문[5]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F08%2Fdesign-pattern-in-c-%25EA%25B0%259D%25EC%25B2%25B4%25EB%25A5%25BC-%25EC%2583%259D%25EC%2584%25B1%25ED%2595%2598%25EB%258A%2594-%25EB%25B0%25A9%25EB%25B2%25956%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F08%2Fdesign-pattern-in-c-%25EA%25B0%259D%25EC%25B2%25B4%25EB%25A5%25BC-%25EC%2583%259D%25EC%2584%25B1%25ED%2595%2598%25EB%258A%2594-%25EB%25B0%25A9%25EB%25B2%25956%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F08%2Fdesign-pattern-in-c-%25EA%25B0%259D%25EC%25B2%25B4%25EB%25A5%25BC-%25EC%2583%259D%25EC%2584%25B1%25ED%2595%2598%25EB%258A%2594-%25EB%25B0%25A9%25EB%25B2%25956%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/08\/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956\/';
+          
+            this.page.identifier = '\/2021\/08\/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
