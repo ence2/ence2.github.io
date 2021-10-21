@@ -22,6 +22,24 @@
     </item>
     
     <item>
+      <title>Design pattern in C&#43;&#43; - 객체를 생성하는 방법[6]</title>
+      <link>https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/</link>
+      <pubDate>Sat, 07 Aug 2021 07:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/</guid>
+      <description>&lt;p&gt;이번 시간에는 객체 생성 관련 패턴을 알아보겠습니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Design pattern in C&#43;&#43; - 통보, 열거, 방문[5]</title>
+      <link>https://ence2.github.io/2021/08/design-pattern-in-c-%ED%86%B5%EB%B3%B4-%EC%97%B4%EA%B1%B0-%EB%B0%A9%EB%AC%B85/</link>
+      <pubDate>Fri, 06 Aug 2021 07:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/2021/08/design-pattern-in-c-%ED%86%B5%EB%B3%B4-%EC%97%B4%EA%B1%B0-%EB%B0%A9%EB%AC%B85/</guid>
+      <description>&lt;p&gt;이번 시간에는 Observer 패턴, Container 설계의 기술, Iterator 패턴, Visitor 패턴에 대해 알아보겠습니다.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Design pattern in C&#43;&#43; - 간접층의 원리[4]</title>
       <link>https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%84%EC%A0%91%EC%B8%B5%EC%9D%98-%EC%9B%90%EB%A6%AC4/</link>
       <pubDate>Mon, 02 Aug 2021 07:00:00 +0900</pubDate>
