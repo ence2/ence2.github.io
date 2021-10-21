@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence2.github.io/2021/08/c-concurrent-thread-basic1/</loc>
+    <lastmod>2021-08-07T07:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/2021/08/design-pattern-in-c-%EA%B0%9D%EC%B2%B4%EB%A5%BC-%EC%83%9D%EC%84%B1%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%956/</loc>
     <lastmod>2021-08-07T07:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
