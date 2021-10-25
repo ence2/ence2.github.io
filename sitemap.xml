@@ -3,6 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ence2.github.io/2021/10/c-concurrent-parallel-stl5/</loc>
+    <lastmod>2021-10-25T07:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence2.github.io/2021/10/c-concurrent-atomic4/</loc>
+    <lastmod>2021-10-11T07:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence2.github.io/2021/09/c-concurrent-synchronization3/</loc>
+    <lastmod>2021-09-30T07:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ence2.github.io/2021/09/c-concurrent-promise-future-async2/</loc>
+    <lastmod>2021-09-21T07:00:00+09:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ence2.github.io/2021/09/c-concurrent-thread-basic1/</loc>
     <lastmod>2021-09-15T07:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
@@ -815,14 +843,14 @@
   
   <url>
     <loc>https://ence2.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2021-09-15T07:00:00+09:00</lastmod>
+    <lastmod>2021-10-25T07:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ence2.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2021-09-15T07:00:00+09:00</lastmod>
+    <lastmod>2021-10-25T07:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -990,7 +1018,7 @@
   
   <url>
     <loc>https://ence2.github.io/</loc>
-    <lastmod>2021-09-15T07:00:00+09:00</lastmod>
+    <lastmod>2021-10-25T07:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -1018,7 +1046,7 @@
   
   <url>
     <loc>https://ence2.github.io/categories/language/</loc>
-    <lastmod>2021-09-15T07:00:00+09:00</lastmod>
+    <lastmod>2021-10-25T07:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -1067,7 +1095,7 @@
   
   <url>
     <loc>https://ence2.github.io/tags/multitread/</loc>
-    <lastmod>2021-09-15T07:00:00+09:00</lastmod>
+    <lastmod>2021-10-25T07:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>
@@ -1095,7 +1123,7 @@
   
   <url>
     <loc>https://ence2.github.io/post/</loc>
-    <lastmod>2021-09-15T07:00:00+09:00</lastmod>
+    <lastmod>2021-10-25T07:00:00+09:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0</priority>
   </url>

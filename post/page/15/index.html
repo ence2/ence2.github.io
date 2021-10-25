@@ -218,6 +218,251 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdatomic-memory_order/">
+          std::atomic, memory_order
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-09T21:45:07&#43;09:00">
+        
+  November 9, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <pre><code class="language-cpp">std::atomic&lt;T&gt;
+</code></pre>
+
+<p>동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)</p>
+
+<pre><code class="language-cpp">std::atomic&lt;int&gt; x;
+std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
+</code></pre>
+
+<p>is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/stdatomic-memory_order/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/boostmake_ready_future/">
+          boost::make_ready_future
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-09T21:09:42&#43;09:00">
+        
+  November 9, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <h4 id="making-immediate-futures-easier">Making immediate futures easier</h4>
+
+<p>일부 함수는 구성 시점에서 값을 알 수 있습니다. 이 경우 값을 즉시 사용할 수 있지만 future 또는 shared_future로 반환해야합니다. make_ready_future를 사용하면 공유 상태에서 미리 계산 된 결과를 보유하는 future를 만들 수 있습니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/boostmake_ready_future/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
+          Boost Future의 continuations(연속 연결)
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-08T23:31:17&#43;09:00">
+        
+  November 8, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <p>비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 future에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &ldquo;연결&rdquo;됩니다. then 함수를 사용하여 등록 된 연속 futue는 대기를 차단하거나 폴링 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/std-upper_bound/">
+          std upper_bound
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-08T23:22:20&#43;09:00">
+        
+  November 8, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <h3 id="upper-bound">upper_bound</h3>
+
+<p>컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/std-upper_bound/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+          
+            
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
           #define 매크로, const와 차이점, 유의 사항
         </a>
@@ -387,254 +632,6 @@ if (!doNotTrack) {
 </article>
 
           
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
-          UPSERT 개념
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T22:43:22&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/db">DB</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h3 id="정의">정의</h3>
-
-<p>간략하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/c-%EC%BA%90%EC%8A%A4%ED%8C%85-%EC%B4%9D%EC%A0%95%EB%A6%AC%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%AC%EC%9D%B8%ED%84%B0-%EC%BA%90%EC%8A%A4%ED%8C%85-%ED%8F%AC%ED%95%A8/">
-          C&#43;&#43; 캐스팅 총정리(스마트포인터 캐스팅 포함)
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T22:31:11&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>캐스트는 자료형간 또는 포인터간 형변환시 사용됩니다.</p>
-
-<p>캐스트는 크게 묵시적 캐스트(implicit cast)와 명시적 캐스트(explicit cast) 두 가지로 나눌 수 있습니다.</p>
-
-<p>특별히 캐스트 연산자를 사용하지 않고 형변환이 이루어지는 경우를 &ldquo;묵시적 캐스트&rdquo; 라고 합니다.</p>
-
-<pre><code class="language-cpp">   int i = 10;
-   char c = i;         // 묵시적 캐스트
-   char c = (char) i;  // 명시적 캐스트 (c-style)
-   char c = static_cast&lt;char&gt;(i) // C++ style
-</code></pre>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/c-%EC%BA%90%EC%8A%A4%ED%8C%85-%EC%B4%9D%EC%A0%95%EB%A6%AC%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%AC%EC%9D%B8%ED%84%B0-%EC%BA%90%EC%8A%A4%ED%8C%85-%ED%8F%AC%ED%95%A8/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/">
-          컨테이너 삽입시 Insert와 Emplace 차이
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T22:01:43&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h3 id="insert와-emplace">Insert와 Emplace</h3>
-
-<p>둘 다 컨테이너에 데이터를 삽입 하는 행위이나 차이가 있습니다.</p>
-
-<p>Insert로 삽입 시 Map의 경우 std::make_pair를 이용해야하며, emplace는 간단하게 삽입이 가능하며, 내부 동작 또한 다릅니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
-            
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
-          std::tie 사용법
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T21:38:48&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h3 id="std-tie">std::tie</h3>
-
-<p>pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-          
           
   <div class="pagination-bar">
     <ul class="pagination">
@@ -648,8 +645,15 @@ if (!doNotTrack) {
           </li>
         
         
+          <li class="pagination-next">
+            <a class="btn btn--default btn--small" href="https://ence2.github.io/post/page/16/">
+              <span>OLDER POSTS</span>
+              <i class="fa fa-angle-right text-base icon-ml"></i>
+            </a>
+          </li>
+        
       
-      <li class="pagination-number">page 15 of 15</li>
+      <li class="pagination-number">page 15 of 16</li>
     </ul>
   </div>
 

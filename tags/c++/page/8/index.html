@@ -220,6 +220,246 @@ if (!doNotTrack) {
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/srw-lock/">
+          SRW Lock
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-14T22:16:16&#43;09:00">
+        
+  November 14, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <p><a href="http://msdn.microsoft.com/ko-kr/library/windows/desktop/aa904937(v=vs.85).aspx">Slim Reader Writer Lock</a>은 VS2010부터 지원되는 새로운 쓰레드 동기화 객체입니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/srw-lock/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%9C-shared_ptr-%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%98%EA%B2%8C-%EC%A7%80%EC%9A%B0%EB%8A%94-%EB%B2%95/">
+          스마트한 shared_ptr 스마트하게 지우는 법
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-14T21:31:48&#43;09:00">
+        
+  November 14, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <p>스마트포인터 shared_ptr의 경우 참조 카운팅이 zero가 되어야 삭제 되는데, 그 시점이 약간 애매 할 수 있어 여러가지 처리를 해 줘야 합니다.</p>
+
+<p>shared_ptr 생성 시점에서 deleter를 전달 할 수 있고 이를 활용하면 스마트 포인터를 더욱 스마트하게 사용 할 수 있습니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%9C-shared_ptr-%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%98%EA%B2%8C-%EC%A7%80%EC%9A%B0%EB%8A%94-%EB%B2%95/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
+          then과 unwrap을 활용한 future의 다중 연속 구현
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-13T21:56:30&#43;09:00">
+        
+  November 13, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <p>비동기 프로그래밍에서 futue는 강력한 도구입니다.</p>
+
+<p>이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.</p>
+
+<p>future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
+          C&#43;&#43; Google Coding Convention Style 정리
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-11T21:25:16&#43;09:00">
+        
+  November 11, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        <p>코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.</p>
+
+<p>컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.</p>
+
+<p>컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.</p>
+      
+      <p>
+        <a href="https://ence2.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/">
           std::for_each와 std::transform
         </a>
@@ -389,251 +629,6 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
 </article>
 
             
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/stdatomic-memory_order/">
-          std::atomic, memory_order
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-09T21:45:07&#43;09:00">
-        
-  November 9, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <pre><code class="language-cpp">std::atomic&lt;T&gt;
-</code></pre>
-
-<p>동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)</p>
-
-<pre><code class="language-cpp">std::atomic&lt;int&gt; x;
-std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
-</code></pre>
-
-<p>is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/stdatomic-memory_order/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/boostmake_ready_future/">
-          boost::make_ready_future
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-09T21:09:42&#43;09:00">
-        
-  November 9, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h4 id="making-immediate-futures-easier">Making immediate futures easier</h4>
-
-<p>일부 함수는 구성 시점에서 값을 알 수 있습니다. 이 경우 값을 즉시 사용할 수 있지만 future 또는 shared_future로 반환해야합니다. make_ready_future를 사용하면 공유 상태에서 미리 계산 된 결과를 보유하는 future를 만들 수 있습니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/boostmake_ready_future/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/">
-          Boost Future의 continuations(연속 연결)
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T23:31:17&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <p>비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 future에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &ldquo;연결&rdquo;됩니다. then 함수를 사용하여 등록 된 연속 futue는 대기를 차단하거나 폴링 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
-              
-  
-    
-      
-        
-      
-    
-  
-
-
-  
-
-<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-  <div class="postShorten-wrap">
-    
-    <div class="postShorten-header">
-      <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/std-upper_bound/">
-          std upper_bound
-        </a>
-      </h1>
-      
-  <div class="postShorten-meta post-meta">
-    
-      <time itemprop="datePublished" datetime="2020-11-08T23:22:20&#43;09:00">
-        
-  November 8, 2020
-
-      </time>
-    
-    
-  
-  
-    <span>in</span>
-    
-      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
-    
-      <a class="category-link" href="https://ence2.github.io/categories/c&#43;&#43;">C&#43;&#43;</a>
-    
-  
-
-  </div>
-
-    </div>
-    <div class="postShorten-excerpt" itemprop="articleBody">
-      
-        <h3 id="upper-bound">upper_bound</h3>
-
-<p>컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.</p>
-      
-      <p>
-        <a href="https://ence2.github.io/2020/11/std-upper_bound/" class="postShorten-excerpt_link link">Continue reading</a>
-        
-      </p>
-    </div>
-  </div>
-  
-</article>
-
-            
             
   <div class="pagination-bar">
     <ul class="pagination">
@@ -655,7 +650,7 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
           </li>
         
       
-      <li class="pagination-number">page 8 of 9</li>
+      <li class="pagination-number">page 8 of 10</li>
     </ul>
   </div>
 
