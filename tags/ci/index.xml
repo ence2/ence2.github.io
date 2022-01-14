@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ci on Keep calm carry on</title>
+    <title>CI on Keep calm carry on</title>
     <link>https://ence2.github.io/tags/ci/</link>
-    <description>Recent content in Ci on Keep calm carry on</description>
+    <description>Recent content in CI on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Thu, 26 Nov 2020 18:33:54 +0900</lastBuildDate>
-    
-	<atom:link href="https://ence2.github.io/tags/ci/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 26 Nov 2020 18:33:54 +0900</lastBuildDate><atom:link href="https://ence2.github.io/tags/ci/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>UnitTesting 관련 Google Test, gMock 정리</title>
       <link>https://ence2.github.io/2020/11/unittesting-%EA%B4%80%EB%A0%A8-google-test-gmock-%EC%A0%95%EB%A6%AC/</link>

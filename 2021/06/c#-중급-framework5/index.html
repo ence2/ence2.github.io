@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="이번 시간에는 Stream / Decorator / Adapter / MISC에 대해 알아보겠습니다.">
+
+
+<meta property="og:description" content="이번 시간에는 Stream / Decorator / Adapter / MISC에 대해 알아보겠습니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C# 중급 - FRAMEWORK[5]">
+<meta name="twitter:title" content="C# 중급 - FRAMEWORK[5]">
+<meta property="og:url" content="https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/">
+<meta property="twitter:url" content="https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="이번 시간에는 Stream / Decorator / Adapter / MISC에 대해 알아보겠습니다.">
+<meta name="twitter:description" content="이번 시간에는 Stream / Decorator / Adapter / MISC에 대해 알아보겠습니다.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2021-06-14T11:00:00">
+  
+  
+    <meta property="article:modified_time" content="2021-06-14T11:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Language">
+    
+      <meta property="article:section" content="C#">
+    
+  
+  
+    
+      <meta property="article:tag" content="C#">
+    
+      <meta property="article:tag" content="CSharp">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>C# 중급 - FRAMEWORK[5]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      C# 중급 - FRAMEWORK[5]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-06-14T11:00:00&#43;09:00">
+        
+  June 14, 2021
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/language">Language</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/c">C#</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>이번 시간에는 Stream / Decorator / Adapter / MISC에 대해 알아보겠습니다.</p>
+<h2 id="stream-decorator">Stream Decorator</h2>
+<h4 id="decorator-디자인-패턴--원래-기능에-새로운-기능을-추가">Decorator 디자인 패턴 : &ldquo;원래 기능에 새로운 기능을 추가&rdquo;</h4>
+<ul>
+<li>상속 vs 포함을 사용한 기능 추가
+<ul>
+<li>상속 : 클래스에 기능 추가 / 정적인 기능 추가</li>
+<li>포함 : 인스턴스에 기능 추가 / 동적인 기능 추가</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#66d9ef">using</span> System;
+
+<span style="color:#66d9ef">interface</span> Base <span style="color:#75715e">// Decorator(기능 추가 객체)
+</span><span style="color:#75715e"></span>{
+    <span style="color:#66d9ef">void</span> Fire();
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Fighter</span> : Base
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> Fire()
+    {
+        Console.WriteLine(<span style="color:#e6db74">&#34;Fire Missile&#34;</span>);
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RightMissile</span> : Base
+{
+    <span style="color:#66d9ef">private</span> Base fighter = <span style="color:#66d9ef">null</span>;
+
+    <span style="color:#66d9ef">public</span> RightMissile(Base fg) { fighter = fg; }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Fire()
+    {
+        fighter.Fire(); <span style="color:#75715e">// 기존 객체의 기능 사용
+</span><span style="color:#75715e"></span>        Console.WriteLine(<span style="color:#e6db74">&#34;Fire Right Missile&#34;</span>);
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LeftMissile</span> : Base
+{
+    <span style="color:#66d9ef">private</span> Base fighter = <span style="color:#66d9ef">null</span>;
+
+    <span style="color:#66d9ef">public</span> LeftMissile(Base fg) { fighter = fg; }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Fire()
+    {
+        fighter.Fire(); 
+        Console.WriteLine(<span style="color:#e6db74">&#34;Fire Left Missile&#34;</span>);
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main()
+    {
+        Fighter fg = <span style="color:#66d9ef">new</span> Fighter();
+        fg.Fire();
+
+        <span style="color:#75715e">// 아이템 획득
+</span><span style="color:#75715e"></span>        RightMissile fg2 = <span style="color:#66d9ef">new</span> RightMissile(fg);
+        fg2.Fire();
+
+        LeftMissile fg3 = <span style="color:#66d9ef">new</span> LeftMissile(fg2);
+        fg3.Fire();
+    }
+}
+</code></pre></div><h4 id="c-stream에서-decorator-패턴-사용-예제">c# stream에서 decorator 패턴 사용 예제</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#66d9ef">using</span> System;
+<span style="color:#66d9ef">using</span> System.IO;
+<span style="color:#66d9ef">using</span> System.IO.Compression;
+<span style="color:#66d9ef">using</span> System.Net;
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main()
+    {
+        <span style="color:#66d9ef">byte</span>[] buff = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span>[<span style="color:#ae81ff">1024</span> * <span style="color:#ae81ff">1024</span>]; <span style="color:#75715e">// 1M
+</span><span style="color:#75715e"></span>
+        FileStream fs = <span style="color:#66d9ef">new</span> FileStream(<span style="color:#e6db74">&#34;d:\\a.dat&#34;</span>, FileMode.Create);
+
+        GZipStream gs = <span style="color:#66d9ef">new</span> GZipStream(fs, CompressionLevel.Fastest);
+
+        BufferedStream bs = <span style="color:#66d9ef">new</span> BufferedStream(gs);
+
+        <span style="color:#75715e">//fs.Write(buff, 0, buff.Length);
+</span><span style="color:#75715e"></span>        bs.Write(buff, <span style="color:#ae81ff">0</span>, buff.Length);
+        bs.Close();
+        gs.Close();
+        fs.Close();
+    }
+}
+</code></pre></div><h2 id="stream-adapter">Stream Adapter</h2>
+<h4 id="adapter-패턴--기존-클래스의-인터페이스를-변경래핑-클래스">Adapter 패턴 : 기존 클래스의 인터페이스를 변경(래핑 클래스)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#66d9ef">using</span> System;
+<span style="color:#66d9ef">using</span> System.Collections.Generic;
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Stack</span> 
+{
+    <span style="color:#66d9ef">public</span> List&lt;<span style="color:#66d9ef">int</span>&gt; st = <span style="color:#66d9ef">null</span>; 
+    <span style="color:#66d9ef">public</span> Stack(List&lt;<span style="color:#66d9ef">int</span>&gt; s) { st = s; }
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Push(<span style="color:#66d9ef">int</span> a) { st.Add(a);  }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span>  Pop()
+    {
+        <span style="color:#66d9ef">int</span> n = st.Count - <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">int</span> temp = st[n];
+        st.RemoveAt(n);
+        <span style="color:#66d9ef">return</span> temp;
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main()
+    {
+        List&lt;<span style="color:#66d9ef">int</span>&gt; st = <span style="color:#66d9ef">new</span> List&lt;<span style="color:#66d9ef">int</span>&gt;();
+
+        st.Add(<span style="color:#ae81ff">10</span>);
+        st.Add(<span style="color:#ae81ff">20</span>);
+
+        <span style="color:#75715e">// st를 stack 처럼 사용하고 싶다.
+</span><span style="color:#75715e"></span>        Stack s = <span style="color:#66d9ef">new</span> Stack(st);
+
+        s.Push(<span style="color:#ae81ff">30</span>);
+        s.Push(<span style="color:#ae81ff">40</span>);
+
+        <span style="color:#66d9ef">int</span> n = s.Pop(); <span style="color:#75715e">// 40
+</span><span style="color:#75715e"></span>        Console.WriteLine(n);   
+    }
+}
+</code></pre></div><h4 id="c-stream에서-adapter-패턴-사용-예제">c# stream에서 adapter 패턴 사용 예제</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#66d9ef">using</span> System;
+<span style="color:#66d9ef">using</span> System.IO;
+<span style="color:#66d9ef">using</span> System.IO.Compression;
+<span style="color:#66d9ef">using</span> System.Text;
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main()
+    {
+        Console.WriteLine(<span style="color:#e6db74">&#34;Hello&#34;</span>);
+
+        FileStream fs = <span style="color:#66d9ef">new</span> FileStream(<span style="color:#e6db74">&#34;D:\\a.txt&#34;</span>, FileMode.Create);
+
+        <span style="color:#75715e">// &#34;Hello&#34; 를 파일에 쓰고 싶다. 아래처럼 하면 불편
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//string s = &#34;hello&#34;;
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//byte[] buff = Encoding.ASCII.GetBytes(s);
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//fs.Write(buff, 0, buff.Length);
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// 편안
+</span><span style="color:#75715e"></span>        StreamWriter sw = <span style="color:#66d9ef">new</span> StreamWriter(fs, Encoding.ASCII);
+        sw.WriteLine(<span style="color:#e6db74">&#34;Hello&#34;</span>);
+
+       <span style="color:#75715e">// GZipStream gz = new GZipStream(fs);
+</span><span style="color:#75715e"></span>       <span style="color:#75715e">// gz.Write()
+</span><span style="color:#75715e"></span>
+        sw.Close();
+        fs.Close();
+    }
+}
+</code></pre></div><h2 id="misc">MISC</h2>
+<h4 id="dlrdynamic-language-runtime--실행시간에-각종-처리-가능">DLR(dynamic language runtime) : 실행시간에 각종 처리 가능</h4>
+<ul>
+<li>잘못된 형 변환 발생시 런타임 예외 발생</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#66d9ef">using</span> System;
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Car</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Go() { Console.WriteLine(<span style="color:#e6db74">&#34;Car Go&#34;</span>); }
+}
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+{    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main()
+    {
+        <span style="color:#66d9ef">object</span> o = <span style="color:#66d9ef">new</span> Car();
+        <span style="color:#75715e">//o.Go();     //+ compile error
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//o.Stop();   //+ compile error
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">dynamic</span> d = <span style="color:#66d9ef">new</span> Car();
+        d.Go();     <span style="color:#75715e">//+ ok.
+</span><span style="color:#75715e"></span>        d.Stop();   <span style="color:#75715e">//+ 예외 발생
+</span><span style="color:#75715e"></span>
+        <span style="color:#66d9ef">var</span> v = <span style="color:#66d9ef">new</span> Car(); <span style="color:#75715e">// 컴파일 시간에 v의 타입 결정. Car v = Car()
+</span><span style="color:#75715e"></span>        v.Go();     <span style="color:#75715e">//+ ok
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//v.Stop();   //+ compile error
+</span><span style="color:#75715e"></span>    }
+}
+</code></pre></div><ul>
+<li>활용 : multiple dispatch 문제 해결</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#66d9ef">using</span> System;
+
+<span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Character</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">void</span> Fight(A a);
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">void</span> Fight(B a);
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span> : Character
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">void</span> Fight(A a) { Console.WriteLine(<span style="color:#e6db74">&#34;A Fight With A&#34;</span>); }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">void</span> Fight(B b) { Console.WriteLine(<span style="color:#e6db74">&#34;A Fight With B&#34;</span>); }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span> : Character
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">void</span> Fight(A a) { Console.WriteLine(<span style="color:#e6db74">&#34;B Fight With A&#34;</span>); }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">void</span> Fight(B b) { Console.WriteLine(<span style="color:#e6db74">&#34;B Fight With B&#34;</span>); }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> DoFight(Character c1, <span style="color:#66d9ef">dynamic</span> c2)
+    {
+        c1.Fight(c2);
+    }
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main()
+    {
+        A a = <span style="color:#66d9ef">new</span> A();
+        B b = <span style="color:#66d9ef">new</span> B();
+        DoFight(a, a);
+        DoFight(a, b);
+        DoFight(b, a);
+        DoFight(b, b);
+    }
+}
+</code></pre></div>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c/">C#</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/csharp/">CSharp</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-preview1/" data-tooltip="C&#43;&#43; STL - Preview[1]">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-concurrency4/" data-tooltip="C# 중급 - Concurrency[4]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c-stl-preview1/" data-tooltip="C&#43;&#43; STL - Preview[1]">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-concurrency4/" data-tooltip="C# 중급 - Concurrency[4]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc%23-%25EC%25A4%2591%25EA%25B8%2589-framework5%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc%23-%25EC%25A4%2591%25EA%25B8%2589-framework5%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2021%2F06%2Fc%23-%25EC%25A4%2591%25EA%25B8%2589-framework5%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2021\/06\/c#-%EC%A4%91%EA%B8%89-framework5\/';
+          
+            this.page.identifier = '\/2021\/06\/c#-%EC%A4%91%EA%B8%89-framework5\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </body>
+</html>
+

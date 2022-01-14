@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kafka on Keep calm carry on</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Kafka on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 01 May 2021 14:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://ence2.github.io/categories/kafka/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 01 May 2021 14:00:00 +0900</lastBuildDate><atom:link href="https://ence2.github.io/categories/kafka/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>아파치 Kafka for beginners[1]</title>
       <link>https://ence2.github.io/2021-05-01-kafka_1/</link>

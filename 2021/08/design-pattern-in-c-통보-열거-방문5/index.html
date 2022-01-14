@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번 시간에는 Observer 패턴, Container 설계의 기술, Iterator 패턴, Visitor 패턴에 대해 알아보겠습니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,336 +254,313 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번 시간에는 Observer 패턴, Container 설계의 기술, Iterator 패턴, Visitor 패턴에 대해 알아보겠습니다.</p>
-
 <h2 id="observer-pattern">Observer pattern</h2>
-
 <h4 id="정의">정의</h4>
-
 <ul>
 <li>객체 사이의 1:N의 종속성을 정의 하고 한 객체의 상태가 변하면, 종속된 다른 객체에 통보 되도록 처리</li>
 <li>관찰의 대상 -&gt; Subject</li>
 <li>통보 받는 대상 -&gt; Observer</li>
 <li>데이터 전달 방식 2가지
-
 <ul>
 <li>push : 통보시 함수 인자로 값을 같이 전달</li>
 <li>pull : Subject의 멤버 함수를 통해서 제공</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h4 id="pull-방식-예제">pull 방식 예제</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span>;
 
-class Subject;
-
-struct IGraph
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IGraph</span>
 {
-    virtual void update(Subject*) = 0;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>(Subject<span style="color:#f92672">*</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-    virtual ~IGraph() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IGraph() {}
 };
 
-class Subject
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span>
 {
-    vector&lt;IGraph*&gt; v;
-public:
-    void attach(IGraph* p) { v.push_back(p);}
-    void detach(IGraph* p) { }
+    vector<span style="color:#f92672">&lt;</span>IGraph<span style="color:#f92672">*&gt;</span> v;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> attach(IGraph<span style="color:#f92672">*</span> p) { v.push_back(p);}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">detach</span>(IGraph<span style="color:#f92672">*</span> p) { }
 
-    void notify()
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">notify</span>()
     {
-        for ( auto p : v)
-            p-&gt;update(this);
+        <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">auto</span> p : v)
+            p<span style="color:#f92672">-&gt;</span>update(<span style="color:#66d9ef">this</span>);
     }
 };
 
-class Table : public Subject
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Table</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Subject
 {
-    int data;
-    int color;
-public:
-    int GetData() { return data;}
+    <span style="color:#66d9ef">int</span> data;
+    <span style="color:#66d9ef">int</span> color;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> GetData() { <span style="color:#66d9ef">return</span> data;}
 
-    void SetData(int d)
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SetData</span>(<span style="color:#66d9ef">int</span> d)
     {
-        data = d;
+        data <span style="color:#f92672">=</span> d;
         notify();
     }
 };
 
-class PieGraph : public IGraph
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PieGraph</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IGraph
 {
-public:
-    virtual void update(Subject* p)
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> update(Subject<span style="color:#f92672">*</span> p)
     {
-        // table 에 접근해서 data를 꺼내 온다.
-        int n = static_cast&lt;Table*&gt;(p)-&gt;GetData();
+        <span style="color:#75715e">// table 에 접근해서 data를 꺼내 온다.
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>Table<span style="color:#f92672">*&gt;</span>(p)<span style="color:#f92672">-&gt;</span>GetData();
 
         Draw(n);
     }
 
-    void Draw(int n)
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Draw</span>(<span style="color:#66d9ef">int</span> n)
     {
-        cout &lt;&lt; &quot;Pie Graph : &quot;;
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Pie Graph : &#34;</span>;
 
-        for ( int i = 0; i &lt; n; i++)
-            cout &lt;&lt; &quot;*&quot;;
-        cout &lt;&lt; endl;
+        <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>)
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;*&#34;</span>;
+        cout <span style="color:#f92672">&lt;&lt;</span> endl;
     }
 };
 
-class BarGraph : public IGraph
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BarGraph</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IGraph
 {
-public:
-    virtual void update(Subject* p)
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> update(Subject<span style="color:#f92672">*</span> p)
     {
-        int n = static_cast&lt;Table*&gt;(p)-&gt;GetData();
+        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>Table<span style="color:#f92672">*&gt;</span>(p)<span style="color:#f92672">-&gt;</span>GetData();
 
         Draw(n);
     }
 
-    void Draw(int n)
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Draw</span>(<span style="color:#66d9ef">int</span> n)
     {
-        cout &lt;&lt; &quot;Bar Graph : &quot;;
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Bar Graph : &#34;</span>;
 
-        for ( int i = 0; i &lt; n; i++)
-            cout &lt;&lt; &quot;+&quot;;
-        cout &lt;&lt; endl;
+        <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>)
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;+&#34;</span>;
+        cout <span style="color:#f92672">&lt;&lt;</span> endl;
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     BarGraph bg;
     PieGraph pg;
 
     Table t;
-    t.attach( &amp;bg);
-    t.attach( &amp;pg);
+    t.attach( <span style="color:#f92672">&amp;</span>bg);
+    t.attach( <span style="color:#f92672">&amp;</span>pg);
 
-    while( 1 )
+    <span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">1</span> )
     {
-        int n;
-        cin &gt;&gt; n;
+        <span style="color:#66d9ef">int</span> n;
+        cin <span style="color:#f92672">&gt;&gt;</span> n;
         t.SetData(n);
     }
 }
-</code></pre>
-
-<h2 id="container-설계의-기술">Container 설계의 기술</h2>
-
+</code></pre></div><h2 id="container-설계의-기술">Container 설계의 기술</h2>
 <h4 id="generic하고-높은-성능을-갖는-container-구현">Generic하고 높은 성능을 갖는 Container 구현</h4>
-
 <ul>
 <li>thin template 기반 컨테이너(Android OS에서 활용)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-struct Node
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Node</span>
 {
-    void* data;
-    Node* next;
-    Node( void* d, Node* n) : data(d), next(n) {}
+    <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> data;
+    Node<span style="color:#f92672">*</span> next;
+    Node( <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> d, Node<span style="color:#f92672">*</span> n) <span style="color:#f92672">:</span> data(d), next(n) {}
 };
 
-class slistImp
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">slistImp</span>
 {
-    Node* head = 0;
-public:
-    void push_front(void* n) { head = new Node(n, head);}
-    void* front()           { return head-&gt;data;}
+    Node<span style="color:#f92672">*</span> head <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> push_front(<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> n) { head <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node(n, head);}
+    <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">front</span>()           { <span style="color:#66d9ef">return</span> head<span style="color:#f92672">-&gt;</span>data;}
 };
 
-template&lt;typename T&gt; class slist : public slistImp
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">slist</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> slistImp
 {
-public:
-    inline void push_front(T n) { slistImp::push_front( (void*)n);}
-    inline T front()           { return (T)(slistImp::front());}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> push_front(T n) { slistImp<span style="color:#f92672">::</span>push_front( (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)n);}
+    <span style="color:#66d9ef">inline</span> T <span style="color:#a6e22e">front</span>()           { <span style="color:#66d9ef">return</span> (T)(slistImp<span style="color:#f92672">::</span>front());}
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    slist&lt;int&gt; s;
+    slist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s;
 
-    s.push_front(10);
-    s.push_front(20);
-    s.push_front(30);
-    s.push_front(40);
-    s.push_front(50);
+    s.push_front(<span style="color:#ae81ff">10</span>);
+    s.push_front(<span style="color:#ae81ff">20</span>);
+    s.push_front(<span style="color:#ae81ff">30</span>);
+    s.push_front(<span style="color:#ae81ff">40</span>);
+    s.push_front(<span style="color:#ae81ff">50</span>);
 
-    int n = s.front();
+    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> s.front();
 }
-</code></pre>
-
-<h2 id="iterator-pattern">Iterator pattern</h2>
-
+</code></pre></div><h2 id="iterator-pattern">Iterator pattern</h2>
 <h4 id="정의-1">정의</h4>
-
 <ul>
 <li>객체의 내부 구조에 상관 없이 동일한 방법으로 요소에 순차적 접근 가능</li>
 </ul>
-
 <h4 id="인터페이스-기반-반복자">인터페이스 기반 반복자</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; struct Node
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Node</span>
 {
     T   data;
-    Node* next;
-    Node( const T&amp; d, Node* n) : data(d), next(n) {}
+    Node<span style="color:#f92672">*</span> next;
+    Node( <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> d, Node<span style="color:#f92672">*</span> n) <span style="color:#f92672">:</span> data(d), next(n) {}
 };
 
-template&lt;typename T&gt; struct IEnumerator
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IEnumerator</span>
 {
-    virtual ~IEnumerator() {}
-    virtual bool MoveNext() = 0;
-    virtual T&amp;  GetObject() = 0;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IEnumerator() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">MoveNext</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> T<span style="color:#f92672">&amp;</span>  GetObject() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 };
 
-template&lt;typename T&gt; class SlistEnumerator : public IEnumerator&lt;T&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SlistEnumerator</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IEnumerator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
 {
-    Node&lt;T&gt;* current = 0;
-public:
-    SlistEnumerator( Node&lt;T&gt;* p = 0) : current(p) {}
+    Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> current <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    SlistEnumerator( Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) <span style="color:#f92672">:</span> current(p) {}
 
-    virtual bool MoveNext()
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">MoveNext</span>()
     {
-         current = current-&gt;next;
-         return current;
+         current <span style="color:#f92672">=</span> current<span style="color:#f92672">-&gt;</span>next;
+         <span style="color:#66d9ef">return</span> current;
     }
-    virtual T&amp;  GetObject() { return current-&gt;data; }
+    <span style="color:#66d9ef">virtual</span> T<span style="color:#f92672">&amp;</span>  GetObject() { <span style="color:#66d9ef">return</span> current<span style="color:#f92672">-&gt;</span>data; }
 };
 
-template&lt;typename T&gt; struct IEnumerable
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IEnumerable</span>
 {
-    virtual ~IEnumerable() {}
-    virtual IEnumerator&lt;T&gt;* GetEnumerator()  = 0;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IEnumerable() {}
+    <span style="color:#66d9ef">virtual</span> IEnumerator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> GetEnumerator()  <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 };
 
-template&lt;typename T&gt; class slist : public IEnumerable&lt;T&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">slist</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IEnumerable<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
 {
-    Node&lt;T&gt;* head = 0;
-public:
-    virtual IEnumerator&lt;T&gt;* GetEnumerator()
+    Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> head <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> IEnumerator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> GetEnumerator()
     {
-        return new SlistEnumerator&lt;T&gt;( head);
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> SlistEnumerator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>( head);
     }
 
-    void push_front(const T&amp; n) { head = new Node&lt;T&gt;(n, head);}
-    T  front()                  { return head-&gt;data;}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">push_front</span>(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> n) { head <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(n, head);}
+    T  <span style="color:#a6e22e">front</span>()                  { <span style="color:#66d9ef">return</span> head<span style="color:#f92672">-&gt;</span>data;}
 };
 
-template&lt;typename T&gt; void Show( IEnumerator&lt;T&gt;* p )
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> Show( IEnumerator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> p )
 {
-    do
+    <span style="color:#66d9ef">do</span>
     {
-        cout &lt;&lt; p-&gt;GetObject() &lt;&lt; endl;
-    } while( p-&gt;MoveNext() );
+        cout <span style="color:#f92672">&lt;&lt;</span> p<span style="color:#f92672">-&gt;</span>GetObject() <span style="color:#f92672">&lt;&lt;</span> endl;
+    } <span style="color:#66d9ef">while</span>( p<span style="color:#f92672">-&gt;</span>MoveNext() );
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int x[10] = {1,2,3,4,5,6,7,8,9,10};
-    int* p1 = x;
+    <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>};
+    <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p1 <span style="color:#f92672">=</span> x;
     Show( p1);
 
-    slist&lt;int&gt; s;
+    slist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s;
 
-    s.push_front(10);
-    s.push_front(20);
-    s.push_front(30);
-    s.push_front(40);
+    s.push_front(<span style="color:#ae81ff">10</span>);
+    s.push_front(<span style="color:#ae81ff">20</span>);
+    s.push_front(<span style="color:#ae81ff">30</span>);
+    s.push_front(<span style="color:#ae81ff">40</span>);
 
-    IEnumerator&lt;int&gt;* p = s.GetEnumerator();
+    IEnumerator<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;*</span> p <span style="color:#f92672">=</span> s.GetEnumerator();
 
     Show( p );
-    delete p;
+    <span style="color:#66d9ef">delete</span> p;
 }
-</code></pre>
-
-<h4 id="stl-방식의-반복자">STL 방식의 반복자</h4>
-
+</code></pre></div><h4 id="stl-방식의-반복자">STL 방식의 반복자</h4>
 <ul>
 <li>인터페이스 사용하지 않음</li>
 <li>이동 및 접근 함수는 포인터 규칙을 따름(연산자 재정의)</li>
 <li>오버헤드를 줄이기 위해 이동 및 접근 함수는 inline 함수로 작성</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; struct Node
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Node</span>
 {
     T   data;
-    Node* next;
-    Node( const T&amp; d, Node* n) : data(d), next(n) {}
+    Node<span style="color:#f92672">*</span> next;
+    Node( <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> d, Node<span style="color:#f92672">*</span> n) <span style="color:#f92672">:</span> data(d), next(n) {}
 };
 
-template&lt;typename T&gt; class slist_iterator
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">slist_iterator</span>
 {
-    Node&lt;T&gt;* current = 0;
-public:
-    inline slist_iterator( Node&lt;T&gt;* p = 0) : current(p) {}
+    Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> current <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">inline</span> slist_iterator( Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) <span style="color:#f92672">:</span> current(p) {}
 
-    inline slist_iterator&amp; operator++()
+    <span style="color:#66d9ef">inline</span> slist_iterator<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">++</span>()
     {
-         current = current-&gt;next;
-         return *this;
+         current <span style="color:#f92672">=</span> current<span style="color:#f92672">-&gt;</span>next;
+         <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>;
     }
-    inline T&amp;  operator*() { return current-&gt;data; }
+    <span style="color:#66d9ef">inline</span> T<span style="color:#f92672">&amp;</span>  <span style="color:#66d9ef">operator</span><span style="color:#f92672">*</span>() { <span style="color:#66d9ef">return</span> current<span style="color:#f92672">-&gt;</span>data; }
 };
-// ++p, *p
-template&lt;typename T&gt; class slist
+<span style="color:#75715e">// ++p, *p
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">slist</span>
 {
-    Node&lt;T&gt;* head = 0;
-public:
-    slist_iterator&lt;T&gt; begin()
+    Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> head <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    slist_iterator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> begin()
     {
-        return slist_iterator&lt;T&gt;( head);
+        <span style="color:#66d9ef">return</span> slist_iterator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>( head);
     }
 
-    void push_front(const T&amp; n) { head = new Node&lt;T&gt;(n, head);}
-    T  front()                  { return head-&gt;data;}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">push_front</span>(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> n) { head <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(n, head);}
+    T  <span style="color:#a6e22e">front</span>()                  { <span style="color:#66d9ef">return</span> head<span style="color:#f92672">-&gt;</span>data;}
 };
 
-template&lt;typename T&gt; void Show( T p, T p2 )
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> Show( T p, T p2 )
 {
-    do
+    <span style="color:#66d9ef">do</span>
     {
-        cout &lt;&lt; *p &lt;&lt; endl;
-    } while( ++p  != p2);
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
+    } <span style="color:#66d9ef">while</span>( <span style="color:#f92672">++</span>p  <span style="color:#f92672">!=</span> p2);
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int x[10] = {1,2,3,4,5,6,7,8,9,10};
-    int* p1 = x;
-    Show( p1, x+10);
+    <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>};
+    <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p1 <span style="color:#f92672">=</span> x;
+    Show( p1, x<span style="color:#f92672">+</span><span style="color:#ae81ff">10</span>);
 
-    slist&lt;int&gt; s;
+    slist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s;
 
-    s.push_front(10);
-    s.push_front(20);
-    s.push_front(30);
-    s.push_front(40);
+    s.push_front(<span style="color:#ae81ff">10</span>);
+    s.push_front(<span style="color:#ae81ff">20</span>);
+    s.push_front(<span style="color:#ae81ff">30</span>);
+    s.push_front(<span style="color:#ae81ff">40</span>);
 
-    slist_iterator&lt;int&gt; p = s.begin();
+    slist_iterator<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> p <span style="color:#f92672">=</span> s.begin();
 
-    cout &lt;&lt; *p &lt;&lt; endl;
-    ++p;
-    cout &lt;&lt; *p &lt;&lt; endl; // 30
-}
-</code></pre>
-
-<h4 id="인터페이스-vs-stl-방식-차이">인터페이스 VS STL 방식 차이</h4>
-
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#f92672">++</span>p;
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 30
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="인터페이스-vs-stl-방식-차이">인터페이스 VS STL 방식 차이</h4>
 <table>
 <thead>
 <tr>
@@ -593,26 +569,22 @@ int main()
 <th>STL 방식</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>코드 메모리</td>
 <td>적음</td>
 <td>많음</td>
 </tr>
-
 <tr>
 <td>배열</td>
 <td>불가</td>
 <td>가능</td>
 </tr>
-
 <tr>
 <td>반복자 꺼내기</td>
 <td>스마트포인터 혹은 delete 필요</td>
 <td>delete 필요 없음</td>
 </tr>
-
 <tr>
 <td>이동 및 요소접근</td>
 <td>가상 함수 기반</td>
@@ -620,263 +592,252 @@ int main()
 </tr>
 </tbody>
 </table>
-
 <h2 id="visitor-pattern">Visitor pattern</h2>
-
 <h4 id="모든-요소에-변경을-주고-싶을-때">모든 요소에 변경을 주고 싶을 때</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10};
+    list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>};
 
-    // 모든 요소를 2배로 만들고 싶다.
-    // 방법1. 외부에서 직접 연산 수행.
-    for ( auto&amp; n : s )
-        n = n * 2;
+    <span style="color:#75715e">// 모든 요소를 2배로 만들고 싶다.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 방법1. 외부에서 직접 연산 수행.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> n : s )
+        n <span style="color:#f92672">=</span> n <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;
 
-    // 방법 2. 멤버 함수로 기능을 제공
-    s.twice_all_element();
+    <span style="color:#75715e">// 방법 2. 멤버 함수로 기능을 제공
+</span><span style="color:#75715e"></span>    s.twice_all_element();
     s.show_all_element();
 
-    // 방법 3. 방문자 패턴을 사용한다.
-    TwiceVisitor&lt;int&gt; tv; // 방문자.
-    s.accept(&amp;tv);
+    <span style="color:#75715e">// 방법 3. 방문자 패턴을 사용한다.
+</span><span style="color:#75715e"></span>    TwiceVisitor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tv; <span style="color:#75715e">// 방문자.
+</span><span style="color:#75715e"></span>    s.accept(<span style="color:#f92672">&amp;</span>tv);
 
-    ShowVisitor&lt;int&gt; sv; // 방문자.
-    s.accept(&amp;sv);
+    ShowVisitor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> sv; <span style="color:#75715e">// 방문자.
+</span><span style="color:#75715e"></span>    s.accept(<span style="color:#f92672">&amp;</span>sv);
 }
-</code></pre>
-
-<h4 id="visitor-패턴-정의">visitor 패턴 정의</h4>
-
+</code></pre></div><h4 id="visitor-패턴-정의">visitor 패턴 정의</h4>
 <ul>
 <li>객체 구조에 속한 요소에 수행할 오퍼레이션을 정의하는 객체</li>
 <li>클래스를 변경하지 않고 새로운 오퍼레이션을 정의 할 수 있게함</li>
 </ul>
-
 <h4 id="복합-객체의-accept-함수는-다양한-방문자를-받을-수-있도록-설계">복합 객체의 accept 함수는 다양한 방문자를 받을 수 있도록 설계</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-using namespace std;
-
-// 방문자(visitor)의 인터페이스
-template&lt;typename T&gt; struct IVisitor
+<span style="color:#75715e">// 방문자(visitor)의 인터페이스
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IVisitor</span>
 {
-    virtual void visit(T&amp; elem) = 0;
-    virtual ~IVisitor() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span>(T<span style="color:#f92672">&amp;</span> elem) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IVisitor() {}
 };
 
-template&lt;typename T&gt; class TwiceVisitor : public IVisitor&lt;T&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TwiceVisitor</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IVisitor<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
 {
-public:
-    virtual void visit(T&amp; elem) { elem = elem * 2;}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> visit(T<span style="color:#f92672">&amp;</span> elem) { elem <span style="color:#f92672">=</span> elem <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;}
 };
 
-template&lt;typename T&gt; class ShowVisitor : public IVisitor&lt;T&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ShowVisitor</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IVisitor<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
 {
-public:
-    virtual void visit(T&amp; elem) { cout &lt;&lt; elem &lt;&lt; endl;}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> visit(T<span style="color:#f92672">&amp;</span> elem) { cout <span style="color:#f92672">&lt;&lt;</span> elem <span style="color:#f92672">&lt;&lt;</span> endl;}
 };
-//------------------------
-// 방문의 대상의 인터페이스
-template&lt;typename T&gt; struct IAcceptor
+<span style="color:#75715e">//------------------------
+</span><span style="color:#75715e">// 방문의 대상의 인터페이스
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IAcceptor</span>
 {
-    virtual void accept( IVisitor&lt;T&gt;* p) = 0;
-    virtual ~IAcceptor()  {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span>( IVisitor<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> p) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IAcceptor()  {}
 };
 
-template&lt;typename T&gt; class List : public list&lt;T&gt;, public IAcceptor&lt;T&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">List</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, <span style="color:#66d9ef">public</span> IAcceptor<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
 {
-public:
-    using list&lt;T&gt;::list; // c++11 생성자 상속
-    virtual void accept( IVisitor&lt;T&gt;* p)
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">using</span> list<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>list; <span style="color:#75715e">// c++11 생성자 상속
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span>( IVisitor<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> p)
     {
-        // 모든 요소를 방문자에게 전달.
-        for( auto&amp; e : *this)
-            p-&gt;visit(e);
+        <span style="color:#75715e">// 모든 요소를 방문자에게 전달.
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> e : <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>)
+            p<span style="color:#f92672">-&gt;</span>visit(e);
     }
 };
 
-template&lt;typename T&gt; class TripleVisitor : public IVisitor&lt;T&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TripleVisitor</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IVisitor<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
 {
-public:
-    virtual void visit(T&amp; elem) { elem = elem * 3;}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> visit(T<span style="color:#f92672">&amp;</span> elem) { elem <span style="color:#f92672">=</span> elem <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>;}
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    List&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10};
+    List<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>};
 
-    TwiceVisitor&lt;int&gt; tv;
-    s.accept(&amp;tv);
+    TwiceVisitor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tv;
+    s.accept(<span style="color:#f92672">&amp;</span>tv);
 
-    TripleVisitor&lt;int&gt; trv;
-    s.accept(&amp;trv);
+    TripleVisitor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> trv;
+    s.accept(<span style="color:#f92672">&amp;</span>trv);
 
-    ShowVisitor&lt;int&gt; sv;
-    s.accept(&amp;sv);
+    ShowVisitor<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> sv;
+    s.accept(<span style="color:#f92672">&amp;</span>sv);
 }
-</code></pre>
+</code></pre></div><h4 id="여러-메뉴를-관리하는-객체의-visit-패턴-적용-예제">여러 메뉴를 관리하는 객체의 Visit 패턴 적용 예제</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<p>#### 여러 메뉴를 관리하는 객체의 Visit 패턴 적용 예제</p>
+<span style="color:#75715e">//---------------------------
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseMenu</span>;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MenuItem</span>;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PopupMenu</span>;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-//---------------------------
-class BaseMenu;
-class MenuItem;
-class PopupMenu;
-
-// 방문자의 인터페이스
-struct IMenuVisitor
+<span style="color:#75715e">// 방문자의 인터페이스
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IMenuVisitor</span>
 {
-    virtual ~IMenuVisitor() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IMenuVisitor() {}
 
-    virtual void visit(BaseMenu* p) = 0;
-    virtual void visit(MenuItem* p) = 0;
-    virtual void visit(PopupMenu* p) = 0;
-    virtual void visit(PopupMenu* p) = 0;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span>(BaseMenu<span style="color:#f92672">*</span> p) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span>(MenuItem<span style="color:#f92672">*</span> p) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span>(PopupMenu<span style="color:#f92672">*</span> p) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span>(PopupMenu<span style="color:#f92672">*</span> p) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 };
 
-struct IAcceptor
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IAcceptor</span>
 {
-    virtual ~IAcceptor() {}
-    virtual void accept(IMenuVisitor* p) = 0;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IAcceptor() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span>(IMenuVisitor<span style="color:#f92672">*</span> p) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 };
-//-----------------------------------------------
-
-class BaseMenu : public IAcceptor
+<span style="color:#75715e">//-----------------------------------------------
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseMenu</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IAcceptor
 {
     string title;
-public:
-    BaseMenu( string s) : title(s) {}
-    void setTitle(string s) { title = s;}
-    string getTitle() const { return title;}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    BaseMenu( string s) <span style="color:#f92672">:</span> title(s) {}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setTitle</span>(string s) { title <span style="color:#f92672">=</span> s;}
+    string <span style="color:#a6e22e">getTitle</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> title;}
 
-    virtual void command() = 0;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">command</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 };
 
-class MenuItem : public BaseMenu
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MenuItem</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> BaseMenu
 {
-    int id;
-public:
-    virtual void accept(IMenuVisitor* p)
+    <span style="color:#66d9ef">int</span> id;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> accept(IMenuVisitor<span style="color:#f92672">*</span> p)
     {
-        p-&gt;visit(this);
+        p<span style="color:#f92672">-&gt;</span>visit(<span style="color:#66d9ef">this</span>);
     }
 
-    MenuItem(string s, int n) : BaseMenu(s),  id(n) {}
+    MenuItem(string s, <span style="color:#66d9ef">int</span> n) <span style="color:#f92672">:</span> BaseMenu(s),  id(n) {}
 
-    virtual void command()
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">command</span>()
     {
-        cout &lt;&lt; getTitle() &lt;&lt; endl;
+        cout <span style="color:#f92672">&lt;&lt;</span> getTitle() <span style="color:#f92672">&lt;&lt;</span> endl;
         getchar();
     }
 };
 
-class PopupMenu : public BaseMenu
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PopupMenu</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> BaseMenu
 {
-    vector&lt;BaseMenu*&gt; v;
-public:
-    PopupMenu( string s) : BaseMenu(s) {}
+    vector<span style="color:#f92672">&lt;</span>BaseMenu<span style="color:#f92672">*&gt;</span> v;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    PopupMenu( string s) <span style="color:#f92672">:</span> BaseMenu(s) {}
 
-    void addMenu(BaseMenu* p) { v.push_back(p);}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addMenu</span>(BaseMenu<span style="color:#f92672">*</span> p) { v.push_back(p);}
 
-    virtual void command()
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">command</span>()
     {
-        while( 1 )
+        <span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">1</span> )
         {
-            system(&quot;cls&quot;);
+            system(<span style="color:#e6db74">&#34;cls&#34;</span>);
 
-            int sz = v.size();
+            <span style="color:#66d9ef">int</span> sz <span style="color:#f92672">=</span> v.size();
 
-            for ( int i = 0; i &lt; sz; i++)
+            <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> sz; i<span style="color:#f92672">++</span>)
             {
-                cout &lt;&lt; i + 1 &lt;&lt; &quot;. &quot; &lt;&lt; v[i]-&gt;getTitle() &lt;&lt; endl;
+                cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;. &#34;</span> <span style="color:#f92672">&lt;&lt;</span> v[i]<span style="color:#f92672">-&gt;</span>getTitle() <span style="color:#f92672">&lt;&lt;</span> endl;
             }
 
-            cout &lt;&lt; sz + 1 &lt;&lt; &quot;. &lt;&lt; back &quot; &lt;&lt; endl;
+            cout <span style="color:#f92672">&lt;&lt;</span> sz <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;. &lt;&lt; back &#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 
-            //------------------------------
-            int cmd;
-            cout &lt;&lt; &quot;choose menu &gt;&gt; &quot;;
-            cin &gt;&gt; cmd;
+            <span style="color:#75715e">//------------------------------
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">int</span> cmd;
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;choose menu &gt;&gt; &#34;</span>;
+            cin <span style="color:#f92672">&gt;&gt;</span> cmd;
 
-            if ( cmd &lt; 1 || cmd &gt; sz + 1 ) // 잘못된 입력
-                continue;
+            <span style="color:#66d9ef">if</span> ( cmd <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> cmd <span style="color:#f92672">&gt;</span> sz <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> ) <span style="color:#75715e">// 잘못된 입력
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">continue</span>;
 
-            if ( cmd == sz + 1 )
-                break;
+            <span style="color:#66d9ef">if</span> ( cmd <span style="color:#f92672">==</span> sz <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> )
+                <span style="color:#66d9ef">break</span>;
 
 
-            // 선택된 메뉴 실행..
-            v[cmd-1]-&gt; command(); // 핵심.. !
-        }
+            <span style="color:#75715e">// 선택된 메뉴 실행..
+</span><span style="color:#75715e"></span>            v[cmd<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span> command(); <span style="color:#75715e">// 핵심.. !
+</span><span style="color:#75715e"></span>        }
 
     }
-    virtual void accept(IMenuVisitor* p)
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span>(IMenuVisitor<span style="color:#f92672">*</span> p)
     {
-        p-&gt;visit(this);
+        p<span style="color:#f92672">-&gt;</span>visit(<span style="color:#66d9ef">this</span>);
 
-        for ( auto m : v)
-            m-&gt;accept(p);
+        <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">auto</span> m : v)
+            m<span style="color:#f92672">-&gt;</span>accept(p);
     }
 };
 
-class MenuTitleChangeVisitor : public IMenuVisitor
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MenuTitleChangeVisitor</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IMenuVisitor
 {
-public:
-    virtual void visit(BaseMenu* p) {}
-    virtual void visit(MenuItem* p) {}
-    virtual void visit(PopupMenu* p)
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> visit(BaseMenu<span style="color:#f92672">*</span> p) {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span>(MenuItem<span style="color:#f92672">*</span> p) {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span>(PopupMenu<span style="color:#f92672">*</span> p)
     {
-        // popupmenu 의 타이틀을 변경한다.
-        string s = p-&gt;getTitle();
-        s = &quot;[ &quot; + s + &quot; ]&quot;;
+        <span style="color:#75715e">// popupmenu 의 타이틀을 변경한다.
+</span><span style="color:#75715e"></span>        string s <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>getTitle();
+        s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;[ &#34;</span> <span style="color:#f92672">+</span> s <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; ]&#34;</span>;
 
-        p-&gt;setTitle(s);
+        p<span style="color:#f92672">-&gt;</span>setTitle(s);
     }
 };
 
-class EraseTitleChangeVisitor : public IMenuVisitor
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EraseTitleChangeVisitor</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IMenuVisitor
 {
-public:
-    virtual void visit(BaseMenu* p) {}
-    virtual void visit(MenuItem* p) {}
-    virtual void visit(PopupMenu* p)
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> visit(BaseMenu<span style="color:#f92672">*</span> p) {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span>(MenuItem<span style="color:#f92672">*</span> p) {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">visit</span>(PopupMenu<span style="color:#f92672">*</span> p)
     {
-        p-&gt;setTitle(&quot;...&quot;);
+        p<span style="color:#f92672">-&gt;</span>setTitle(<span style="color:#e6db74">&#34;...&#34;</span>);
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    PopupMenu* p1 = new PopupMenu(&quot;MENUBAR&quot;);
+    PopupMenu<span style="color:#f92672">*</span> p1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PopupMenu(<span style="color:#e6db74">&#34;MENUBAR&#34;</span>);
 
-    p1-&gt;addMenu( new PopupMenu(&quot;SCREEN&quot;));
-    p1-&gt;addMenu( new PopupMenu(&quot;SOUND&quot;));
-    p1-&gt;addMenu( new MenuItem(&quot;power off&quot;, 11));
+    p1<span style="color:#f92672">-&gt;</span>addMenu( <span style="color:#66d9ef">new</span> PopupMenu(<span style="color:#e6db74">&#34;SCREEN&#34;</span>));
+    p1<span style="color:#f92672">-&gt;</span>addMenu( <span style="color:#66d9ef">new</span> PopupMenu(<span style="color:#e6db74">&#34;SOUND&#34;</span>));
+    p1<span style="color:#f92672">-&gt;</span>addMenu( <span style="color:#66d9ef">new</span> MenuItem(<span style="color:#e6db74">&#34;power off&#34;</span>, <span style="color:#ae81ff">11</span>));
 
-    //---------------------
-    MenuTitleChangeVisitor mtcv;
-    p1-&gt;accept(&amp;mtcv);
+    <span style="color:#75715e">//---------------------
+</span><span style="color:#75715e"></span>    MenuTitleChangeVisitor mtcv;
+    p1<span style="color:#f92672">-&gt;</span>accept(<span style="color:#f92672">&amp;</span>mtcv);
 
     EraseTitleChangeVisitor etcv;
-    p1-&gt;accept(&amp;etcv);
-    // 1. 메뉴 (복합객체)는 accept 가 필요
-    // 2. 방문자 인터페이스 필요..
-
-    p1-&gt;command();
+    p1<span style="color:#f92672">-&gt;</span>accept(<span style="color:#f92672">&amp;</span>etcv);
+    <span style="color:#75715e">// 1. 메뉴 (복합객체)는 accept 가 필요
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 2. 방문자 인터페이스 필요..
+</span><span style="color:#75715e"></span>
+    p1<span style="color:#f92672">-&gt;</span>command();
 }
-</code></pre>
+</code></pre></div>
               
             </div>
           </div>
@@ -978,7 +939,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Keep calm carry on</title>
@@ -6,17 +6,49 @@
     <description>Recent content in Categories on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 18 Nov 2020 21:43:34 +0900</lastBuildDate>
-    
-	<atom:link href="https://ence2.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Mon, 25 Oct 2021 07:00:00 +0900</lastBuildDate><atom:link href="https://ence2.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://ence2.github.io/categories/c&#43;&#43;/</link>
+      <pubDate>Mon, 25 Oct 2021 07:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/categories/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
     
     <item>
-      <title>Achitecture</title>
-      <link>https://ence2.github.io/categories/achitecture/</link>
-      <pubDate>Wed, 18 Nov 2020 21:43:34 +0900</pubDate>
+      <title>Language</title>
+      <link>https://ence2.github.io/categories/language/</link>
+      <pubDate>Mon, 25 Oct 2021 07:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/categories/achitecture/</guid>
+      <guid>https://ence2.github.io/categories/language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C#</title>
+      <link>https://ence2.github.io/categories/c#/</link>
+      <pubDate>Mon, 14 Jun 2021 11:00:00 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/categories/c#/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>English</title>
+      <link>https://ence2.github.io/categories/english/</link>
+      <pubDate>Sat, 15 May 2021 20:14:52 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/categories/english/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Study</title>
+      <link>https://ence2.github.io/categories/study/</link>
+      <pubDate>Sat, 15 May 2021 20:14:52 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/categories/study/</guid>
       <description></description>
     </item>
     
@@ -30,56 +62,11 @@
     </item>
     
     <item>
-      <title>C#</title>
-      <link>https://ence2.github.io/categories/c/</link>
-      <pubDate>Mon, 14 Jun 2021 11:00:00 +0900</pubDate>
-      
-      <guid>https://ence2.github.io/categories/c/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>C&#43;&#43;</title>
-      <link>https://ence2.github.io/categories/c&#43;&#43;/</link>
-      <pubDate>Mon, 25 Oct 2021 07:00:00 +0900</pubDate>
-      
-      <guid>https://ence2.github.io/categories/c&#43;&#43;/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>C&#43;&#43;20</title>
-      <link>https://ence2.github.io/categories/c&#43;&#43;20/</link>
-      <pubDate>Wed, 13 Jan 2021 14:00:00 +0900</pubDate>
-      
-      <guid>https://ence2.github.io/categories/c&#43;&#43;20/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Common</title>
       <link>https://ence2.github.io/categories/common/</link>
       <pubDate>Sat, 01 May 2021 14:00:00 +0900</pubDate>
       
       <guid>https://ence2.github.io/categories/common/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Db</title>
-      <link>https://ence2.github.io/categories/db/</link>
-      <pubDate>Sun, 29 Nov 2020 23:27:20 +0900</pubDate>
-      
-      <guid>https://ence2.github.io/categories/db/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>English</title>
-      <link>https://ence2.github.io/categories/english/</link>
-      <pubDate>Sat, 15 May 2021 20:14:52 +0900</pubDate>
-      
-      <guid>https://ence2.github.io/categories/english/</guid>
       <description></description>
     </item>
     
@@ -102,20 +89,47 @@
     </item>
     
     <item>
-      <title>Language</title>
-      <link>https://ence2.github.io/categories/language/</link>
-      <pubDate>Mon, 25 Oct 2021 07:00:00 +0900</pubDate>
+      <title>C&#43;&#43;20</title>
+      <link>https://ence2.github.io/categories/c&#43;&#43;20/</link>
+      <pubDate>Wed, 13 Jan 2021 14:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/categories/language/</guid>
+      <guid>https://ence2.github.io/categories/c&#43;&#43;20/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Mssql</title>
+      <title>SCM</title>
+      <link>https://ence2.github.io/categories/scm/</link>
+      <pubDate>Tue, 01 Dec 2020 11:35:36 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/categories/scm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DB</title>
+      <link>https://ence2.github.io/categories/db/</link>
+      <pubDate>Sun, 29 Nov 2020 23:27:20 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/categories/db/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MsSQL</title>
       <link>https://ence2.github.io/categories/mssql/</link>
       <pubDate>Sun, 29 Nov 2020 23:27:20 +0900</pubDate>
       
       <guid>https://ence2.github.io/categories/mssql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Achitecture</title>
+      <link>https://ence2.github.io/categories/achitecture/</link>
+      <pubDate>Wed, 18 Nov 2020 21:43:34 +0900</pubDate>
+      
+      <guid>https://ence2.github.io/categories/achitecture/</guid>
       <description></description>
     </item>
     
@@ -125,24 +139,6 @@
       <pubDate>Wed, 11 Nov 2020 21:57:54 +0900</pubDate>
       
       <guid>https://ence2.github.io/categories/perforce/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Scm</title>
-      <link>https://ence2.github.io/categories/scm/</link>
-      <pubDate>Tue, 01 Dec 2020 11:35:36 +0900</pubDate>
-      
-      <guid>https://ence2.github.io/categories/scm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Study</title>
-      <link>https://ence2.github.io/categories/study/</link>
-      <pubDate>Sat, 15 May 2021 20:14:52 +0900</pubDate>
-      
-      <guid>https://ence2.github.io/categories/study/</guid>
       <description></description>
     </item>
     

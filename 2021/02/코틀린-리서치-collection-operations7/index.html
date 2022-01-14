@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="코틀린에서는 .NET의 LINQ, Java의 Streams, C&#43;&#43;의 ranges와 유사하게 데이터 집합을 다룰 수 있습니다.">
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -257,40 +256,29 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>코틀린에서는 .NET의 LINQ, Java의 Streams, C++의 ranges와 유사하게 데이터 집합을 다룰 수 있습니다.</p>
-
 <p>다음과 같은 방법을 통해 컬렉션 처리에 있어 많은 advantages를 제공합니다.</p>
-
 <ul>
 <li>Extension fuctions</li>
 <li>Very clean lamdas</li>
 <li>손쉬운 다양한 API set 제공</li>
 <li>Kotlin&rsquo;s collection APIs are equivalent (near carbon copy) of .NET&rsquo;s LINQ APIs</li>
 </ul>
-
 <h3 id="sequence-generators">Sequence Generators</h3>
-
 <p>Collections에 대해 정의된 lambda를 인자로 받는 확장함수들은 <code>inline</code> 함수로 정의되어 익명 클래스 객체 생성 측면에 대해서는 퍼포먼스 오버헤드 걱정없이 자유롭게 사용할 수 있습니다.</p>
-
 <p>하지만, Collections 확장함수의 경우 퍼포먼스 측면에서 한가지 문제가 있는데, 각 확장함수를 호출할 때마다 새로운 Collection이 생성되어 반환된다는 점입니다.</p>
-
 <p>Collection을 다룰 때는 1개의 함수로 처리하기 보다는 다양한 확장함수를 이용한 chain calls 패턴이 대부분이기 때문에 이 이슈가 중요할 수 있으며 이 문제를 피하는 한가지 방법이 Sequence입니다.</p>
-
 <p>Collection은 연산에 대해 eager evaluation으로 처리하지만, sequence는 연산에 대해 lazy evaluation으로 처리합니다.</p>
-
-<pre><code class="language-python">fun ExampleSequence()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun ExampleSequence()
 {
-    var gen = generateSequence(1, {
+    var gen <span style="color:#f92672">=</span> generateSequence(<span style="color:#ae81ff">1</span>, {
         println(it)
-        it + 1
+        it <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
     })
 
-    var numbers = gen.take(10) // 이 타이밍에서는 실제 값이 생성되지 않음
-    numbers.toList() // 이 타이밍에 값 생성
+    var numbers <span style="color:#f92672">=</span> gen<span style="color:#f92672">.</span>take(<span style="color:#ae81ff">10</span>) <span style="color:#f92672">//</span> 이 타이밍에서는 실제 값이 생성되지 않음
+    numbers<span style="color:#f92672">.</span>toList() <span style="color:#f92672">//</span> 이 타이밍에 값 생성
 }
-</code></pre>
-
-<h3 id="quantifiers-any-all-count-contains-how-many-element-fit-a-predicate">Quantifiers (any, all, count, contains) : how many element fit a predicate</h3>
-
+</code></pre></div><h3 id="quantifiers-any-all-count-contains--how-many-element-fit-a-predicate">Quantifiers (any, all, count, contains) : how many element fit a predicate</h3>
 <ul>
 <li>all{P} : 모든 요소가 P를 만족하는가</li>
 <li>any{P} : 적어도 한 요소가 P를 만족하는가</li>
@@ -299,30 +287,25 @@ if (!doNotTrack) {
 <li>count{P} : P를 만족하는 요소의 수</li>
 <li>count() : 요소의 수</li>
 </ul>
-
-<pre><code class="language-python">fun QuantifiersExample()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun QuantifiersExample()
 {
-    val numbers: Sequence&lt;Int&gt; = arrayOf(1, 2, 3, 4, 5).asSequence() // 시퀀스로 생성
+    val numbers: Sequence<span style="color:#f92672">&lt;</span>Int<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> arrayOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>)<span style="color:#f92672">.</span>asSequence() <span style="color:#f92672">//</span> 시퀀스로 생성
 
-    println(&quot;Are all numbers &gt; 0 ? ${numbers.all{it &gt; 0}}&quot;) // true
+    println(<span style="color:#e6db74">&#34;Are all numbers &gt; 0 ? ${numbers.all{it &gt; 0}}&#34;</span>) <span style="color:#f92672">//</span> true
 
-    println(&quot;Any numbers odd ? ${numbers.any{it and 1 == 0}}&quot;) // true
+    println(<span style="color:#e6db74">&#34;Any numbers odd ? ${numbers.any{it and 1 == 0}}&#34;</span>) <span style="color:#f92672">//</span> true
 
-    println(&quot;Contains 6 ? ${numbers.contains(6)}&quot;) // false
+    println(<span style="color:#e6db74">&#34;Contains 6 ? ${numbers.contains(6)}&#34;</span>) <span style="color:#f92672">//</span> false
 
-    println(&quot;Total number of elements &gt; 3 : ${numbers.count{ it &gt; 3 }}&quot;) // 2
+    println(<span style="color:#e6db74">&#34;Total number of elements &gt; 3 : ${numbers.count{ it &gt; 3 }}&#34;</span>) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
 }
-</code></pre>
-
-<h3 id="projection-map-flatmap-associate-map-each-element-to-something-else">Projection (map, flatMap, associate) : map each element to something else</h3>
-
+</code></pre></div><h3 id="projection-map-flatmap-associate--map-each-element-to-something-else">Projection (map, flatMap, associate) : map each element to something else</h3>
 <ul>
 <li>map{} : 각 요소의 열</li>
 <li>flatMap{} : flatten한 각 요소의 열</li>
 <li>associate{} : 값을 pair에 맵핑</li>
 </ul>
-
-<pre><code>fun ProjectionExample()
+<pre tabindex="0"><code>fun ProjectionExample()
 {
     //////////// map 예제
     val seq: Sequence&lt;Int&gt; = generateSequence(1, {it+1})
@@ -365,193 +348,167 @@ if (!doNotTrack) {
     val pairs = objects.flatMap { o -&gt; colors.map { c -&gt; &quot;$c $o&quot; } }
     println(pairs.toList()) // 카티션 프로덕트
 }
-</code></pre>
-
-<h3 id="aggregation-fold-reduce-jointostring-compresses-sequence-to-a-single-value">Aggregation (fold, reduce, joinToString) : compresses sequence to a single value</h3>
-
+</code></pre><h3 id="aggregation-fold-reduce-jointostring--compresses-sequence-to-a-single-value">Aggregation (fold, reduce, joinToString) : compresses sequence to a single value</h3>
 <ul>
 <li>reduce{P} : 요소를 쌍으로 묶어 앞 열에서부터 순차 처리</li>
 <li>reduceRight{P} : 요소를 쌍으로 묶어 뒤 열에서부터 순차 처리</li>
 <li>fold/foldRight{} : fold + 초기값 부여 가능</li>
 </ul>
-
-<pre><code class="language-python">fun AggregationExample()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun AggregationExample()
 {
-    val numbers = generateSequence(1, { it + 1 })
-        .take(10).toList()
+    val numbers <span style="color:#f92672">=</span> generateSequence(<span style="color:#ae81ff">1</span>, { it <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> })
+        <span style="color:#f92672">.</span>take(<span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>toList()
     println(numbers)
 
-    println(numbers.joinToString(&quot;-&gt;&quot;))
+    println(numbers<span style="color:#f92672">.</span>joinToString(<span style="color:#e6db74">&#34;-&gt;&#34;</span>))
 
-    // reduce : x[0] + x[1]
-    // reduceRight : x[last] + x[last - 1]
-    println(&quot;sum (reduce) = ${numbers.reduce{x,y -&gt; x + y}}&quot;) // reduce : numbers에서 2개씩 pair 하게 꺼내어 처리
-    println(&quot;product (reduce) = ${numbers.reduceRight{
-            x,y -&gt;
-        println(&quot;($x * $y)&quot;)
-        x * y
-    }}&quot;)
+    <span style="color:#f92672">//</span> reduce : x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> x[<span style="color:#ae81ff">1</span>]
+    <span style="color:#f92672">//</span> reduceRight : x[last] <span style="color:#f92672">+</span> x[last <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]
+    println(<span style="color:#e6db74">&#34;sum (reduce) = ${numbers.reduce{x,y -&gt; x + y}}&#34;</span>) <span style="color:#f92672">//</span> reduce : numbers에서 <span style="color:#ae81ff">2</span>개씩 pair 하게 꺼내어 처리
+    println(<span style="color:#e6db74">&#34;product (reduce) = ${numbers.reduceRight{</span>
+            x,y <span style="color:#f92672">-&gt;</span>
+        println(<span style="color:#e6db74">&#34;($x * $y)&#34;</span>)
+        x <span style="color:#f92672">*</span> y
+    }}<span style="color:#e6db74">&#34;)</span>
 
-    println(&quot;sum = ${numbers.sum()}, average = ${numbers.average()}&quot;)
+    println(<span style="color:#e6db74">&#34;sum = ${numbers.sum()}, average = ${numbers.average()}&#34;</span>)
 
-    println(&quot;sum of squares = ${numbers.sumBy { it * it }}&quot;)
-    println(&quot;sum of roots = ${numbers.sumByDouble { Math.sqrt(it.toDouble()) }}&quot;)
+    println(<span style="color:#e6db74">&#34;sum of squares = ${numbers.sumBy { it * it }}&#34;</span>)
+    println(<span style="color:#e6db74">&#34;sum of roots = ${numbers.sumByDouble { Math.sqrt(it.toDouble()) }}&#34;</span>)
 
-    // fold : seed + x[0]
-    println(&quot;sum (fold) = ${numbers.fold(0, {x,y  -&gt; x+y})}&quot;)
-    println(&quot;product (fold) = ${numbers.fold(1, {x,y -&gt; x*y})}&quot;)
+    <span style="color:#f92672">//</span> fold : seed <span style="color:#f92672">+</span> x[<span style="color:#ae81ff">0</span>]
+    println(<span style="color:#e6db74">&#34;sum (fold) = ${numbers.fold(0, {x,y  -&gt; x+y})}&#34;</span>)
+    println(<span style="color:#e6db74">&#34;product (fold) = ${numbers.fold(1, {x,y -&gt; x*y})}&#34;</span>)
 }
-</code></pre>
-
-<h3 id="filtering-filter-filternot">Filtering (filter, filterNot)</h3>
-
+</code></pre></div><h3 id="filtering-filter-filternot">Filtering (filter, filterNot)</h3>
 <ul>
 <li>filter{P} / filterNot{P} : 만족하거나 만족하지 않는 요소 추출</li>
 </ul>
-
-<pre><code class="language-python">fun FilteringExample()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun FilteringExample()
 {
-    val seq = generateSequence(1, {it+1})
-    val numbers = seq.take(10).toList()
+    val seq <span style="color:#f92672">=</span> generateSequence(<span style="color:#ae81ff">1</span>, {it<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>})
+    val numbers <span style="color:#f92672">=</span> seq<span style="color:#f92672">.</span>take(<span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>toList()
     println(numbers)
 
-    var evenNumbers = numbers.filter{ it % 2 == 0 }
+    var evenNumbers <span style="color:#f92672">=</span> numbers<span style="color:#f92672">.</span>filter{ it <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> }
     println(evenNumbers)
 
-    val notDivBy3 = numbers.filterNot { it % 3 == 0 }
+    val notDivBy3 <span style="color:#f92672">=</span> numbers<span style="color:#f92672">.</span>filterNot { it <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> }
     println(notDivBy3)
 
-    val oddSquares = numbers.map { it*it }.filterNot { it % 2 == 0 }
+    val oddSquares <span style="color:#f92672">=</span> numbers<span style="color:#f92672">.</span>map { it<span style="color:#f92672">*</span>it }<span style="color:#f92672">.</span>filterNot { it <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> }
     println(oddSquares)
 
-    val value = arrayOf&lt;Any&gt;(1, 2.5, 3, 4.56)
-    val intNumbers = value.filter{ it is Int }
+    val value <span style="color:#f92672">=</span> arrayOf<span style="color:#f92672">&lt;</span>Any<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4.56</span>)
+    val intNumbers <span style="color:#f92672">=</span> value<span style="color:#f92672">.</span>filter{ it <span style="color:#f92672">is</span> Int }
     println(intNumbers)
 }
-</code></pre>
-
-<h3 id="partioning-drop-take-splitting-a-sequence-based-on-a-criterion">Partioning (drop &amp; take) :  splitting a sequence based on a criterion</h3>
-
+</code></pre></div><h3 id="partioning-drop--take---splitting-a-sequence-based-on-a-criterion">Partioning (drop &amp; take) :  splitting a sequence based on a criterion</h3>
 <ul>
 <li>drop(N) : N만큼 요소 무시</li>
 <li>take(N) : N만큼 요소 획득</li>
 </ul>
-
-<pre><code class="language-python">fun PartioningExample()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun PartioningExample()
 {
-    var seq = arrayOf(-2, -1, 0, 1, 2)
-    var (neg, others) = seq.partition { it &lt; 0 }
+    var seq <span style="color:#f92672">=</span> arrayOf(<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+    var (neg, others) <span style="color:#f92672">=</span> seq<span style="color:#f92672">.</span>partition { it <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> }
     println(neg)
     println(others)
 
-    var numbers = arrayOf(3,3,2,2,1,1,2,2,3,3)
-    println(numbers.drop(2).take(6)) // drop은 skip을 의미
+    var numbers <span style="color:#f92672">=</span> arrayOf(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>)
+    println(numbers<span style="color:#f92672">.</span>drop(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>take(<span style="color:#ae81ff">6</span>)) <span style="color:#f92672">//</span> drop은 skip을 의미
 
-    println(numbers.takeWhile { it &gt; 1 })
-    println(numbers.dropWhile { it == 3 }) // 3이 아닌것이 나올 때 까지 무시
+    println(numbers<span style="color:#f92672">.</span>takeWhile { it <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> })
+    println(numbers<span style="color:#f92672">.</span>dropWhile { it <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span> }) <span style="color:#f92672">//</span> <span style="color:#ae81ff">3</span>이 아닌것이 나올 때 까지 무시
 
-    println(numbers.dropLast(4))
+    println(numbers<span style="color:#f92672">.</span>dropLast(<span style="color:#ae81ff">4</span>))
 }
-</code></pre>
-
-<h3 id="groupby">GroupBy</h3>
-
-<pre><code class="language-python">fun GroupingExample()
+</code></pre></div><h3 id="groupby">GroupBy</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun GroupingExample()
 {
-    val people = listOf(
-        Man(&quot;Adam&quot;, 36),
-        Man(&quot;Boris&quot;, 18),
-        Man(&quot;Claire&quot;, 2),
-        Man(&quot;Adam&quot;, 20),
-        Man(&quot;Jack&quot;, 20)
+    val people <span style="color:#f92672">=</span> listOf(
+        Man(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#ae81ff">36</span>),
+        Man(<span style="color:#e6db74">&#34;Boris&#34;</span>, <span style="color:#ae81ff">18</span>),
+        Man(<span style="color:#e6db74">&#34;Claire&#34;</span>, <span style="color:#ae81ff">2</span>),
+        Man(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#ae81ff">20</span>),
+        Man(<span style="color:#e6db74">&#34;Jack&#34;</span>, <span style="color:#ae81ff">20</span>)
     )
 
-    val byName: Map&lt;String, List&lt;Man&gt;&gt; = people.groupBy(Man::name)
+    val byName: Map<span style="color:#f92672">&lt;</span>String, List<span style="color:#f92672">&lt;</span>Man<span style="color:#f92672">&gt;&gt;</span> <span style="color:#f92672">=</span> people<span style="color:#f92672">.</span>groupBy(Man::name)
     println(byName)
 
-    val byAge: Map&lt;Int, List&lt;Man&gt;&gt; = people.groupBy(Man::age)
+    val byAge: Map<span style="color:#f92672">&lt;</span>Int, List<span style="color:#f92672">&lt;</span>Man<span style="color:#f92672">&gt;&gt;</span> <span style="color:#f92672">=</span> people<span style="color:#f92672">.</span>groupBy(Man::age)
     println(byAge)
 }
-</code></pre>
-
-<h3 id="sorting-sortedby-sortedwith-compareby-thenby">Sorting (sortedBy, sortedWith, compareBy, thenBy)</h3>
-
-<pre><code class="language-python">import java.util.*
-data class Man(var name:String, var age:Int)
+</code></pre></div><h3 id="sorting-sortedby-sortedwith-compareby-thenby">Sorting (sortedBy, sortedWith, compareBy, thenBy)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> java.util.<span style="color:#f92672">*</span>
+data <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Man</span>(var name:String, var age:Int)
 
 fun SortingExample()
 {
-    val rand = Random()
-    val randomValues = generateSequence { rand.nextInt(10 - 5) }
-        .take(10).toList()
+    val rand <span style="color:#f92672">=</span> Random()
+    val randomValues <span style="color:#f92672">=</span> generateSequence { rand<span style="color:#f92672">.</span>nextInt(<span style="color:#ae81ff">10</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">5</span>) }
+        <span style="color:#f92672">.</span>take(<span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>toList()
 
     println(randomValues)
-    println(randomValues.sorted())
+    println(randomValues<span style="color:#f92672">.</span>sorted())
 
-    val people = listOf(
-        Man(&quot;Adam&quot;, 36),
-        Man(&quot;Boris&quot;, 18),
-        Man(&quot;Claire&quot;, 2),
-        Man(&quot;Adam&quot;, 20),
-        Man(&quot;Jack&quot;, 20)
+    val people <span style="color:#f92672">=</span> listOf(
+        Man(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#ae81ff">36</span>),
+        Man(<span style="color:#e6db74">&#34;Boris&#34;</span>, <span style="color:#ae81ff">18</span>),
+        Man(<span style="color:#e6db74">&#34;Claire&#34;</span>, <span style="color:#ae81ff">2</span>),
+        Man(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#ae81ff">20</span>),
+        Man(<span style="color:#e6db74">&#34;Jack&#34;</span>, <span style="color:#ae81ff">20</span>)
     )
 
     println(people)
-    println(people.sortedBy { it.name })
-    println(people.sortedWith(compareBy(Man::age, Man::name)))
-    println(people.sortedWith(compareBy({it.name}, {it.age})))
-    println(people.sortedWith(compareBy&lt;Man&gt;{it.age}.thenByDescending { it.name }))
+    println(people<span style="color:#f92672">.</span>sortedBy { it<span style="color:#f92672">.</span>name })
+    println(people<span style="color:#f92672">.</span>sortedWith(compareBy(Man::age, Man::name)))
+    println(people<span style="color:#f92672">.</span>sortedWith(compareBy({it<span style="color:#f92672">.</span>name}, {it<span style="color:#f92672">.</span>age})))
+    println(people<span style="color:#f92672">.</span>sortedWith(compareBy<span style="color:#f92672">&lt;</span>Man<span style="color:#f92672">&gt;</span>{it<span style="color:#f92672">.</span>age}<span style="color:#f92672">.</span>thenByDescending { it<span style="color:#f92672">.</span>name }))
 }
-</code></pre>
-
-<h3 id="element-operation-first-last-single-elementat">Element Operation (first, last, single, elementAt)</h3>
-
-<pre><code class="language-python">fun ElementOperationExample()
+</code></pre></div><h3 id="element-operation-first-last-single-elementat">Element Operation (first, last, single, elementAt)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun ElementOperationExample()
 {
-    val numbers = listOf(1, 2, 3)
-    println(&quot;first element is ${numbers.first()}&quot;)
-    println(&quot;first element &gt;10 ${numbers.first{it&gt;10}}&quot;) // 크래시 발생
-    println(&quot;first element &gt;10 ${numbers.firstOrNull(){it&gt;10}}&quot;) // OK
+    val numbers <span style="color:#f92672">=</span> listOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+    println(<span style="color:#e6db74">&#34;first element is ${numbers.first()}&#34;</span>)
+    println(<span style="color:#e6db74">&#34;first element &gt;10 ${numbers.first{it&gt;10}}&#34;</span>) <span style="color:#f92672">//</span> 크래시 발생
+    println(<span style="color:#e6db74">&#34;first element &gt;10 ${numbers.firstOrNull(){it&gt;10}}&#34;</span>) <span style="color:#f92672">//</span> OK
 
-    println(numbers.last())
-    println(numbers.last{it&lt;3})
+    println(numbers<span style="color:#f92672">.</span>last())
+    println(numbers<span style="color:#f92672">.</span>last{it<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">3</span>})
 
-    val x = listOf(1)
-    println(x.single())
-    println(numbers.single())
+    val x <span style="color:#f92672">=</span> listOf(<span style="color:#ae81ff">1</span>)
+    println(x<span style="color:#f92672">.</span>single())
+    println(numbers<span style="color:#f92672">.</span>single())
 
-    println(numbers.singleOrNull())
+    println(numbers<span style="color:#f92672">.</span>singleOrNull())
 
-    println(&quot;element at pos : ${numbers.elementAtOrNull(4)}&quot;)
-    println(&quot;element at pos 100 : ${numbers.elementAtOrElse(100, {-1})}&quot;) // 없으면 특정값 전달
+    println(<span style="color:#e6db74">&#34;element at pos : ${numbers.elementAtOrNull(4)}&#34;</span>)
+    println(<span style="color:#e6db74">&#34;element at pos 100 : ${numbers.elementAtOrElse(100, {-1})}&#34;</span>) <span style="color:#f92672">//</span> 없으면 특정값 전달
 }
-</code></pre>
-
-<h3 id="set-operation-distinct-intersect-union-subtract">Set Operation (distinct, intersect, union, subtract)</h3>
-
-<pre><code class="language-python">fun SetOperationExample()
+</code></pre></div><h3 id="set-operation-distinct-intersect-union-subtract">Set Operation (distinct, intersect, union, subtract)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun SetOperationExample()
 {
-    val word1 = &quot;helloooo&quot;.toCharArray().toList()
-    val word2 = &quot;help!&quot;.toCharArray().toList()
+    val word1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;helloooo&#34;</span><span style="color:#f92672">.</span>toCharArray()<span style="color:#f92672">.</span>toList()
+    val word2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;help!&#34;</span><span style="color:#f92672">.</span>toCharArray()<span style="color:#f92672">.</span>toList()
 
-    println(word1.distinct()) // 중복값 제거
-    println(word1.intersect(word2)) // 교집합
-    println(word1.union(word2)) // 합집합
-    println(word1.subtract(word2)) // 차집합
+    println(word1<span style="color:#f92672">.</span>distinct()) <span style="color:#f92672">//</span> 중복값 제거
+    println(word1<span style="color:#f92672">.</span>intersect(word2)) <span style="color:#f92672">//</span> 교집합
+    println(word1<span style="color:#f92672">.</span>union(word2)) <span style="color:#f92672">//</span> 합집합
+    println(word1<span style="color:#f92672">.</span>subtract(word2)) <span style="color:#f92672">//</span> 차집합
 
-    val people = listOf(
-        Man(&quot;Adam&quot;, 36),
-        Man(&quot;Boris&quot;, 18),
-        Man(&quot;Claire&quot;, 2),
-        Man(&quot;Adam&quot;, 20),
-        Man(&quot;Jack&quot;, 20)
+    val people <span style="color:#f92672">=</span> listOf(
+        Man(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#ae81ff">36</span>),
+        Man(<span style="color:#e6db74">&#34;Boris&#34;</span>, <span style="color:#ae81ff">18</span>),
+        Man(<span style="color:#e6db74">&#34;Claire&#34;</span>, <span style="color:#ae81ff">2</span>),
+        Man(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#ae81ff">20</span>),
+        Man(<span style="color:#e6db74">&#34;Jack&#34;</span>, <span style="color:#ae81ff">20</span>)
     )
 
-    println(&quot;distinct by name &quot; + people.distinctBy { it.name })
+    println(<span style="color:#e6db74">&#34;distinct by name &#34;</span> <span style="color:#f92672">+</span> people<span style="color:#f92672">.</span>distinctBy { it<span style="color:#f92672">.</span>name })
 }
-</code></pre>
-
-<p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
+</code></pre></div><p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
               
             </div>
           </div>
@@ -655,7 +612,7 @@ fun SortingExample()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

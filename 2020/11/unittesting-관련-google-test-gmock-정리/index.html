@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="유닛 테스트는 프로그램의 품질과 안정성을 향상시킬 수 있지만 꽤나 번거로운 작업이고 어느정도의 테스트 케이스를 로직과 pair로 작성해야 하기 때문에 관리 비용이 들지만, 이러한 테스팅 환경을 구축하고 습관화 할 경우 어느날 치명적인 버그를 막아주는 경우가 있습닙니다. C#에서는 nUnit이라는 라이브러리를 사용했었는데, C&#43;&#43; 환경에서 Google Test 사용이 필요하여 관련 리서치 내용을 포스팅합닙니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,253 +254,198 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>유닛 테스트는 프로그램의 품질과 안정성을 향상시킬 수 있지만 꽤나 번거로운 작업이고 어느정도의 테스트 케이스를 로직과 pair로 작성해야 하기 때문에 관리 비용이 들지만, 이러한 테스팅 환경을 구축하고 습관화 할 경우 어느날 치명적인 버그를 막아주는 경우가 있습닙니다. C#에서는 nUnit이라는 라이브러리를 사용했었는데, C++ 환경에서 Google Test 사용이 필요하여 관련 리서치 내용을 포스팅합닙니다.</p>
-
 <h3 id="googletest">GoogleTest?</h3>
-
 <p>구글에서 만든 C++ Testing Framework.</p>
-
 <ol>
-<li>테스트는 독립적이고 반복할 수 있어야 합니다. 다른 테스트의 결과에 따라 결과가 달라지는 테스트는 좋은 테스트가 아닙니다. 구글 테스트는 각각의 테스트를 분리하여 다른 오브젝트로 관리할 수 있도록 도와줍니다.<br /></li>
-<li>테스트는 잘 구조화되고 테스트하는 코드를 잘 반영해야 합니다. 구글테스트는 관련된 테스트를 test suite로 그룹화하여 데이터와 subroutine을 공유할 수 있도록 합니다.<br /></li>
-<li>테스트는 재사용 가능하고 플랫폼 종속되지 않아야 합니다. 구글테스트는 다른 OS에서도 돌 수 있도록 합니다.<br /></li>
-<li>테스트가 Fail했을 때 왜 실패했는지를 보고해주기 때문에 버그를 쉽게 찾을 수 있습니다.<br /></li>
-<li>테스팅 프레임워크는 테스트 작성자들의 귀찮음을 덜어주고 테스트 자체에 집중할 수 있도록 만들어줍니다.<br /></li>
-<li>테스트는 빨라야합니다. 구글테스트를 이용해서 shared resource를 테스트간에 재사용 할 수 있고, 한번만 실행되는 set-up/tear-down 메소드도 사용할 수 있습니다.<br />
-
-<br />
-
-<br /></li>
+<li>테스트는 독립적이고 반복할 수 있어야 합니다. 다른 테스트의 결과에 따라 결과가 달라지는 테스트는 좋은 테스트가 아닙니다. 구글 테스트는 각각의 테스트를 분리하여 다른 오브젝트로 관리할 수 있도록 도와줍니다.</li>
+<li>테스트는 잘 구조화되고 테스트하는 코드를 잘 반영해야 합니다. 구글테스트는 관련된 테스트를 test suite로 그룹화하여 데이터와 subroutine을 공유할 수 있도록 합니다.</li>
+<li>테스트는 재사용 가능하고 플랫폼 종속되지 않아야 합니다. 구글테스트는 다른 OS에서도 돌 수 있도록 합니다.</li>
+<li>테스트가 Fail했을 때 왜 실패했는지를 보고해주기 때문에 버그를 쉽게 찾을 수 있습니다.</li>
+<li>테스팅 프레임워크는 테스트 작성자들의 귀찮음을 덜어주고 테스트 자체에 집중할 수 있도록 만들어줍니다.</li>
+<li>테스트는 빨라야합니다. 구글테스트를 이용해서 shared resource를 테스트간에 재사용 할 수 있고, 한번만 실행되는 set-up/tear-down 메소드도 사용할 수 있습니다.</li>
 </ol>
-
 <h3 id="assertion">Assertion</h3>
-
-<p>Fatal assertion (ASSERT<em>) 는 테스트 실패시 바로 테스트가 중단됩니다.
-Nonfatal assertion (EXPECT</em>) 는 테스트 실패해도 모든 테스트를 실행합니다.</p>
-
+<p>Fatal assertion (ASSERT_) 는 테스트 실패시 바로 테스트가 중단됩니다.
+Nonfatal assertion (EXPECT_) 는 테스트 실패해도 모든 테스트를 실행합니다.</p>
 <p>보통은 EXPECT_를 쓰나, 이 테스트가 실해하면 무조건 바로 중단해야 할 경우는 ASSERT_를 씁니다.</p>
-
 <h3 id="basic-assertion">Basic Assertion</h3>
-
 <p>Fatal assertion | Nonfatal assertion | Verifies ————————– | ————————– | ——————– ASSERT_TRUE(condition); | EXPECT_TRUE(condition); | condition is true ASSERT_FALSE(condition); | EXPECT_FALSE(condition); | condition is false</p>
-
 <h3 id="binary-comparison">Binary Comparison</h3>
-
 <p>Fatal assertion | Nonfatal assertion | Verifies ———————— | ———————— | ————– <code>ASSERT_EQ(val1, val2);</code> | <code>EXPECT_EQ(val1, val2);</code> | <code>val1 == val2</code> <code>ASSERT_NE(val1, val2);</code> | <code>EXPECT_NE(val1, val2);</code> | <code>val1 != val2</code> <code>ASSERT_LT(val1, val2);</code> | <code>EXPECT_LT(val1, val2);</code> | <code>val1 &lt; val2</code> <code>ASSERT_LE(val1, val2);</code> | <code>EXPECT_LE(val1, val2);</code> | <code>val1 &lt;= val2</code> <code>ASSERT_GT(val1, val2);</code> | <code>EXPECT_GT(val1, val2);</code> | <code>val1 &gt; val2</code> <code>ASSERT_GE(val1, val2);</code> | <code>EXPECT_GE(val1, val2);</code> | <code>val1 &gt;= val2</code></p>
-
 <h3 id="string-comparison">String Comparison</h3>
-
 <p>| Fatal assertion | Nonfatal assertion | Verifies | | ————————– | —————————— | ——————————————————– | | <code>ASSERT_STREQ(str1,str2);</code> | <code>EXPECT_STREQ(str1,str2);</code> | the two C strings have the same content | | <code>ASSERT_STRNE(str1,str2);</code> | <code>EXPECT_STRNE(str1,str2);</code> | the two C strings have different contents | | <code>ASSERT_STRCASEEQ(str1,str2);</code> | <code>EXPECT_STRCASEEQ(str1,str2);</code> | the two C strings have the same content, ignoring case | | <code>ASSERT_STRCASENE(str1,str2);</code> | <code>EXPECT_STRCASENE(str1,str2);</code> | the two C strings have different contents, ignoring case</p>
-
 <h3 id="simple-test">Simple Test</h3>
-
 <p><strong>TEST()</strong> 라는 매크로를 씁니다. 이것은 결과를 리턴하지 않는 평범한 C++ 함수입니다.
 첫번째 파라미터는 test suite의 이름이고, 두번째 파라미터는 구체적인 테스트의 이름입니다.
 이름에는 underscores (_)가 들어갈 수 없습니다.</p>
-
-<pre><code class="language-cpp">TEST(TestSuiteName, TestName) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">TEST(TestSuiteName, TestName) {
   ... test body ...
 }
-</code></pre>
-
-<h4 id="example">Example</h4>
-
-<pre><code class="language-cpp">// Tests factorial of 0.
-TEST(FactorialTest, HandlesZeroInput) {
-  EXPECT_EQ(Factorial(0), 1);
+</code></pre></div><h4 id="example">Example</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Tests factorial of 0.
+</span><span style="color:#75715e"></span>TEST(FactorialTest, HandlesZeroInput) {
+  EXPECT_EQ(Factorial(<span style="color:#ae81ff">0</span>), <span style="color:#ae81ff">1</span>);
 }
 
-// Tests factorial of positive numbers.
-TEST(FactorialTest, HandlesPositiveInput) {
-  EXPECT_EQ(Factorial(1), 1);
-  EXPECT_EQ(Factorial(2), 2);
-  EXPECT_EQ(Factorial(3), 6);
-  EXPECT_EQ(Factorial(8), 40320);
+<span style="color:#75715e">// Tests factorial of positive numbers.
+</span><span style="color:#75715e"></span>TEST(FactorialTest, HandlesPositiveInput) {
+  EXPECT_EQ(Factorial(<span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">1</span>);
+  EXPECT_EQ(Factorial(<span style="color:#ae81ff">2</span>), <span style="color:#ae81ff">2</span>);
+  EXPECT_EQ(Factorial(<span style="color:#ae81ff">3</span>), <span style="color:#ae81ff">6</span>);
+  EXPECT_EQ(Factorial(<span style="color:#ae81ff">8</span>), <span style="color:#ae81ff">40320</span>);
 }
-</code></pre>
-
-<h3 id="test-fixtures-setup-teardown">Test Fixtures (Setup()/TearDown())</h3>
-
+</code></pre></div><h3 id="test-fixtures-setupteardown">Test Fixtures (Setup()/TearDown())</h3>
 <p>같은 데이터 설정을 여러 테스트에서 사용하고 싶을 때 필요한 방법입니다. ::testing::Test를 상속받습니다. Setup()과 같은 메소드들은 protected로 정의합니다.
 또한 TEST() 대신 TEST_F()를 사용합니다.</p>
-
-<pre><code class="language-cpp">TEST_F(TestFixtureName, TestName) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">TEST_F(TestFixtureName, TestName) {
   ... test body ...
 }
-</code></pre>
-
-<h4 id="example-1">Example</h4>
-
-<pre><code class="language-cpp">template &lt;typename E&gt;  // E is the element type.
-class Queue {
- public:
+</code></pre></div><h4 id="example-1">Example</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> E<span style="color:#f92672">&gt;</span>  <span style="color:#75715e">// E is the element type.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Queue</span> {
+ <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
   Queue();
-  void Enqueue(const E&amp; element);
-  E* Dequeue();  // Returns NULL if the queue is empty.
-  size_t size() const;
+  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Enqueue</span>(<span style="color:#66d9ef">const</span> E<span style="color:#f92672">&amp;</span> element);
+  E<span style="color:#f92672">*</span> <span style="color:#a6e22e">Dequeue</span>();  <span style="color:#75715e">// Returns NULL if the queue is empty.
+</span><span style="color:#75715e"></span>  size_t <span style="color:#a6e22e">size</span>() <span style="color:#66d9ef">const</span>;
   ...
 };
-class QueueTest : public ::testing::Test {
- protected:
-  void SetUp() override {
-     q1_.Enqueue(1);
-     q2_.Enqueue(2);
-     q2_.Enqueue(3);
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QueueTest</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> <span style="color:#f92672">::</span>testing<span style="color:#f92672">::</span>Test {
+ <span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
+  <span style="color:#66d9ef">void</span> SetUp() <span style="color:#66d9ef">override</span> {
+     q1_.Enqueue(<span style="color:#ae81ff">1</span>);
+     q2_.Enqueue(<span style="color:#ae81ff">2</span>);
+     q2_.Enqueue(<span style="color:#ae81ff">3</span>);
   }
 
-  // void TearDown() override {}
-
-  Queue&lt;int&gt; q0_;
-  Queue&lt;int&gt; q1_;
-  Queue&lt;int&gt; q2_;
+  <span style="color:#75715e">// void TearDown() override {}
+</span><span style="color:#75715e"></span>
+  Queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> q0_;
+  Queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> q1_;
+  Queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> q2_;
 };
 TEST_F(QueueTest, IsEmptyInitially) {
-  EXPECT_EQ(q0_.size(), 0);
+  EXPECT_EQ(q0_.size(), <span style="color:#ae81ff">0</span>);
 }
 
 TEST_F(QueueTest, DequeueWorks) {
-  int* n = q0_.Dequeue();
-  EXPECT_EQ(n, nullptr);
+  <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> n <span style="color:#f92672">=</span> q0_.Dequeue();
+  EXPECT_EQ(n, <span style="color:#66d9ef">nullptr</span>);
 
-  n = q1_.Dequeue();
-  ASSERT_NE(n, nullptr);
-  EXPECT_EQ(*n, 1);
-  EXPECT_EQ(q1_.size(), 0);
-  delete n;
+  n <span style="color:#f92672">=</span> q1_.Dequeue();
+  ASSERT_NE(n, <span style="color:#66d9ef">nullptr</span>);
+  EXPECT_EQ(<span style="color:#f92672">*</span>n, <span style="color:#ae81ff">1</span>);
+  EXPECT_EQ(q1_.size(), <span style="color:#ae81ff">0</span>);
+  <span style="color:#66d9ef">delete</span> n;
 
-  n = q2_.Dequeue();
-  ASSERT_NE(n, nullptr);
-  EXPECT_EQ(*n, 2);
-  EXPECT_EQ(q2_.size(), 1);
-  delete n;
+  n <span style="color:#f92672">=</span> q2_.Dequeue();
+  ASSERT_NE(n, <span style="color:#66d9ef">nullptr</span>);
+  EXPECT_EQ(<span style="color:#f92672">*</span>n, <span style="color:#ae81ff">2</span>);
+  EXPECT_EQ(q2_.size(), <span style="color:#ae81ff">1</span>);
+  <span style="color:#66d9ef">delete</span> n;
 }
-</code></pre>
-
-<h3 id="main-function">main function</h3>
-
+</code></pre></div><h3 id="main-function">main function</h3>
 <p>gtest_main과 Link했다면 메인함수를 작성할 필요는 없습니다. gtest_main을 링크합니다면 구글 테스트가 메인 함수 기본 구현을 제공하기 때문입니다. 만약 자신만의 메인을 만들고 싶다면 RUN_ALL_TEST()를 리턴하게 해야 합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;this/package/foo.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;gtest/gtest.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">namespace</span> my {
+<span style="color:#66d9ef">namespace</span> project {
+<span style="color:#66d9ef">namespace</span> {
 
-<pre><code class="language-cpp">#include &quot;this/package/foo.h&quot;
-#include &quot;gtest/gtest.h&quot;
-
-namespace my {
-namespace project {
-namespace {
-
-// The fixture for testing class Foo.
-class FooTest : public ::testing::Test {
- protected:
-  // You can remove any or all of the following functions if their bodies would
-  // be empty.
-
+<span style="color:#75715e">// The fixture for testing class Foo.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FooTest</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> <span style="color:#f92672">::</span>testing<span style="color:#f92672">::</span>Test {
+ <span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
+  <span style="color:#75715e">// You can remove any or all of the following functions if their bodies would
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// be empty.
+</span><span style="color:#75715e"></span>
   FooTest() {
-     // You can do set-up work for each test here.
-  }
+     <span style="color:#75715e">// You can do set-up work for each test here.
+</span><span style="color:#75715e"></span>  }
 
-  ~FooTest() override {
-     // You can do clean-up work that doesn't throw exceptions here.
-  }
+  <span style="color:#f92672">~</span>FooTest() <span style="color:#66d9ef">override</span> {
+     <span style="color:#75715e">// You can do clean-up work that doesn&#39;t throw exceptions here.
+</span><span style="color:#75715e"></span>  }
 
-  // If the constructor and destructor are not enough for setting up
-  // and cleaning up each test, you can define the following methods:
+  <span style="color:#75715e">// If the constructor and destructor are not enough for setting up
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// and cleaning up each test, you can define the following methods:
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SetUp</span>() <span style="color:#66d9ef">override</span> {
+     <span style="color:#75715e">// Code here will be called immediately after the constructor (right
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">// before each test).
+</span><span style="color:#75715e"></span>  }
 
-  void SetUp() override {
-     // Code here will be called immediately after the constructor (right
-     // before each test).
-  }
+  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">TearDown</span>() <span style="color:#66d9ef">override</span> {
+     <span style="color:#75715e">// Code here will be called immediately after each test (right
+</span><span style="color:#75715e"></span>     <span style="color:#75715e">// before the destructor).
+</span><span style="color:#75715e"></span>  }
 
-  void TearDown() override {
-     // Code here will be called immediately after each test (right
-     // before the destructor).
-  }
+  <span style="color:#75715e">// Class members declared here can be used by all tests in the test suite
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// for Foo.
+</span><span style="color:#75715e"></span>};
 
-  // Class members declared here can be used by all tests in the test suite
-  // for Foo.
-};
-
-// Tests that the Foo::Bar() method does Abc.
-TEST_F(FooTest, MethodBarDoesAbc) {
-  const std::string input_filepath = &quot;this/package/testdata/myinputfile.dat&quot;;
-  const std::string output_filepath = &quot;this/package/testdata/myoutputfile.dat&quot;;
+<span style="color:#75715e">// Tests that the Foo::Bar() method does Abc.
+</span><span style="color:#75715e"></span>TEST_F(FooTest, MethodBarDoesAbc) {
+  <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string input_filepath <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;this/package/testdata/myinputfile.dat&#34;</span>;
+  <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string output_filepath <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;this/package/testdata/myoutputfile.dat&#34;</span>;
   Foo f;
-  EXPECT_EQ(f.Bar(input_filepath, output_filepath), 0);
+  EXPECT_EQ(f.Bar(input_filepath, output_filepath), <span style="color:#ae81ff">0</span>);
 }
 
-// Tests that Foo does Xyz.
-TEST_F(FooTest, DoesXyz) {
-  // Exercises the Xyz feature of Foo.
+<span style="color:#75715e">// Tests that Foo does Xyz.
+</span><span style="color:#75715e"></span>TEST_F(FooTest, DoesXyz) {
+  <span style="color:#75715e">// Exercises the Xyz feature of Foo.
+</span><span style="color:#75715e"></span>}
+
+}  <span style="color:#75715e">// namespace
+</span><span style="color:#75715e"></span>}  <span style="color:#75715e">// namespace project
+</span><span style="color:#75715e"></span>}  <span style="color:#75715e">// namespace my
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv) {
+  <span style="color:#f92672">::</span>testing<span style="color:#f92672">::</span>InitGoogleTest(<span style="color:#f92672">&amp;</span>argc, argv);
+  <span style="color:#66d9ef">return</span> RUN_ALL_TESTS();
 }
-
-}  // namespace
-}  // namespace project
-}  // namespace my
-
-int main(int argc, char **argv) {
-  ::testing::InitGoogleTest(&amp;argc, argv);
-  return RUN_ALL_TESTS();
-}
-</code></pre>
-
-<p>More Information <a href="https://github.com/google/googletest/blob/master/googletest/docs/advanced.md">Advanced Guide</a></p>
-
+</code></pre></div><p>More Information <a href="https://github.com/google/googletest/blob/master/googletest/docs/advanced.md">Advanced Guide</a></p>
 <h3 id="gmock이란">gMock이란?</h3>
-
 <blockquote>
 <p><a href="https://github.com/google/googletest/blob/master/googlemock/README.md">https://github.com/google/googletest/blob/master/googlemock/README.md</a></p>
 </blockquote>
-
 <p>구글에서 만든 유닛테스트를 위한 Mocking 라이브러리입니다.</p>
-
 <p>유닛테스트를 작성할 때는 외부 디펜던시를 차단하고 테스트해야 합니다. 이때 외부에서 주입받은 클래스를 가짜로 만드는것이 Mocking하는 것입니다.</p>
-
 <p>더 상세한 정보는 아래에 있습니다.</p>
-
 <ul>
 <li><a href="https://github.com/google/googletest/blob/master/googlemock/docs/for_dummies.md">gMock for dummies</a></li>
 <li><a href="https://github.com/google/googletest/blob/master/googlemock/docs/cook_book.md">gMock Cookbook</a></li>
-<li><a href="https://github.com/google/googletest/blob/master/googlemock/docs/cheat_sheet.md">gMock Chear Sheet</a>
-
-<br /></li>
+<li><a href="https://github.com/google/googletest/blob/master/googlemock/docs/cheat_sheet.md">gMock Chear Sheet</a></li>
 </ul>
-
 <p>먼저 Mocking을 하기 전에 Mocking할 대상을 상속받는 클래스를 만들어야 합니다.</p>
-
-<pre><code class="language-cpp">#include &quot;gmock/gmock.h&quot;
-
-class MockFoo : public Foo {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;gmock/gmock.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MockFoo</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Foo {
   ...
-  MOCK_METHOD(int, GetSize, (), (const, override));
-  MOCK_METHOD(string, Describe, (const char* name), (override));
-  MOCK_METHOD(string, Describe, (int type), (override));
-  MOCK_METHOD(bool, Process, (Bar elem, int count), (override));
+  MOCK_METHOD(<span style="color:#66d9ef">int</span>, GetSize, (), (<span style="color:#66d9ef">const</span>, <span style="color:#66d9ef">override</span>));
+  MOCK_METHOD(string, Describe, (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> name), (<span style="color:#66d9ef">override</span>));
+  MOCK_METHOD(string, Describe, (<span style="color:#66d9ef">int</span> type), (<span style="color:#66d9ef">override</span>));
+  MOCK_METHOD(<span style="color:#66d9ef">bool</span>, Process, (Bar elem, <span style="color:#66d9ef">int</span> count), (<span style="color:#66d9ef">override</span>));
 };
-</code></pre>
-
-<p>하지만 이는 번거로운 일입니다. 이를 위해 제너레이터가 파이썬 스크립트로 이미 작성되어 있습니다.</p>
-
+</code></pre></div><p>하지만 이는 번거로운 일입니다. 이를 위해 제너레이터가 파이썬 스크립트로 이미 작성되어 있습니다.</p>
 <p><code>{구글테스트 폴더}/googlemock/scripts/generator</code> 에 가면, gmock_gn.py가 존재합니다. <code>python3 gmock_gn.py</code> 명령어를 통해 실행하고, 변경하고 싶은 클래스의 절대경로를 입력하면 모킹클래스를 자동으로 출력해줍니다. 이를 사용하면 됩니다.</p>
-
 <p>이제 Mocking 클래스를 사용해보겠습니다.</p>
-
-<pre><code class="language-cpp">using ::testing::Return;                          // #1
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">using</span> <span style="color:#f92672">::</span>testing<span style="color:#f92672">::</span>Return;                          <span style="color:#75715e">// #1
+</span><span style="color:#75715e"></span>
 TEST(BarTest, DoesThis) {
-  MockFoo foo;                                    // #2
-ccc
-  ON_CALL(foo, GetSize())                         // #3
-      .WillByDefault(Return(1));
-  // ... other default actions ...
-
-  EXPECT_CALL(foo, Describe(5))                   // #4
-      .Times(3)
+  MockFoo foo;                                    <span style="color:#75715e">// #2
+</span><span style="color:#75715e"></span>ccc
+  <span style="color:#a6e22e">ON_CALL</span>(foo, GetSize())                         <span style="color:#75715e">// #3
+</span><span style="color:#75715e"></span>      .WillByDefault(Return(<span style="color:#ae81ff">1</span>));
+  <span style="color:#75715e">// ... other default actions ...
+</span><span style="color:#75715e"></span>
+  EXPECT_CALL(foo, Describe(<span style="color:#ae81ff">5</span>))                   <span style="color:#75715e">// #4
+</span><span style="color:#75715e"></span>      .Times(<span style="color:#ae81ff">3</span>)
 }         
-</code></pre>
-
-<p>위 코드에서 <code>EXPECT_CALL</code>이란 Mocking class의 메소드 호출이 기대됩니다는 뜻입니다. 따라서 위 코드에서는 foo의 Describe 함수가 호출되야 테스트가 성공합니다.</p>
-
+</code></pre></div><p>위 코드에서 <code>EXPECT_CALL</code>이란 Mocking class의 메소드 호출이 기대됩니다는 뜻입니다. 따라서 위 코드에서는 foo의 Describe 함수가 호출되야 테스트가 성공합니다.</p>
 <p>또한 Times(3)의 의미는 foo의 Describe 함수가 3번 호출되어야 합니다는 것을 뜻합니다. 이를 잘 활용하면 외부에서 주입받은 클래스를 모킹하고 예상되는 행위 호출을 통해 클래스를 테스트할 수 있습니다.</p>
-
 <p><code>ON_CALL</code>은 Mocking class가 테스트용으로 만든 가짜 클래스이기 때문에 특정한 함수가 불렸을 때의 행동을 정의하는 것입니다. 위의 예제에서 <code>ON_CALL(foo, GetSize()).WillByDefault(Return(1))</code>의 의미는 foo에서 GetSize()가 불렸을 때 1을 리턴하게 합니다는 뜻입니다.</p>
-
 <blockquote>
 <p>gMock Test Suite를 작성할때 주의할 점은, EXPECT_CALL을 실제 함수를 부르기 전에 정의해두어야 합니다.</p>
 </blockquote>
@@ -533,7 +477,7 @@ ccc
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/%ED%95%A8%EC%88%98%EC%B2%98%EB%9F%BC-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EB%A5%BC-%EA%B0%96%EB%8A%94-%EB%A7%A4%ED%81%AC%EB%A1%9C-%EC%97%B0%EC%82%B0%EC%9E%90/" data-tooltip="함수처럼 매개변수를 갖는 매크로, #, ## 연산자">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/%ED%95%A8%EC%88%98%EC%B2%98%EB%9F%BC-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EB%A5%BC-%EA%B0%96%EB%8A%94-%EB%A7%A4%ED%81%AC%EB%A1%9C-#-%23%23-%EC%97%B0%EC%82%B0%EC%9E%90/" data-tooltip="함수처럼 매개변수를 갖는 매크로, #, ## 연산자">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -606,7 +550,7 @@ ccc
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 
@@ -619,7 +563,7 @@ ccc
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/%ED%95%A8%EC%88%98%EC%B2%98%EB%9F%BC-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EB%A5%BC-%EA%B0%96%EB%8A%94-%EB%A7%A4%ED%81%AC%EB%A1%9C-%EC%97%B0%EC%82%B0%EC%9E%90/" data-tooltip="함수처럼 매개변수를 갖는 매크로, #, ## 연산자">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/%ED%95%A8%EC%88%98%EC%B2%98%EB%9F%BC-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EB%A5%BC-%EA%B0%96%EB%8A%94-%EB%A7%A4%ED%81%AC%EB%A1%9C-#-%23%23-%EC%97%B0%EC%82%B0%EC%9E%90/" data-tooltip="함수처럼 매개변수를 갖는 매크로, #, ## 연산자">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>

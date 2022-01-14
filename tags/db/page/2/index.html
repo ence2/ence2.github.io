@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content=", development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="The Game Server Developer">
@@ -13,8 +13,8 @@
 
 <meta property="og:description" content="The Game Server Developer">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Db">
-<meta name="twitter:title" content="Db">
+<meta property="og:title" content="DB">
+<meta name="twitter:title" content="DB">
 <meta property="og:url" content="https://ence2.github.io/tags/db/">
 <meta property="twitter:url" content="https://ence2.github.io/tags/db/">
 <meta property="og:site_name" content="Keep calm carry on">
@@ -39,7 +39,7 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>Db</title>
+    <title>DB</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
@@ -74,7 +74,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -308,11 +307,10 @@ if (!doNotTrack) {
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <h4 id="구문">구문</h4>
-
-<pre><code class="language-sql">-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
-
-SET QUOTED_IDENTIFIER { ON | OFF }
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">SET</span> QUOTED_IDENTIFIER <span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#66d9ef">ON</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">OFF</span> <span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div>
       
       <p>
         <a href="https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -371,11 +369,10 @@ SET QUOTED_IDENTIFIER { ON | OFF }
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <h3 id="구문">구문</h3>
-
-<pre><code class="language-sql">-- Syntax for SQL Server
-
-SET ANSI_NULLS { ON | OFF }
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- Syntax for SQL Server
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#66d9ef">ON</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">OFF</span> <span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div>
       
       <p>
         <a href="https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -550,11 +547,9 @@ SET ANSI_NULLS { ON | OFF }
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.</p>
-
 <p>MSSQL에서 SELECT 시에 <strong>WITH (NOLOCK)</strong> 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.</p>
-
-<pre><code class="language-sql">SELECT * FROM TABLE1 WITH (NOLOCK)
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> TABLE1 <span style="color:#66d9ef">WITH</span> (NOLOCK)
+</code></pre></div>
       
       <p>
         <a href="https://ence2.github.io/2020/11/mssql-with-nolock/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -611,7 +606,6 @@ SET ANSI_NULLS { ON | OFF }
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <h3 id="index란">Index란</h3>
-
 <p>책의 목차와 비슷하게 데이터의 색인을 기록하여 검색 속도를 증가 시킬 수 있는 구조입니다.</p>
       
       <p>
@@ -654,7 +648,7 @@ SET ANSI_NULLS { ON | OFF }
         
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

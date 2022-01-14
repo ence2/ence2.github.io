@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.
-
 이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.">
 
 
 <meta property="og:description" content="리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.
-
 이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="코틀린 리서치 - Reflection[8]">
@@ -23,10 +21,8 @@
 <meta property="twitter:url" content="https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.
-
 이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.">
 <meta name="twitter:description" content="리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.
-
 이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.">
 <meta property="og:locale" content="en-us">
 
@@ -106,7 +102,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -265,150 +260,129 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.</p>
-
 <p>이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.</p>
-
 <h3 id="class-reflection">Class Reflection</h3>
-
 <p>코틀린의 class 관련 refection 기능은 kotlin.reflect.KClass에 구현되어 있습니다.</p>
-
 <p>refection 대상 객체를 명시 후 명시된 변수로부터 다양한 정보를 얻을 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> kotlin.reflect.KClass
 
-<pre><code class="language-python">import kotlin.reflect.KClass
-
-data class Person(var name:String, var age:Int)
-open class Base(x:Int)
-class Derived(x:Int) : Base(x)
+data <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>(var name:String, var age:Int)
+open <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Base</span>(x:Int)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Derived</span>(x:Int) : Base(x)
 
 fun process(b:Base){
-    if (b is Derived) // Smart cast
+    <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">is</span> Derived) <span style="color:#f92672">//</span> Smart cast
     {
-        println(b::class.qualifiedName)
+        println(b::class<span style="color:#f92672">.</span>qualifiedName)
     }
 }
 
-fun main(args: Array&lt;String&gt;)
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>)
 {
-    // kotlin의 refection
-    var c: KClass&lt;Person&gt; = Person::class // reflection 대상 객체
+    <span style="color:#f92672">//</span> kotlin의 refection
+    var c: KClass<span style="color:#f92672">&lt;</span>Person<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> Person::<span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">// </span><span style="color:#a6e22e">reflection</span> 대상 객체
 
-    println(c.qualifiedName) // -&gt; kotlinMySample.Person
-    println(c.members.map{it.name}) // -&gt; [age, name, component1, component2, copy, equals, hashCode, toString]
-    println(&quot;Is it a companion? ${c.isCompanion}&quot;) // -&gt; false
-    var z:Base = Derived(10)
-    process(z) // 부모 변수로 자식 객체의 이름을 얻어 올 수 있음 -&gt; kotlinMySample.Person
+    println(c<span style="color:#f92672">.</span>qualifiedName) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> kotlinMySample<span style="color:#f92672">.</span>Person
+    println(c<span style="color:#f92672">.</span>members<span style="color:#f92672">.</span>map{it<span style="color:#f92672">.</span>name}) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> [age, name, component1, component2, copy, equals, hashCode, toString]
+    println(<span style="color:#e6db74">&#34;Is it a companion? $</span><span style="color:#e6db74">{c.isCompanion}</span><span style="color:#e6db74">&#34;</span>) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> false
+    var z:Base <span style="color:#f92672">=</span> Derived(<span style="color:#ae81ff">10</span>)
+    process(z) <span style="color:#f92672">//</span> 부모 변수로 자식 객체의 이름을 얻어 올 수 있음 <span style="color:#f92672">-&gt;</span> kotlinMySample<span style="color:#f92672">.</span>Person
 
-    // java의 refelction
-    var j = c.java
-    println(j.simpleName)
+    <span style="color:#f92672">//</span> java의 refelction
+    var j <span style="color:#f92672">=</span> c<span style="color:#f92672">.</span>java
+    println(j<span style="color:#f92672">.</span>simpleName)
 }
-</code></pre>
+</code></pre></div><h3 id="function-references">Function References</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun isOdd(x:Int) <span style="color:#f92672">=</span> x <span style="color:#f92672">and</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
+fun isOdd(s:String) <span style="color:#f92672">=</span> s <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;weird&#34;</span> <span style="color:#f92672">||</span> s <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;strange&#34;</span> <span style="color:#f92672">||</span> s <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;peculiar&#34;</span>
 
-<h3 id="function-references">Function References</h3>
-
-<pre><code class="language-python">fun isOdd(x:Int) = x and 1 == 1
-fun isOdd(s:String) = s == &quot;weird&quot; || s == &quot;strange&quot; || s == &quot;peculiar&quot;
-
-fun main(args: Array&lt;String&gt;)
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>)
 {
-    // function references 예제
-    var numbers = generateSequence(1, {it+1}).take(5)
-    println(numbers.filter(::isOdd).toList())
-    var predicate : (String) -&gt; Boolean = ::isOdd
+    <span style="color:#f92672">//</span> function references 예제
+    var numbers <span style="color:#f92672">=</span> generateSequence(<span style="color:#ae81ff">1</span>, {it<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>})<span style="color:#f92672">.</span>take(<span style="color:#ae81ff">5</span>)
+    println(numbers<span style="color:#f92672">.</span>filter(::isOdd)<span style="color:#f92672">.</span>toList())
+    var predicate : (String) <span style="color:#f92672">-&gt;</span> Boolean <span style="color:#f92672">=</span> ::isOdd
 
-    // 활용하여 f(g(x)) 합성함수 구현
-    fun &lt;A,B,C&gt; compose(f:(B)-&gt;C,g:(A)-&gt;B) : (A) -&gt; C { return { x -&gt; f(g(x)) } }
-    var str = &quot;this is a fun experiment&quot;.split(' ')
-    var oddLength = compose(::isOdd, String::length)
-    println(str.filter(oddLength)) // -&gt; [a, fun]
+    <span style="color:#f92672">//</span> 활용하여 f(g(x)) 합성함수 구현
+    fun <span style="color:#f92672">&lt;</span>A,B,C<span style="color:#f92672">&gt;</span> compose(f:(B)<span style="color:#f92672">-&gt;</span>C,g:(A)<span style="color:#f92672">-&gt;</span>B) : (A) <span style="color:#f92672">-&gt;</span> C { <span style="color:#66d9ef">return</span> { x <span style="color:#f92672">-&gt;</span> f(g(x)) } }
+    var str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;this is a fun experiment&#34;</span><span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39; &#39;</span>)
+    var oddLength <span style="color:#f92672">=</span> compose(::isOdd, String::length)
+    println(str<span style="color:#f92672">.</span>filter(oddLength)) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> [a, fun]
 }
-</code></pre>
-
-<h3 id="property-references">Property References</h3>
-
+</code></pre></div><h3 id="property-references">Property References</h3>
 <p>프로퍼티 관련 reflection 처리는 kotlin.reflect.KProperty에 구현되어 있습니다. (var 관련 변수는 import kotlin.reflect.KMutableProperty0 사용)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> kotlin.reflect.KMutableProperty0
+<span style="color:#f92672">import</span> kotlin.reflect.KProperty0
+<span style="color:#f92672">import</span> kotlin.reflect.jvm.javaField
+<span style="color:#f92672">import</span> kotlin.reflect.jvm.javaGetter
 
-<pre><code class="language-python">import kotlin.reflect.KMutableProperty0
-import kotlin.reflect.KProperty0
-import kotlin.reflect.jvm.javaField
-import kotlin.reflect.jvm.javaGetter
-
-var x = 1
-val y = 22
-class Human(var age:Int)
-val String.lastChar : Char
-    get() = this[length - 1]
+var x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+val y <span style="color:#f92672">=</span> <span style="color:#ae81ff">22</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Human</span>(var age:Int)
+val String<span style="color:#f92672">.</span>lastChar : Char
+    get() <span style="color:#f92672">=</span> this[length <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]
     
-fun main(args: Array&lt;String&gt;)
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>)
 {
-    val a: KMutableProperty0&lt;Int&gt; = ::x
-    val b: KProperty0&lt;Int&gt; = ::y
+    val a: KMutableProperty0<span style="color:#f92672">&lt;</span>Int<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ::x
+    val b: KProperty0<span style="color:#f92672">&lt;</span>Int<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ::y
 
-    println(a.get()) // -&gt; 1
-    a.set(321)
-    println(a.get()) // -&gt; 321
+    println(a<span style="color:#f92672">.</span>get()) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">1</span>
+    a<span style="color:#f92672">.</span>set(<span style="color:#ae81ff">321</span>)
+    println(a<span style="color:#f92672">.</span>get()) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">321</span>
 
-    val strA = &quot;this is fun&quot;.split(' ')
-    println(strA.map(String::length)) // -&gt; [4, 2, 3]
+    val strA <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;this is fun&#34;</span><span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39; &#39;</span>)
+    println(strA<span style="color:#f92672">.</span>map(String::length)) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
 
-    var human = Human(33)
+    var human <span style="color:#f92672">=</span> Human(<span style="color:#ae81ff">33</span>)
 
-    var temp = Human::age
-    println(human.age)
-    temp.get(human)
-    println(temp.name) // -&gt; age
-    temp.set(human, 58)
-    println(human.age) // -&gt; 58
+    var temp <span style="color:#f92672">=</span> Human::age
+    println(human<span style="color:#f92672">.</span>age)
+    temp<span style="color:#f92672">.</span>get(human)
+    println(temp<span style="color:#f92672">.</span>name) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> age
+    temp<span style="color:#f92672">.</span>set(human, <span style="color:#ae81ff">58</span>)
+    println(human<span style="color:#f92672">.</span>age) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">58</span>
 
-    // 확장 Property
-    var ls = String::lastChar
-    println(ls.get(&quot;Hello World&quot;)) // -&gt; d
+    <span style="color:#f92672">//</span> 확장 Property
+    var ls <span style="color:#f92672">=</span> String::lastChar
+    println(ls<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;Hello World&#34;</span>)) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> d
 
-    // java property reflection
-    var javaGetter: Method? = Human::age.javaGetter
-    var field: Field? = Person::age.javaField
+    <span style="color:#f92672">//</span> java property reflection
+    var javaGetter: Method<span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#f92672">=</span> Human::age<span style="color:#f92672">.</span>javaGetter
+    var field: Field<span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#f92672">=</span> Person::age<span style="color:#f92672">.</span>javaField
 }
-</code></pre>
+</code></pre></div><h3 id="constructor-references">Constructor References</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Man</span> <span style="color:#f92672">//</span> empty <span style="color:#66d9ef">class</span>
 
-<h3 id="constructor-references">Constructor References</h3>
-
-<pre><code class="language-python">class Man // empty class
-
-fun &lt;T&gt; makeAndPrint(generator: () -&gt; T)
+<span style="color:#a6e22e">fun</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> makeAndPrint(generator: () <span style="color:#f92672">-&gt;</span> T)
 {
-    val x : T = generator()
-    println(x.toString())
+    val x : T <span style="color:#f92672">=</span> generator()
+    println(x<span style="color:#f92672">.</span>toString())
 }
 
-fun main(args: Array&lt;String&gt;)
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>)
 {
     makeAndPrint(::Man)
 }
-</code></pre>
-
-<h3 id="bound-references">Bound References</h3>
-
+</code></pre></div><h3 id="bound-references">Bound References</h3>
 <p>코틀린에서 bound 참조 또한 리플렉션 기반으로 동작합니다.</p>
-
-<pre><code class="language-python">fun main(args: Array&lt;String&gt;)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>)
 {
-    var r: Regex = &quot;\\+&quot;.toRegex()
-    var isNumber = r::matches
-    var general = Regex::matches
+    var r: Regex <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">+&#34;</span><span style="color:#f92672">.</span>toRegex()
+    var isNumber <span style="color:#f92672">=</span> r::matches
+    var general <span style="color:#f92672">=</span> Regex::matches
 
-    println(isNumber(&quot;321&quot;)) // -&gt; false
-    println(general(r, &quot;321&quot;)) // -&gt; false
+    println(isNumber(<span style="color:#e6db74">&#34;321&#34;</span>)) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> false
+    println(general(r, <span style="color:#e6db74">&#34;321&#34;</span>)) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> false
 
-    val strB = listOf(&quot;foo&quot;, &quot;123&quot;, &quot;1&quot;)
-    println(strB.filter(isNumber)) // -&gt; []
+    val strB <span style="color:#f92672">=</span> listOf(<span style="color:#e6db74">&#34;foo&#34;</span>, <span style="color:#e6db74">&#34;123&#34;</span>, <span style="color:#e6db74">&#34;1&#34;</span>)
+    println(strB<span style="color:#f92672">.</span>filter(isNumber)) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> []
 
-    val lengthOfABC: KProperty0&lt;Int&gt; = &quot;ABC&quot;::length
-    println(lengthOfABC.get()) // -&gt; 3
+    val lengthOfABC: KProperty0<span style="color:#f92672">&lt;</span>Int<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ABC&#34;</span>::length
+    println(lengthOfABC<span style="color:#f92672">.</span>get()) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">3</span>
 }
 
-</code></pre>
-
-<p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
+</code></pre></div><p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
               
             </div>
           </div>
@@ -512,7 +486,7 @@ fun main(args: Array&lt;String&gt;)
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

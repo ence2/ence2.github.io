@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="구문
-
 -- Syntax for SQL Server
 
 SET ANSI_NULLS { ON | OFF }
@@ -17,7 +16,6 @@ SET ANSI_NULLS { ON | OFF }
 
 
 <meta property="og:description" content="구문
-
 -- Syntax for SQL Server
 
 SET ANSI_NULLS { ON | OFF }
@@ -29,13 +27,11 @@ SET ANSI_NULLS { ON | OFF }
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="구문
-
 -- Syntax for SQL Server
 
 SET ANSI_NULLS { ON | OFF }
 ">
 <meta name="twitter:description" content="구문
-
 -- Syntax for SQL Server
 
 SET ANSI_NULLS { ON | OFF }
@@ -114,7 +110,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -273,177 +268,145 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <h3 id="구문">구문</h3>
-
-<pre><code class="language-sql">-- Syntax for SQL Server
-
-SET ANSI_NULLS { ON | OFF }
-</code></pre>
-
-<h3 id="설명">설명</h3>
-
-<p>ANSI_NULLS 옵션이 ON인 경우, WHERE <em>column_name</em> = <strong>NULL</strong>을 사용하는 SELECT 문은 *column_name*에 null 값이 있어도 0행을 반환합니다. WHERE <em>column_name</em> &lt;&gt; <strong>NULL</strong>을 사용하는 SELECT 문은 *column_name*에 Null 이외의 값이 있어도 0행을 반환합니다.</p>
-
-<p>ANSI_NULLS 옵션이 OFF면 Equals(=)와 Not Equal(&lt;&gt;) 비교 연산자가 ISO 표준을 따르지 않습니다. WHERE <em>column_name</em> = <strong>NULL</strong>을 사용하는 SELECT 문은 *column_name*에 Null 값이 있는 행을 반환합니다. WHERE <em>column_name</em> &lt;&gt; <strong>NULL</strong>을 사용하는 SELECT 문은 열에 Null 이외의 값이 있는 행을 반환합니다. 또한 WHERE <em>column_name</em> &lt;&gt; *XYZ_value*를 사용하는 SELECT 문은 *XYZ_value*가 아니고 NULL이 아닌 모든 행을 반환합니다.</p>
-
-<p>ANSI_NULLS 옵션이 OFF면 Equals(=)와 Not Equal(&lt;&gt;) 비교 연산자가 ISO 표준을 따르지 않습니다. WHERE <em>column_name</em> = <strong>NULL</strong>을 사용하는 SELECT 문은 *column_name*에 Null 값이 있는 행을 반환합니다. WHERE <em>column_name</em> &lt;&gt; <strong>NULL</strong>을 사용하는 SELECT 문은 열에 Null 이외의 값이 있는 행을 반환합니다. 또한 WHERE <em>column_name</em> &lt;&gt; *XYZ_value*를 사용하는 SELECT 문은 *XYZ_value*가 아니고 NULL이 아닌 모든 행을 반환합니다.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- Syntax for SQL Server
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#66d9ef">ON</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">OFF</span> <span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><h3 id="설명">설명</h3>
+<p>ANSI_NULLS 옵션이 ON인 경우, WHERE <em>column_name</em> = <strong>NULL</strong>을 사용하는 SELECT 문은 <em>column_name</em>에 null 값이 있어도 0행을 반환합니다. WHERE <em>column_name</em> &lt;&gt; <strong>NULL</strong>을 사용하는 SELECT 문은 <em>column_name</em>에 Null 이외의 값이 있어도 0행을 반환합니다.</p>
+<p>ANSI_NULLS 옵션이 OFF면 Equals(=)와 Not Equal(&lt;&gt;) 비교 연산자가 ISO 표준을 따르지 않습니다. WHERE <em>column_name</em> = <strong>NULL</strong>을 사용하는 SELECT 문은 <em>column_name</em>에 Null 값이 있는 행을 반환합니다. WHERE <em>column_name</em> &lt;&gt; <strong>NULL</strong>을 사용하는 SELECT 문은 열에 Null 이외의 값이 있는 행을 반환합니다. 또한 WHERE <em>column_name</em> &lt;&gt; <em>XYZ_value</em>를 사용하는 SELECT 문은 <em>XYZ_value</em>가 아니고 NULL이 아닌 모든 행을 반환합니다.</p>
+<p>ANSI_NULLS 옵션이 OFF면 Equals(=)와 Not Equal(&lt;&gt;) 비교 연산자가 ISO 표준을 따르지 않습니다. WHERE <em>column_name</em> = <strong>NULL</strong>을 사용하는 SELECT 문은 <em>column_name</em>에 Null 값이 있는 행을 반환합니다. WHERE <em>column_name</em> &lt;&gt; <strong>NULL</strong>을 사용하는 SELECT 문은 열에 Null 이외의 값이 있는 행을 반환합니다. 또한 WHERE <em>column_name</em> &lt;&gt; <em>XYZ_value</em>를 사용하는 SELECT 문은 <em>XYZ_value</em>가 아니고 NULL이 아닌 모든 행을 반환합니다.</p>
 <p>다음 표에서는 ANSI_NULLS 설정이 null과 null이 아닌 값을 사용하여 많은 부울 식의 결과에 어떤 영향을 미치는지를 보여 줍니다.</p>
-
 <table>
 <thead>
 <tr>
-<th align="left">부울 식(Boolean Expression)</th>
-<th align="left">SET ANSI_NULLS ON</th>
-<th align="left">SET ANSI_NULLS OFF</th>
+<th style="text-align:left">부울 식(Boolean Expression)</th>
+<th style="text-align:left">SET ANSI_NULLS ON</th>
+<th style="text-align:left">SET ANSI_NULLS OFF</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
-<td align="left">NULL = NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">TRUE</td>
+<td style="text-align:left">NULL = NULL</td>
+<td style="text-align:left">UNKNOWN</td>
+<td style="text-align:left">TRUE</td>
 </tr>
-
 <tr>
-<td align="left">1 = NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">FALSE</td>
+<td style="text-align:left">1 = NULL</td>
+<td style="text-align:left">UNKNOWN</td>
+<td style="text-align:left">FALSE</td>
 </tr>
-
 <tr>
-<td align="left">NULL &lt;&gt; NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">FALSE</td>
+<td style="text-align:left">NULL &lt;&gt; NULL</td>
+<td style="text-align:left">UNKNOWN</td>
+<td style="text-align:left">FALSE</td>
 </tr>
-
 <tr>
-<td align="left">1 &lt;&gt; NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">TRUE</td>
+<td style="text-align:left">1 &lt;&gt; NULL</td>
+<td style="text-align:left">UNKNOWN</td>
+<td style="text-align:left">TRUE</td>
 </tr>
-
 <tr>
-<td align="left">NULL &gt; NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">UNKNOWN</td>
+<td style="text-align:left">NULL &gt; NULL</td>
+<td style="text-align:left">UNKNOWN</td>
+<td style="text-align:left">UNKNOWN</td>
 </tr>
-
 <tr>
-<td align="left">1 &gt; NULL</td>
-<td align="left">UNKNOWN</td>
-<td align="left">UNKNOWN</td>
+<td style="text-align:left">1 &gt; NULL</td>
+<td style="text-align:left">UNKNOWN</td>
+<td style="text-align:left">UNKNOWN</td>
 </tr>
-
 <tr>
-<td align="left">NULL IS NULL</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
+<td style="text-align:left">NULL IS NULL</td>
+<td style="text-align:left">TRUE</td>
+<td style="text-align:left">TRUE</td>
 </tr>
-
 <tr>
-<td align="left">1 IS NULL</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
+<td style="text-align:left">1 IS NULL</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">FALSE</td>
 </tr>
-
 <tr>
-<td align="left">NULL IS NOT NULL</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
+<td style="text-align:left">NULL IS NOT NULL</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">FALSE</td>
 </tr>
-
 <tr>
-<td align="left">1 IS NOT NULL</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
+<td style="text-align:left">1 IS NOT NULL</td>
+<td style="text-align:left">TRUE</td>
+<td style="text-align:left">TRUE</td>
 </tr>
 </tbody>
 </table>
-
 <p>SET ANSI_NULLS ON 옵션은 비교의 피연산자 중 하나가 NULL 변수 또는 리터럴 NULL 변수인 경우에만 해당 비교에 영향을 줍니다. 비교의 양쪽이 열 또는 복합 식인 경우에는 설정이 비교에 영향을 주지 않습니다.</p>
-
 <p>ANSI_NULLS 데이터베이스 옵션이나 SET ANSI_NULLS 설정에 관계없이 스크립트가 의도했던 대로 실행되도록 하려면 Null 값을 포함할 수 있는 비교에 IS NULL과 IS NOT NULL을 사용하십시오.</p>
-
 <p>분산 쿼리를 실행할 때는 ANSI_NULLS를 ON으로 설정해야 합니다.</p>
-
 <p>계산 열이나 인덱싱된 뷰에서 인덱스를 만들거나 변경할 때는 ANSI_NULLS 옵션도 ON으로 설정해야 합니다. SET ANSI_NULLS 옵션이 OFF면 계산 열의 인덱스가 있는 테이블이나 인덱싱된 뷰에서 CREATE, UPDATE, INSERT, DELETE 문이 실패합니다. SQL Server는 필요한 값을 위반하는 모든 SET 옵션이 나열된 오류를 반환합니다. 뿐만 아니라 SELECT 문 실행 시 SET ANSI_NULLS 옵션이 OFF면 SQL Server는 계산 열이나 뷰의 인덱스 값을 무시하고 테이블이나 뷰에 이러한 인덱스가 없는 것처럼 SELECT 작업을 처리합니다.</p>
-
 <h3 id="예제">예제</h3>
-
 <p>다음 예에서는 Equals(<code>=</code>)와 Not Equal To(<code>&lt;&gt;</code>) 비교 연산자를 사용하여 테이블의 <code>NULL</code> 및 Null이 아닌 값에 비교를 수행합니다. 또한 <code>IS NULL</code>이 <code>SET ANSI_NULLS</code> 설정의 영향을 받지 않는다는 것을 보여 줍니다.</p>
-
-<pre><code class="language-sql">-- Create table t1 and insert values.  
-CREATE TABLE dbo.t1 (a INT NULL);  
-INSERT INTO dbo.t1 values (NULL),(0),(1);  
-GO  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- Create table t1 and insert values.  
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> dbo.t1 (a INT <span style="color:#66d9ef">NULL</span>);  
+<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> dbo.t1 <span style="color:#66d9ef">values</span> (<span style="color:#66d9ef">NULL</span>),(<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">1</span>);  
+<span style="color:#66d9ef">GO</span>  
   
--- Print message and perform SELECT statements.  
-PRINT 'Testing default setting';  
-DECLARE @varname int;   
-SET @varname = NULL;  
+<span style="color:#75715e">-- Print message and perform SELECT statements.  
+</span><span style="color:#75715e"></span>PRINT <span style="color:#e6db74">&#39;Testing default setting&#39;</span>;  
+<span style="color:#66d9ef">DECLARE</span> <span style="color:#f92672">@</span>varname int;   
+<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>varname <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>;  
   
-SELECT a  
-FROM t1   
-WHERE a = @varname;  
+<span style="color:#66d9ef">SELECT</span> a  
+<span style="color:#66d9ef">FROM</span> t1   
+<span style="color:#66d9ef">WHERE</span> a <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>varname;  
   
-SELECT a   
-FROM t1   
-WHERE a &lt;&gt; @varname;  
+<span style="color:#66d9ef">SELECT</span> a   
+<span style="color:#66d9ef">FROM</span> t1   
+<span style="color:#66d9ef">WHERE</span> a <span style="color:#f92672">&lt;&gt;</span> <span style="color:#f92672">@</span>varname;  
   
-SELECT a   
-FROM t1   
-WHERE a IS NULL;  
-GO 
-</code></pre>
-
-<p>이제 ANSI_NULLS를 ON으로 설정하고 테스트합니다.</p>
-
+<span style="color:#66d9ef">SELECT</span> a   
+<span style="color:#66d9ef">FROM</span> t1   
+<span style="color:#66d9ef">WHERE</span> a <span style="color:#66d9ef">IS</span> <span style="color:#66d9ef">NULL</span>;  
+<span style="color:#66d9ef">GO</span> 
+</code></pre></div><p>이제 ANSI_NULLS를 ON으로 설정하고 테스트합니다.</p>
 <p>SQL복사</p>
-
-<pre><code class="language-sql">PRINT 'Testing ANSI_NULLS ON';  
-SET ANSI_NULLS ON;  
-GO  
-DECLARE @varname int;  
-SET @varname = NULL  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">PRINT <span style="color:#e6db74">&#39;Testing ANSI_NULLS ON&#39;</span>;  
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">ON</span>;  
+<span style="color:#66d9ef">GO</span>  
+<span style="color:#66d9ef">DECLARE</span> <span style="color:#f92672">@</span>varname int;  
+<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>varname <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>  
   
-SELECT a   
-FROM t1   
-WHERE a = @varname;  
+<span style="color:#66d9ef">SELECT</span> a   
+<span style="color:#66d9ef">FROM</span> t1   
+<span style="color:#66d9ef">WHERE</span> a <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>varname;  
   
-SELECT a   
-FROM t1   
-WHERE a &lt;&gt; @varname;  
+<span style="color:#66d9ef">SELECT</span> a   
+<span style="color:#66d9ef">FROM</span> t1   
+<span style="color:#66d9ef">WHERE</span> a <span style="color:#f92672">&lt;&gt;</span> <span style="color:#f92672">@</span>varname;  
   
-SELECT a   
-FROM t1   
-WHERE a IS NULL;  
-GO  
-</code></pre>
-
-<p>이제 ANSI_NULLS를 OFF로 설정하고 테스트합니다.</p>
-
-<pre><code class="language-sql">PRINT 'Testing ANSI_NULLS OFF';  
-SET ANSI_NULLS OFF;  
-GO  
-DECLARE @varname int;  
-SET @varname = NULL;  
-SELECT a   
-FROM t1   
-WHERE a = @varname;  
+<span style="color:#66d9ef">SELECT</span> a   
+<span style="color:#66d9ef">FROM</span> t1   
+<span style="color:#66d9ef">WHERE</span> a <span style="color:#66d9ef">IS</span> <span style="color:#66d9ef">NULL</span>;  
+<span style="color:#66d9ef">GO</span>  
+</code></pre></div><p>이제 ANSI_NULLS를 OFF로 설정하고 테스트합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">PRINT <span style="color:#e6db74">&#39;Testing ANSI_NULLS OFF&#39;</span>;  
+<span style="color:#66d9ef">SET</span> ANSI_NULLS <span style="color:#66d9ef">OFF</span>;  
+<span style="color:#66d9ef">GO</span>  
+<span style="color:#66d9ef">DECLARE</span> <span style="color:#f92672">@</span>varname int;  
+<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>varname <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>;  
+<span style="color:#66d9ef">SELECT</span> a   
+<span style="color:#66d9ef">FROM</span> t1   
+<span style="color:#66d9ef">WHERE</span> a <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>varname;  
   
-SELECT a   
-FROM t1   
-WHERE a &lt;&gt; @varname;  
+<span style="color:#66d9ef">SELECT</span> a   
+<span style="color:#66d9ef">FROM</span> t1   
+<span style="color:#66d9ef">WHERE</span> a <span style="color:#f92672">&lt;&gt;</span> <span style="color:#f92672">@</span>varname;  
   
-SELECT a   
-FROM t1   
-WHERE a IS NULL;  
-GO  
+<span style="color:#66d9ef">SELECT</span> a   
+<span style="color:#66d9ef">FROM</span> t1   
+<span style="color:#66d9ef">WHERE</span> a <span style="color:#66d9ef">IS</span> <span style="color:#66d9ef">NULL</span>;  
+<span style="color:#66d9ef">GO</span>  
   
--- Drop table t1.  
-DROP TABLE dbo.t1;  
-</code></pre>
+<span style="color:#75715e">-- Drop table t1.  
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span> dbo.t1;  
+</code></pre></div>
               
             </div>
           </div>
@@ -543,7 +506,7 @@ DROP TABLE dbo.t1;
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

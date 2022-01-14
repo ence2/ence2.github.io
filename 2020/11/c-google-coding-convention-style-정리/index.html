@@ -5,20 +5,16 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.
-
 컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.
-
 컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.">
 
 
 <meta property="og:description" content="코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.
-
 컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.
-
 컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C&#43;&#43; Google Coding Convention Style 정리">
@@ -27,14 +23,10 @@
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.
-
 컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.
-
 컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.">
 <meta name="twitter:description" content="코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.
-
 컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.
-
 컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.">
 <meta property="og:locale" content="en-us">
 
@@ -108,7 +100,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -265,74 +256,84 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.</p>
-
 <p>컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.</p>
-
 <p>컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.</p>
-
 <p>Google에서는 C++ 언어의 코딩 컨벤션 스타일 가이드를 제시하는데 제너럴한 스타일이기 때문에 참고해 볼만 합니다.</p>
-
 <p><a href="https://google.github.io/styleguide/cppguide.html">https://google.github.io/styleguide/cppguide.html</a></p>
-
 <h3 id="간단-요약">간단 요약</h3>
-
 <ul>
-<li><p>탭
-탭 문자를 사용하는 hard탭 (O)</p></li>
-
-<li><p>클래스
-파스칼 표기법 -&gt; Player, Item, Monster</p></li>
-
-<li><p>Method
-파스칼 표기법 -&gt; ItemInventorySlot, MonsterPower</p></li>
-
-<li><p>Parameter, 지역 변수
-가능하면 camelCase -&gt; helloWorldVision</p></li>
-
-<li><p>포인터
-약식 헝가리안 표기법 -&gt; pItemSlot, pStore</p></li>
-
-<li><p>멤버 변수
-가능하면 camelCase -&gt; m_powerOverSuper, m_pLocalManager(포인터류)</p></li>
-
-<li><p>멤버 함수
+<li>
+<p>탭
+탭 문자를 사용하는 hard탭 (O)</p>
+</li>
+<li>
+<p>클래스
+파스칼 표기법 -&gt; Player, Item, Monster</p>
+</li>
+<li>
+<p>Method
+파스칼 표기법 -&gt; ItemInventorySlot, MonsterPower</p>
+</li>
+<li>
+<p>Parameter, 지역 변수
+가능하면 camelCase -&gt; helloWorldVision</p>
+</li>
+<li>
+<p>포인터
+약식 헝가리안 표기법 -&gt; pItemSlot, pStore</p>
+</li>
+<li>
+<p>멤버 변수
+가능하면 camelCase -&gt; m_powerOverSuper, m_pLocalManager(포인터류)</p>
+</li>
+<li>
+<p>멤버 함수
 protected, private은 camelCase -&gt; private void helloWorld()
-public 파스칼 -&gt; public void HelloWorld()</p></li>
-
-<li><p>Lock 사용 함수
-_가 들어가면 lock을 사용하지 않습니다 -&gt; private void _noLockFunction()</p></li>
-
-<li><p>레퍼런스 parameter
-약식 헝가리안 표기법, Output 인자인 경우 rf를 붙입니다</p></li>
-
-<li><p>namespace indentation
-들여쓰기 하지 않음. 대신 closing bracket에 주석으로 어떤 네임스페이스인지 명시(} //namespace spacename)</p></li>
-
-<li><p>global namespace
-코드 양을 줄이기 위해 name::, ::name::와 같은 global namespace 사용은 하지 않습니다</p></li>
-
-<li><p>namespace hierarchy</p>
-
+public 파스칼 -&gt; public void HelloWorld()</p>
+</li>
+<li>
+<p>Lock 사용 함수
+_가 들어가면 lock을 사용하지 않습니다 -&gt; private void _noLockFunction()</p>
+</li>
+<li>
+<p>레퍼런스 parameter
+약식 헝가리안 표기법, Output 인자인 경우 rf를 붙입니다</p>
+</li>
+<li>
+<p>namespace indentation
+들여쓰기 하지 않음. 대신 closing bracket에 주석으로 어떤 네임스페이스인지 명시(} //namespace spacename)</p>
+</li>
+<li>
+<p>global namespace
+코드 양을 줄이기 위해 name::, ::name::와 같은 global namespace 사용은 하지 않습니다</p>
+</li>
+<li>
+<p>namespace hierarchy</p>
 <p>가능하면 2단계(1단계는 namespace name)로 사용합니다
 특히 wrapper의 경우 name::wrapper::item 보단 name::wrapper를 사용합니다
-이래야 wrapper 클래스 내에서 name::item 네임스페이스를 쓸 때 name::를 안붙일 수 있습니다</p></li>
-
-<li><p>using typename
-using Ptr = std::shared_ptr<Item> 보단 std::shared_ptr<Item>를 직접 사용합니다</p></li>
-
-<li><p>newline
-가능하면 두줄 이상의 빈 라인을 사용하지 않습니다</p></li>
-
-<li><p>include directive
-#include &ldquo;character/item.h&rdquo; 보단 #include &ldquo;Common/character/item.h&rdquo;와 같이 프로젝트 이름을 넣어줍니다.</p></li>
-
-<li><p>한 줄 길이
-100 컬럼(탭 사이즈가 4 컬럼이기 때문입니다)</p></li>
-
-<li><p>약어</p>
-
+이래야 wrapper 클래스 내에서 name::item 네임스페이스를 쓸 때 name::를 안붙일 수 있습니다</p>
+</li>
+<li>
+<p>using typename
+using Ptr = std::shared_ptr<!-- raw HTML omitted --> 보단 std::shared_ptr<!-- raw HTML omitted -->를 직접 사용합니다</p>
+</li>
+<li>
+<p>newline
+가능하면 두줄 이상의 빈 라인을 사용하지 않습니다</p>
+</li>
+<li>
+<p>include directive
+#include &ldquo;character/item.h&rdquo; 보단 #include &ldquo;Common/character/item.h&quot;와 같이 프로젝트 이름을 넣어줍니다.</p>
+</li>
+<li>
+<p>한 줄 길이
+100 컬럼(탭 사이즈가 4 컬럼이기 때문입니다)</p>
+</li>
+<li>
+<p>약어</p>
 <p>itemID
-userPvpHistory</p></li>
+userPvpHistory</p>
+</li>
 </ul>
               
             </div>
@@ -433,7 +434,7 @@ userPvpHistory</p></li>
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

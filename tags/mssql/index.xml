@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Mssql on Keep calm carry on</title>
+    <title>MsSQL on Keep calm carry on</title>
     <link>https://ence2.github.io/tags/mssql/</link>
-    <description>Recent content in Mssql on Keep calm carry on</description>
+    <description>Recent content in MsSQL on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sun, 29 Nov 2020 23:27:20 +0900</lastBuildDate>
-    
-	<atom:link href="https://ence2.github.io/tags/mssql/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 29 Nov 2020 23:27:20 +0900</lastBuildDate><atom:link href="https://ence2.github.io/tags/mssql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MsSQL UNION (ALL) 정의, 사용법</title>
       <link>https://ence2.github.io/2020/11/mssql-union-all-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/</link>
@@ -18,9 +14,7 @@
       
       <guid>https://ence2.github.io/2020/11/mssql-union-all-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/</guid>
       <description>&lt;p&gt;&lt;strong&gt;UNION/UNION ALL이란?&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;- 두 개의 SELECT문을 합치는 것을 말합니다.&lt;/p&gt;
-
 &lt;p&gt;- 두 개의 SELECT문을 합치는 것이기때문에 제약조건이 많습니다.&lt;/p&gt;</description>
     </item>
     
@@ -31,7 +25,6 @@
       
       <guid>https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/</guid>
       <description>&lt;p&gt;linked server는&lt;/p&gt;
-
 &lt;p&gt;MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.&lt;/p&gt;</description>
     </item>
     
@@ -51,7 +44,6 @@
       
       <guid>https://ence2.github.io/2020/11/mssql-procedure-%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80/</guid>
       <description>&lt;p&gt;저장 프로시저는 다음과 같은 점에서 다른 프로그래밍 언어의 프로시저와 유사합니다.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;입력 매개 변수를 받아 여러 값을 출력 매개 변수의 형태로 호출하는 프로시저 또는 일괄 처리에 반환합니다.&lt;/li&gt;
 &lt;li&gt;다른 프로시저 호출을 비롯하여 데이터베이스에서 작업을 수행하는 프로그래밍 문이 포함되어 있습니다.&lt;/li&gt;
@@ -66,9 +58,7 @@
       
       <guid>https://ence2.github.io/2020/11/mssql-cursor/</guid>
       <description>&lt;p&gt;커서는 행 단위 작업을 추가로 제어해야 할 경우 사용되는 기능입니다.&lt;/p&gt;
-
 &lt;p&gt;여러 행을 select 하여 While 반복문 등에 활용 될 수 있습니다. 프로그래밍의 for문의 첨자 i와 비슷합니다.&lt;/p&gt;
-
 &lt;p&gt;프로시저 작성시 활용됩니다.&lt;/p&gt;</description>
     </item>
     
@@ -79,7 +69,6 @@
       
       <guid>https://ence2.github.io/2020/11/mssql-%EA%B0%92-%EC%9E%90%EB%8F%99-%EC%A6%9D%EA%B0%80-identity%EC%99%80-%EC%8B%9C%ED%80%80%EC%8A%A4sequence/</guid>
       <description>&lt;p&gt;MsSQL에서 identity 옵션은 MySQL의 auto increment 옵션과 같습니다. (insert시 컬럼 값 자동 증가)&lt;/p&gt;
-
 &lt;p&gt;위 옵션들은 해당 테이블에 종속적이며, 여러 테이블에 걸친 전역적인 값 증가는 sequence라는 객체를 사용합니다.&lt;/p&gt;</description>
     </item>
     
@@ -108,11 +97,10 @@
       
       <guid>https://ence2.github.io/2020/11/mssql-set-quoted_identifier-onoff/</guid>
       <description>&lt;h4 id=&#34;구문&#34;&gt;구문&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
-
-SET QUOTED_IDENTIFIER { ON | OFF }
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- Syntax for SQL Server, Azure SQL Database and SQL on-demand (preview) in Azure Synapse Analytics
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;SET&lt;/span&gt; QUOTED_IDENTIFIER &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;ON&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;OFF&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -122,11 +110,10 @@ SET QUOTED_IDENTIFIER { ON | OFF }
       
       <guid>https://ence2.github.io/2020/11/mssql-set-ansi_nulls-onoff/</guid>
       <description>&lt;h3 id=&#34;구문&#34;&gt;구문&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- Syntax for SQL Server
-
-SET ANSI_NULLS { ON | OFF }
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- Syntax for SQL Server
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;SET&lt;/span&gt; ANSI_NULLS &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;ON&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;OFF&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -154,11 +141,9 @@ SET ANSI_NULLS { ON | OFF }
       
       <guid>https://ence2.github.io/2020/11/mssql-with-nolock/</guid>
       <description>&lt;p&gt;MSSQL은 기본적으로 SELECT 시에 공유잠금(TRANSACTION ISOLATION READ COMMIT)이 걸리게 됩니다.&lt;/p&gt;
-
 &lt;p&gt;MSSQL에서 SELECT 시에 &lt;strong&gt;WITH (NOLOCK)&lt;/strong&gt; 을 주면 공유잠금을 걸지 않고 바로 조회 수행합니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT * FROM TABLE1 WITH (NOLOCK)
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; TABLE1 &lt;span style=&#34;color:#66d9ef&#34;&gt;WITH&lt;/span&gt; (NOLOCK)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>

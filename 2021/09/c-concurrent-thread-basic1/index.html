@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="본 시리즈는 C&#43;&#43; 기반의 동시성 프로그래밍에 관한 내용입니다.
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -258,321 +257,285 @@ if (!doNotTrack) {
             <div class="main-content-wrap">
               <p>본 시리즈는 C++ 기반의 동시성 프로그래밍에 관한 내용입니다.
 이번 시간에는 std::this_tread, chrono에 관해 살펴보겠습니다.</p>
-
-<h2 id="std-this-tread">std::this_tread</h2>
-
-<h4 id="get-id">get_id()</h4>
-
+<h2 id="stdthis_tread">std::this_tread</h2>
+<h4 id="get_id">get_id()</h4>
 <ul>
 <li>현재 실행중인 스레드의 ID 반환
-
 <ul>
 <li>정수로 변환 불가(구조체 형식으로 리턴됨)</li>
-</ul></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-
-int main()
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>get_id() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 
-    std::thread::id tid1 = std::this_thread::get_id();
-    std::thread::id tid2 = std::this_thread::get_id();
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span><span style="color:#f92672">::</span>id tid1 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>get_id();
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span><span style="color:#f92672">::</span>id tid2 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>get_id();
   
-    tid1 == tid2;
-    tid1 &lt; tid2;
+    tid1 <span style="color:#f92672">==</span> tid2;
+    tid1 <span style="color:#f92672">&lt;</span> tid2;
 
-    std::hash&lt;std::thread::id&gt; h;
+    std<span style="color:#f92672">::</span>hash<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span><span style="color:#f92672">::</span>id<span style="color:#f92672">&gt;</span> h;
 
-    std::cout &lt;&lt; h(tid1) &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> h(tid1) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>sleep_for() / sleep_until()</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-using namespace std::literals;
+std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>system_clock<span style="color:#f92672">::</span>time_point 
+createDateTime(<span style="color:#66d9ef">int</span> year, <span style="color:#66d9ef">int</span> month, <span style="color:#66d9ef">int</span> day, <span style="color:#66d9ef">int</span> hour, <span style="color:#66d9ef">int</span> minute, <span style="color:#66d9ef">int</span> second);
 
-std::chrono::system_clock::time_point 
-createDateTime(int year, int month, int day, int hour, int minute, int second);
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::this_thread::sleep_for(std::chrono::seconds(3));
-    std::this_thread::sleep_for(3s); // 3ms, 3ns, 3min
-    //std::this_thread::sleep_for(3);  // error
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>seconds(<span style="color:#ae81ff">3</span>));
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">3</span>s); <span style="color:#75715e">// 3ms, 3ns, 3min
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//std::this_thread::sleep_for(3);  // error
+</span><span style="color:#75715e"></span>
+    std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>time_point tp1 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>steady_clock<span style="color:#f92672">::</span>now();
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_until( tp1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">2000</span>ms );    
 
-    std::chrono::time_point tp1 = std::chrono::steady_clock::now();
-    std::this_thread::sleep_until( tp1 + 2000ms );    
-
-    auto tp2 = createDateTime(2021, 4, 11, 12, 39, 00);
-    std::this_thread::sleep_until( tp2 );    
+    <span style="color:#66d9ef">auto</span> tp2 <span style="color:#f92672">=</span> createDateTime(<span style="color:#ae81ff">2021</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">39</span>, <span style="color:#ae81ff">00</span>);
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_until( tp2 );    
 }
 
-time_t toUTC(std::tm&amp; timeinfo)
+time_t <span style="color:#a6e22e">toUTC</span>(std<span style="color:#f92672">::</span>tm<span style="color:#f92672">&amp;</span> timeinfo)
 {
-#ifdef _WIN32
-    std::time_t tt = _mkgmtime(&amp;timeinfo);
-#else
-    time_t tt = timegm(&amp;timeinfo);
-#endif
-    return tt;
+<span style="color:#75715e">#ifdef _WIN32
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>time_t tt <span style="color:#f92672">=</span> _mkgmtime(<span style="color:#f92672">&amp;</span>timeinfo);
+<span style="color:#75715e">#else
+</span><span style="color:#75715e"></span>    time_t tt <span style="color:#f92672">=</span> timegm(<span style="color:#f92672">&amp;</span>timeinfo);
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> tt;
 }
 
-std::chrono::system_clock::time_point 
-createDateTime(int year, int month, int day, int hour, int minute, int second)
+std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>system_clock<span style="color:#f92672">::</span>time_point 
+createDateTime(<span style="color:#66d9ef">int</span> year, <span style="color:#66d9ef">int</span> month, <span style="color:#66d9ef">int</span> day, <span style="color:#66d9ef">int</span> hour, <span style="color:#66d9ef">int</span> minute, <span style="color:#66d9ef">int</span> second)
 {
-    tm timeinfo1 = tm();
-    timeinfo1.tm_year = year - 1900;
-    timeinfo1.tm_mon = month - 1;
-    timeinfo1.tm_mday = day;
-    timeinfo1.tm_hour = hour;
-    timeinfo1.tm_min = minute;
-    timeinfo1.tm_sec = second;
-    tm timeinfo = timeinfo1;
-    time_t tt = toUTC(timeinfo);
-    return std::chrono::system_clock::from_time_t(tt);
+    tm timeinfo1 <span style="color:#f92672">=</span> tm();
+    timeinfo1.tm_year <span style="color:#f92672">=</span> year <span style="color:#f92672">-</span> <span style="color:#ae81ff">1900</span>;
+    timeinfo1.tm_mon <span style="color:#f92672">=</span> month <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+    timeinfo1.tm_mday <span style="color:#f92672">=</span> day;
+    timeinfo1.tm_hour <span style="color:#f92672">=</span> hour;
+    timeinfo1.tm_min <span style="color:#f92672">=</span> minute;
+    timeinfo1.tm_sec <span style="color:#f92672">=</span> second;
+    tm timeinfo <span style="color:#f92672">=</span> timeinfo1;
+    time_t tt <span style="color:#f92672">=</span> toUTC(timeinfo);
+    <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>system_clock<span style="color:#f92672">::</span>from_time_t(tt);
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>yield()
-
 <ul>
 <li>현재 스레드의 흐름을 다른 스레드에 양보</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;chrono&gt;
-#include &lt;thread&gt;
-using namespace std::literals;
-
-void mysleep(std::chrono::microseconds us)
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mysleep</span>(std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>microseconds us)
 {
-    auto target = std::chrono::high_resolution_clock::now() + us;
+    <span style="color:#66d9ef">auto</span> target <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>high_resolution_clock<span style="color:#f92672">::</span>now() <span style="color:#f92672">+</span> us;
 
-    while (std::chrono::high_resolution_clock::now() &lt; target)
-        std::this_thread::yield();   
+    <span style="color:#66d9ef">while</span> (std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>high_resolution_clock<span style="color:#f92672">::</span>now() <span style="color:#f92672">&lt;</span> target)
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>yield();   
 } 
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    mysleep(1s);
+    mysleep(<span style="color:#ae81ff">1</span>s);
 }
-</code></pre>
-
-<h2 id="std-tread">std::tread</h2>
-
+</code></pre></div><h2 id="stdtread">std::tread</h2>
 <h4 id="스레드-생성-방법">스레드 생성 방법</h4>
-
 <ul>
 <li>std::thread의 생성 인자로 스레드를 수행할 함수 전달</li>
 <li>join() 또는 detach()를 해야함
-
 <ul>
 <li>join() : 스레드 종료를 대기</li>
 <li>detach() : 생성된 스레드가 독립적으로 실행(메인 스레드 종료시 같이 종료됨)</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-using namespace std::literals;
-
-void foo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    for( int i = 0; i &lt; 10; i++)
+    <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)
     {
-        std::cout &lt;&lt; &quot;foo : &quot; &lt;&lt; i &lt;&lt; std::endl;
-        std::this_thread::sleep_for(100ms);
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;foo : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">100</span>ms);
     }
 }
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t(&amp;foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t(<span style="color:#f92672">&amp;</span>foo);
 
- //   t.join();
-    t.detach();
-    std::cout &lt;&lt; &quot;end&quot; &lt;&lt; std::endl;
+ <span style="color:#75715e">//   t.join();
+</span><span style="color:#75715e"></span>    t.detach();
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;end&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 
-    int n;
-    std::cin &gt;&gt; n;
+    <span style="color:#66d9ef">int</span> n;
+    std<span style="color:#f92672">::</span>cin <span style="color:#f92672">&gt;&gt;</span> n;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>인자 전달 방법</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f1</span>()                { }
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f2</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">double</span> d) { }
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f3</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> b, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&amp;</span> s) { b <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;}
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;thread&gt;
-
-void f1()                { }
-void f2(int a, double d) { }
-void f3(int a, int&amp; b, std::string&amp;&amp; s) { b = 100;}
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int n = 0;
-    std::string s = &quot;hello&quot;;
+    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    std<span style="color:#f92672">::</span>string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span>;
 
-    std::thread t1(&amp;f1);
-    std::thread t2(&amp;f2, 10, 3.4);
-    std::thread t3(&amp;f3, 10, std::ref(n), std::move(s) );
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(<span style="color:#f92672">&amp;</span>f1);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(<span style="color:#f92672">&amp;</span>f2, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3.4</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t3(<span style="color:#f92672">&amp;</span>f3, <span style="color:#ae81ff">10</span>, std<span style="color:#f92672">::</span>ref(n), std<span style="color:#f92672">::</span>move(s) );
     t1.join();
     t2.join();
     t3.join();
 
-    std::cout &lt;&lt; s &lt;&lt; std::endl; // &quot;&quot;
-    std::cout &lt;&lt; n &lt;&lt; std::endl; // 100
-}
-</code></pre>
-
-<ul>
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> s <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// &#34;&#34;
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 100
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>callable object 전달 방법</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">double</span> d) {}
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-
-void foo(int a, double d) {}
-
-struct Machine
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Machine</span>
 {
-    void Run(int a, double d) {}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Run</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">double</span> d) {}
 };
-struct Work
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Work</span>
 {
-    void operator()(int a, double b) const {}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">operator</span>()(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">double</span> b) <span style="color:#66d9ef">const</span> {}
 };
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     Machine m;
-    Work w;  w(1, 3.4); // 함수객체
-    std::thread t1( &amp;foo, 1, 3.4 );
-    std::thread t2( &amp;Machine::Run, &amp;m, 1, 3.4 );    
-    std::thread t3( w, 1, 3.4 );
-    std::thread t4( []{ std::cout &lt;&lt; &quot;lambda&quot; &lt;&lt; std::endl;} );
+    Work w;  w(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3.4</span>); <span style="color:#75715e">// 함수객체
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1( <span style="color:#f92672">&amp;</span>foo, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3.4</span> );
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2( <span style="color:#f92672">&amp;</span>Machine<span style="color:#f92672">::</span>Run, <span style="color:#f92672">&amp;</span>m, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3.4</span> );    
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t3( w, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3.4</span> );
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t4( []{ std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;lambda&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;} );
     t1.join();
     t2.join();
     t3.join();
     t4.join();
 }
-</code></pre>
+</code></pre></div><h2 id="stdthread의-멤버-함수">std::thread의 멤버 함수</h2>
+<h4 id="hardware_concurrency--cpu의-멀티-스레드-지원-개수">hardware_concurrency() : CPU의 멀티 스레드 지원 개수</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<h2 id="std-thread의-멤버-함수">std::thread의 멤버 함수</h2>
-
-<h4 id="hardware-concurrency-cpu의-멀티-스레드-지원-개수">hardware_concurrency() : CPU의 멀티 스레드 지원 개수</h4>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-using namespace std::literals;
-
-void foo() 
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() 
 {
-    std::cout &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>get_id() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int n =  std::thread::hardware_concurrency();
-    std::cout &lt;&lt; n &lt;&lt; std::endl; // 8
+    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span>  std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span><span style="color:#f92672">::</span>hardware_concurrency();
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 8
+</span><span style="color:#75715e"></span>
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t( <span style="color:#f92672">&amp;</span>foo );
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">1</span>s);
 
-    std::thread t( &amp;foo );
-    std::this_thread::sleep_for(1s);
-
-    std::thread::id tid = t.get_id();
-    std::cout &lt;&lt; &quot;created thread id : &quot; &lt;&lt; tid &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span><span style="color:#f92672">::</span>id tid <span style="color:#f92672">=</span> t.get_id();
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;created thread id : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> tid <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     t.join();
 }
-</code></pre>
-
-<h4 id="getcurrentthread-os-레벨의-스레드-핸들-획득">GetCurrentThread : OS 레벨의 스레드 핸들 획득</h4>
-
+</code></pre></div><h4 id="getcurrentthread--os-레벨의-스레드-핸들-획득">GetCurrentThread : OS 레벨의 스레드 핸들 획득</h4>
 <ul>
 <li>스레드 우선순위 변경 등에 사용</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;windows.h&gt;
-#include &lt;chrono&gt;
-using namespace std::literals;
-
-void foo() 
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() 
 {
-    auto tid = std::this_thread::get_id(); // 스레드 ID 얻기
-
-    auto handle = GetCurrentThread();
-    std::this_thread::sleep_for(1s);    
-    std::cout &lt;&lt; GetThreadPriority( handle) &lt;&lt; std::endl;
+    <span style="color:#66d9ef">auto</span> tid <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>get_id(); <span style="color:#75715e">// 스레드 ID 얻기
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">auto</span> handle <span style="color:#f92672">=</span> GetCurrentThread();
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">1</span>s);    
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> GetThreadPriority( handle) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t( &amp;foo );
-    std::thread::native_handle_type h = t.native_handle();
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t( <span style="color:#f92672">&amp;</span>foo );
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span><span style="color:#f92672">::</span>native_handle_type h <span style="color:#f92672">=</span> t.native_handle();
 
-    std::cout &lt;&lt; &quot;ID     : &quot; &lt;&lt; t.get_id() &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;handle : &quot; &lt;&lt; h          &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;ID     : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> t.get_id() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;handle : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> h          <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 
-    std::this_thread::sleep_for(100ms);   
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">100</span>ms);   
     SetThreadPriority((HANDLE)h, THREAD_PRIORITY_TIME_CRITICAL);
     t.join();
 }
-</code></pre>
-
-<h4 id="joinable">joinable()</h4>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-
-int main()
+</code></pre></div><h4 id="joinable">joinable()</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t;
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t;
 
-    if ( t.joinable() )
+    <span style="color:#66d9ef">if</span> ( t.joinable() )
     {
         t.join();
     }
 }
-</code></pre>
-
-<h4 id="변수간-thread-객체-전달-방법">변수간 thread 객체 전달 방법</h4>
-
+</code></pre></div><h4 id="변수간-thread-객체-전달-방법">변수간 thread 객체 전달 방법</h4>
 <ul>
 <li>copy 불가</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() {}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">goo</span>() {}
 
-<pre><code class="language-cpp">#include &lt;thread&gt;
-
-void foo() {}
-void goo() {}
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(&amp;foo);
-    std::thread t2(&amp;goo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(<span style="color:#f92672">&amp;</span>foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(<span style="color:#f92672">&amp;</span>goo);
 
     t1.swap(t2);
 
-//    std::thread t3 = t1;  // error  
-    std::thread t4 = std::move(t1);  // ok
-
-//    t1.join(); // 예외.
-    t2.join();
+<span style="color:#75715e">//    std::thread t3 = t1;  // error  
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t4 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>move(t1);  <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//    t1.join(); // 예외.
+</span><span style="color:#75715e"></span>    t2.join();
     t4.join();
 }
-</code></pre>
+</code></pre></div>
               
             </div>
           </div>
@@ -599,7 +562,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/09/c-concurrent-promise-future-async2/" data-tooltip="C&#43;&#43; Concurrent - Promise / future / async[2]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/09/c-concurrent-promise-/-future-/-async2/" data-tooltip="C&#43;&#43; Concurrent - Promise / future / async[2]">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -672,7 +635,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 
@@ -685,7 +648,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/09/c-concurrent-promise-future-async2/" data-tooltip="C&#43;&#43; Concurrent - Promise / future / async[2]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/09/c-concurrent-promise-/-future-/-async2/" data-tooltip="C&#43;&#43; Concurrent - Promise / future / async[2]">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>

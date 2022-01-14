@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="코틀린의 Nullability, When Expression에 대해 알아보겠습니다.">
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -257,60 +256,49 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>코틀린의 Nullability, When Expression에 대해 알아보겠습니다.</p>
-
 <h3 id="nullability">Nullability</h3>
-
 <p>코틀린에서 기본 타입은 null 대입이 불가능하나 타입에 Nullable 속성을 부여 할 경우, 기본 타입도 null 관련 처리가 가능합니다.</p>
-
 <p>Nullable 타입 변수의 오버라이딩된 함수를 사용 할 때에는 ?. 와 같은 표현으로 사용해야 합니다.</p>
-
 <p>!!. 표현식은 nullable 타입 관련 컴파일 타임 문법 체크를 통과시킬 수 있습니다.</p>
-
-<pre><code class="language-python">fun nullability()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun nullability()
 {
-    var y:String? = null // nullable string
+    var y:String<span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#f92672">=</span> null <span style="color:#f92672">//</span> nullable string
 
-    // println(y.length) // error
-    println(y?.length) // OK
+    <span style="color:#f92672">//</span> println(y<span style="color:#f92672">.</span>length) <span style="color:#f92672">//</span> error
+    println(y<span style="color:#960050;background-color:#1e0010">?</span><span style="color:#f92672">.</span>length) <span style="color:#f92672">//</span> OK
 
-    println(y!!.length) // OK but 런타임 에러
+    println(y<span style="color:#960050;background-color:#1e0010">!!</span><span style="color:#f92672">.</span>length) <span style="color:#f92672">//</span> OK but 런타임 에러
 }
-</code></pre>
-
-<h3 id="when-expression">When Expression</h3>
-
+</code></pre></div><h3 id="when-expression">When Expression</h3>
 <p>코틀린에서 when 표현식은 C의 switch cast와 유사합니다.</p>
-
-<pre><code class="language-python">fun when_exp()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun when_exp()
 {
-    var code = 44
+    var code <span style="color:#f92672">=</span> <span style="color:#ae81ff">44</span>
 
     when (code)
     {
-        44 -&gt; println(&quot;UK&quot;)
-        46 -&gt; println(&quot;sweden&quot;)
-        39, 379 -&gt; println(&quot;vatican&quot;)
-        in 1..999 -&gt; println(&quot;i don't know&quot;)
-        else -&gt;
+        <span style="color:#ae81ff">44</span> <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;UK&#34;</span>)
+        <span style="color:#ae81ff">46</span> <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;sweden&#34;</span>)
+        <span style="color:#ae81ff">39</span>, <span style="color:#ae81ff">379</span> <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;vatican&#34;</span>)
+        <span style="color:#f92672">in</span> <span style="color:#ae81ff">1..999</span> <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;i don&#39;t know&#34;</span>)
+        <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span>
         {
-            println(&quot;error&quot;)
+            println(<span style="color:#e6db74">&#34;error&#34;</span>)
         }
     }
 
-    var z:Any = &quot;Foo&quot;
+    var z:Any <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Foo&#34;</span>
 
-    var output = when (z) 
+    var output <span style="color:#f92672">=</span> when (z) 
     {
-        is Int -&gt; print(&quot;this is int type&quot;) // is 키워드로 타입 검사 가능
-        is String -&gt; println(&quot;this is string type&quot;)
-        else -&gt; println(&quot;other type&quot;)
+        <span style="color:#f92672">is</span> Int <span style="color:#f92672">-&gt;</span> print(<span style="color:#e6db74">&#34;this is int type&#34;</span>) <span style="color:#f92672">//</span> <span style="color:#f92672">is</span> 키워드로 타입 검사 가능
+        <span style="color:#f92672">is</span> String <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;this is string type&#34;</span>)
+        <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;other type&#34;</span>)
     }
     
-    println(output) // 변수에 담아 출력도 OK
+    println(output) <span style="color:#f92672">//</span> 변수에 담아 출력도 OK
 }
-</code></pre>
-
-<p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
+</code></pre></div><p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
               
             </div>
           </div>
@@ -414,7 +402,7 @@ if (!doNotTrack) {
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

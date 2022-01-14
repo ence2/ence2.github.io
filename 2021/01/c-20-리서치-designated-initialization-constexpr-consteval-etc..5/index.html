@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="다음의 C&#43;&#43;20에 추가된 기능을 살펴보겠습니다.
-
 
 Designated Initialization(지정된 초기화)
 Constexpr
@@ -19,7 +18,6 @@ ETC&hellip;
 
 
 <meta property="og:description" content="다음의 C&#43;&#43;20에 추가된 기능을 살펴보겠습니다.
-
 
 Designated Initialization(지정된 초기화)
 Constexpr
@@ -34,14 +32,12 @@ ETC&hellip;
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="다음의 C&#43;&#43;20에 추가된 기능을 살펴보겠습니다.
 
-
 Designated Initialization(지정된 초기화)
 Constexpr
 Consteval
 ETC&hellip;
 ">
 <meta name="twitter:description" content="다음의 C&#43;&#43;20에 추가된 기능을 살펴보겠습니다.
-
 
 Designated Initialization(지정된 초기화)
 Constexpr
@@ -124,7 +120,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -283,168 +278,147 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>다음의 C++20에 추가된 기능을 살펴보겠습니다.</p>
-
 <ol>
 <li>Designated Initialization(지정된 초기화)</li>
 <li>Constexpr</li>
 <li>Consteval</li>
 <li>ETC&hellip;</li>
 </ol>
-
 <h3 id="designated-initialization-지정된-초기화">Designated Initialization 지정된 초기화</h3>
-
 <blockquote>
 <p>Aggregate 초기화를 사용 할 때 명시적으로 멤버의 이름을 지정하여 초기화 하는 것</p>
 </blockquote>
-
-<pre><code class="language-cpp">class Point3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point3</span>
 {
-    int x, y, z;
+    <span style="color:#66d9ef">int</span> x, y, z;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //C++17
-    Point p0 = {1, 2, 3};
+    <span style="color:#75715e">//C++17
+</span><span style="color:#75715e"></span>    Point p0 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>};
     
-    //C++20
-    Point p1 = {.x = 1, .y = 2, .z = 3};
-    Point p2 = {.x = 1, .z = 3}; // y는 0으로 초기화 됨
-    
-    //C++20 부터는 클래스의 생성자가 없어도 하단 문법이 정상 처리됨
-    Point p3(1, 2, 3);
-    Point p4(1); //1, 0, 0
-    
-    //주의 사항
-    Point p5 = {.y = 2, .x = 1}; // C++20에서 지정된 초기화의 멤버 순서가 바뀔 경우 오류 발생
-    Point p6 = {.x = 1, 2}; // 섞어서 쓸 경우 오류 발생
-}
-</code></pre>
-
-<h3 id="constexpr-관련-변경점">Constexpr 관련 변경점</h3>
-
+    <span style="color:#75715e">//C++20
+</span><span style="color:#75715e"></span>    Point p1 <span style="color:#f92672">=</span> {.x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, .y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, .z <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>};
+    Point p2 <span style="color:#f92672">=</span> {.x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, .z <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>}; <span style="color:#75715e">// y는 0으로 초기화 됨
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">//C++20 부터는 클래스의 생성자가 없어도 하단 문법이 정상 처리됨
+</span><span style="color:#75715e"></span>    Point p3(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>);
+    Point p4(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">//1, 0, 0
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">//주의 사항
+</span><span style="color:#75715e"></span>    Point p5 <span style="color:#f92672">=</span> {.y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, .x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>}; <span style="color:#75715e">// C++20에서 지정된 초기화의 멤버 순서가 바뀔 경우 오류 발생
+</span><span style="color:#75715e"></span>    Point p6 <span style="color:#f92672">=</span> {.x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}; <span style="color:#75715e">// 섞어서 쓸 경우 오류 발생
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="constexpr-관련-변경점">Constexpr 관련 변경점</h3>
 <ul>
 <li><strong>std::is_constant_evaluated() 함수 추가 : 어떤 함수가 컴파일 타임에 실행 되는지 여부</strong></li>
 <li><strong>constexpr virtual function : 가상 함수도 constexpr 사용 가능 (17 이전에는 불가능)</strong></li>
 <li><strong>std 알고리즘에 constexpr 지원</strong></li>
 </ul>
-
-<pre><code class="language-cpp">//constexpr : 컴파일 시간 또는 실행시간에 수행 될 수 있다
-#include &lt;algoritm&gt;
-#include &lt;numeric&gt;
-#include &lt;array&gt;
-
-constexpr auto add(int x, int y)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//constexpr : 컴파일 시간 또는 실행시간에 수행 될 수 있다
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algoritm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;numeric&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;array&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
 {
-    bool isCompileTime = std::is_constant_evaluated();
-    return std::pair(x+y, isCompileTime);
+    <span style="color:#66d9ef">bool</span> isCompileTime <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>is_constant_evaluated();
+    <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>pair(x<span style="color:#f92672">+</span>y, isCompileTime);
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //is_constant_evaluated 관련
-    constexpr auto a = add(1, 2); // true
-    auto b = add(1, 2); // false;
+    <span style="color:#75715e">//is_constant_evaluated 관련
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">auto</span> a <span style="color:#f92672">=</span> add(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> b <span style="color:#f92672">=</span> add(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// false;
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+  	<span style="color:#66d9ef">auto</span> c <span style="color:#f92672">=</span> add(x, y); <span style="color:#75715e">// false
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">auto</span> d <span style="color:#f92672">=</span> add(x, y); <span style="color:#75715e">// 컴파일 에러 : 해당 표현은 컴파일 타임에 실행 될 수 없기에 constexpr를 제거해야 한다.
+</span><span style="color:#75715e"></span>    
     
-    int x = 1, y = 2;
-    auto c = add(x, y); // false
-    constexpr auto d = add(x, y); // 컴파일 에러 : 해당 표현은 컴파일 타임에 실행 될 수 없기에 constexpr를 제거해야 한다.
-    
-    
-    // std 알고리즘 관련 변화
-    constexpr int x[3] = {1, 2, 3};
-    //하단 std 컨테이너들도 constexpr 형으로 20 표준에서 지원 예정에 있다고 한다. 현재(2021-1-6)까지 아직 오류 발생
-    //constexpr std::array&lt;int, 3&gt; x = {1, 2, 3};
-    //constexpr std::vector&lt;int, 3&gt; x = {1, 2, 3};
-    
-    constexpr int aa = std::accumulate(std::begin(x), std::end(x), 0); // std 알고리즘이 컴파일 타임에 계산되어 성능 최적화가 가능
-    constexpr auto gotIt = std::find(std::begin(x), std::end(x), 3); // std 알고리즘이 컴파일 타임에 계산되어 성능 최적화가 가능
-}
+    <span style="color:#75715e">// std 알고리즘 관련 변화
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>};
+    <span style="color:#75715e">//하단 std 컨테이너들도 constexpr 형으로 20 표준에서 지원 예정에 있다고 한다. 현재(2021-1-6)까지 아직 오류 발생
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//constexpr std::array&lt;int, 3&gt; x = {1, 2, 3};
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//constexpr std::vector&lt;int, 3&gt; x = {1, 2, 3};
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> aa <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>accumulate(std<span style="color:#f92672">::</span>begin(x), std<span style="color:#f92672">::</span>end(x), <span style="color:#ae81ff">0</span>); <span style="color:#75715e">// std 알고리즘이 컴파일 타임에 계산되어 성능 최적화가 가능
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">auto</span> gotIt <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>find(std<span style="color:#f92672">::</span>begin(x), std<span style="color:#f92672">::</span>end(x), <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// std 알고리즘이 컴파일 타임에 계산되어 성능 최적화가 가능
+</span><span style="color:#75715e"></span>}
 
-</code></pre>
-
-<h3 id="신규-키워드-consteval">신규 키워드 consteval</h3>
-
+</code></pre></div><h3 id="신규-키워드-consteval">신규 키워드 consteval</h3>
 <blockquote>
 <p>함수가 반드시 컴파일 시간에만 수행 될 수 있음을 명시(immediate function)</p>
 </blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">consteval</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">Add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b; }
 
-<pre><code class="language-cpp">consteval int Add(int a, int b) { return a + b; }
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int x = 1, y = 3;
+    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
     
-    int a = add(x, y); // 컴파일 에러
-    int b = add(1, 2); // 성공
-}
-</code></pre>
-
-<h3 id="c-20-추가된-간단한-문법들">C++20 추가된 간단한 문법들</h3>
-
+    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> add(x, y); <span style="color:#75715e">// 컴파일 에러
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> add(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// 성공
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="c20-추가된-간단한-문법들">C++20 추가된 간단한 문법들</h3>
 <ul>
-<li><strong>explicit(bool)</strong>
-explicit 키워드를 사용시 적용 여부를 지정 할 수 있다.</li>
-</ul>
-
-<pre><code class="language-cpp">   //explicit 의미 : 복사 생성자 사용 불가, 생성자를 사용한 암시적 변환 불가
-   
-   template&lt;typename T&gt; class Hello
-   {
-       T data;
-   public:
-       explicit( std::is_integral_v&lt;T&gt; ) Hello(T v) : data(v) // 정수형 일 때만 explicit가 적용되도록 구현 가능
-   }
-</code></pre>
-
-<ul>
-<li><strong>ranged-for with initializer</strong>
-range for에 초기화 구문 표현이 가능</li>
-</ul>
-
-<pre><code class="language-cpp">   // 다음과 같은 표현이 가능해짐 C++20
-   for( int y[3]{1,2,3}; auto n : y)
-   {
-       
-   }
-   
-   while ( int n = 0; n &lt; 10) // while은 문법 오류
-   {
-       
-   }
-</code></pre>
-
-<ul>
-<li><strong>using enum</strong>
-enum class 사용시 namespace 없이 사용 가능해짐
-<br /></li>
-</ul>
-
-<pre><code class="language-cpp">   enum class Color
+<li>
+<p><strong>explicit(bool)</strong>
+explicit 키워드를 사용시 적용 여부를 지정 할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//explicit 의미 : 복사 생성자 사용 불가, 생성자를 사용한 암시적 변환 불가
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Hello</span>
 {
-        red = 1,
-       green = 2,
-       blue = 3
-   };
-   
-   int main()
+    T data;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">explicit</span>( std<span style="color:#f92672">::</span>is_integral_v<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> ) Hello(T v) <span style="color:#f92672">:</span> data(v) <span style="color:#75715e">// 정수형 일 때만 explicit가 적용되도록 구현 가능
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
+<li>
+<p><strong>ranged-for with initializer</strong>
+range for에 초기화 구문 표현이 가능</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// 다음과 같은 표현이 가능해짐 C++20
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> y[<span style="color:#ae81ff">3</span>]{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>}; <span style="color:#66d9ef">auto</span> n : y)
+{
+
+}
+
+<span style="color:#66d9ef">while</span> ( <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>) <span style="color:#75715e">// while은 문법 오류
+</span><span style="color:#75715e"></span>{
+
+}
+</code></pre></div></li>
+<li>
+<p><strong>using enum</strong>
+enum class 사용시 namespace 없이 사용 가능해짐</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>
+</code></pre></div></li>
+</ul>
+<p>{
+red = 1,
+green = 2,
+blue = 3
+};</p>
+<p>int main()
+{
+Color temp = color::red;</p>
+<pre><code>   switch(temp)
    {
-       Color temp = color::red;
-       
-       switch(temp)
-       {
-           //case color::red: return 1;
-           //case color::green: return 2;
-             
-           //다음과 같이 사용 할 경우 namespace 생략 가능해짐
-           using enum Color;
-           case red: return 1;
-           case green: return 2;
-       }
+       //case color::red: return 1;
+       //case color::green: return 2;
+         
+       //다음과 같이 사용 할 경우 namespace 생략 가능해짐
+       using enum Color;
+       case red: return 1;
+       case green: return 2;
    }
 </code></pre>
+<p>}</p>
+<pre tabindex="0"><code>
 
-<p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
+
+[더 많은 C++20 관련 정보](https://en.cppreference.com/w/)</code></pre>
               
             </div>
           </div>
@@ -546,7 +520,7 @@ enum class 사용시 namespace 없이 사용 가능해짐
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

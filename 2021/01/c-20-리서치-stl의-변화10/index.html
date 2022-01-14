@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="C&#43;&#43;20에 추가된 STL 표준 관련 추가된 기능을 살펴보겠습니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,310 +254,271 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>C++20에 추가된 STL 표준 관련 추가된 기능을 살펴보겠습니다.</p>
-
 <h3 id="stl-container에-추가된-멤버-함수">STL Container에 추가된 멤버 함수</h3>
-
 <ul>
 <li><strong>starts_with(), end_with()</strong></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;string_view&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string_view&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std:;string s = &quot;fileName.txt&quot;;
-    std::string_view sv = s;
+    std:;string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fileName.txt&#34;</span>;
+    std<span style="color:#f92672">::</span>string_view sv <span style="color:#f92672">=</span> s;
     
-    bool b1 = s.starts_with(&quot;hello&quot;);  // 어떤 문자열로 시작하는가 : false
-    bool b2 = s.end_with(&quot;.txt&quot;);      // 어떤 문자열로 끝나는가 : true
-    
-    bool b1 = sv.starts_with(&quot;hello&quot;); // false
-    bool b2 = sv.end_with(&quot;.txt&quot;);     // true
-}
-</code></pre>
-
-<ul>
+    <span style="color:#66d9ef">bool</span> b1 <span style="color:#f92672">=</span> s.starts_with(<span style="color:#e6db74">&#34;hello&#34;</span>);  <span style="color:#75715e">// 어떤 문자열로 시작하는가 : false
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> b2 <span style="color:#f92672">=</span> s.end_with(<span style="color:#e6db74">&#34;.txt&#34;</span>);      <span style="color:#75715e">// 어떤 문자열로 끝나는가 : true
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">bool</span> b1 <span style="color:#f92672">=</span> sv.starts_with(<span style="color:#e6db74">&#34;hello&#34;</span>); <span style="color:#75715e">// false
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> b2 <span style="color:#f92672">=</span> sv.end_with(<span style="color:#e6db74">&#34;.txt&#34;</span>);     <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li><strong>contains()</strong></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;set&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;set&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::set&lt;int&gt; s = {1, 2, 3, 4, 5};
+    std<span style="color:#f92672">::</span>set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>};
     
-    /* 연관 컨테이너에 요소가 있는지 조사 방법 */
+    <span style="color:#75715e">/* 연관 컨테이너에 요소가 있는지 조사 방법 */</span>
     
-    // C++17 이전 방식
-    auto ret == s.find(3);
-    if ( ret != s.end() ) {}
+    <span style="color:#75715e">// C++17 이전 방식
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> ret <span style="color:#f92672">==</span> s.find(<span style="color:#ae81ff">3</span>);
+    <span style="color:#66d9ef">if</span> ( ret <span style="color:#f92672">!=</span> s.end() ) {}
     
-    // C++20 추가 방식
-    if(ss.contrains(3)) //true
-    {
-        std::cout &lt;&lt; &quot;exist 3&quot; &lt;&lt; endl;
+    <span style="color:#75715e">// C++20 추가 방식
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(ss.contrains(<span style="color:#ae81ff">3</span>)) <span style="color:#75715e">//true
+</span><span style="color:#75715e"></span>    {
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;exist 3&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
     }
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li><strong>find() 보다 사용이 쉽고 직관적이며, 연관 컨테이너 8개에 모두 추가되었습니다.</strong>
 set, multiset, map, multimap, unordered_set, unordered_multiset, unordered_map, unordered_multimap</li>
 </ul>
-
 <p>​</p>
-
-<p>### Value_type 관련 변화</p>
-
+<h3 id="value_type-관련-변화">Value_type 관련 변화</h3>
 <ul>
 <li><strong>iterator의 타입 관련 예제</strong></li>
 </ul>
-
-<pre><code class="language-cpp">template&lt;typename T&gt; void foo(const T&amp; first)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> foo(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> first)
 {
-    // 반복자가 가르키는 타입의 변수 생성하기
-    // C++98 방식
-    typename T::value_type n;
-    typename std::iterator_traits&lt;T&gt;::value_type n1;
+    <span style="color:#75715e">// 반복자가 가르키는 타입의 변수 생성하기
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// C++98 방식
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span>value_type n;
+    <span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>iterator_traits<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value_type n1;
     
-    // C++20 방식
-    std::iter_value_t&lt;T&gt; n2;
+    <span style="color:#75715e">// C++20 방식
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>iter_value_t<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> n2;
     
-    std::cout &lt;&lt; typeid(n1).name() &lt;&lt; std::endl;
-    std::cout &lt;&lt; typeid(n2).name() &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(n1).name() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(n2).name() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
 
-typename&lt;typename C&gt; void goo(const C&amp; cont)
+<span style="color:#66d9ef">typename</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> C<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> goo(<span style="color:#66d9ef">const</span> C<span style="color:#f92672">&amp;</span> cont)
 {
-    // 컨테이너가 저장하는 타입 구하기
-    // C++98 방식
-    // typename C::value_type n; // C가 배열이면 Error
+    <span style="color:#75715e">// 컨테이너가 저장하는 타입 구하기
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// C++98 방식
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// typename C::value_type n; // C가 배열이면 Error
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// C++20 방식
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>iterator_t<span style="color:#f92672">&lt;</span>C<span style="color:#f92672">&gt;</span> it;
+    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>range_value_t<span style="color:#f92672">&lt;</span>C<span style="color:#f92672">&gt;</span> n1;
     
-    // C++20 방식
-    std::ranges::iterator_t&lt;C&gt; it;
-    std::ranges::range_value_t&lt;C&gt; n1;
-    
-    std::cout &lt;&lt; typeid(n1).name() &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(n1).name() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::vector&lt;int&gt; v = { 1, 2, 3, 4, 5 };
-    int x[5] = { 1, 2, 3, 4, 5 };
+	std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span> };
+    <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span> };
     
-    foo(std::begin(v));
-    foo(std::begin(x));
+    foo(std<span style="color:#f92672">::</span>begin(v));
+    foo(std<span style="color:#f92672">::</span>begin(x));
     
     goo(v);
     goo(x);
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>활용 예제</li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;type_traits&gt;
-
-template&lt;typename T&gt; class MyList
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;type_traits&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyList</span>
 {
-public:
-    List(std::size_t sz, T v) {}    
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	List(std<span style="color:#f92672">::</span>size_t sz, T v) {}    
     
-    template&lt;typename C&gt;
-    List(C&amp;&amp; c) {}
+    <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> C<span style="color:#f92672">&gt;</span>
+    List(C<span style="color:#f92672">&amp;&amp;</span> c) {}
 };
-// C++17 class template type deduction
-// template&lt;typename C&gt; List&lt; typename std::remove_reference_t&lt;C&gt;::vlaue_type &gt;;
+<span style="color:#75715e">// C++17 class template type deduction
+</span><span style="color:#75715e">// template&lt;typename C&gt; List&lt; typename std::remove_reference_t&lt;C&gt;::vlaue_type &gt;;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// C++ 20 방식 type deduction
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> C<span style="color:#f92672">&gt;</span> List<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>rangess<span style="color:#f92672">::</span>range_value_t<span style="color:#f92672">&lt;</span>C<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span>;
 
-// C++ 20 방식 type deduction
-template&lt;typename C&gt; List&lt; std::rangess::range_value_t&lt;C&gt; &gt;;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    MyList&lt;int&gt; s1(10, 3); // C++14 이전까지는 템플릿 인자 전달 필요
-    MyList      s2(10, 3); // C++17 이후부터 OK
-    
-    std::vector v = {1, 2, 3};
-    List s3(v); // type deduction으로 컴파일러가 인자를 추론하여 대입 가능
-}
-</code></pre>
-
-<h3 id="신규-stl-알고리즘">신규 STL 알고리즘</h3>
-
+    MyList<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s1(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// C++14 이전까지는 템플릿 인자 전달 필요
+</span><span style="color:#75715e"></span>    MyList	    s2(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// C++17 이후부터 OK
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>vector v <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>};
+    List s3(v); <span style="color:#75715e">// type deduction으로 컴파일러가 인자를 추론하여 대입 가능
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="신규-stl-알고리즘">신규 STL 알고리즘</h3>
 <ul>
 <li><strong>std::erase, std::erase_if</strong></li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    // C++98 remove
-    // remove시 실제 제거를 하는 것이 아닌 요소를 앞으로 당겨놓으며 vector의 size는 변화가 없음 (실제 제거하려면 erase가 필요)
-    std::vector&lt;int&gt; v1 = { 1, 2, 3, 4, 5 };  
-    auto p = std::remove_if(v1.begin(), v1.end(), [](int n){ return n % 2 == 0; });
+    <span style="color:#75715e">// C++98 remove
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// remove시 실제 제거를 하는 것이 아닌 요소를 앞으로 당겨놓으며 vector의 size는 변화가 없음 (실제 제거하려면 erase가 필요)
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v1 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span> };  
+    <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>remove_if(v1.begin(), v1.end(), [](<span style="color:#66d9ef">int</span> n){ <span style="color:#66d9ef">return</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>; });
     v1.erase(p, v1.end());
   
-    // C++20 erase
-    // 함수 인자로 반복자가 아닌 컨테이너를 직접 전달하며 erase시 실제 컨테이너의 size 변경되며 대상이 제거됨
-    std::vector&lt;int&gt; v2 = { 1, 2, 3, 4, 5 };
-    std::erase(v2, 3); // 3을 제거해 달라
-    std::erase(v2.begin(), v2.end(), 3); // Error 불가
-    std::erase_if(v2, [](int n){ return n % 2 == 0; });
+    <span style="color:#75715e">// C++20 erase
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 함수 인자로 반복자가 아닌 컨테이너를 직접 전달하며 erase시 실제 컨테이너의 size 변경되며 대상이 제거됨
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v2 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span> };
+    std<span style="color:#f92672">::</span>erase(v2, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// 3을 제거해 달라
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>erase(v2.begin(), v2.end(), <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// Error 불가
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>erase_if(v2, [](<span style="color:#66d9ef">int</span> n){ <span style="color:#66d9ef">return</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>; });
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li><strong>std::shift_left, std::shift_right</strong></li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::vector&lt;int&gt; v1 = { 1, 2, 3, 4, 5, 6, 7, 8 };  
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v1 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span> };  
     
-    std::shift_left(std::begin(v1), std::end(v1), 3); // v1 -&gt; 4, 5, 6, 7, 8, 6, 7, 8
-    std::shift_right(std::begin(v1), std::end(v1), 2); // v1 -&gt; 4, 5, 4, 5, 6, 7, 8
-}
-</code></pre>
-
-<ul>
+    std<span style="color:#f92672">::</span>shift_left(std<span style="color:#f92672">::</span>begin(v1), std<span style="color:#f92672">::</span>end(v1), <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// v1 -&gt; 4, 5, 6, 7, 8, 6, 7, 8
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>shift_right(std<span style="color:#f92672">::</span>begin(v1), std<span style="color:#f92672">::</span>end(v1), <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// v1 -&gt; 4, 5, 4, 5, 6, 7, 8
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li><strong>정수간 비교 관련 함수 -&gt; signed, unsigned 간 정수 비교시 의도 하지 않은 결과 예방</strong></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;utility&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;utility&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int sn = 0;
-    unsigned int un = 0;
+    <span style="color:#66d9ef">int</span> sn <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> un <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
     
-    std::cout &lt;&lt; ( -1 &lt; sn ) &lt;&lt; std::endl; // true
-    std::cout &lt;&lt; ( -1 &lt; sn ) &lt;&lt; std::endl; // false -&gt; true가 나오는 것을 기대 할 텐데 이런 경우 이슈가 될 수 있다.
-    
-    std::cout &lt;&lt; std::cmp_less( -1, un ) &lt;&lt; std::endl; // true : 의도한 결과 출력
-    
-    // 관련 추가된 함수
-    // cmp_equal, cmp_not_equal
-    // cmp_less, cmp_greater
-    // cmp_less_equal, cmp_greater_equal
-}
-</code></pre>
-
-<ul>
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> ( <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> sn ) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> ( <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> sn ) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// false -&gt; true가 나오는 것을 기대 할 텐데 이런 경우 이슈가 될 수 있다.
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>cmp_less( <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, un ) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// true : 의도한 결과 출력
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// 관련 추가된 함수
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// cmp_equal, cmp_not_equal
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// cmp_less, cmp_greater
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// cmp_less_equal, cmp_greater_equal
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li><strong>make_shared 관련 변화</strong></li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iosteam&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Point2</span> {<span style="color:#66d9ef">int</span> x, y; };
 
-<pre><code class="language-cpp">#include &lt;iosteam&gt;
-#include &lt;memory&gt;
-
-struct Point2 {int x, y; };
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    // 배열 버전 추가 관련 예제
-    std::shared_ptr&lt;int&gt; sp1( new int );
-    std::shared_ptr&lt;int&gt; sp2 = std::make_shared&lt;int&gt;();
+    <span style="color:#75715e">// 배열 버전 추가 관련 예제
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> sp1( <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span> );
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> sp2 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>();
     
-    std::shared_ptr&lt;int[]&gt; sp3( new int[10] );
-    std::shared_ptr&lt;int[]&gt; sp4 = std::make_shared&lt;int[10]&gt;(); // C++20 부터 make_shared 배열 버전 추가
-    
-    auto sp5 = std::make_shared&lt;int[]&gt;(3);  // new int[3]
-    auto sp6 = std::make_shared&lt;int[3]&gt;();  // new int[3]
-    auto sp7 = std::make_shared&lt;int[3]&gt;(4); // new int[3]{4, 4, 4, 4}; 초기화 값 명시 가능
-    
-    // 초기값 관련 예제
-    std::shared_ptr&lt;Point2&gt; sp1 = std::make_shared&lt;Point2&gt;(); // C++17 이전 : 내부적으로 기본값 0으로 초기화 해줌
-    
-    std::shared_ptr&lt;Point2[]&gt; sp2 = std::make_shared_for_overwrite&lt;Point2&gt;[](3); // C++20 : 배열 버전 make_shared의 구조체 초기값 지정 가능
-}
-</code></pre>
-
-<ul>
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>[]<span style="color:#f92672">&gt;</span> sp3( <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">10</span>] );
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>[]<span style="color:#f92672">&gt;</span> sp4 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">10</span>]<span style="color:#f92672">&gt;</span>(); <span style="color:#75715e">// C++20 부터 make_shared 배열 버전 추가
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">auto</span> sp5 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>[]<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">3</span>);  <span style="color:#75715e">// new int[3]
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> sp6 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">&gt;</span>();  <span style="color:#75715e">// new int[3]
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> sp7 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">4</span>); <span style="color:#75715e">// new int[3]{4, 4, 4, 4}; 초기화 값 명시 가능
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// 초기값 관련 예제
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Point2<span style="color:#f92672">&gt;</span> sp1 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared<span style="color:#f92672">&lt;</span>Point2<span style="color:#f92672">&gt;</span>(); <span style="color:#75715e">// C++17 이전 : 내부적으로 기본값 0으로 초기화 해줌
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>shared_ptr<span style="color:#f92672">&lt;</span>Point2[]<span style="color:#f92672">&gt;</span> sp2 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>make_shared_for_overwrite<span style="color:#f92672">&lt;</span>Point2<span style="color:#f92672">&gt;</span>[](<span style="color:#ae81ff">3</span>); <span style="color:#75715e">// C++20 : 배열 버전 make_shared의 구조체 초기값 지정 가능
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li><strong>to_array, midpoint</strong></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;array&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;array&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    // to_array 예제
-    auto a1 = std::to_array(x);        // std::array&lt;int, 10&gt;
-    auto a2 = std::to_array(&quot;foo&quot;);    // std::array&lt;char, 4&gt;
-    auto a3 = std::to_array({1, 2, 3}) // std::array&lt;int, 3&gt;
-        
-    // midpoint 예제 : 두 수의 중간값을 리턴
-    std::cout &lt;&lt; std::midpoint(1, 3) &lt;&lt; std::endl;
-    std::cout &lt;&lt; std::midpoint(1.3, 3.4) &lt;&lt; std::endl;
+    <span style="color:#75715e">// to_array 예제
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> a1 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>to_array(x);        <span style="color:#75715e">// std::array&lt;int, 10&gt;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> a2 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>to_array(<span style="color:#e6db74">&#34;foo&#34;</span>);    <span style="color:#75715e">// std::array&lt;char, 4&gt;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> a3 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>to_array({<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}) <span style="color:#75715e">// std::array&lt;int, 3&gt;
+</span><span style="color:#75715e"></span>        
+    <span style="color:#75715e">// midpoint 예제 : 두 수의 중간값을 리턴
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>midpoint(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>midpoint(<span style="color:#ae81ff">1.3</span>, <span style="color:#ae81ff">3.4</span>) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li><strong>bind_front</strong></li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fuctional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span> c) { printf(<span style="color:#e6db74">&#34;%d %d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, a, b, c); }
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;fuctional&gt;
-
-void foo(int a, int b, int c) { printf(&quot;%d %d %d\n&quot;, a, b, c); }
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    auto f1 = std::bind(&amp;foo, 3, std::placeholders::_1, std::placeholders::_2); // C++11
-    
-    /* C++ 20 bind_front : 인자 재배치는 불가 */
-    auto f2 = std::bind_front(&amp;foo, 3); // 첫번째 인자 3으로 고정
-    auto f3 = std::bind_front(&amp;foo, 3, 4); // 첫번째 인자 3, 두번째 인자 4로 고정
-    auto f4 = std::bind_front(&amp;foo, 3, 4, 5); // 인자 3, 4, 5로 고정
-    
-    f2(1, 2);
-    f3(1);
+    <span style="color:#66d9ef">auto</span> f1 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>bind(<span style="color:#f92672">&amp;</span>foo, <span style="color:#ae81ff">3</span>, std<span style="color:#f92672">::</span>placeholders<span style="color:#f92672">::</span>_1, std<span style="color:#f92672">::</span>placeholders<span style="color:#f92672">::</span>_2); <span style="color:#75715e">// C++11
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">/* C++ 20 bind_front : 인자 재배치는 불가 */</span>
+    <span style="color:#66d9ef">auto</span> f2 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>bind_front(<span style="color:#f92672">&amp;</span>foo, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// 첫번째 인자 3으로 고정
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> f3 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>bind_front(<span style="color:#f92672">&amp;</span>foo, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>); <span style="color:#75715e">// 첫번째 인자 3, 두번째 인자 4로 고정
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> f4 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>bind_front(<span style="color:#f92672">&amp;</span>foo, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>); <span style="color:#75715e">// 인자 3, 4, 5로 고정
+</span><span style="color:#75715e"></span>    
+    f2(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>);
+    f3(<span style="color:#ae81ff">1</span>);
     f4();
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li><strong>span</strong></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;span&gt;
-
-//void foo(int* arr)
-void foo( std::span&lt;int&gt; sp ) // span : 연속된 메모리의 시작 주소와 개수를 관리, list 등은 전달 불가
-{
-    std::cout &lt;&lt; sp.size() &lt;&lt; std::endl;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;span&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//void foo(int* arr)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>( std<span style="color:#f92672">::</span>span<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> sp ) <span style="color:#75715e">// span : 연속된 메모리의 시작 주소와 개수를 관리, list 등은 전달 불가
+</span><span style="color:#75715e"></span>{
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> sp.size() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     
-    sp[0] = 10;
+    sp[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
     
-    auto p = std::as_bytes(sp);
-    p[3] = static_cast&lt;std::byte&gt;(0x33); // error as_bytes의 리턴값은 읽기 전용
-    
-    auto p2 = std::as_writable_bytes(sp);
-    p2[3] = static_cast&lt;std::byte&gt;(0x33); // OK
-    
-    std::cout &lt;&lt; std::hex &lt;&lt; sp[0]  &lt;&lt; std::endl;
+    <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>as_bytes(sp);
+    p[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>byte<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">0x33</span>); <span style="color:#75715e">// error as_bytes의 리턴값은 읽기 전용
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">auto</span> p2 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>as_writable_bytes(sp);
+    p2[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>byte<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">0x33</span>); <span style="color:#75715e">// OK
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>hex <span style="color:#f92672">&lt;&lt;</span> sp[<span style="color:#ae81ff">0</span>]  <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int x[5]{1, 2, 3, 4, 5 };
-    std::vector&lt;int&gt; x2{1, 2, 3, 4, 5 };
-    std::span&lt;int&gt; x3(x);
-    std::span&lt;int, 10&gt; x4(x);
+    <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">5</span>]{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span> };
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> x2{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span> };
+    std<span style="color:#f92672">::</span>span<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> x3(x);
+    std<span style="color:#f92672">::</span>span<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span><span style="color:#f92672">&gt;</span> x4(x);
     
     foo(x);
     foo(x2);
 }
-</code></pre>
-
-<p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
+</code></pre></div><p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
               
             </div>
           </div>
@@ -660,7 +620,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="linked server는
-
 MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.">
 
 
 <meta property="og:description" content="linked server는
-
 MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MsSQL linked server와 OPENQUERY 정의, 사용법">
@@ -23,10 +21,8 @@ MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물�
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/mssql-linked-server%EC%99%80-openquery-%EC%A0%95%EC%9D%98-%EC%82%AC%EC%9A%A9%EB%B2%95/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="linked server는
-
 MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.">
 <meta name="twitter:description" content="linked server는
-
 MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.">
 <meta property="og:locale" content="en-us">
 
@@ -102,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -261,88 +256,68 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>linked server는</p>
-
 <p>MsSQL은 linked server라는 기능을 제공하는데, 이를 이용하면 물리적, 논리적으로 독립된 네트워크의 데이터베이스에 원격으로 접속하여 쿼리를 수행 할 수 있습니다.</p>
-
 <p>- MSSQL 연결된 서버 생성</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">EXEC</span> sp_addlinkedserver
+    <span style="color:#f92672">@</span>server <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[연결된 서버별칭]&#39;</span>,
+    <span style="color:#f92672">@</span>srvproduct <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>,
+    <span style="color:#f92672">@</span>provider <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SQLOLEDB&#39;</span>,
+    <span style="color:#f92672">@</span>datasrc <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[서버 아이피]&#39;</span>,
+    <span style="color:#f92672">@</span><span style="color:#66d9ef">catalog</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[데이터 베이스명]&#39;</span>
+</code></pre></div><p>- MSSQL 연결계정 생성</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">EXEC</span> sp_addlinkedsrvlogin
+    <span style="color:#f92672">@</span>rmtsrvname<span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[연결된 서버별칭]&#39;</span>,
+    <span style="color:#f92672">@</span>useself<span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;false&#39;</span>,
+    <span style="color:#f92672">@</span>rmtuser <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[사용자 이름]&#39;</span>,
+    <span style="color:#f92672">@</span>rmtpassword <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[사용자 암호]&#39;</span>
+</code></pre></div><p>- MSSQL 연결된 서버 확인</p>
+<pre tabindex="0"><code class="language-mssql" data-lang="mssql">SELECT * FROM master.dbo.sysservers WHERE srvname = '[연결된 서버별칭]'
+</code></pre><p>- MSSQL 연결계정 확인</p>
+<pre tabindex="0"><code class="language-mssql" data-lang="mssql">SELECT * FROM master.sys.linked_logins WHERE remote_name = '[사용자 이름]'
+</code></pre><p>- MSSQL 연결된 서버 사용 예시</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">--  연결된 서버를 등록한 후 사용하려면 [연결된 서버별칭].[데이터 베이스명].[데이터베이스 소유자명].[테이블명]
+</span><span style="color:#75715e">--  형태로 호출하여 사용할 수 있습니다.
+</span><span style="color:#75715e">--  SELECT 쿼리를 예로 들면 아래와 같습니다.
+</span><span style="color:#75715e"></span>
+</code></pre></div><p>- MSSQL 연결된 서버에 SELECT 쿼리시</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> [<span style="color:#960050;background-color:#1e0010">컬럼명</span>] <span style="color:#66d9ef">FROM</span> [<span style="color:#960050;background-color:#1e0010">연결된</span> <span style="color:#960050;background-color:#1e0010">서버별칭</span>].[<span style="color:#960050;background-color:#1e0010">데이터</span> <span style="color:#960050;background-color:#1e0010">베이스명</span>].[<span style="color:#960050;background-color:#1e0010">데이터베이스</span> <span style="color:#960050;background-color:#1e0010">소유자명</span>].[<span style="color:#960050;background-color:#1e0010">테이블명</span>] <span style="color:#66d9ef">WHERE</span> [<span style="color:#960050;background-color:#1e0010">조건절</span>]
+</code></pre></div><ul>
+<li>
+<p>Openquery 활용</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- &#39;OpenQuery&#39; 이용이 Linked Server를 이용하는 방식보다 빠르다.
+</span><span style="color:#75715e">-- OpenQuery() 안의 내용은 varchar(8000) 까지이다.
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">-- select
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+<span style="color:#66d9ef">FROM</span> OPENQUERY(
+    [<span style="color:#ae81ff">192</span>.<span style="color:#ae81ff">168</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span>],
+    <span style="color:#e6db74">&#39;SELECT * FROM [테이블] WHERE no &lt; 101&#39;</span>
+);
 
-<pre><code class="language-sql">EXEC sp_addlinkedserver
-    @server = '[연결된 서버별칭]',
-    @srvproduct = '',
-    @provider = 'SQLOLEDB',
-    @datasrc = '[서버 아이피]',
-    @catalog = '[데이터 베이스명]'
-</code></pre>
+<span style="color:#75715e">-- update
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">UPDATE</span> OpenQuery(
+    [<span style="color:#ae81ff">192</span>.<span style="color:#ae81ff">168</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">1</span>],
+    <span style="color:#e6db74">&#39;SELECT regDate
+</span><span style="color:#e6db74">    FROM [데이터베이스].dbo.[테이블]
+</span><span style="color:#e6db74">    WHERE Seq = 1&#39;</span>)
+<span style="color:#66d9ef">Set</span> regDate <span style="color:#f92672">=</span> getDate()
 
-<p>- MSSQL 연결계정 생성</p>
-
-<pre><code class="language-sql">EXEC sp_addlinkedsrvlogin
-    @rmtsrvname= '[연결된 서버별칭]',
-    @useself= 'false',
-    @rmtuser = '[사용자 이름]',
-    @rmtpassword = '[사용자 암호]'
-</code></pre>
-
-<p>- MSSQL 연결된 서버 확인</p>
-
-<pre><code class="language-mssql">SELECT * FROM master.dbo.sysservers WHERE srvname = '[연결된 서버별칭]'
-</code></pre>
-
-<p>- MSSQL 연결계정 확인</p>
-
-<pre><code class="language-mssql">SELECT * FROM master.sys.linked_logins WHERE remote_name = '[사용자 이름]'
-</code></pre>
-
-<p>- MSSQL 연결된 서버 사용 예시</p>
-
-<pre><code class="language-sql">--  연결된 서버를 등록한 후 사용하려면 [연결된 서버별칭].[데이터 베이스명].[데이터베이스 소유자명].[테이블명]
---  형태로 호출하여 사용할 수 있습니다.
---  SELECT 쿼리를 예로 들면 아래와 같습니다.
-
-</code></pre>
-
-<p>- MSSQL 연결된 서버에 SELECT 쿼리시</p>
-
-<pre><code class="language-sql">SELECT [컬럼명] FROM [연결된 서버별칭].[데이터 베이스명].[데이터베이스 소유자명].[테이블명] WHERE [조건절]
-</code></pre>
-
-<ul>
-<li>Openquery 활용</li>
+<span style="color:#75715e">-- Update : 동적 쿼리
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">Declare</span> <span style="color:#f92672">@</span>strQuery varchar(<span style="color:#ae81ff">4000</span>)
+<span style="color:#66d9ef">Declare</span> <span style="color:#f92672">@</span><span style="color:#66d9ef">no</span> bigint <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>
+<span style="color:#66d9ef">Declare</span> <span style="color:#f92672">@</span>a int <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+<span style="color:#66d9ef">Declare</span> <span style="color:#f92672">@</span>b int <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+<span style="color:#66d9ef">Set</span> <span style="color:#f92672">@</span>strQuery <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;UPDATE OpenQuery([192.168.0.1], &#39;&#39;&#39;</span>
+        <span style="color:#f92672">+</span> N<span style="color:#e6db74">&#39;SELECT a, b&#39;</span>
+        <span style="color:#f92672">+</span> N<span style="color:#e6db74">&#39; FROM [데이터베이스].dbo.[테이블]&#39;</span>
+        <span style="color:#f92672">+</span> N<span style="color:#e6db74">&#39; WHERE no = &#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">CONVERT</span>(varchar(<span style="color:#ae81ff">30</span>),<span style="color:#f92672">@</span><span style="color:#66d9ef">no</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&#39;</span>
+    <span style="color:#f92672">+</span> N<span style="color:#e6db74">&#39;&#39;&#39;)&#39;</span>
+    <span style="color:#f92672">+</span> N<span style="color:#e6db74">&#39; Set a = a + &#39;</span><span style="color:#f92672">+</span> <span style="color:#66d9ef">Convert</span>(varchar(<span style="color:#ae81ff">30</span>),<span style="color:#f92672">@</span>a)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&#39;</span>
+    <span style="color:#f92672">+</span> N<span style="color:#e6db74">&#39;, b = b + &#39;</span><span style="color:#f92672">+</span> <span style="color:#66d9ef">Convert</span>(varchar(<span style="color:#ae81ff">30</span>),<span style="color:#f92672">@</span>b)
+<span style="color:#75715e">--print @strQuery
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">Exec</span> (<span style="color:#f92672">@</span>strQuery);
+</code></pre></div></li>
 </ul>
-
-<pre><code class="language-sql">  -- 'OpenQuery' 이용이 Linked Server를 이용하는 방식보다 빠르다.
-  -- OpenQuery() 안의 내용은 varchar(8000) 까지이다.
-  
-  -- select
-  SELECT *
-  FROM OPENQUERY(
-      [192.168.0.1],
-      'SELECT * FROM [테이블] WHERE no &lt; 101'
-  );
-  
-  -- update
-  UPDATE OpenQuery(
-      [192.168.0.1],
-      'SELECT regDate
-      FROM [데이터베이스].dbo.[테이블]
-      WHERE Seq = 1')
-  Set regDate = getDate()
-  
-  -- Update : 동적 쿼리
-  Declare @strQuery varchar(4000)
-  Declare @no bigint = 123
-  Declare @a int = 10
-  Declare @b int = 10
-  Set @strQuery = N'UPDATE OpenQuery([192.168.0.1], '''
-          + N'SELECT a, b'
-          + N' FROM [데이터베이스].dbo.[테이블]'
-          + N' WHERE no = ' + CONVERT(varchar(30),@no)+''
-      + N''')'
-      + N' Set a = a + '+ Convert(varchar(30),@a)+''
-      + N', b = b + '+ Convert(varchar(30),@b)
-  --print @strQuery
-  Exec (@strQuery);
-</code></pre>
               
             </div>
           </div>
@@ -442,7 +417,7 @@ if (!doNotTrack) {
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

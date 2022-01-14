@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="C&#43;&#43;20 관련 시리즈입니다.
@@ -104,7 +104,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -265,26 +264,29 @@ if (!doNotTrack) {
               <p>C++20 관련 시리즈입니다.
 C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
 본 포스팅에서는 간략한 특징을 소개합니다.</p>
-
 <h3 id="기본-특징">기본 특징</h3>
-
 <ul>
-<li><p><strong>4가지 큰 흐름</strong>
-concept, coruntine, module, range</p></li>
-
-<li><p><strong>C++20 표준 확정</strong></p></li>
-
-<li><p><strong>아직은 모든 컴파일러에서 표준의 모든 기능을 지원하지 않음</strong></p></li>
-
-<li><p><strong>C++ 11/14/17을 알아야 정확히 이해 가능한 내용 다수 포함</strong></p></li>
-
-<li><p><strong>컴파일러 vs cl 컴파일러 19.28 이상 버전 권장</strong></p></li>
-
-<li><p><strong>프로젝트 속성 컴파일러 옵션 /std:c++latest 추가 필요</strong></p></li>
+<li>
+<p><strong>4가지 큰 흐름</strong>
+concept, coruntine, module, range</p>
+</li>
+<li>
+<p><strong>C++20 표준 확정</strong></p>
+</li>
+<li>
+<p><strong>아직은 모든 컴파일러에서 표준의 모든 기능을 지원하지 않음</strong></p>
+</li>
+<li>
+<p><strong>C++ 11/14/17을 알아야 정확히 이해 가능한 내용 다수 포함</strong></p>
+</li>
+<li>
+<p><strong>컴파일러 vs cl 컴파일러 19.28 이상 버전 권장</strong></p>
+</li>
+<li>
+<p><strong>프로젝트 속성 컴파일러 옵션 /std:c++latest 추가 필요</strong></p>
+</li>
 </ul>
-
 <h3 id="신규-키워드">신규 키워드</h3>
-
 <table>
 <thead>
 <tr>
@@ -292,37 +294,30 @@ concept, coruntine, module, range</p></li>
 <th>키워드 이름</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>Concept 문법 지원</td>
 <td>concept, requires</td>
 </tr>
-
 <tr>
 <td>Corutine 문법 지원</td>
 <td>co_wait, co_return, co_yield</td>
 </tr>
-
 <tr>
 <td>Module 문법 지원</td>
 <td>module, import, export</td>
 </tr>
-
 <tr>
 <td>상수성 지원</td>
 <td>constinit, consteval</td>
 </tr>
-
 <tr>
 <td>UTF-8 문자열 지원</td>
 <td>char8_t</td>
 </tr>
 </tbody>
 </table>
-
 <h3 id="신규-헤더">신규 헤더</h3>
-
 <table>
 <thead>
 <tr>
@@ -330,67 +325,54 @@ concept, coruntine, module, range</p></li>
 <th>헤더 이름</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>Concepts</td>
 <td>〈concepts〉</td>
 </tr>
-
 <tr>
 <td>Coroutines</td>
 <td>〈coroutine〉</td>
 </tr>
-
 <tr>
 <td>utility</td>
 <td>〈compare&gt;, 〈version〉, 〈source_location〉</td>
 </tr>
-
 <tr>
 <td>string</td>
 <td>〈format〉</td>
 </tr>
-
 <tr>
 <td>container</td>
 <td>〈span〉</td>
 </tr>
-
 <tr>
 <td>Ranges</td>
 <td>〈ranges〉</td>
 </tr>
-
 <tr>
 <td>numeric</td>
 <td>〈bit〉, 〈numbers〉 〈syncstream〉</td>
 </tr>
-
 <tr>
 <td>thread</td>
 <td>〈stop_token〉, 〈semaphore〉, 〈latch〉, 〈barrier〉</td>
 </tr>
 </tbody>
 </table>
-
 <h3 id="feature-test-macro">feature test macro</h3>
-
 <blockquote>
 <p>컴파일러가 특정 문법 또는 특정 라이브러리 지원하는지 확인 가능</p>
 </blockquote>
-
-<pre><code class="language-cpp">#ifdef __cpp_concepts // 언어 특징 지원 여부
-    std::cout &lt;&lt; &quot;concpets 사용 가능 &lt;&lt; std::endl;
-#endif
-
-#ifdef __cpp_lib_chrono // 라이브러리 특징 지원 여부
-    std::cout &lt;&lt; &quot;chrono 지원&quot; &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;version(버전은 년도로 정의)&quot; : &lt;&lt; __cpp_lib_chrono &lt;&lt; std::endl;
-#endif
-</code></pre>
-
-<p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#ifdef __cpp_concepts </span><span style="color:#75715e">// 언어 특징 지원 여부
+</span><span style="color:#75715e"></span>	std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;concpets 사용 가능 &lt;&lt; std::endl;</span>
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#ifdef __cpp_lib_chrono </span><span style="color:#75715e">// 라이브러리 특징 지원 여부
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;chrono 지원&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;version(버전은 년도로 정의)&#34;</span> <span style="color:#f92672">:</span> <span style="color:#f92672">&lt;&lt;</span> __cpp_lib_chrono <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+<span style="color:#75715e">#endif
+</span></code></pre></div><p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
               
             </div>
           </div>
@@ -492,7 +474,7 @@ concept, coruntine, module, range</p></li>
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

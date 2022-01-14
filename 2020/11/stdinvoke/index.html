@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="개요
-
 지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C &#43; &#43; 17에 추가 되었습니다.">
 
 
 <meta property="og:description" content="개요
-
 지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C &#43; &#43; 17에 추가 되었습니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="std::invoke">
@@ -23,10 +21,8 @@
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/stdinvoke/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="개요
-
 지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C &#43; &#43; 17에 추가 되었습니다.">
 <meta name="twitter:description" content="개요
-
 지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C &#43; &#43; 17에 추가 되었습니다.">
 <meta property="og:locale" content="en-us">
 
@@ -100,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -259,117 +254,108 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <h2 id="개요">개요</h2>
-
 <p>지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C + + 17에 추가 되었습니다.</p>
-
-<pre><code class="language-cpp">template &lt;class Callable, class... Args&gt;
-invoke_result_t&lt;Callable, Args...&gt;
-    invoke(Callable&amp;&amp; fn, Args&amp;&amp;... args) noexcept(/* specification */);
-</code></pre>
-
-<h3 id="매개-변수">매개 변수</h3>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Callable</span>, <span style="color:#66d9ef">class</span><span style="color:#960050;background-color:#1e0010">... </span><span style="color:#a6e22e">Args</span><span style="color:#f92672">&gt;</span>
+invoke_result_t<span style="color:#f92672">&lt;</span>Callable, Args...<span style="color:#f92672">&gt;</span>
+    invoke(Callable<span style="color:#f92672">&amp;&amp;</span> fn, Args<span style="color:#f92672">&amp;&amp;</span>... args) <span style="color:#66d9ef">noexcept</span>(<span style="color:#75715e">/* specification */</span>);
+</code></pre></div><h3 id="매개-변수">매개 변수</h3>
 <p><em>호출</em>
 호출할 개체의 형식입니다.</p>
-
 <p><em>Args</em>
 호출 인수의 형식입니다.</p>
-
 <p><em>fn</em>
 호출할 개체입니다.</p>
-
 <p><em>args</em>
 호출 인수입니다.</p>
-
 <p><em>사양의</em>
 <strong><code>noexcept</code></strong> 사양 <code>std::is_nothrow_invocable_v&lt;Callable, Args&gt;)</code> 입니다.</p>
-
 <h3 id="설명">설명</h3>
-
-<p>매개 변수 *인수*를 사용 하 여 호출 가능 개체 <em>fn</em> 을 호출 합니다. 실제로 <code>INVOKE(std::forward&lt;Callable&gt;(fn), std::forward&lt;Args&gt;(args)...)</code> 의사 (pseudo) 함수는 <code>INVOKE(f, t1, t2, ..., tN)</code> 다음 중 하나를 의미 합니다.</p>
-
+<p>매개 변수 <em>인수</em>를 사용 하 여 호출 가능 개체 <em>fn</em> 을 호출 합니다. 실제로 <code>INVOKE(std::forward&lt;Callable&gt;(fn), std::forward&lt;Args&gt;(args)...)</code> 의사 (pseudo) 함수는 <code>INVOKE(f, t1, t2, ..., tN)</code> 다음 중 하나를 의미 합니다.</p>
 <ul>
-<li><p><code>f</code>가 <code>T</code> 클래스의 멤버 함수에 대한 포인터이고, <code>t1</code>이 <code>T</code> 형식의 개체이거나 <code>T</code> 형식의 개체에 대한 참조 또는 <code>T</code>에서 파생된 형식의 개체에 대한 참조인 경우 <code>(t1.*f)(t2, ..., tN)</code>입니다. 즉,가 true 인 경우입니다 <code>std::is_base_of&lt;T, std::decay_t&lt;decltype(t1)&gt;&gt;::value</code> .</p></li>
-
-<li><p><code>(t1.get().*f)(t2, ..., tN)</code><code>f</code>가 클래스의 멤버 함수에 대 한 포인터 <code>T</code> 이 고는 <code>std::decay_t&lt;decltype(t1)&gt;</code> 의 특수화입니다 <code>std::reference_wrapper</code> .</p></li>
-
-<li><p><code>((*t1).*f)(t2, ..., tN)</code><code>f</code>가 클래스의 멤버 함수에 대 한 포인터이 <code>T</code> 고가 <code>t1</code> 이전 형식 중 하나가 아닌 경우</p></li>
-
-<li><p>N == 1이며 <code>f</code>가 <code>T</code> 클래스의 멤버 데이터에 대한 포인터이고, <code>t1</code>이 <code>T</code> 형식의 개체이거나 <code>T</code> 형식의 개체에 대한 참조 또는 <code>T</code>에서 파생된 형식의 개체에 대한 참조인 경우 <code>t1.*f</code>입니다. 즉,가 true 인 경우입니다 <code>std::is_base_of&lt;T, std::decay_t&lt;decltype(t1)&gt;&gt;::value</code> .</p></li>
-
-<li><p><code>t1.get().*f</code> N = = 1이 고는 <code>f</code> 클래스의 멤버 데이터에 대 한 포인터이 <code>T</code> 고는 <code>std::decay_t&lt;decltype(t1)&gt;</code> 의 특수화입니다 <code>std::reference_wrapper</code> .</p></li>
-
-<li><p><code>(*t1).*f</code> N = = 1이 고 <code>f</code> 는 클래스의 멤버 데이터에 대 한 포인터이 <code>T</code> 고는 <code>t1</code> 이전 형식 중 하나가 아닙니다.</p></li>
-
-<li><p>다른 모든 경우에는 <code>f(t1, t2, ..., tN)</code>.</p></li>
+<li>
+<p><code>f</code>가 <code>T</code> 클래스의 멤버 함수에 대한 포인터이고, <code>t1</code>이 <code>T</code> 형식의 개체이거나 <code>T</code> 형식의 개체에 대한 참조 또는 <code>T</code>에서 파생된 형식의 개체에 대한 참조인 경우 <code>(t1.*f)(t2, ..., tN)</code>입니다. 즉,가 true 인 경우입니다 <code>std::is_base_of&lt;T, std::decay_t&lt;decltype(t1)&gt;&gt;::value</code> .</p>
+</li>
+<li>
+<p><code>(t1.get().*f)(t2, ..., tN)``f</code>가 클래스의 멤버 함수에 대 한 포인터 <code>T</code> 이 고는 <code>std::decay_t&lt;decltype(t1)&gt;</code> 의 특수화입니다 <code>std::reference_wrapper</code> .</p>
+</li>
+<li>
+<p><code>((*t1).*f)(t2, ..., tN)``f</code>가 클래스의 멤버 함수에 대 한 포인터이 <code>T</code> 고가 <code>t1</code> 이전 형식 중 하나가 아닌 경우</p>
+</li>
+<li>
+<p>N == 1이며 <code>f</code>가 <code>T</code> 클래스의 멤버 데이터에 대한 포인터이고, <code>t1</code>이 <code>T</code> 형식의 개체이거나 <code>T</code> 형식의 개체에 대한 참조 또는 <code>T</code>에서 파생된 형식의 개체에 대한 참조인 경우 <code>t1.*f</code>입니다. 즉,가 true 인 경우입니다 <code>std::is_base_of&lt;T, std::decay_t&lt;decltype(t1)&gt;&gt;::value</code> .</p>
+</li>
+<li>
+<p><code>t1.get().*f</code> N = = 1이 고는 <code>f</code> 클래스의 멤버 데이터에 대 한 포인터이 <code>T</code> 고는 <code>std::decay_t&lt;decltype(t1)&gt;</code> 의 특수화입니다 <code>std::reference_wrapper</code> .</p>
+</li>
+<li>
+<p><code>(*t1).*f</code> N = = 1이 고 <code>f</code> 는 클래스의 멤버 데이터에 대 한 포인터이 <code>T</code> 고는 <code>t1</code> 이전 형식 중 하나가 아닙니다.</p>
+</li>
+<li>
+<p>다른 모든 경우에는 <code>f(t1, t2, ..., tN)</code>.</p>
+</li>
 </ul>
-
 <h3 id="예제">예제</h3>
-
-<pre><code class="language-cpp">// functional_invoke.cpp
-// compile using: cl /EHsc /std:c++17 functional_invoke.cpp
-#include &lt;functional&gt;
-#include &lt;iostream&gt;
-
-struct Demo
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// functional_invoke.cpp
+</span><span style="color:#75715e">// compile using: cl /EHsc /std:c++17 functional_invoke.cpp
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Demo</span>
 {
-    int n_;
+    <span style="color:#66d9ef">int</span> n_;
 
-    Demo(int const n) : n_{n} {}
+    Demo(<span style="color:#66d9ef">int</span> <span style="color:#66d9ef">const</span> n) <span style="color:#f92672">:</span> n_{n} {}
 
-    void operator()( int const i, int const j ) const
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">operator</span>()( <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">const</span> i, <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">const</span> j ) <span style="color:#66d9ef">const</span>
     {
-        std::cout &lt;&lt; &quot;Demo operator( &quot; &lt;&lt; i &lt;&lt; &quot;, &quot;
-            &lt;&lt; j &lt;&lt; &quot; ) is &quot; &lt;&lt; i * j &lt;&lt; &quot;\n&quot;;
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Demo operator( &#34;</span> <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span>
+            <span style="color:#f92672">&lt;&lt;</span> j <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; ) is &#34;</span> <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">*</span> j <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
     }
 
-    void difference( int const i ) const
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">difference</span>( <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">const</span> i ) <span style="color:#66d9ef">const</span>
     {
-        std::cout &lt;&lt; &quot;Demo.difference( &quot; &lt;&lt; i &lt;&lt; &quot; ) is &quot;
-            &lt;&lt; n_ - i &lt;&lt; &quot;\n&quot;;
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Demo.difference( &#34;</span> <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; ) is &#34;</span>
+            <span style="color:#f92672">&lt;&lt;</span> n_ <span style="color:#f92672">-</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
     }
 };
 
-void divisible_by_3(int const i)
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">divisible_by_3</span>(<span style="color:#66d9ef">int</span> <span style="color:#66d9ef">const</span> i)
 {
-    std::cout &lt;&lt; i &lt;&lt; ( i % 3 == 0 ? &quot; is&quot; : &quot; isn't&quot; )
-        &lt;&lt; &quot; divisible by 3.\n&quot;;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> ( i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34; is&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34; isn&#39;t&#34;</span> )
+        <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; divisible by 3.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Demo d{ 42 };
-    Demo * pd{ &amp;d };
-    auto pmf = &amp;Demo::difference;
-    auto pmd = &amp;Demo::n_;
+    Demo d{ <span style="color:#ae81ff">42</span> };
+    Demo <span style="color:#f92672">*</span> pd{ <span style="color:#f92672">&amp;</span>d };
+    <span style="color:#66d9ef">auto</span> pmf <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>Demo<span style="color:#f92672">::</span>difference;
+    <span style="color:#66d9ef">auto</span> pmd <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>Demo<span style="color:#f92672">::</span>n_;
 
-    // Invoke a function object, like calling d( 3, -7 )
-    std::invoke( d, 3, -7 );
+    <span style="color:#75715e">// Invoke a function object, like calling d( 3, -7 )
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>invoke( d, <span style="color:#ae81ff">3</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">7</span> );
 
-    // Invoke a member function, like calling
-    // d.difference( 29 ) or (d.*pmf)( 29 )
-    std::invoke( &amp;Demo::difference, d, 29 );
-    std::invoke( pmf, pd, 13 );
+    <span style="color:#75715e">// Invoke a member function, like calling
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// d.difference( 29 ) or (d.*pmf)( 29 )
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>invoke( <span style="color:#f92672">&amp;</span>Demo<span style="color:#f92672">::</span>difference, d, <span style="color:#ae81ff">29</span> );
+    std<span style="color:#f92672">::</span>invoke( pmf, pd, <span style="color:#ae81ff">13</span> );
 
-    // Invoke a data member, like access to d.n_ or d.*pmd
-    std::cout &lt;&lt; &quot;d.n_: &quot; &lt;&lt; std::invoke( &amp;Demo::n_, d ) &lt;&lt; &quot;\n&quot;;
-    std::cout &lt;&lt; &quot;pd-&gt;n_: &quot; &lt;&lt; std::invoke( pmd, pd ) &lt;&lt; &quot;\n&quot;;
+    <span style="color:#75715e">// Invoke a data member, like access to d.n_ or d.*pmd
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;d.n_: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>invoke( <span style="color:#f92672">&amp;</span>Demo<span style="color:#f92672">::</span>n_, d ) <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;pd-&gt;n_: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>invoke( pmd, pd ) <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
 
-    // Invoke a stand-alone (free) function
-    std::invoke( divisible_by_3, 42 );
+    <span style="color:#75715e">// Invoke a stand-alone (free) function
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>invoke( divisible_by_3, <span style="color:#ae81ff">42</span> );
 
-    // Invoke a lambda
-    auto divisible_by_7 = []( int const i ) {
-        std::cout &lt;&lt; i &lt;&lt; ( i % 7 == 0 ? &quot; is&quot; : &quot; isn't&quot; )
-            &lt;&lt; &quot; divisible by 7.\n&quot;;
+    <span style="color:#75715e">// Invoke a lambda
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> divisible_by_7 <span style="color:#f92672">=</span> []( <span style="color:#66d9ef">int</span> <span style="color:#66d9ef">const</span> i ) {
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> ( i <span style="color:#f92672">%</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34; is&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34; isn&#39;t&#34;</span> )
+            <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; divisible by 7.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
         };
-    std::invoke( divisible_by_7, 42 );
+    std<span style="color:#f92672">::</span>invoke( divisible_by_7, <span style="color:#ae81ff">42</span> );
 }
-</code></pre>
-
-<p>Output</p>
-
-<pre><code class="language-Output">Demo operator( 3, -7 ) is -21
+</code></pre></div><p>Output</p>
+<pre tabindex="0"><code class="language-Output" data-lang="Output">Demo operator( 3, -7 ) is -21
 Demo.difference( 29 ) is 13
 Demo.difference( 13 ) is 29
 d.n_: 42
@@ -474,7 +460,7 @@ pd-&gt;n_: 42
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

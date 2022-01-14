@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번에는 스레드 동기화 방법 대해 살펴보겠습니다.">
@@ -94,7 +94,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -253,11 +252,8 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번에는 스레드 동기화 방법 대해 살펴보겠습니다.</p>
-
 <h2 id="mutex">mutex</h2>
-
 <h4 id="표준-mutex-종류">표준 mutex 종류</h4>
-
 <ul>
 <li>std::mutex (C++11)</li>
 <li>std::timed_mutex (C++11)</li>
@@ -266,9 +262,7 @@ if (!doNotTrack) {
 <li>std::shared_mutex (C++17)</li>
 <li>std::shared_timed_mutex (C++17)</li>
 </ul>
-
 <h4 id="mutex-멤버-함수">mutex 멤버 함수</h4>
-
 <table>
 <thead>
 <tr>
@@ -276,591 +270,537 @@ if (!doNotTrack) {
 <th>내용</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>lock()</td>
 <td>락 획득 및 블럭 대기</td>
 </tr>
-
 <tr>
 <td>try_lock()</td>
 <td>락 획득 시도, 논 블럭</td>
 </tr>
-
 <tr>
 <td>unlock()</td>
 <td>락 해제</td>
 </tr>
-
 <tr>
 <td>native_handle</td>
 <td>OS 수준 핸들 획득</td>
 </tr>
 </tbody>
 </table>
+<h4 id="stdmutex">std::mutex</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<h4 id="std-mutex">std::mutex</h4>
+std<span style="color:#f92672">::</span>mutex m;
+<span style="color:#66d9ef">int</span> share_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-#include &lt;mutex&gt;
-using namespace std::literals;
-
-std::mutex m;
-int share_data = 0;
-
-void foo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    //m.lock();
-    if ( m.try_lock() )
+    <span style="color:#75715e">//m.lock();
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> ( m.try_lock() )
     {
-        share_data = 100;
-        std::cout &lt;&lt; &quot;using share_data&quot; &lt;&lt; std::endl;
+        share_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;using share_data&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
         m.unlock();
     }
-    else
+    <span style="color:#66d9ef">else</span>
     {
-        std::cout &lt;&lt; &quot;뮤텍스 획득 실패&quot; &lt;&lt; std::endl;
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;뮤텍스 획득 실패&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     }
 }
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(foo);
-    std::this_thread::sleep_for(20ms);
-    std::thread t2(foo);
-    t1.join();
-    t2.join();
+	std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(foo);
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">20</span>ms);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(foo);
+	t1.join();
+	t2.join();
 
-    // mutex 의 native handle을 얻는 코드
-    std::mutex::native_handle_type h = m.native_handle();
+    <span style="color:#75715e">// mutex 의 native handle을 얻는 코드
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">::</span>native_handle_type h <span style="color:#f92672">=</span> m.native_handle();
 
-//    std::mutex m2 = m; // error
-}
-</code></pre>
-
-<h4 id="std-timed-mutex">std::timed_mutex</h4>
-
+<span style="color:#75715e">//    std::mutex m2 = m; // error
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="stdtimed_mutex">std::timed_mutex</h4>
 <ul>
 <li>try_lock_for, try_lock_until 멤버가 추가됨(타임 아웃 개념)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-#include &lt;mutex&gt;
-using namespace std::literals;
+std<span style="color:#f92672">::</span>timed_mutex m;
+<span style="color:#66d9ef">int</span> share_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-std::timed_mutex m;
-int share_data = 0;
-
-void foo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    //m.lock();
-    //if ( m.try_lock() )
-    if ( m.try_lock_for(2s) )
+    <span style="color:#75715e">//m.lock();
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//if ( m.try_lock() )
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> ( m.try_lock_for(<span style="color:#ae81ff">2</span>s) )
     {
-        share_data = 100;
-        std::cout &lt;&lt; &quot;using share_data&quot; &lt;&lt; std::endl;
-        std::this_thread::sleep_for(3s);
+        share_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;using share_data&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">3</span>s);
         m.unlock();
     }
-    else
+    <span style="color:#66d9ef">else</span>
     {
-        std::cout &lt;&lt; &quot;뮤텍스 획득 실패&quot; &lt;&lt; std::endl;
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;뮤텍스 획득 실패&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     }
 }
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(foo);
-    std::thread t2(foo);
-    t1.join();
-    t2.join();
+	std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(foo);
+	t1.join();
+	t2.join();
 }
-</code></pre>
-
-<h4 id="std-recursive-mutex">std::recursive_mutex</h4>
-
+</code></pre></div><h4 id="stdrecursive_mutex">std::recursive_mutex</h4>
 <ul>
 <li>동일 스레드가 여러번 lock 가능, lock 횟수만큼 unlock 해야함</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-#include &lt;mutex&gt;
-using namespace std::literals;
-
-class Machine
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Machine</span>
 {
-    int shared_data = 0;
-    std::recursive_mutex m;
-public:
-    void f1()
+    <span style="color:#66d9ef">int</span> shared_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    std<span style="color:#f92672">::</span>recursive_mutex m;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> f1()
     {
         m.lock();
-        shared_data = 100;
+        shared_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
         m.unlock();
     }
-    void f2()
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f2</span>()
     {
         m.lock();
-        shared_data = 200;
+        shared_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>;
         f1();
         m.unlock();
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     Machine m;
-    std::thread t1(&amp;Machine::f1, &amp;m);
-    std::thread t2(&amp;Machine::f2, &amp;m);
-    t1.join();
-    t2.join();
+	std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(<span style="color:#f92672">&amp;</span>Machine<span style="color:#f92672">::</span>f1, <span style="color:#f92672">&amp;</span>m);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(<span style="color:#f92672">&amp;</span>Machine<span style="color:#f92672">::</span>f2, <span style="color:#f92672">&amp;</span>m);
+	t1.join();
+	t2.join();
 }
-</code></pre>
-
-<h4 id="std-shared-mutex">std::shared_mutex</h4>
-
+</code></pre></div><h4 id="stdshared_mutex">std::shared_mutex</h4>
 <ul>
 <li>mutex lock 처리시, read와 write 상태를 구분(read시에는 lock_shared로 성능 향상, 여러 스레드에서 동시 접근 가능)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;shared_mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string_view&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-#include &lt;mutex&gt;
-#include &lt;shared_mutex&gt;
-#include &lt;string_view&gt;
-using namespace std::literals;
+<span style="color:#75715e">//std::mutex m;
+</span><span style="color:#75715e"></span>std<span style="color:#f92672">::</span>shared_mutex m;
+<span style="color:#66d9ef">int</span> share_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-//std::mutex m;
-std::shared_mutex m;
-int share_data = 0;
-
-void Writer()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Writer</span>()
 {
-    while(1)
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>)
     {
         m.lock();
-        share_data = share_data + 1;
-        std::cout &lt;&lt; &quot;Writer : &quot; &lt;&lt; share_data &lt;&lt; std::endl;
-        std::this_thread::sleep_for(1s);        
+        share_data <span style="color:#f92672">=</span> share_data <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Writer : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> share_data <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">1</span>s);        
         m.unlock();
-        std::this_thread::sleep_for(10ms);
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">10</span>ms);
     }
 }
-void Reader(std::string_view name)
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Reader</span>(std<span style="color:#f92672">::</span>string_view name)
 {
-    while(1)
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>)
     {      
-        //m.lock();
-        m.lock_shared();
-        std::cout &lt;&lt; &quot;Reader(&quot; &lt;&lt; name &lt;&lt;  &quot;) : &quot; &lt;&lt; share_data &lt;&lt; std::endl;
-        std::this_thread::sleep_for(500ms);
-        //m.unlock();
-        m.unlock_shared();
-        std::this_thread::sleep_for(10ms);
+        <span style="color:#75715e">//m.lock();
+</span><span style="color:#75715e"></span>        m.lock_shared();
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Reader(&#34;</span> <span style="color:#f92672">&lt;&lt;</span> name <span style="color:#f92672">&lt;&lt;</span>  <span style="color:#e6db74">&#34;) : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> share_data <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">500</span>ms);
+        <span style="color:#75715e">//m.unlock();
+</span><span style="color:#75715e"></span>        m.unlock_shared();
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">10</span>ms);
     }
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(Writer);
-    std::thread t2(Reader, &quot;A&quot;);
-    std::thread t3(Reader, &quot;B&quot;);
-    std::thread t4(Reader, &quot;C&quot;);
-    t1.join();
-    t2.join();
+	std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(Writer);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(Reader, <span style="color:#e6db74">&#34;A&#34;</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t3(Reader, <span style="color:#e6db74">&#34;B&#34;</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t4(Reader, <span style="color:#e6db74">&#34;C&#34;</span>);
+	t1.join();
+	t2.join();
     t3.join();
-    t4.join();
+	t4.join();
 }
-</code></pre>
-
-<h2 id="lock-management">lock management</h2>
-
-<h4 id="std-lock-guard">std::lock_guard</h4>
-
+</code></pre></div><h2 id="lock-management">lock management</h2>
+<h4 id="stdlock_guard">std::lock_guard</h4>
 <ul>
 <li>mutex 사용시 실수로 unlock()을 하지 않을 경우 데드락 발생</li>
 <li>코드 실행중 예외 발생시 unlock 구문 실행 안될 수 있음</li>
 <li>lock_guard는 생성자와 소멸자에서 lock, unlock 하도록 구현 되어 있음</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;exception&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+std<span style="color:#f92672">::</span>mutex m;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;mutex&gt;
-#include &lt;exception&gt;
-
-std::mutex m;
-
-void goo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">goo</span>()
 {
-    std::lock_guard&lt;std::mutex&gt; lg(m);
+    std<span style="color:#f92672">::</span>lock_guard<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> lg(m);
 
-//    m.lock();    
-    std::cout &lt;&lt; &quot;using shared data&quot; &lt;&lt; std::endl;
+<span style="color:#75715e">//    m.lock();    
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;using shared data&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 
-//    throw std::exception();
-//    m.unlock();
-}
+<span style="color:#75715e">//    throw std::exception();
+</span><span style="color:#75715e">//    m.unlock();
+</span><span style="color:#75715e"></span>}
 
-void foo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    try 
+    <span style="color:#66d9ef">try</span> 
     {  
         goo(); 
     }
-    catch(...)
+    <span style="color:#66d9ef">catch</span>(...)
     {
-        std::cout &lt;&lt; &quot;catch exception&quot; &lt;&lt; std::endl;
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;catch exception&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     }
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(foo);
-    std::thread t2(foo);
-    t1.join();
-    t2.join();
+	std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(foo);
+	std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(foo);
+	t1.join();
+	t2.join();
 }
-</code></pre>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+std<span style="color:#f92672">::</span>mutex m;
 
-<pre><code class="language-cpp">#include &lt;mutex&gt;
-
-std::mutex m;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    // lock_guard 를 사용하는 2가지 방법
-    // 1. 생성자에서 lock 획득
-    {
-        std::lock_guard&lt;std::mutex&gt; lg(m);
-    
-    }
-    
-    // 2. 이미 lock 획득한 상태의 뮤텍스 관리
-    if ( m.try_lock() )
-    {
-        std::lock_guard&lt;std::mutex&gt; lg(m, std::adopt_lock);
-    
-    }   
+	<span style="color:#75715e">// lock_guard 를 사용하는 2가지 방법
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// 1. 생성자에서 lock 획득
+</span><span style="color:#75715e"></span>	{
+    	std<span style="color:#f92672">::</span>lock_guard<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> lg(m);
+	
+	}
+	
+	<span style="color:#75715e">// 2. 이미 lock 획득한 상태의 뮤텍스 관리
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> ( m.try_lock() )
+	{
+		std<span style="color:#f92672">::</span>lock_guard<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> lg(m, std<span style="color:#f92672">::</span>adopt_lock);
+	
+	}	
 }
-</code></pre>
-
-<h4 id="std-unique-lock">std::unique_lock</h4>
-
+</code></pre></div><h4 id="stdunique_lock">std::unique_lock</h4>
 <ul>
 <li>lock_guard의 기본 기능에 추가적인 기능을 제공</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;mutex&gt;
-#include &lt;chrono&gt;
-using namespace std::literals;
+std<span style="color:#f92672">::</span>mutex       m1, m2, m3;
+std<span style="color:#f92672">::</span>timed_mutex tm1, tm2, tm3;
 
-std::mutex       m1, m2, m3;
-std::timed_mutex tm1, tm2, tm3;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {   
-    std::unique_lock&lt;std::mutex&gt; u1; 
-    std::unique_lock&lt;std::mutex&gt; u2(m1);                    // 생성자에서 m1.lock()
-
-    std::unique_lock&lt;std::mutex&gt; u3(m2, std::try_to_lock);  // m2.try_lock()
-    
-    if ( u3.owns_lock() )
-        std::cout &lt;&lt; &quot;acquire lock&quot; &lt;&lt; std::endl;
-    else 
-        std::cout &lt;&lt; &quot;fail to lock&quot; &lt;&lt; std::endl;
-
-
-    m3.lock();
-    std::unique_lock&lt;std::mutex&gt; u4(m3, std::adopt_lock);   // 이미 lock 을 획득한 뮤텍스 관리
+	std<span style="color:#f92672">::</span>unique_lock<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> u1; 
+    std<span style="color:#f92672">::</span>unique_lock<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> u2(m1);                    <span style="color:#75715e">// 생성자에서 m1.lock()
+</span><span style="color:#75715e"></span>
+   	std<span style="color:#f92672">::</span>unique_lock<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> u3(m2, std<span style="color:#f92672">::</span>try_to_lock);  <span style="color:#75715e">// m2.try_lock()
+</span><span style="color:#75715e"></span>	
+    <span style="color:#66d9ef">if</span> ( u3.owns_lock() )
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;acquire lock&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    <span style="color:#66d9ef">else</span> 
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;fail to lock&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 
 
-    std::unique_lock&lt;std::timed_mutex&gt; u5(tm1, std::defer_lock); // 나중에 lock 을 호출
-    auto ret = u5.try_lock_for(2s);
+	m3.lock();
+	std<span style="color:#f92672">::</span>unique_lock<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> u4(m3, std<span style="color:#f92672">::</span>adopt_lock);   <span style="color:#75715e">// 이미 lock 을 획득한 뮤텍스 관리
+</span><span style="color:#75715e"></span>
+
+	std<span style="color:#f92672">::</span>unique_lock<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>timed_mutex<span style="color:#f92672">&gt;</span> u5(tm1, std<span style="color:#f92672">::</span>defer_lock); <span style="color:#75715e">// 나중에 lock 을 호출
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">auto</span> ret <span style="color:#f92672">=</span> u5.try_lock_for(<span style="color:#ae81ff">2</span>s);
 
 
-    std::unique_lock&lt;std::timed_mutex&gt; u6(tm2, 2s);  // tm2.try_lock_for() 사용
-    std::unique_lock&lt;std::timed_mutex&gt; u7(tm3, std::chrono::steady_clock::now() + 2s );
-                                                    // tm3.try_lock_until() 사용
-}
-</code></pre>
-
-<h4 id="std-scoped-lock-c-17">std::scoped_lock (C++17)</h4>
-
+    std<span style="color:#f92672">::</span>unique_lock<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>timed_mutex<span style="color:#f92672">&gt;</span> u6(tm2, <span style="color:#ae81ff">2</span>s);  <span style="color:#75715e">// tm2.try_lock_for() 사용
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>unique_lock<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>timed_mutex<span style="color:#f92672">&gt;</span> u7(tm3, std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>steady_clock<span style="color:#f92672">::</span>now() <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>s );
+                                                    <span style="color:#75715e">// tm3.try_lock_until() 사용
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="stdscoped_lock-c17">std::scoped_lock (C++17)</h4>
 <ul>
 <li>deadlock 회피 기술을 사용해서 여러개의 mutex를 안전하게 lock</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-#include &lt;mutex&gt;
-using namespace std::literals;
-
-struct  Account
+<span style="color:#66d9ef">struct</span>  <span style="color:#a6e22e">Account</span>
 {
-    std::mutex m;
-    int money = 100;
+    std<span style="color:#f92672">::</span>mutex m;
+    <span style="color:#66d9ef">int</span> money <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
 };
 
-void transfer(Account&amp; acc1, Account&amp; acc2, int cnt)
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">transfer</span>(Account<span style="color:#f92672">&amp;</span> acc1, Account<span style="color:#f92672">&amp;</span> acc2, <span style="color:#66d9ef">int</span> cnt)
 {
-//    std::scoped_lock&lt;std::mutex, std::mutex&gt; lg(acc1.m, acc2.m);// ok
-    std::scoped_lock lg(acc1.m, acc2.m);// ok
-
-    acc1.money -= cnt;
-    acc2.money += cnt;
-    std::cout &lt;&lt; &quot;finish transfer&quot; &lt;&lt; std::endl;
+<span style="color:#75715e">//    std::scoped_lock&lt;std::mutex, std::mutex&gt; lg(acc1.m, acc2.m);// ok
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>scoped_lock lg(acc1.m, acc2.m);<span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
+    acc1.money <span style="color:#f92672">-=</span> cnt;
+    acc2.money <span style="color:#f92672">+=</span> cnt;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;finish transfer&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     Account kim, lee;
-    std::thread t1(transfer, std::ref(kim), std::ref(lee), 5);
-    std::thread t2(transfer, std::ref(lee), std::ref(kim), 5);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(transfer, std<span style="color:#f92672">::</span>ref(kim), std<span style="color:#f92672">::</span>ref(lee), <span style="color:#ae81ff">5</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(transfer, std<span style="color:#f92672">::</span>ref(lee), std<span style="color:#f92672">::</span>ref(kim), <span style="color:#ae81ff">5</span>);
     t1.join();
     t2.join();
 }
-</code></pre>
-
-<h4 id="std-shared-lock">std::shared_lock</h4>
-
+</code></pre></div><h4 id="stdshared_lock">std::shared_lock</h4>
 <ul>
 <li>하나의 스레드가 읽는 동안 다른 스레드도 읽도록 처리 -&gt; std::shared_mutex</li>
 <li>shared_lock은 생성자와 소멸자에서 lock_shared(), unlock_shared() 호출</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;shared_mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string_view&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-#include &lt;mutex&gt;
-#include &lt;shared_mutex&gt;
-#include &lt;string_view&gt;
-using namespace std::literals;
+std<span style="color:#f92672">::</span>shared_mutex m;
+<span style="color:#66d9ef">int</span> share_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-std::shared_mutex m;
-int share_data = 0;
-
-void Writer()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Writer</span>()
 {
-    while(1)
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>)
     {
         {
-            std::lock_guard&lt;std::shared_mutex&gt; lg(m);
-            share_data = share_data + 1;
-            std::cout &lt;&lt; &quot;Writer : &quot; &lt;&lt; share_data &lt;&lt; std::endl;
-            std::this_thread::sleep_for(1s);        
+            std<span style="color:#f92672">::</span>lock_guard<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>shared_mutex<span style="color:#f92672">&gt;</span> lg(m);
+            share_data <span style="color:#f92672">=</span> share_data <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+            std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Writer : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> share_data <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+            std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">1</span>s);        
         }        
 
-        std::this_thread::sleep_for(10ms);
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">10</span>ms);
     }
 }
-void Reader(std::string_view name)
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Reader</span>(std<span style="color:#f92672">::</span>string_view name)
 {
-    while(1)
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>)
     {   
         {  
-            //m.lock_shared();
-        
-            //std::lock_guard&lt;std::shared_mutex&gt; lg(m);    
-            std::shared_lock&lt;std::shared_mutex&gt; lg(m);
+            <span style="color:#75715e">//m.lock_shared();
+</span><span style="color:#75715e"></span>        
+            <span style="color:#75715e">//std::lock_guard&lt;std::shared_mutex&gt; lg(m);    
+</span><span style="color:#75715e"></span>            std<span style="color:#f92672">::</span>shared_lock<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>shared_mutex<span style="color:#f92672">&gt;</span> lg(m);
                 
-            std::cout &lt;&lt; &quot;Reader(&quot; &lt;&lt; name &lt;&lt;  &quot;) : &quot; &lt;&lt; share_data &lt;&lt; std::endl;
-            std::this_thread::sleep_for(500ms);
+            std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Reader(&#34;</span> <span style="color:#f92672">&lt;&lt;</span> name <span style="color:#f92672">&lt;&lt;</span>  <span style="color:#e6db74">&#34;) : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> share_data <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+            std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">500</span>ms);
             
-            //m.unlock_shared();
-        }
+            <span style="color:#75715e">//m.unlock_shared();
+</span><span style="color:#75715e"></span>        }
         
-        std::this_thread::sleep_for(10ms);
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">10</span>ms);
     }
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(Writer);
-    std::thread t2(Reader, &quot;A&quot;);
-    std::thread t3(Reader, &quot;B&quot;);
-    std::thread t4(Reader, &quot;C&quot;);
-    t1.join();
-    t2.join();
+	std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(Writer);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(Reader, <span style="color:#e6db74">&#34;A&#34;</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t3(Reader, <span style="color:#e6db74">&#34;B&#34;</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t4(Reader, <span style="color:#e6db74">&#34;C&#34;</span>);
+	t1.join();
+	t2.join();
     t3.join();
-    t4.join();
+	t4.join();
 }
-</code></pre>
-
-<h2 id="condition-variable">condition variable</h2>
-
+</code></pre></div><h2 id="condition-variable">condition variable</h2>
 <h4 id="신호-기반의-동기화-도구">신호 기반의 동기화 도구</h4>
-
 <ul>
 <li>생산자 소비자 패턴에서 소비자에게 생산이 되었음을 통지 할 수 있음</li>
 <li>unique_lock을 사용해야 함</li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;mutex&gt;
-#include &lt;chrono&gt;
-#include &lt;condition_variable&gt;
-using namespace std::literals;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;condition_variable&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
   
-std::mutex m;
-std::condition_variable cv;
-bool data_ready = false;
-int shared_data = 0;
+std<span style="color:#f92672">::</span>mutex m;
+std<span style="color:#f92672">::</span>condition_variable cv;
+<span style="color:#66d9ef">bool</span> data_ready <span style="color:#f92672">=</span> false;
+<span style="color:#66d9ef">int</span> shared_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-void consumer()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">consumer</span>()
 {       
-    std::unique_lock&lt;std::mutex&gt; ul(m);  
-    cv.wait( ul, [] { return data_ready;} );
-    std::cout &lt;&lt; &quot;consume : &quot; &lt;&lt; shared_data &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>unique_lock<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> ul(m);  
+    cv.wait( ul, [] { <span style="color:#66d9ef">return</span> data_ready;} );
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;consume : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> shared_data <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
 
-void producer()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">producer</span>()
 {     
-    std::this_thread::sleep_for(100ms); 
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">100</span>ms); 
     {
-        std::lock_guard&lt;std::mutex&gt; lg(m);        
-        shared_data = 100;
-        data_ready = true;
-        std::cout &lt;&lt; &quot;produce : &quot; &lt;&lt; shared_data &lt;&lt; std::endl;    
+        std<span style="color:#f92672">::</span>lock_guard<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> lg(m);        
+        shared_data <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+        data_ready <span style="color:#f92672">=</span> true;
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;produce : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> shared_data <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;    
     }
     cv.notify_all();
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(producer);
-    std::thread t2(consumer);
-    std::thread t3(consumer);
-    std::thread t4(consumer);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(producer);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(consumer);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t3(consumer);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t4(consumer);
     t1.join(); t2.join();
     t3.join(); t4.join();
 }
-</code></pre>
-
-<h2 id="std-semaphore-c-20">std::semaphore (C++20)</h2>
-
+</code></pre></div><h2 id="stdsemaphore-c20">std::semaphore (C++20)</h2>
 <h4 id="자원을-n개-스레드가-공유-하고-싶을-경우">자원을 N개 스레드가 공유 하고 싶을 경우</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;semaphore&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;string&gt;
-#include &lt;chrono&gt;
-#include &lt;semaphore&gt;
-using namespace std::literals;
+<span style="color:#75715e">//std::counting_semaphore&lt;1&gt; sem(1); 
+</span><span style="color:#75715e"></span>std<span style="color:#f92672">::</span>binary_semaphore sem(<span style="color:#ae81ff">1</span>);
 
-//std::counting_semaphore&lt;1&gt; sem(1); 
-std::binary_semaphore sem(1);
-
-void Download(std::string name)
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Download</span>(std<span style="color:#f92672">::</span>string name)
 { 
     sem.acquire(); 
-    for (int i = 0; i &lt; 100; i++)
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>; i<span style="color:#f92672">++</span>)
     {
-        std::cout &lt;&lt; name;
-        std::this_thread::sleep_for(30ms);
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> name;
+        std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">30</span>ms);
     }
     sem.release();
 }
 
-int main() 
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() 
 {
-    std::thread t1(Download, &quot;1&quot;);
-    std::thread t2(Download, &quot;2&quot;);
-    std::thread t3(Download, &quot;3&quot;);
-    std::thread t4(Download, &quot;4&quot;);
-    std::thread t5(Download, &quot;5&quot;);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(Download, <span style="color:#e6db74">&#34;1&#34;</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(Download, <span style="color:#e6db74">&#34;2&#34;</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t3(Download, <span style="color:#e6db74">&#34;3&#34;</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t4(Download, <span style="color:#e6db74">&#34;4&#34;</span>);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t5(Download, <span style="color:#e6db74">&#34;5&#34;</span>);
 
     t1.join();    t2.join();
     t3.join();    t4.join();
     t5.join();   
 }
-</code></pre>
-
-<h2 id="std-call-once-std-once-flag">std::call_once, std::once_flag</h2>
-
+</code></pre></div><h2 id="stdcall_once-stdonce_flag">std::call_once, std::once_flag</h2>
 <h4 id="동일한-함수를-한번만-실행하도록-처리-하고-싶을-때">동일한 함수를 한번만 실행하도록 처리 하고 싶을 때</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;chrono&gt;
-#include &lt;mutex&gt;
-using namespace std::literals;
-
-std::once_flag init_flag;
-//std::once_flag a = init_flag;// error
-
-void init(int a, double d)
+std<span style="color:#f92672">::</span>once_flag init_flag;
+<span style="color:#75715e">//std::once_flag a = init_flag;// error
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">double</span> d)
 {
-    std::cout &lt;&lt; &quot;init&quot; &lt;&lt; std::endl;
-    std::this_thread::sleep_for(2s);
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;init&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>sleep_for(<span style="color:#ae81ff">2</span>s);
 }
-void foo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    std::cout &lt;&lt; &quot;start foo&quot; &lt;&lt; std::endl;
-    //init(10, 3.4);    
-    std::call_once(init_flag, init, 10, 3.4 );
-    std::cout &lt;&lt; &quot;finish foo&quot; &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;start foo&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    <span style="color:#75715e">//init(10, 3.4);    
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>call_once(init_flag, init, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3.4</span> );
+	std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;finish foo&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(foo);
-    std::thread t2(foo);
-    std::thread t3(foo);
-    t1.join();
-    t2.join();
+	std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(foo);
+	std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t3(foo);
+	t1.join();
+	t2.join();
     t3.join();
 }
-</code></pre>
-
-<h4 id="활용예제-lock-없는-다중스레드-환경의-싱글턴-패턴">활용예제 : lock 없는 다중스레드 환경의 싱글턴 패턴</h4>
-
+</code></pre></div><h4 id="활용예제--lock-없는-다중스레드-환경의-싱글턴-패턴">활용예제 : lock 없는 다중스레드 환경의 싱글턴 패턴</h4>
 <ul>
 <li>but C++11부터는 static 멤버 변수 방식의 싱글턴 객체도 다중 스레드 초기화시 안전함</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>literals;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;mutex&gt;
-using namespace std::literals;
-
-class Singleton
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Singleton</span>
 {
-private:
-    Singleton() = default;
-    static Singleton* sinstance;
-    static std::once_flag create_flag;
-public:
-    Singleton(const Singleton&amp; ) = delete;
-    Singleton&amp; operator=(const Singleton&amp; ) = delete;
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    Singleton() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+    <span style="color:#66d9ef">static</span> Singleton<span style="color:#f92672">*</span> sinstance;
+    <span style="color:#66d9ef">static</span> std<span style="color:#f92672">::</span>once_flag create_flag;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Singleton(<span style="color:#66d9ef">const</span> Singleton<span style="color:#f92672">&amp;</span> ) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
+    Singleton<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>(<span style="color:#66d9ef">const</span> Singleton<span style="color:#f92672">&amp;</span> ) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
 
-    static Singleton* getInstance() 
+    <span style="color:#66d9ef">static</span> Singleton<span style="color:#f92672">*</span> <span style="color:#a6e22e">getInstance</span>() 
     {
-        std::call_once(create_flag, initSingleton);
-        return sinstance;
+        std<span style="color:#f92672">::</span>call_once(create_flag, initSingleton);
+        <span style="color:#66d9ef">return</span> sinstance;
     }
-    static void initSingleton()
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initSingleton</span>()
     {
-        sinstance = new Singleton;
+        sinstance <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Singleton;
     }
 };
-Singleton* Singleton::sinstance = nullptr;
-std::once_flag Singleton::create_flag;
+Singleton<span style="color:#f92672">*</span> Singleton<span style="color:#f92672">::</span>sinstance <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+std<span style="color:#f92672">::</span>once_flag Singleton<span style="color:#f92672">::</span>create_flag;
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::cout &lt;&lt; Singleton::getInstance() &lt;&lt; std::endl;
-    std::cout &lt;&lt; Singleton::getInstance() &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> Singleton<span style="color:#f92672">::</span>getInstance() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> Singleton<span style="color:#f92672">::</span>getInstance() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
+</code></pre></div>
               
             </div>
           </div>
@@ -895,7 +835,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/09/c-concurrent-promise-future-async2/" data-tooltip="C&#43;&#43; Concurrent - Promise / future / async[2]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/09/c-concurrent-promise-/-future-/-async2/" data-tooltip="C&#43;&#43; Concurrent - Promise / future / async[2]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -960,7 +900,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 
@@ -981,7 +921,7 @@ int main()
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/09/c-concurrent-promise-future-async2/" data-tooltip="C&#43;&#43; Concurrent - Promise / future / async[2]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/09/c-concurrent-promise-/-future-/-async2/" data-tooltip="C&#43;&#43; Concurrent - Promise / future / async[2]">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>

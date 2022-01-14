@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="디버그 코드 변경 내용 적용 ALT &#43; F10
-
 편집하며 계속하기를 시작하여 디버그 중인 코드에 변경 내용을 적용합니다.">
 
 
 <meta property="og:description" content="디버그 코드 변경 내용 적용 ALT &#43; F10
-
 편집하며 계속하기를 시작하여 디버그 중인 코드에 변경 내용을 적용합니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="visual studio 디버깅 팁">
@@ -23,10 +21,8 @@
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/visual-studio-%EB%94%94%EB%B2%84%EA%B9%85-%ED%8C%81/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="디버그 코드 변경 내용 적용 ALT &#43; F10
-
 편집하며 계속하기를 시작하여 디버그 중인 코드에 변경 내용을 적용합니다.">
 <meta name="twitter:description" content="디버그 코드 변경 내용 적용 ALT &#43; F10
-
 편집하며 계속하기를 시작하여 디버그 중인 코드에 변경 내용을 적용합니다.">
 <meta property="og:locale" content="en-us">
 
@@ -98,7 +94,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,186 +250,129 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p><strong>디버그 코드 변경 내용 적용 ALT + F10</strong></p>
-
 <p>편집하며 계속하기를 시작하여 디버그 중인 코드에 변경 내용을 적용합니다.</p>
-
 <h3 id="함수의-반환-값-보기"><strong>함수의 반환 값 보기</strong></h3>
-
 <p>함수의 반환 값을 보려면 코드를 단계별로 실행하는 동안 <strong>자동</strong> 창에 표시되는 함수를 확인합니다. 함수의 반환 값을 보려면 관심 있는 함수가 이미 실행되었는지 확인합니다(현재 함수 호출에서 중지된 경우 <strong>F10</strong> 키를 누름). 창이 닫히면 <strong>디버그 &gt; Windows &gt; 자동</strong>을 사용하여 <strong>자동</strong> 창을 엽니다.</p>
-
-<p><img src="imgdbg-tips-autos-window.png" alt="자동 창" /></p>
-
+<p><img src="%5Cimg%5Cdbg-tips-autos-window.png" alt="자동 창"></p>
 <p>또한 <strong>직접 실행</strong> 창에 함수를 입력하여 반환 값을 볼 수 있습니다. (<strong>디버그 &gt; Windows &gt; 직접 실행</strong>을 사용하여 엽니다.)</p>
-
-<p><img src="imgdbg-tips-immediate-window.png" alt="직접 실행 창" /></p>
-
+<p><img src="%5Cimg%5Cdbg-tips-immediate-window.png" alt="직접 실행 창"></p>
 <p><strong>조사식</strong> 및 <strong>즉시 실행</strong> 창에서 <code>$ReturnValue</code>와 같은 <a href="https://docs.microsoft.com/ko-kr/visualstudio/debugger/pseudovariables?view=vs-2019">의사 변수</a>를 사용할 수도 있습니다.</p>
-
 <h3 id="디버거-내장-함수를-사용하여-상태-유지">디버거 내장 함수를 사용하여 상태 유지</h3>
-
 <p>디버거 내장 함수는 애플리케이션의 상태를 변경하지 않고 식에서 특정 C/C++ 함수를 호출하는 방법을 제공합니다.</p>
-
 <p>디버거 내장 함수의 특징은 다음과 같습니다.</p>
-
 <ul>
-<li><p>안전이 보장됩니다. 디버거 내장 함수를 실행하는 경우 디버깅 중인 프로세스가 손상되지 않습니다.</p></li>
-
-<li><p>모든 식에서 허용됩니다. 파생 작업과 함수 실행이 허용되지 않는 시나리오에서도 허용됩니다.</p></li>
-
-<li><p>미니덤프 디버깅과 같이 일반 함수 호출이 가능하지 않은 시나리오에서 작동합니다.</p></li>
-</ul>
-
+<li>
+<p>안전이 보장됩니다. 디버거 내장 함수를 실행하는 경우 디버깅 중인 프로세스가 손상되지 않습니다.</p>
+</li>
+<li>
+<p>모든 식에서 허용됩니다. 파생 작업과 함수 실행이 허용되지 않는 시나리오에서도 허용됩니다.</p>
+</li>
+<li>
+<p>미니덤프 디버깅과 같이 일반 함수 호출이 가능하지 않은 시나리오에서 작동합니다.</p>
 <p>디버거 내장 함수를 사용하면 식 계산도 보다 편리해질 수 있습니다. 예를 들어 <code>strncmp(str, &quot;asd&quot;)</code> 는 <code>str[0] == 'a' &amp;&amp; str[1] == 's' &amp;&amp; str[2] == 'd'</code>보다 중단점 조건에서 작성하기가 훨씬 쉽습니다. )</p>
-
+</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th align="left">영역</th>
-<th align="left">내장 함수</th>
+<th style="text-align:left">영역</th>
+<th style="text-align:left">내장 함수</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
-<td align="left"><strong>문자열 길이</strong></td>
-<td align="left"><a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strlen-wcslen-mbslen-mbslen-l-mbstrlen-mbstrlen-l">strlen, wcslen</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strnlen-strnlen-s">strnlen, wcsnlen</a></td>
+<td style="text-align:left"><strong>문자열 길이</strong></td>
+<td style="text-align:left"><a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strlen-wcslen-mbslen-mbslen-l-mbstrlen-mbstrlen-l">strlen, wcslen</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strnlen-strnlen-s">strnlen, wcsnlen</a></td>
 </tr>
-
 <tr>
-<td align="left"><strong>문자열 비교</strong></td>
-<td align="left"><a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strcmp-wcscmp-mbscmp">strcmp, wcscmp</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/stricmp-wcsicmp">stricmp, wcsicmp</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/stricmp-wcsicmp-mbsicmp-stricmp-l-wcsicmp-l-mbsicmp-l">_stricmp, _strcmpi, _wcsicmp, _wcscmpi</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strncmp-wcsncmp-mbsncmp-mbsncmp-l">strncmp, wcsncmp</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strnicmp-wcsnicmp">strnicmp, wcsnicmp</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strnicmp-wcsnicmp-mbsnicmp-strnicmp-l-wcsnicmp-l-mbsnicmp-l">_strnicmp, _wcsnicmp</a></td>
+<td style="text-align:left"><strong>문자열 비교</strong></td>
+<td style="text-align:left"><a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strcmp-wcscmp-mbscmp">strcmp, wcscmp</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/stricmp-wcsicmp">stricmp, wcsicmp</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/stricmp-wcsicmp-mbsicmp-stricmp-l-wcsicmp-l-mbsicmp-l">_stricmp, _strcmpi, _wcsicmp, _wcscmpi</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strncmp-wcsncmp-mbsncmp-mbsncmp-l">strncmp, wcsncmp</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strnicmp-wcsnicmp">strnicmp, wcsnicmp</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strnicmp-wcsnicmp-mbsnicmp-strnicmp-l-wcsnicmp-l-mbsnicmp-l">_strnicmp, _wcsnicmp</a></td>
 </tr>
-
 <tr>
-<td align="left"><strong>문자열 검색</strong></td>
-<td align="left"><a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strchr-wcschr-mbschr-mbschr-l">strchr, wcschr</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/memchr-wmemchr">memchr, wmemchr</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strstr-wcsstr-mbsstr-mbsstr-l">strstr, wcsstr</a></td>
+<td style="text-align:left"><strong>문자열 검색</strong></td>
+<td style="text-align:left"><a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strchr-wcschr-mbschr-mbschr-l">strchr, wcschr</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/memchr-wmemchr">memchr, wmemchr</a>, <a href="https://docs.microsoft.com/ko-kr/cpp/c-runtime-library/reference/strstr-wcsstr-mbsstr-mbsstr-l">strstr, wcsstr</a></td>
 </tr>
-
 <tr>
-<td align="left"><strong>Win32</strong></td>
-<td align="left"><a href="https://docs.microsoft.com/ko-kr/windows/win32/api/combaseapi/nf-combaseapi-codecodeproxy">CoDecodeProxy</a>, <a href="https://docs.microsoft.com/ko-kr/previous-versions/bb432242(v=vs.85)">DecodePointer</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/processthreadsapi/nf-processthreadsapi-tlsgetvalue">TlsGetValue</a></td>
+<td style="text-align:left"><strong>Win32</strong></td>
+<td style="text-align:left"><a href="https://docs.microsoft.com/ko-kr/windows/win32/api/combaseapi/nf-combaseapi-codecodeproxy">CoDecodeProxy</a>, <a href="https://docs.microsoft.com/ko-kr/previous-versions/bb432242(v=vs.85)">DecodePointer</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/processthreadsapi/nf-processthreadsapi-tlsgetvalue">TlsGetValue</a></td>
 </tr>
-
 <tr>
-<td align="left"><strong>Windows 8</strong></td>
-<td align="left"><a href="https://docs.microsoft.com/ko-kr/windows/win32/api/roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace">RoInspectCapturedStackBackTrace</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/winstring/nf-winstring-windowscomparestringordinal">WindowsCompareStringOrdinal</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/winstring/nf-winstring-windowsgetstringlen">WindowsGetStringLen</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/winstring/nf-winstring-windowsgetstringrawbuffer">WindowsGetStringRawBuffer</a>  이러한 함수를 사용하려면 디버깅 중인 프로세스가 Windows 8에서 실행되어야 합니다. Windows 8 디바이스에서 생성된 덤프 파일을 디버깅하려면 Visual Studio 컴퓨터에서 Windows 8이 실행되어야 합니다. 그러나 Windows 8 디바이스를 원격으로 디버그하는 경우에는 Visual Studio 컴퓨터에서 Windows 7이 실행될 수 있습니다.</td>
+<td style="text-align:left"><strong>Windows 8</strong></td>
+<td style="text-align:left"><a href="https://docs.microsoft.com/ko-kr/windows/win32/api/roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace">RoInspectCapturedStackBackTrace</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/winstring/nf-winstring-windowscomparestringordinal">WindowsCompareStringOrdinal</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/winstring/nf-winstring-windowsgetstringlen">WindowsGetStringLen</a>, <a href="https://docs.microsoft.com/ko-kr/windows/win32/api/winstring/nf-winstring-windowsgetstringrawbuffer">WindowsGetStringRawBuffer</a>  이러한 함수를 사용하려면 디버깅 중인 프로세스가 Windows 8에서 실행되어야 합니다. Windows 8 디바이스에서 생성된 덤프 파일을 디버깅하려면 Visual Studio 컴퓨터에서 Windows 8이 실행되어야 합니다. 그러나 Windows 8 디바이스를 원격으로 디버그하는 경우에는 Visual Studio 컴퓨터에서 Windows 7이 실행될 수 있습니다.</td>
 </tr>
-
 <tr>
-<td align="left"><strong>기타</strong></td>
-<td align="left">__log2 // 가장 가까운 낮은 정수로 반올림된 밑이 2인 지정된 정수의 로그 값을 반환합니다.  __findNonNull, DecodeHString, DecodeWinRTRestrictedException, DynamicCast, DynamicMemberLookup, GetEnvBlockLength  Stdext_HashMap_Int_OperatorBracket_idx, Std_UnorderedMap_Int_OperatorBracket_idx  ConcurrencyArray_OperatorBracket_idx // Concurrency::array&lt;&gt;::operator[index&lt;&gt;] 및 operator(index&lt;&gt;)  ConcurrencyArray_OperatorBracket_int // Concurrency::array&lt;&gt;::operator(int, int, &hellip;)  ConcurrencyArray_OperatorBracket_tidx // Concurrency::array&lt;&gt;::operator[tiled_index&lt;&gt;] 및 operator(tiled_index&lt;&gt;)  ConcurrencyArrayView_OperatorBracket_idx // Concurrency::array_view&lt;&gt;::operator[index&lt;&gt;] 및 operator(index&lt;&gt;)  ConcurrencyArrayView_OperatorBracket_int // Concurrency::array_view&lt;&gt;::operator(int, int, &hellip;)  ConcurrencyArrayView_OperatorBracket_tidx // Concurrency::array_view&lt;&gt;::operator[tiled_index&lt;&gt;] 및 operator(tiled_index&lt;&gt;)  TreeTraverse_Init // 새 트리 순회를 초기화합니다.  TreeTraverse_Next // 트리의 노드를 반환합니다.  TreeTraverse_Skip // 보류 중인 트리 순회의 노드를 건너뜁니다.</td>
+<td style="text-align:left"><strong>기타</strong></td>
+<td style="text-align:left">__log2 // 가장 가까운 낮은 정수로 반올림된 밑이 2인 지정된 정수의 로그 값을 반환합니다.  __findNonNull, DecodeHString, DecodeWinRTRestrictedException, DynamicCast, DynamicMemberLookup, GetEnvBlockLength  Stdext_HashMap_Int_OperatorBracket_idx, Std_UnorderedMap_Int_OperatorBracket_idx  ConcurrencyArray_OperatorBracket_idx // Concurrency::array&lt;&gt;::operator[index&lt;&gt;] 및 operator(index&lt;&gt;)  ConcurrencyArray_OperatorBracket_int // Concurrency::array&lt;&gt;::operator(int, int, &hellip;)  ConcurrencyArray_OperatorBracket_tidx // Concurrency::array&lt;&gt;::operator[tiled_index&lt;&gt;] 및 operator(tiled_index&lt;&gt;)  ConcurrencyArrayView_OperatorBracket_idx // Concurrency::array_view&lt;&gt;::operator[index&lt;&gt;] 및 operator(index&lt;&gt;)  ConcurrencyArrayView_OperatorBracket_int // Concurrency::array_view&lt;&gt;::operator(int, int, &hellip;)  ConcurrencyArrayView_OperatorBracket_tidx // Concurrency::array_view&lt;&gt;::operator[tiled_index&lt;&gt;] 및 operator(tiled_index&lt;&gt;)  TreeTraverse_Init // 새 트리 순회를 초기화합니다.  TreeTraverse_Next // 트리의 노드를 반환합니다.  TreeTraverse_Skip // 보류 중인 트리 순회의 노드를 건너뜁니다.</td>
 </tr>
 </tbody>
 </table>
-
 <p>C++/CLI - 지원되지 않는 식</p>
-
 <ul>
 <li>포인터와 관련된 캐스트 또는 사용자 정의 캐스트는 지원되지 않습니다.</li>
 <li>개체 비교 및 할당은 지원되지 않습니다.</li>
 <li>오버로드된 연산자 및 오버로드된 함수는 지원되지 않습니다.</li>
 <li>boxing 및 unboxing은 지원되지 않습니다.</li>
-<li><code>Sizeof</code> 연산자는 지원되지 않습니다.
-
-<br />
-
-<br /></li>
+<li><code>Sizeof</code> 연산자는 지원되지 않습니다.</li>
 </ul>
-
 <h3 id="교착-상태-및-경합-상태-디버그"><strong>교착 상태 및 경합 상태 디버그</strong></h3>
-
 <p>다중 스레드 앱에 공통적인 문제 유형을 디버그해야 하는 경우 디버그하는 동안 스레드의 위치를 확인하는 것이 도움이 되는 경우가 많습니다. <strong>소스의 스레드 표시</strong> 단추를 사용하여 이 작업을 쉽게 수행할 수 있습니다.</p>
-
 <p>소스 코드에서 스레드를 표시하려면</p>
-
 <ol>
-<li><p>디버그하는 동안 <strong>디버그 도구</strong> 모음에서 <strong>소스의 스레드 표시</strong> 단추 <img src="https://docs.microsoft.com/ko-kr/visualstudio/debugger/media/dbg-multithreaded-show-threads.png?view=vs-2019" alt="소스의 스레드 표시" />를 클릭합니다.</p></li>
-
-<li><p>창 왼쪽의 여백을 확인합니다. 이 줄에는 실 두 가닥 모양의 스레드 마커 아이콘 <img src="https://docs.microsoft.com/ko-kr/visualstudio/debugger/media/dbg-thread-marker.png?view=vs-2019" alt="스레드 마커" />이 표시됩니다. 스레드 마커는 이 위치에서 스레드가 중지되었음을 나타냅니다.</p></li>
-</ol>
-
+<li>
+<p>디버그하는 동안 <strong>디버그 도구</strong> 모음에서 <strong>소스의 스레드 표시</strong> 단추 <img src="https://docs.microsoft.com/ko-kr/visualstudio/debugger/media/dbg-multithreaded-show-threads.png?view=vs-2019" alt="소스의 스레드 표시">를 클릭합니다.</p>
+</li>
+<li>
+<p>창 왼쪽의 여백을 확인합니다. 이 줄에는 실 두 가닥 모양의 스레드 마커 아이콘 <img src="https://docs.microsoft.com/ko-kr/visualstudio/debugger/media/dbg-thread-marker.png?view=vs-2019" alt="스레드 마커">이 표시됩니다. 스레드 마커는 이 위치에서 스레드가 중지되었음을 나타냅니다.</p>
 <p>스레드 마커는 중단점에 의해 일부가 가려질 수 있습니다.</p>
-
-<ol>
-<li>스레드 마커에 포인터를 올려 놓습니다. DataTips가 나타납니다. DataTip을 통해 중지된 각 스레드의 이름과 스레드 ID 번호를 알 수 있습니다.</li>
-</ol>
-
+</li>
+<li>
+<p>스레드 마커에 포인터를 올려 놓습니다. DataTips가 나타납니다. DataTip을 통해 중지된 각 스레드의 이름과 스레드 ID 번호를 알 수 있습니다.</p>
 <p><a href="https://docs.microsoft.com/ko-kr/visualstudio/debugger/get-started-debugging-multithreaded-apps?view=vs-2019">병렬 스택</a> 창에서도 스레드 위치를 볼 수 있습니다.</p>
-
+</li>
+</ol>
 <h3 id="스코프를-벗어난-객체-주시하기"><strong>스코프를 벗어난 객체 주시하기</strong></h3>
-
 <p>디버깅을 하다 보면 스코프를 벗어난 객체를 계속 주시하고 싶을 때가 있습니다. 하지만 비쥬얼 스튜디오의 조사식 창(Watch Window)에서는 입력한 객체가 스코프를 벗어나면 비활성화가 되어 더이상 값을 확인 할수 없게 되어버리죠. 이 때, 조사식에 주시 하고픈 객체의 포인터를 입력하면, 해당 객체가 스코프를 벗어났더라도 (해당 객체가 살아 있다면) 지속적으로 값을 확인할 수 있습니다.</p>
-
-<p><img src="img1501434551641DFD03.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C1501434551641DFD03.png" alt="img"></p>
 <p>위 코드를 보면 mHyuna 객체는 이미 스코프를 벗어나 조사식 창에서 비활성화가 되었지만, (CHyuna*)0x0031fe2c 식으로 직접 객체의 주소를 참조하여 스코프를 벗어난 객체의 값을 확인할 수 있습니다.</p>
-
 <p><strong>배열값 확인</strong></p>
-
 <p>간혹 매우 큰 크기의 배열을 사용할때가 있습니다. 대략 1만개라고 해보죠. 이 배열 내부의 값을 확인하려면 어떨까요? 1만개의 배열을 일일히 확인하려면 엄청나게 스크롤링을 해야 할 것 입니다.</p>
-
-<p><img src="img1954EB4D5164223C18.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C1954EB4D5164223C18.png" alt="img"></p>
 <p>이럴때 범위식을 사용하여 특정 구간의 값만을 확인하는 방법이 있습니다. 배열명, 범위 식으로 조사식 창에 입력하여주면 그 범위 만큼의 배열만 보여주는 것이죠. 또한 포인터 연산을 통해서 특정 범위 부터의 값도 확인할 수 있습니다.</p>
-
-<p><img src="img1368E24F516422960C.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C1368E24F516422960C.png" alt="img"></p>
 <h3 id="crt-라이브러리를-활용한-메모리-누수-탐지"><strong>CRT 라이브러리를 활용한 메모리 누수 탐지</strong></h3>
-
 <p>메모리 누수는 항상 골치 거리입니다. 수많은 코드들 중에서 어디서 메모리가 새는지 원인을 찾기도 힘들죠. CRT 라이브러리를 활용하여 메모리 누수 지점을 찾기 위한 방법이 있습니다. 먼저 아래와 같이 CRT 라이브러리를 사용하기 위한 헤더를 선언 해줍니다. 그리고 메모리 누수 체크를 위한 플래그를 선언 해줍니다( <strong>_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );</strong> ).</p>
-
-<p><img src="img031FB437516428823D.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C031FB437516428823D.png" alt="img"></p>
 <p>위 코드를 보시면 일부러 char[8] 만큼의 메모리를 할당 해주고, 해제를 안하고 있습니다. 이 코드를 실행시키면 아래와 같이 출력 창에서 메모리 누수가 탐지 되었다는 메시지가 나타납니다.</p>
-
-<p><img src="img2371CC345164296B1F" alt="img" /></p>
-
+<p><img src="%5Cimg%5C2371CC345164296B1F" alt="img"></p>
 <p>출력창 메시지에서 빨간 네모 박스의 숫자를 잘 기억해두세요. 이 것이 메모리가 누수되는 위치를 가리키고 있는 값입니다. 이제 이 값을 이용해 메모리 누수 위치를 찾아보도록 하겠습니다.</p>
-
 <p>우선 프로그램 아무 곳에나 중단점을 걸고 디버깅 모드로 들어갑니다. 되도록 이면 프로그램의 시작 점에 거는 것이 좋습니다. 디버깅 모드에 들어갔으면 아래와 같이 조사식 창에 {,,msvcrXXXd.dll}_crtBreakAlloc 을 입력해줍니다. 여기서 XXX는 비쥬얼 스튜디오 버전을 적어줍니다. 2008일 경우 msvcr90d.dll, 2010일 경우 msvcr100d.dll, 2012 일 경우 msvcr110d.dll 입니다.</p>
-
-<p><img src="img243EFD36516429CF14.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C243EFD36516429CF14.png" alt="img"></p>
 <p>조사식 창에 위의 구문을 입력하면 처음에는 값이 -1로 나올 것입니다. 여기에 출력창에 나왔던 메모리 누수 위치값을 입력해줍니다. 위의 예제에서는 108 이죠. 그 다음 F5를 눌러 프로그램 실행을 재개합니다.</p>
-
 <p>그러면 어디선가 중단점이 걸립니다. 이제 콜스택을 확인해봅니다.</p>
-
-<p><img src="img220DE14551642ADC2C.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C220DE14551642ADC2C.png" alt="img"></p>
 <p>중단점이 걸린 곳은 msvcr110d.dll 모듈입니다. 이 부분은 디버깅을 위한 곳이니 신경 쓰지 마시고, 밑으로 따라 내려가 보시면 실제 작업 영역 호출 부분이 있습니다. 이 곳으로 따라 가보면&hellip;</p>
-
-<p><img src="img2153C53651642B530D.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C2153C53651642B530D.png" alt="img"></p>
 <p>짜잔~ 메모리를 할당하고 해제 하지 않은 부분을 찾아냈습니다. 이렇게 CRT 라이브러리를 이용하여 메모리 누수 원인을 찾아 낼수 있습니다.</p>
-
 <h3 id="값이-변경-되는-위치-찾기"><strong>값이 변경 되는 위치 찾기</strong></h3>
-
 <ol>
-<li>C++ 프로젝트에서 디버깅을 시작하고 중단점에 도달할 때까지 기다립니다. <strong>디버그</strong> 메뉴에서 <strong>새 중단점</strong> &gt; <strong>데이터 중단점</strong> 을 선택합니다.</li>
-</ol>
-
+<li>
+<p>C++ 프로젝트에서 디버깅을 시작하고 중단점에 도달할 때까지 기다립니다. <strong>디버그</strong> 메뉴에서 <strong>새 중단점</strong> &gt; <strong>데이터 중단점</strong> 을 선택합니다.</p>
 <p><strong>중단점 창</strong> 에서 <strong>새로 만들기</strong> &gt; <strong>데이터 중단점</strong> 을 선택하거나, <strong>자동</strong> , <strong>조사식</strong> 또는 <strong>지역</strong> 창의 항목을 마우스 오른쪽 단추로 클릭해 바로 가기 메뉴에서 <strong>값이 변경되면 중단</strong> 을 선택할 수도 있습니다.</p>
-
-<ol>
-<li><p><strong>주소</strong> 상자에 메모리 주소를 입력하거나 메모리 주소로 계산되는 식을 입력합니다. 예를 들어, 변수 <code>&amp;avar</code> 의 내용이 변경되면 중단하려면 <code>avar</code> 을 입력합니다.</p></li>
-
-<li><p>디버거에서 조사할 바이트 수를 <strong>바이트 계산</strong> 드롭다운에서 선택합니다. 예를 들어, <strong>4</strong> 를 선택하면 디버거가 <code>&amp;avar</code> 에서 시작되는 4바이트를 조사하여 해당 바이트의 값이 변경되면 중단됩니다.</p></li>
+</li>
+<li>
+<p><strong>주소</strong> 상자에 메모리 주소를 입력하거나 메모리 주소로 계산되는 식을 입력합니다. 예를 들어, 변수 <code>&amp;avar</code> 의 내용이 변경되면 중단하려면 <code>avar</code> 을 입력합니다.</p>
+</li>
+<li>
+<p>디버거에서 조사할 바이트 수를 <strong>바이트 계산</strong> 드롭다운에서 선택합니다. 예를 들어, <strong>4</strong> 를 선택하면 디버거가 <code>&amp;avar</code> 에서 시작되는 4바이트를 조사하여 해당 바이트의 값이 변경되면 중단됩니다.</p>
+</li>
 </ol>
-
 <p>디버깅을 하다보면 특정 변수가 어디서 값이 변경 되는 지를 알고 싶을 때가 있습니다. 변수를 사용하는 곳을 전부 검색하여 중단점을 걸어서 볼수도 있지만 데이터 중단점 기능을 이용하면 값을 변경 하는 곳을 손쉽게 찾을 수 있습니다.</p>
-
 <p>먼저 추적 하고 싶은 데이터의 주소를 파악합니다.</p>
-
-<p><img src="img233E354051642F3E34.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C233E354051642F3E34.png" alt="img"></p>
 <p>그 다음 비쥬얼 스튜디오의 <strong>디버그 -&gt; 새 중단점 -&gt; 새 데이터 중단점</strong>을 선택합니다. 여기에 위의 데이터 주소 값을 입력 해줍니다. 타입의 크기 값에 주의 합니다.</p>
-
-<p><img src="img223DEC4651642F8410.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C223DEC4651642F8410.png" alt="img"></p>
 <p>중단점을 추가 한 후, F5를 눌러 실행을 재개합니다. 그러면 어디선가 해당 데이터가 값이 변경 되면 아래와 같이 중단점이 작동하게 됩니다.</p>
-
-<p><img src="img1248813351642FF034.png" alt="img" /></p>
-
+<p><img src="%5Cimg%5C1248813351642FF034.png" alt="img"></p>
 <p>위의 예제에서는 SexyUp 함수에서 해당 데이터를 변경하는 것을 알아냈습니다.</p>
               
             </div>
@@ -533,7 +471,7 @@ if (!doNotTrack) {
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

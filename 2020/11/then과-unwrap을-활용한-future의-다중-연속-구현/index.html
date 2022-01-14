@@ -5,20 +5,16 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="비동기 프로그래밍에서 futue는 강력한 도구입니다.
-
 이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.
-
 future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.">
 
 
 <meta property="og:description" content="비동기 프로그래밍에서 futue는 강력한 도구입니다.
-
 이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.
-
 future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="then과 unwrap을 활용한 future의 다중 연속 구현">
@@ -27,14 +23,10 @@ future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 un
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="비동기 프로그래밍에서 futue는 강력한 도구입니다.
-
 이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.
-
 future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.">
 <meta name="twitter:description" content="비동기 프로그래밍에서 futue는 강력한 도구입니다.
-
 이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.
-
 future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.">
 <meta property="og:locale" content="en-us">
 
@@ -110,7 +102,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -269,57 +260,51 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>비동기 프로그래밍에서 futue는 강력한 도구입니다.</p>
-
 <p>이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.</p>
-
 <p>future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.</p>
-
 <p>이러한 방식의 장점은 연속된 다중 연결을 시리얼하게 처리할 수 있습니다.</p>
-
 <p>예를 들어 비동기 A 작업이 완료된 후 비동기 B 작업을 처리하고 B 작업이 처리 된 후 C 작업이 처리되도록 어렵 지 않게 구현 할 수 있습니다.</p>
-
 <p>예제</p>
-
-<pre><code class="language-cpp">boost::promise&lt;State&gt; prom;
-    prom.set_executor(executor-&gt;ExPointer());
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">boost<span style="color:#f92672">::</span>promise<span style="color:#f92672">&lt;</span>State<span style="color:#f92672">&gt;</span> prom;
+    prom.set_executor(executor<span style="color:#f92672">-&gt;</span>ExPointer());
     prom.set_value(going);
-    boost::future&lt;State&gt; before = prom.get_future();
+    boost<span style="color:#f92672">::</span>future<span style="color:#f92672">&lt;</span>State<span style="color:#f92672">&gt;</span> before <span style="color:#f92672">=</span> prom.get_future();
     
-// GetLogin
-before = before.then(executor-&gt;Ex(), [pSocket, req, ack, loginData](auto f)
+<span style="color:#75715e">// GetLogin
+</span><span style="color:#75715e"></span>before <span style="color:#f92672">=</span> before.then(executor<span style="color:#f92672">-&gt;</span>Ex(), [pSocket, req, ack, loginData](<span style="color:#66d9ef">auto</span> f)
 {
-    auto r = f.get();
-    if (r != going)
-        return boost::make_ready_future(r);
+    <span style="color:#66d9ef">auto</span> r <span style="color:#f92672">=</span> f.get();
+    <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">!=</span> going)
+        <span style="color:#66d9ef">return</span> boost<span style="color:#f92672">::</span>make_ready_future(r);
 
-    return asyncFuncName(pSocket, req, ack, loginData);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">asyncFuncName</span>(pSocket, req, ack, loginData);
 
 }).unwrap();
 
-// Secondary
-before = before.then(executor-&gt;Ex(), [pSocket, req, ack, loginData](auto f)
+<span style="color:#75715e">// Secondary
+</span><span style="color:#75715e"></span>before <span style="color:#f92672">=</span> before.then(executor<span style="color:#f92672">-&gt;</span>Ex(), [pSocket, req, ack, loginData](<span style="color:#66d9ef">auto</span> f)
 {
-    auto r = f.get();
-    if (r != going)
-        return boost::make_ready_future(r);
+    <span style="color:#66d9ef">auto</span> r <span style="color:#f92672">=</span> f.get();
+    <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">!=</span> going)
+        <span style="color:#66d9ef">return</span> boost<span style="color:#f92672">::</span>make_ready_future(r);
 
-    return asyncFuncName_2(pSocket, req, ack, loginData);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">asyncFuncName_2</span>(pSocket, req, ack, loginData);
 
 }).unwrap();
 
-// Third
-before = before.then(executor-&gt;Ex(), [pSocket, req, ack, loginData](auto f)
+<span style="color:#75715e">// Third
+</span><span style="color:#75715e"></span>before <span style="color:#f92672">=</span> before.then(executor<span style="color:#f92672">-&gt;</span>Ex(), [pSocket, req, ack, loginData](<span style="color:#66d9ef">auto</span> f)
 {
-    auto r = f.get();
-    if (r != going)
-        return boost::make_ready_future(r);
+    <span style="color:#66d9ef">auto</span> r <span style="color:#f92672">=</span> f.get();
+    <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">!=</span> going)
+        <span style="color:#66d9ef">return</span> boost<span style="color:#f92672">::</span>make_ready_future(r);
 
-    return asyncFuncName_3(pSocket, req, ack, loginData);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">asyncFuncName_3</span>(pSocket, req, ack, loginData);
 
 });
 
-return before;
-</code></pre>
+<span style="color:#66d9ef">return</span> before;
+</code></pre></div>
               
             </div>
           </div>
@@ -419,7 +404,7 @@ return before;
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

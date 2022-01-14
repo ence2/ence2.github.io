@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="코틀린의 클래스에 대해 알아보겠습니다.">
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -257,147 +256,125 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>코틀린의 클래스에 대해 알아보겠습니다.</p>
-
 <h3 id="properties">Properties</h3>
-
 <p>코틀린의 클래스에서는 getter와 setter가 기본적으로 자동 생성되나, get과 set시 동작을 명시적으로 지정 할 수 있습니다.</p>
-
-<pre><code class="language-python">class Person
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
 {
-    var name:String = &quot;&quot;
-    lateinit var age:Int // lateinit을 붙이면 객체 생성후 초기화 가능
+    var name:String <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+    lateinit var age:Int <span style="color:#f92672">//</span> lateinit을 붙이면 객체 생성후 초기화 가능
 
     val canVote:Boolean
-        get() = age &gt;= 16 // Custom getter
+        get() <span style="color:#f92672">=</span> age <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">16</span> <span style="color:#f92672">//</span> Custom getter
 
-    var ssn = &quot;0000&quot;
-        get() = field // field는 해당 멤버 변수를 의미함
+    var ssn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0000&#34;</span>
+        get() <span style="color:#f92672">=</span> field <span style="color:#f92672">//</span> field는 해당 멤버 변수를 의미함
         set(value) {
-            println(&quot;SSN is changed&quot;)
-            field = value
+            println(<span style="color:#e6db74">&#34;SSN is changed&#34;</span>)
+            field <span style="color:#f92672">=</span> value
         }
 }
 
-fun main(args: Array&lt;String&gt;) {
-    var me = Person()
-    me.name = &quot;verking&quot;
-    me.age = &quot;20&quot;
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>) {
+    var me <span style="color:#f92672">=</span> Person()
+    me<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;verking&#34;</span>
+    me<span style="color:#f92672">.</span>age <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;20&#34;</span>
 
-    println(me.canVote);
+    println(me<span style="color:#f92672">.</span>canVote);
 
-    me.ssn = &quot;11232323&quot;
+    me<span style="color:#f92672">.</span>ssn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;11232323&#34;</span>
 }
-</code></pre>
-
-<h3 id="생성자와-초기화">생성자와 초기화</h3>
-
+</code></pre></div><h3 id="생성자와-초기화">생성자와 초기화</h3>
 <p>클래스의멤버 변수 선언과 초기화는 다음과 같은 방법으로도 가능합니다.</p>
-
-<pre><code class="language-python">class ConstructorAndInitializationExample(var name:String, var age:Int)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ConstructorAndInitializationExample</span>(var name:String, var age:Int)
 {
     init {
-        println(&quot;this is init&quot;)
+        println(<span style="color:#e6db74">&#34;this is init&#34;</span>)
     }
 }
 
-fun main(args: Array&lt;String&gt;) {
-    var obj = ConstructorAndInitializationExample(&quot;verking&quot;, 1010)
-    println(obj.name)
-    println(obj.age)
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>) {
+    var obj <span style="color:#f92672">=</span> ConstructorAndInitializationExample(<span style="color:#e6db74">&#34;verking&#34;</span>, <span style="color:#ae81ff">1010</span>)
+    println(obj<span style="color:#f92672">.</span>name)
+    println(obj<span style="color:#f92672">.</span>age)
 }
-</code></pre>
-
-<h3 id="by-키워드">by 키워드</h3>
-
+</code></pre></div><h3 id="by-키워드">by 키워드</h3>
 <p>클래스의 멤버 변수 생성시 by 키워드를 통해 멤버 변수 set, get시 처리를 담당할 delegate 클래스를 전달 할 수 있으며, 이를 이용해 observable한 멤버 변수를 만들 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> kotlin.properties.Delegates
+<span style="color:#f92672">import</span> kotlin.reflect.KProperty
 
-<pre><code class="language-python">import kotlin.properties.Delegates
-import kotlin.reflect.KProperty
-
-class Delegate {
-    operator fun getValue(thisRef: Any?, property: KProperty&lt;*&gt;): String{
-        return &quot;$thisRef, thank you for delegating, ${property.name} to me&quot;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Delegate</span> {
+    operator fun getValue(thisRef: Any<span style="color:#960050;background-color:#1e0010">?</span>, property: KProperty<span style="color:#f92672">&lt;*&gt;</span>): String{
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;$thisRef, thank you for delegating, $</span><span style="color:#e6db74">{property.name}</span><span style="color:#e6db74"> to me&#34;</span>
     }
 
-    operator fun setValue(thisRef: Any?, property: KProperty&lt;*&gt;, value: String): String{
-        return &quot;$value, has been assigend to ${property.name} in $thisRef&quot;
+    operator fun setValue(thisRef: Any<span style="color:#960050;background-color:#1e0010">?</span>, property: KProperty<span style="color:#f92672">&lt;*&gt;</span>, value: String): String{
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;$value, has been assigend to $</span><span style="color:#e6db74">{property.name}</span><span style="color:#e6db74"> in $thisRef&#34;</span>
     }
 }
 
-class NicePerson
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NicePerson</span>
 {
     var name: String by Delegate()
 
     val lazyValue:String by lazy {
-        println(&quot;init!!!&quot;)
-        &quot;this Msg Will Inserted&quot;
+        println(<span style="color:#e6db74">&#34;init!!!&#34;</span>)
+        <span style="color:#e6db74">&#34;this Msg Will Inserted&#34;</span>
     }
 
-    var otherName: String by Delegates.observable(&quot;king&quot;){
-        prop, old, new -&gt; println(&quot;$old -&gt; $new&quot;)
+    var otherName: String by Delegates<span style="color:#f92672">.</span>observable(<span style="color:#e6db74">&#34;king&#34;</span>){
+        prop, old, new <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;$old -&gt; $new&#34;</span>)
     }
 }
-</code></pre>
-
-<h3 id="data-class">Data class</h3>
-
+</code></pre></div><h3 id="data-class">Data class</h3>
 <p>코틀린에서는 data를 위한 class 생성을 언어차원에서 지원하며, 컴파일 타임에 다음 함수를 class에 자동으로 추가하여 줍니다.</p>
-
 <ol>
 <li>equals / hashCode</li>
 <li>toString()</li>
 <li>destructuring</li>
 <li>copy() // 깊은 복사 수행</li>
 </ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Human</span>(var name:String, val age:Int) { }
 
-<pre><code class="language-python">data class Human(var name:String, val age:Int) { }
-
-fun main(args: Array&lt;String&gt;) {
-    var h = Human(&quot;man&quot;, 123)
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>) {
+    var h <span style="color:#f92672">=</span> Human(<span style="color:#e6db74">&#34;man&#34;</span>, <span style="color:#ae81ff">123</span>)
     println(h)
 
-    var h2 = Human(&quot;man&quot;, 123)
-    println(h == h2) // true
+    var h2 <span style="color:#f92672">=</span> Human(<span style="color:#e6db74">&#34;man&#34;</span>, <span style="color:#ae81ff">123</span>)
+    println(h <span style="color:#f92672">==</span> h2) <span style="color:#f92672">//</span> true
     
-    var h3 = h.ㅊopy()
-    println(h === h3) // false
+    var h3 <span style="color:#f92672">=</span> h<span style="color:#f92672">.</span>ㅊopy()
+    println(h <span style="color:#f92672">===</span> h3) <span style="color:#f92672">//</span> false
     
-    var (name, age) = h
+    var (name, age) <span style="color:#f92672">=</span> h
 }
-</code></pre>
-
-<h3 id="상속">상속</h3>
-
-<pre><code class="language-python">open class A(var name:String)
+</code></pre></div><h3 id="상속">상속</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">open <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>(var name:String)
 {
     open fun hello()
     {
-        print(&quot;A hello&quot;)
+        print(<span style="color:#e6db74">&#34;A hello&#34;</span>)
     }
 }
 
-class B(name:String) : A(name)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span>(name:String) : A(name)
 {
     override fun hello() {
-        super.hello()
-        println(&quot;B hello&quot;)
+        super<span style="color:#f92672">.</span>hello()
+        println(<span style="color:#e6db74">&#34;B hello&#34;</span>)
     }
 }
 
-fun main(args: Array&lt;String&gt;) {
-    var a = A(&quot;A&quot;)
-    a.hello()
-    var b = B(&quot;B&quot;)
-    b.hello()
-    a = B(&quot;B2&quot;)
-    a.hello()
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>) {
+    var a <span style="color:#f92672">=</span> A(<span style="color:#e6db74">&#34;A&#34;</span>)
+    a<span style="color:#f92672">.</span>hello()
+    var b <span style="color:#f92672">=</span> B(<span style="color:#e6db74">&#34;B&#34;</span>)
+    b<span style="color:#f92672">.</span>hello()
+    a <span style="color:#f92672">=</span> B(<span style="color:#e6db74">&#34;B2&#34;</span>)
+    a<span style="color:#f92672">.</span>hello()
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>인터페이스 또한 지원함</li>
 </ul>
-
 <p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
               
             </div>
@@ -502,7 +479,7 @@ fun main(args: Array&lt;String&gt;) {
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

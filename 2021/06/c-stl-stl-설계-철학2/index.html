@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번 시간에는 다음 내용을 살펴보겠습니다.
-
 
 제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)
 STL의 구조와 유사한 방식으로 간략한 라이브러리 설계
@@ -19,7 +18,6 @@ C&#43;&#43;17 이후의 STL 변화
 
 
 <meta property="og:description" content="이번 시간에는 다음 내용을 살펴보겠습니다.
-
 
 제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)
 STL의 구조와 유사한 방식으로 간략한 라이브러리 설계
@@ -34,14 +32,12 @@ C&#43;&#43;17 이후의 STL 변화
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="이번 시간에는 다음 내용을 살펴보겠습니다.
 
-
 제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)
 STL의 구조와 유사한 방식으로 간략한 라이브러리 설계
 예제
 C&#43;&#43;17 이후의 STL 변화
 ">
 <meta name="twitter:description" content="이번 시간에는 다음 내용을 살펴보겠습니다.
-
 
 제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)
 STL의 구조와 유사한 방식으로 간략한 라이브러리 설계
@@ -126,7 +122,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -285,45 +280,36 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번 시간에는 다음 내용을 살펴보겠습니다.</p>
-
 <ol>
 <li>제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)</li>
 <li>STL의 구조와 유사한 방식으로 간략한 라이브러리 설계</li>
 <li>예제</li>
 <li>C++17 이후의 STL 변화</li>
 </ol>
-
 <p>​</p>
-
 <h2 id="stl-find-algorithm">STL Find algorithm</h2>
-
 <h3 id="1-c언어의-strchr-함수">1. C언어의 strchr() 함수</h3>
-
 <ul>
-<li>문자열에서 문자를 검색시 널 문자(&rsquo;\0&rsquo;)를 만날 때 까지 검색(구간 종료 조건도 검색 대상에 포함)</li>
+<li>문자열에서 문자를 검색시 널 문자('\0')를 만날 때 까지 검색(구간 종료 조건도 검색 대상에 포함)</li>
 <li>검색 실패시 NULL 포인터(0) 리턴</li>
 <li>개선점 -&gt; 부분 문자열 검사 불가, 종료 조건을 정의 할 수 없음, char 타입만 검색 가능</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;cstring&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    char s[] = &quot;abcdefg&quot;;
+	<span style="color:#66d9ef">char</span> s[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abcdefg&#34;</span>;
 
-    char* p = strchr(s, 'c');
+	<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> strchr(s, <span style="color:#e6db74">&#39;c&#39;</span>);
 
-    if (p == 0)
-        cout &lt;&lt; &quot;fail&quot; &lt;&lt; endl;
-    else
-        cout &lt;&lt; &quot;success : &quot; &lt;&lt; *p &lt;&lt; endl;
+	<span style="color:#66d9ef">if</span> (p <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;fail&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+	<span style="color:#66d9ef">else</span>
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;success : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h3 id="2-strchr-의-문제점을-개선한-함수-efind-함수">2. strchr()의 문제점을 개선한 함수 efind 함수</h3>
-
+</code></pre></div><h3 id="2-strchr의-문제점을-개선한-함수-efind-함수">2. strchr()의 문제점을 개선한 함수 efind 함수</h3>
 <ul>
 <li>검색 대상 -&gt; 모든 타입의 배열</li>
 <li>검색 구간 first, last(last는 검색에 포함 되지 않음 -&gt; half open range)</li>
@@ -331,216 +317,193 @@ int main()
 <li>구간의 이동 -&gt; 전위 연산 ++</li>
 <li>검색 실패시 -&gt; last 위치 리턴</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-template&lt;typename T1, typename T2&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T1, <span style="color:#66d9ef">typename</span> T2<span style="color:#f92672">&gt;</span>
 T1 efind(T1 first, T1 last, T2 value)
 {
-    while (first != last &amp;&amp; *first != value)
-        ++first;
+	<span style="color:#66d9ef">while</span> (first <span style="color:#f92672">!=</span> last <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">*</span>first <span style="color:#f92672">!=</span> value)
+		<span style="color:#f92672">++</span>first;
 
-    return first;
+	<span style="color:#66d9ef">return</span> first;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    double x[10] = { 1,2,3,4,5,6,7,8,9,10 };
+	<span style="color:#66d9ef">double</span> x[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span> };
 
-    double* p = find(x, x + 10, 5);
+	<span style="color:#66d9ef">double</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> find(x, x <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>);
 
-    if (p == x + 10)
-        cout &lt;&lt; &quot;fail&quot; &lt;&lt; endl;
-    else
-        cout &lt;&lt; &quot;success : &quot; &lt;&lt; *p &lt;&lt; endl;
+	<span style="color:#66d9ef">if</span> (p <span style="color:#f92672">==</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>)
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;fail&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+	<span style="color:#66d9ef">else</span>
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;success : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h2 id="stl-container-iterator">STL Container &amp; iterator</h2>
-
+</code></pre></div><h2 id="stl-container--iterator">STL Container &amp; iterator</h2>
 <h4 id="container">Container</h4>
-
 <ul>
 <li>데이터 저장소 Node를 갖는 연결리스트</li>
 <li>위에서 만든 efind는 slist의 요소 검색 불가</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
 
-
-template&lt;typename T&gt; struct Node
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Node</span>
 {
-    T     data;
-    Node* next;
+	T     data;
+	Node<span style="color:#f92672">*</span> next;
 
-    Node(const T&amp; a, Node* n) : data(a), next(n) {}
+	Node(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a, Node<span style="color:#f92672">*</span> n) <span style="color:#f92672">:</span> data(a), next(n) {}
 };
 
-template&lt;typename T&gt; class slist
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">slist</span>
 {
-    Node&lt;T&gt;* head = 0;
-public:
-    void push_front(const T&amp; a)
-    {
-        head = new Node&lt;T&gt;(a, head);
-    }
+	Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> head <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> push_front(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a)
+	{
+		head <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(a, head);
+	}
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    slist&lt;int&gt; s;
+	slist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s;
 
-    s.push_front(10);
-    s.push_front(20);
-    s.push_front(30);
-    s.push_front(40);
-    s.push_front(50);
+	s.push_front(<span style="color:#ae81ff">10</span>);
+	s.push_front(<span style="color:#ae81ff">20</span>);
+	s.push_front(<span style="color:#ae81ff">30</span>);
+	s.push_front(<span style="color:#ae81ff">40</span>);
+	s.push_front(<span style="color:#ae81ff">50</span>);
 }
-</code></pre>
-
-<h3 id="container와-알고리즘의-결합">Container와 알고리즘의 결합</h3>
-
+</code></pre></div><h3 id="container와-알고리즘의-결합">Container와 알고리즘의 결합</h3>
 <ul>
 <li>efind 함수 개선
-
 <ul>
 <li>node 탐색을 위해 pointer를 전달 받는 것이 아닌, node의 주소를 순회 할 수 있는 객체를 정의 -&gt; iterator</li>
 <li>iterator 덕분에 efind는 배열 뿐 아니라, 모든 선형 자료구조에 대해 선형 탐색 수행 가능</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">ntributor
+<span style="color:#ae81ff">107</span> <span style="color:#a6e22e">lines</span> (<span style="color:#ae81ff">76</span> sloc)  <span style="color:#ae81ff">1.61</span> KB
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">ntributor
-107 lines (76 sloc)  1.61 KB
-#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; class slist_iterator
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">slist_iterator</span>
 {
-    Node&lt;T&gt;* current = 0;
-public:
-    slist_iterator(Node&lt;T&gt;* p = 0) : current(p) {}
+	Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> current <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	slist_iterator(Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) <span style="color:#f92672">:</span> current(p) {}
 
-    slist_iterator&amp; operator++()
-    {
-        current = current-&gt;next;
-        return *this;
-    }
-    T&amp; operator*() { return current-&gt;data; }
+	slist_iterator<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">++</span>()
+	{
+		current <span style="color:#f92672">=</span> current<span style="color:#f92672">-&gt;</span>next;
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>;
+	}
+	T<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">*</span>() { <span style="color:#66d9ef">return</span> current<span style="color:#f92672">-&gt;</span>data; }
 
-    bool operator ==(const slist_iterator&amp; it)
-    {
-        return current == it.current;
-    }
-    bool operator !=(const slist_iterator&amp; it)
-    {
-        return current != it.current;
-    }
+	<span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">==</span>(<span style="color:#66d9ef">const</span> slist_iterator<span style="color:#f92672">&amp;</span> it)
+	{
+		<span style="color:#66d9ef">return</span> current <span style="color:#f92672">==</span> it.current;
+	}
+	<span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">!=</span>(<span style="color:#66d9ef">const</span> slist_iterator<span style="color:#f92672">&amp;</span> it)
+	{
+		<span style="color:#66d9ef">return</span> current <span style="color:#f92672">!=</span> it.current;
+	}
 };
 
-template&lt;typename T&gt; class slist
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">slist</span>
 {
-    Node&lt;T&gt;* head = 0;
-public:
-    void push_front(const T&amp; a)
-    {
-        head = new Node&lt;T&gt;(a, head);
-    }
+	Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> head <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> push_front(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a)
+	{
+		head <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(a, head);
+	}
 
-    using iterator = slist_iterator&lt;T&gt;;
+	<span style="color:#66d9ef">using</span> iterator <span style="color:#f92672">=</span> slist_iterator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>;
 
-    iterator begin() { return iterator(head);}
-    iterator end()   { return iterator(0);  }
+	iterator <span style="color:#a6e22e">begin</span>() { <span style="color:#66d9ef">return</span> iterator(head);}
+	iterator <span style="color:#a6e22e">end</span>()   { <span style="color:#66d9ef">return</span> iterator(<span style="color:#ae81ff">0</span>);	}
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    slist&lt;int&gt; s;
+	slist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s;
 
-    s.push_front(10);
-    s.push_front(20);
-    s.push_front(30);
-    s.push_front(40);
-    s.push_front(50);
+	s.push_front(<span style="color:#ae81ff">10</span>);
+	s.push_front(<span style="color:#ae81ff">20</span>);
+	s.push_front(<span style="color:#ae81ff">30</span>);
+	s.push_front(<span style="color:#ae81ff">40</span>);
+	s.push_front(<span style="color:#ae81ff">50</span>);
 
-    slist&lt;int&gt;::iterator p = s.begin();
+	slist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>iterator p <span style="color:#f92672">=</span> s.begin();
 
-    slist&lt;int&gt;::iterator p2 =
-                efind(s.begin(), s.end(), 120);
+	slist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>iterator p2 <span style="color:#f92672">=</span>
+				efind(s.begin(), s.end(), <span style="color:#ae81ff">120</span>);
 
-    if (p2 == s.end())
-        cout &lt;&lt; &quot;fail&quot; &lt;&lt; endl;
-    else
-        cout &lt;&lt; *p2 &lt;&lt; endl; // 20;
-}
-</code></pre>
-
-<h3 id="stl-구조-핵심정리">STL 구조 핵심정리</h3>
-
+	<span style="color:#66d9ef">if</span> (p2 <span style="color:#f92672">==</span> s.end())
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;fail&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+	<span style="color:#66d9ef">else</span>
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p2 <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 20;
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="stl-구조-핵심정리">STL 구조 핵심정리</h3>
 <ol>
 <li>템플릿을 통한 불필요한 함수 구현을 줄임</li>
 <li>자료구조와 알고리즘이 분리된 라이브러리
-
 <ul>
 <li>알고리즘 함수는 자신이 어떤 자료구조에 대해 연산을 수행하는지 모름</li>
-</ul></li>
+</ul>
+</li>
 </ol>
-
+<h3 id="heading"></h3>
 <h2 id="stl-구조와-특징">STL 구조와 특징</h2>
-
 <h3 id="member-type">Member Type</h3>
-
 <ul>
 <li>모든 stl 컨테이너는 value_type을(자료형의 타입) 멤버로 갖도록 설계됨</li>
 <li>size_type, iterator, pointer .. 등등 여러 메타정보를 멤버로 갖고 있음</li>
 <li>컨테이너의 타입을 출력하는 함수 예제</li>
 </ul>
-
-<pre><code class="language-cpp">template&lt;typename T&gt;
-void print(T&amp; c)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> print(T<span style="color:#f92672">&amp;</span> c)
 {
-    typename T::value_type n = c.front(); // double
-
-    cout &lt;&lt; n &lt;&lt; endl;
+	<span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span>value_type n <span style="color:#f92672">=</span> c.front(); <span style="color:#75715e">// double
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list&lt;double&gt; v = { 1,2,3 };
-    print(v);
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> };
+	print(v);
 }
-</code></pre>
-
-<h3 id="c-17과-stl">C++17과 STL</h3>
-
+</code></pre></div><h3 id="c17과-stl">C++17과 STL</h3>
 <ul>
 <li>C++17 이후 컨테이너 사용시 템플릿 인자 생략 가능</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-using namespace std;
-
-template&lt;typename T&gt; class List
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">List</span>
 {
-public:
-    List(int sz, T initValue) {}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	List(<span style="color:#66d9ef">int</span> sz, T initValue) {}
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    List&lt;int&gt; s1(10, 0);
-    List      s2(10, 0); // C++17 ok.
-
-    list&lt;int&gt; s3 = { 1,2,3 };
-    list      s4 = { 1,2,3 }; // C++17 style
-}
-</code></pre>
-
-<h3 id="concept-c-20-이후">Concept (C++20 이후)</h3>
-
+	List<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s1(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">0</span>);
+	List      s2(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">0</span>); <span style="color:#75715e">// C++17 ok.
+</span><span style="color:#75715e"></span>
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s3 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> };
+	list      s4 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> }; <span style="color:#75715e">// C++17 style
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="concept-c20-이후">Concept (C++20 이후)</h3>
 <ul>
 <li>특정 함수(클래스)를 사용하기 위해 타입이 가져야하는 조건을 코드에 명시 가능</li>
 <li>함수 전달 인자에 제약 조건을 명시 할 수 있음</li>
@@ -649,7 +612,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

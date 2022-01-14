@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kotlin on Keep calm carry on</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Kotlin on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 22 Mar 2021 18:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://ence2.github.io/categories/kotlin/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 22 Mar 2021 18:00:00 +0900</lastBuildDate><atom:link href="https://ence2.github.io/categories/kotlin/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>코틀린 리서치 - Odds &amp; Ends[9]</title>
       <link>https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-odds-ends9/</link>
@@ -27,7 +23,6 @@
       
       <guid>https://ence2.github.io/2021/03/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-reflection8/</guid>
       <description>&lt;p&gt;리플렉션(Reflection)은 런타임 프로그램의 구조(객체, 함수, 프로퍼티, 생성자, Bonud)를 분석해서 활용 할 수 있는 기법입니다.&lt;/p&gt;
-
 &lt;p&gt;이를 활용 하면 런타임에 얻을 수 있는 정보를 기반으로 기존 코드 대비, 간결한 구조의 표현이 가능해집니다.&lt;/p&gt;</description>
     </item>
     
@@ -83,7 +78,6 @@
       
       <guid>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/</guid>
       <description>&lt;p&gt;코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)&lt;/p&gt;
-
 &lt;p&gt;이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.&lt;/p&gt;</description>
     </item>
     
@@ -94,13 +88,9 @@
       
       <guid>https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EC%86%8C%EA%B0%9C1/</guid>
       <description>&lt;p&gt;코틀린은 JVM 기반으로 동작하는 프로그래밍 언어이며, jet brains사에 의해 개발되었습니다.(2011, 7월)&lt;/p&gt;
-
 &lt;p&gt;Google사에서 안드로이드 개발 관련 공식 언어로 채택하였으며(2017), 개인적으로 안드로이드 관련 개발시 기존의 JAVA를 대체 할 것으로 예상합니다.&lt;/p&gt;
-
 &lt;p&gt;클라이언트 사이드 뿐만 아니라 서버(백앤드) 사이드도 코틀린을 활용하여, 서버&amp;lt;-&amp;gt;클라이언트간 같은 소스코드의 공유 모듈을 활용하여 재사용성 있고 안정적인 서비스 아키텍쳐 구축이 가능 할 것으로 생각됩니다.&lt;/p&gt;
-
 &lt;p&gt;본 시리즈에서는 코틀린의 소개, 개발환경(IDE) 세팅, 관련 문법, 코틀린을 활용한 코딩 문제 해결 등을 다룰 예정이며,&lt;/p&gt;
-
 &lt;p&gt;이번 포스팅에서는 코틀린에 대한 간단한 소개를 진행합니다.&lt;/p&gt;</description>
     </item>
     

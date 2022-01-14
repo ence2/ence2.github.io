@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content=", development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="The Game Server Developer">
@@ -74,7 +74,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -250,7 +249,6 @@ if (!doNotTrack) {
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>C++20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.</p>
-
 <ol>
 <li>템플릿 사용 가능</li>
 <li>평가 되지 않은 표현식 사용 가능</li>
@@ -376,20 +374,17 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>iterator를 원하는 위치로 옮길 수 있는 함수이다. 컨테이너의 iterator를 i번째 위치로 옮기고 싶을 때 사용할 수 있습니다.</p>
-
 <p>표현식 std::advance(i, n)은 반복자 i를 거리 n만큼 증가시킵니다.</p>
-
 <ul>
-<li>n &gt; 0 이면,</li>
-</ul>
-
+<li>
+<p>n &gt; 0 이면,</p>
 <p>++i를 n번 수행하는 것과 동등(다만, __InIter 형식이 임의접근 반복자의 모형이면 advance가 훨씬 더 빠릅니다.)</p>
-
-<ul>
-<li>n &lt; 0 이면,</li>
-</ul>
-
+</li>
+<li>
+<p>n &lt; 0 이면,</p>
 <p>&ndash;i를 n번 수행하는 것과 동등합니다.</p>
+</li>
+</ul>
       
       <p>
         <a href="https://ence2.github.io/2020/11/stdadvance-%EC%98%88%EC%A0%9C/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -418,7 +413,7 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/%ED%95%A8%EC%88%98%EC%B2%98%EB%9F%BC-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EB%A5%BC-%EA%B0%96%EB%8A%94-%EB%A7%A4%ED%81%AC%EB%A1%9C-%EC%97%B0%EC%82%B0%EC%9E%90/">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/%ED%95%A8%EC%88%98%EC%B2%98%EB%9F%BC-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EB%A5%BC-%EA%B0%96%EB%8A%94-%EB%A7%A4%ED%81%AC%EB%A1%9C-#-%23%23-%EC%97%B0%EC%82%B0%EC%9E%90/">
           함수처럼 매개변수를 갖는 매크로, #, ## 연산자
         </a>
       </h1>
@@ -448,15 +443,12 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>#define 매크로 정의시 단순 상수 정의는 다음과 같습니다.</p>
-
 <p><strong>#define PI   (3.141592)</strong></p>
-
 <p>매크로를 활용 하여 인라인 함수 형태로 작성 할 때 매개변수를 전달 할 수 있습니다.</p>
-
 <p><strong>#define CIRCLE(x) ((x)<em>(x)</em>(PI))</strong></p>
       
       <p>
-        <a href="https://ence2.github.io/2020/11/%ED%95%A8%EC%88%98%EC%B2%98%EB%9F%BC-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EB%A5%BC-%EA%B0%96%EB%8A%94-%EB%A7%A4%ED%81%AC%EB%A1%9C-%EC%97%B0%EC%82%B0%EC%9E%90/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://ence2.github.io/2020/11/%ED%95%A8%EC%88%98%EC%B2%98%EB%9F%BC-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EB%A5%BC-%EA%B0%96%EB%8A%94-%EB%A7%A4%ED%81%AC%EB%A1%9C-#-%23%23-%EC%97%B0%EC%82%B0%EC%9E%90/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -570,8 +562,7 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>numeric_limits 클래스 템플릿은 템플릿 특수화로 구현되었고, 명시한 타입의 최대값이나 최소값을 질의 할 수 있는 표준화 된 방법을 제공합니다.</p>
-
-<p>(예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits <int> :: max ())</p>
+<p>(예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits <!-- raw HTML omitted --> :: max ())</p>
       
       <p>
         <a href="https://ence2.github.io/2020/11/c-%EB%B3%80%EC%88%98-%ED%83%80%EC%9E%85-%EC%B5%9C%EB%8C%80-%EC%B5%9C%EC%86%8C%EA%B0%92-%ED%8E%B8%EB%A6%AC%ED%95%98%EA%B2%8C-%ED%99%95%EC%9D%B8%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-stdnumeric_limits/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -629,8 +620,7 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <h4 id="std-lock-guard">std::lock_guard</h4>
-
+        <h4 id="stdlock_guard">std::lock_guard</h4>
 <p>std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.</p>
       
       <p>
@@ -673,7 +663,7 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
         
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

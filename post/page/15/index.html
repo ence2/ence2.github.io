@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content=", development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="The Game Server Developer">
@@ -74,7 +74,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -247,16 +246,11 @@ if (!doNotTrack) {
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <pre><code class="language-cpp">std::atomic&lt;T&gt;
-</code></pre>
-
-<p>동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)</p>
-
-<pre><code class="language-cpp">std::atomic&lt;int&gt; x;
-std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
-</code></pre>
-
-<p>is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.</p>
+        <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> x;
+std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;is lock free ? : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> boolalpha <span style="color:#f92672">&lt;&lt;</span> x.is_lock_free() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</code></pre></div><p>is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.</p>
       
       <p>
         <a href="https://ence2.github.io/2020/11/stdatomic-memory_order/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -315,7 +309,6 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <h4 id="making-immediate-futures-easier">Making immediate futures easier</h4>
-
 <p>일부 함수는 구성 시점에서 값을 알 수 있습니다. 이 경우 값을 즉시 사용할 수 있지만 future 또는 shared_future로 반환해야합니다. make_ready_future를 사용하면 공유 상태에서 미리 계산 된 결과를 보유하는 future를 만들 수 있습니다.</p>
       
       <p>
@@ -374,7 +367,7 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <p>비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 future에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &ldquo;연결&rdquo;됩니다. then 함수를 사용하여 등록 된 연속 futue는 대기를 차단하거나 폴링 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다</p>
+        <p>비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 future에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &ldquo;연결&quot;됩니다. then 함수를 사용하여 등록 된 연속 futue는 대기를 차단하거나 폴링 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다</p>
       
       <p>
         <a href="https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -432,8 +425,7 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <h3 id="upper-bound">upper_bound</h3>
-
+        <h3 id="upper_bound">upper_bound</h3>
 <p>컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.</p>
       
       <p>
@@ -463,7 +455,7 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
-        <a class="link-unstyled" href="https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
+        <a class="link-unstyled" href="https://ence2.github.io/2020/11/#define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
           #define 매크로, const와 차이점, 유의 사항
         </a>
       </h1>
@@ -493,17 +485,13 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <h3 id="define-상수">#define 상수</h3>
-
-<pre><code class="language-cpp">#define 상수명 값
-</code></pre>
-
-<h3 id="define-지시문-매크로-함수">#define 지시문 (매크로 함수)</h3>
-
-<pre><code class="language-cpp">#define 식별자(인수1, 인수2 ...) 토큰열
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define 상수명 값
+</span></code></pre></div><h3 id="define-지시문-매크로-함수">#define 지시문 (매크로 함수)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define 식별자(인수1, 인수2 ...) 토큰열
+</span></code></pre></div>
       
       <p>
-        <a href="https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/" class="postShorten-excerpt_link link">Continue reading</a>
+        <a href="https://ence2.github.io/2020/11/#define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/" class="postShorten-excerpt_link link">Continue reading</a>
         
       </p>
     </div>
@@ -617,9 +605,7 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>C++의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.</p>
-
 <p>Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.</p>
-
 <p>begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.</p>
       
       <p>
@@ -661,7 +647,7 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
         </section>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

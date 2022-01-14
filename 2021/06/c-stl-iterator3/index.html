@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번 시간에는 iterator와 range에 대해 살펴보겠습니다.">
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -257,580 +256,524 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번 시간에는 iterator와 range에 대해 살펴보겠습니다.</p>
-
 <h2 id="iterator-basic">Iterator Basic</h2>
-
 <h4 id="1-핵심-정리">1. 핵심 정리</h4>
-
 <ul>
-<li>반복자는 GoF 디자인 패턴에서 정의 : 복합 개체의 내부 구조에 상관 없이 순차적으로 요소에 접근하기 위한 방법을 제공 하는 것</li>
-
-<li><p>STL에서의 정의 : 반복자 처럼 동작하는 모든 것은 반복자이다.(++ 연산 이동, * 연산자로 값에 접근 가능한 것)</p></li>
-
-<li><p>STL에서는 디렉토리 내의 파일을 순회 하는 디렉토리 반복자 또한 제공함(C++17 이후)</p></li>
+<li>
+<p>반복자는 GoF 디자인 패턴에서 정의 : 복합 개체의 내부 구조에 상관 없이 순차적으로 요소에 접근하기 위한 방법을 제공 하는 것</p>
+</li>
+<li>
+<p>STL에서의 정의 : 반복자 처럼 동작하는 모든 것은 반복자이다.(++ 연산 이동, * 연산자로 값에 접근 가능한 것)</p>
+</li>
+<li>
+<p>STL에서는 디렉토리 내의 파일을 순회 하는 디렉토리 반복자 또한 제공함(C++17 이후)</p>
+</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;experimental/filesystem&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>experimental<span style="color:#f92672">::</span>filesystem;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-#include &lt;experimental/filesystem&gt;
-using namespace std;
-using namespace std::experimental::filesystem;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    directory_iterator p(&quot;C:\\windows&quot;);
+	directory_iterator p(<span style="color:#e6db74">&#34;C:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">windows&#34;</span>);
 
-    cout &lt;&lt; *p &lt;&lt; endl;
-    ++p;
-    cout &lt;&lt; *p &lt;&lt; endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
+	<span style="color:#f92672">++</span>p;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h4 id="2-반복자를-다룰-때-std-begin-std-size를-사용-할-경우-배열-타입에서도-적용-가능한-범용적-코드-작성이-가능함">2. 반복자를 다룰 때 std::begin, std::size를 사용 할 경우 배열 타입에서도 적용 가능한 범용적 코드 작성이 가능함</h4>
-
+</code></pre></div><h4 id="2-반복자를-다룰-때-stdbegin-stdsize를-사용-할-경우-배열-타입에서도-적용-가능한-범용적-코드-작성이-가능함">2. 반복자를 다룰 때 std::begin, std::size를 사용 할 경우 배열 타입에서도 적용 가능한 범용적 코드 작성이 가능함</h4>
 <ul>
 <li>주의 : end()로 얻는 반복자는 마지막 요소의 다음을 의미하므로 값을 꺼내 올 경우 크래시 발생</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;   </span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;   
-#include &lt;vector&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list&lt;int&gt; s = { 1,2,3,4,5 };
-    //vector&lt;int&gt; s = { 1,2,3,4,5 };
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span> };
+	<span style="color:#75715e">//vector&lt;int&gt; s = { 1,2,3,4,5 };
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">//int s[5] = { 1,2,3,4,5 };
+</span><span style="color:#75715e"></span>	
+	<span style="color:#75715e">//list&lt;int&gt;::iterator p = s.begin();
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">//auto p1 = s.begin(); //
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">auto</span> p1 <span style="color:#f92672">=</span> begin(s);
+	<span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> size(s); <span style="color:#75715e">//  s.size();
+</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    //int s[5] = { 1,2,3,4,5 };
-    
-    //list&lt;int&gt;::iterator p = s.begin();
-
-    //auto p1 = s.begin(); //
-
-    auto p1 = begin(s);
-    int n = size(s); //  s.size();
-    cout &lt;&lt; n &lt;&lt; endl;
-
-    auto p2 = end(s);
-    *p2 = 10; // 크래시 error;
-}
-</code></pre>
-
-<h4 id="3-반복자-무효화-무효화-이후-접근시-크래시-발생">3. 반복자 무효화 : 무효화 이후 접근시 크래시 발생!</h4>
-
+	<span style="color:#66d9ef">auto</span> p2 <span style="color:#f92672">=</span> end(s);
+	<span style="color:#f92672">*</span>p2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">// 크래시 error;
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="3-반복자-무효화--무효화-이후-접근시-크래시-발생">3. 반복자 무효화 : 무효화 이후 접근시 크래시 발생!</h4>
 <ul>
 <li>컨테이너의 내부 버퍼가 재할당 될 때</li>
 <li>반복자가 가르키던 요소가 제거 될 때</li>
 <li>컨테이너의 종류에 따라 무효화 조건이 다름</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;   </span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;   
-#include &lt;vector&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //vector&lt;int&gt; v = { 1,2,3,4,5 };
-    list&lt;int&gt; v = { 1,2,3,4,5 };
+	<span style="color:#75715e">//vector&lt;int&gt; v = { 1,2,3,4,5 };
+</span><span style="color:#75715e"></span>	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span> };
 
-    auto p = begin(v);
+	<span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> begin(v);
 
-    v.resize(100); // vector는 무효화 발생, list는 발생하지 않음
-                   //
-
-    cout &lt;&lt; *p &lt;&lt; endl;
+	v.resize(<span style="color:#ae81ff">100</span>); <span style="color:#75715e">// vector는 무효화 발생, list는 발생하지 않음
+</span><span style="color:#75715e"></span>				   <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h4 id="4-반복자의-구간-range">4. 반복자의 구간(Range)</h4>
-
+</code></pre></div><h4 id="4-반복자의-구간range">4. 반복자의 구간(Range)</h4>
 <ul>
 <li>first, last : 시작과 마지막 다음 요소를 가르키는 반복자의 쌍</li>
 <li>유효한 구간 : first부터 시작해서 ++ 연산으로 last에 도달 할 수 있는 구간</li>
 <li>빈 구간 : first == last인 경우, 빈 구간도 유효한 구간임</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list&lt;int&gt; s1 = { 1,2,3 };
-    list&lt;int&gt; s2 = { 4,5,6 };
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s1 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> };
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s2 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span> };
 
-    auto p1 = begin(s1);
-    auto p2 = end(s1);
+	<span style="color:#66d9ef">auto</span> p1 <span style="color:#f92672">=</span> begin(s1);
+	<span style="color:#66d9ef">auto</span> p2 <span style="color:#f92672">=</span> end(s1);
 
-    // [p1, p2)
+	<span style="color:#75715e">// [p1, p2)
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">while</span> (p1 <span style="color:#f92672">!=</span> p2)
+	{
+		<span style="color:#f92672">++</span>p1;
+	}
 
-    while (p1 != p2)
-    {
-        ++p1;
-    }
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s3;
+	<span style="color:#66d9ef">if</span> (s3.empty()) {}
 
-    list&lt;int&gt; s3;
-    if (s3.empty()) {}
-
-    if (begin(s3) == end(s3)) {} // empty == true
-}
-</code></pre>
-
-<ul>
+	<span style="color:#66d9ef">if</span> (begin(s3) <span style="color:#f92672">==</span> end(s3)) {} <span style="color:#75715e">// empty == true
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>STL의 copy 알고리즘</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int x[5] = { 1, 2, 3, 4, 5 };
-    
-    list&lt;int&gt; s2 = { 0,0,0,0,0 };
+	<span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span> };
+	
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s2 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span> };
 
-    copy(x, x + 5, begin(s2));
+	copy(x, x <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>, begin(s2));
 
-    for (auto&amp; n : s2)
-        cout &lt;&lt; n &lt;&lt; &quot;, &quot;;
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> n : s2)
+		cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span>;
 }
-</code></pre>
-
-<h2 id="iterator-category">Iterator Category</h2>
-
+</code></pre></div><h2 id="iterator-category">Iterator Category</h2>
 <h4 id="1-iterator-category">1. Iterator Category</h4>
-
 <ul>
 <li>vector는 sort 알고리즘 사용가능한데, list는 사용이 불가능한 이유?
-
 <ul>
 <li>컨테이너의 종류에 따라 반복자에 적용할 수 있는 연산의 종류가 다름(&ndash; 연산이 불가능한 경우 등등)</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;list&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //vector&lt;int&gt; v = { 1,3,5,7,9,2,4,6,8,10 };
+	<span style="color:#75715e">//vector&lt;int&gt; v = { 1,3,5,7,9,2,4,6,8,10 };
+</span><span style="color:#75715e"></span>
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">10</span> };
 
-    list&lt;int&gt; v = { 1,3,5,7,9,2,4,6,8,10 };
+	sort( begin(v), end(v) );
 
-    sort( begin(v), end(v) );
-
-    for (auto&amp; n : v)
-        cout &lt;&lt; n &lt;&lt; &quot;,&quot;;
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> n : v)
+		cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;,&#34;</span>;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>입력 vs 출력
-
 <ul>
 <li>입력 : 반복자를 통해 요소를 읽어오는 것( = *i)</li>
 <li>출력 : 반복자를 통해 요소에 값을 쓰는 것( *i = )</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h4 id="2-multipass-guarantee-개념">2. multipass guarantee 개념</h4>
-
 <ul>
-<li><p>i1 == i2 라면 -&gt; *i1 == *i2 혹은 ++i1 == ++i2 만족</p></li>
-
-<li><p>2개 이상의 반복자가 컨테이너의 요소에 동일하게 접근함을 보장</p></li>
-
-<li><p>컨테이너마다 지원 여부가 다름(list는 지원, stream / insert iterator는 지원 하지 않음)</p></li>
+<li>
+<p>i1 == i2 라면 -&gt; *i1 == *i2 혹은 ++i1 == ++i2 만족</p>
+</li>
+<li>
+<p>2개 이상의 반복자가 컨테이너의 요소에 동일하게 접근함을 보장</p>
+</li>
+<li>
+<p>컨테이너마다 지원 여부가 다름(list는 지원, stream / insert iterator는 지원 하지 않음)</p>
+</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list&lt;int&gt; s1 = { 1,2,3 };
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s1 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> };
 
-    auto i1 = begin(s1);
-    auto i2 = i1;
+	<span style="color:#66d9ef">auto</span> i1 <span style="color:#f92672">=</span> begin(s1);
+	<span style="color:#66d9ef">auto</span> i2 <span style="color:#f92672">=</span> i1;
 
-    if (i1 == i2)
-    {
-        cout &lt;&lt; (*i1 == *i2) &lt;&lt; endl;
-        cout &lt;&lt; (++i1 == ++i2) &lt;&lt; endl;
-    }
+	<span style="color:#66d9ef">if</span> (i1 <span style="color:#f92672">==</span> i2)
+	{
+		cout <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#f92672">*</span>i1 <span style="color:#f92672">==</span> <span style="color:#f92672">*</span>i2) <span style="color:#f92672">&lt;&lt;</span> endl;
+		cout <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#f92672">++</span>i1 <span style="color:#f92672">==</span> <span style="color:#f92672">++</span>i2) <span style="color:#f92672">&lt;&lt;</span> endl;
+	}
 }
-</code></pre>
+</code></pre></div><h4 id="3-반복자-카테고리-개념을-알아야-하는-이유">3. 반복자 카테고리 개념을 알아야 하는 이유</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;forward_list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<h4 id="3-반복자-카테고리-개념을-알아야-하는-이유">3. 반복자 카테고리 개념을 알아야 하는 이유</h4>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;list&gt;
-#include &lt;forward_list&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;int&gt; v = { 1,2,3,4,5,6,7,8,9,10 };
+	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span> };
 
-    // find의 1, 2 인자의 최소 요구 조건? : 입력 반복자
-    auto p = find(begin(v), end(v), 5);
+	<span style="color:#75715e">// find의 1, 2 인자의 최소 요구 조건? : 입력 반복자
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> find(begin(v), end(v), <span style="color:#ae81ff">5</span>);
 
-    reverse(begin(v), end(v));// reverse의 요구조건 : 양방향 반복자
+	reverse(begin(v), end(v));<span style="color:#75715e">// reverse의 요구조건 : 양방향 반복자
+</span><span style="color:#75715e"></span>
+	sort(begin(v), end(v)); <span style="color:#75715e">// stl의 sort는 quick sort
+</span><span style="color:#75715e"></span>							<span style="color:#75715e">// sort의 요구조건 : 임의 접근 반복자.
+</span><span style="color:#75715e"></span>
+	forward_list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> };
+	reverse(begin(s), end(s)); <span style="color:#75715e">// error
+</span><span style="color:#75715e"></span>
 
-    sort(begin(v), end(v)); // stl의 sort는 quick sort
-                            // sort의 요구조건 : 임의 접근 반복자.
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s2 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> };
+	sort(begin(s2), end(s2)); <span style="color:#75715e">// error
+</span><span style="color:#75715e"></span>
+	s2.sort(); <span style="color:#75715e">// ok.
+</span><span style="color:#75715e"></span>
+	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> };
 
-    forward_list&lt;int&gt; s = { 1,2,3 };
-    reverse(begin(s), end(s)); // error
-
-
-    list&lt;int&gt; s2 = { 1,2,3 };
-    sort(begin(s2), end(s2)); // error
-
-    s2.sort(); // ok.
-
-    vector&lt;int&gt; v = { 1,2,3 };
-
-    v.sort();  // 멤버 함수 sort()가 있을까 ?
-                // 없다.  일반 함수(알고리즘) 
-                // sort()를 사용하면 된다.
-
-    for (auto&amp; n : v)
-        cout &lt;&lt; n &lt;&lt; &quot;, &quot;;
+	v.sort();  <span style="color:#75715e">// 멤버 함수 sort()가 있을까 ?
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 없다.  일반 함수(알고리즘) 
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// sort()를 사용하면 된다.
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> n : v)
+		cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span>;
 }
-</code></pre>
-
-<h4 id="4-tag-dispatching">4. tag dispatching</h4>
-
+</code></pre></div><h4 id="4-tag-dispatching">4. tag dispatching</h4>
 <ul>
 <li>advance 구현 해보기( tag dispatching 활용 :  반복자의 카테고리에 따라 다르게 동작하도록(최적화) )
-
 <ul>
 <li>모든 컨테이너는 멤버 변수에 iterator_category을 제공함</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iterator&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;list&gt;
-#include &lt;iterator&gt;
-using namespace std;
-
-template&lt;typename T&gt;
-void eadvance_imp(T&amp; p, int n, 
-                  random_access_iterator_tag)
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> eadvance_imp(T<span style="color:#f92672">&amp;</span> p, <span style="color:#66d9ef">int</span> n, 
+				  random_access_iterator_tag)
 {
-    cout &lt;&lt; &quot;random 버전&quot; &lt;&lt; endl;
-    p = p + n;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;random 버전&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+	p <span style="color:#f92672">=</span> p <span style="color:#f92672">+</span> n;
 }
 
-template&lt;typename T&gt;
-void eadvance_imp(T&amp; p, int n,
-                  input_iterator_tag)
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> eadvance_imp(T<span style="color:#f92672">&amp;</span> p, <span style="color:#66d9ef">int</span> n,
+				  input_iterator_tag)
 {
-    cout &lt;&lt; &quot;input 버전&quot; &lt;&lt; endl;
-    while (n--) ++p;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;input 버전&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+	<span style="color:#66d9ef">while</span> (n<span style="color:#f92672">--</span>)	<span style="color:#f92672">++</span>p;
 }
 
-template&lt;typename T&gt;
-void eadvance(T&amp; p, int n)
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> eadvance(T<span style="color:#f92672">&amp;</span> p, <span style="color:#66d9ef">int</span> n)
 {
-    // 반복자의 종류에 따라서 다른 함수를 선택
-    eadvance_imp(p, n,
-            typename T::iterator_category() );
+	<span style="color:#75715e">// 반복자의 종류에 따라서 다른 함수를 선택
+</span><span style="color:#75715e"></span>	eadvance_imp(p, n,
+			<span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span>iterator_category() );
 }
 
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //list&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
-    vector&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
+	<span style="color:#75715e">//list&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
+</span><span style="color:#75715e"></span>	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span> };
 
-    auto p = begin(s);
+	<span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> begin(s);
 
-    eadvance(p, 5);
+	eadvance(p, <span style="color:#ae81ff">5</span>);
 
-    cout &lt;&lt; *p &lt;&lt; endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>최신 문법을 활용 하면 더욱 간결하게 표현 가능함</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iterator&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;list&gt;
-#include &lt;iterator&gt;
-using namespace std;
+<span style="color:#75715e">// 1. 함수 인자를 사용한 오버로딩.
+</span><span style="color:#75715e"></span><span style="color:#75715e">/*
+</span><span style="color:#75715e">template&lt;typename T&gt; void eadvance_imp(T&amp; p, int n, random_access_iterator_tag)
+</span><span style="color:#75715e">{
+</span><span style="color:#75715e">	p = p + n;
+</span><span style="color:#75715e">}
+</span><span style="color:#75715e">template&lt;typename T&gt; void eadvance_imp(T&amp; p, int n, input_iterator_tag)
+</span><span style="color:#75715e">{
+</span><span style="color:#75715e">	while (n--)	++p;
+</span><span style="color:#75715e">}
+</span><span style="color:#75715e">template&lt;typename T&gt; void eadvance(T&amp; p, int n)
+</span><span style="color:#75715e">{
+</span><span style="color:#75715e">	eadvance_imp(p, n, typename T::iterator_category());
+</span><span style="color:#75715e">}
+</span><span style="color:#75715e">*/</span>
 
-// 1. 함수 인자를 사용한 오버로딩.
-/*
-template&lt;typename T&gt; void eadvance_imp(T&amp; p, int n, random_access_iterator_tag)
+<span style="color:#75715e">// 2. C++17 if constexpr 사용.
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;type_traits&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">template&lt;typename T&gt; void eadvance(T&amp; p, int n)
+</span><span style="color:#75715e">{
+</span><span style="color:#75715e">	if constexpr (is_same&lt; typename T::iterator_category, random_access_iterator_tag&gt;::value)
+</span><span style="color:#75715e">	{
+</span><span style="color:#75715e">		p = p + n;
+</span><span style="color:#75715e">	}
+</span><span style="color:#75715e">	else
+</span><span style="color:#75715e">		while (n--) ++p;
+</span><span style="color:#75715e">}
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">// 3. enable_if 를 사용..   SFINAE 개념 사용.
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> 
+<span style="color:#66d9ef">typename</span> enable_if<span style="color:#f92672">&lt;</span>is_same<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span>iterator_category,random_access_iterator_tag<span style="color:#f92672">&gt;::</span>value<span style="color:#f92672">&gt;::</span>type
+eadvance(T<span style="color:#f92672">&amp;</span> p, <span style="color:#66d9ef">int</span> n)
 {
-    p = p + n;
-}
-template&lt;typename T&gt; void eadvance_imp(T&amp; p, int n, input_iterator_tag)
-{
-    while (n--) ++p;
-}
-template&lt;typename T&gt; void eadvance(T&amp; p, int n)
-{
-    eadvance_imp(p, n, typename T::iterator_category());
-}
-*/
-
-// 2. C++17 if constexpr 사용.
-#include &lt;type_traits&gt;
-
-/*
-template&lt;typename T&gt; void eadvance(T&amp; p, int n)
-{
-    if constexpr (is_same&lt; typename T::iterator_category, random_access_iterator_tag&gt;::value)
-    {
-        p = p + n;
-    }
-    else
-        while (n--) ++p;
-}
-*/
-// 3. enable_if 를 사용..   SFINAE 개념 사용.
-
-template&lt;typename T&gt; 
-typename enable_if&lt;is_same&lt;typename T::iterator_category,random_access_iterator_tag&gt;::value&gt;::type
-eadvance(T&amp; p, int n)
-{
-    p = p + n;
-}
-
-template&lt;typename T&gt; 
-typename enable_if&lt;! is_same&lt;typename T::iterator_category, random_access_iterator_tag&gt;::value&gt;::type
-eadvance(T&amp; p, int n)
-{
-    while (n--) ++p;
+	p <span style="color:#f92672">=</span> p <span style="color:#f92672">+</span> n;
 }
 
-int main()
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> 
+<span style="color:#66d9ef">typename</span> enable_if<span style="color:#f92672">&lt;!</span> is_same<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span>iterator_category, random_access_iterator_tag<span style="color:#f92672">&gt;::</span>value<span style="color:#f92672">&gt;::</span>type
+eadvance(T<span style="color:#f92672">&amp;</span> p, <span style="color:#66d9ef">int</span> n)
 {
-    list&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
-
-    auto p = begin(s);
-
-    eadvance(p, 5);
-
-    cout &lt;&lt; *p &lt;&lt; endl;
+	<span style="color:#66d9ef">while</span> (n<span style="color:#f92672">--</span>) <span style="color:#f92672">++</span>p;
 }
-</code></pre>
 
-<h2 id="iterator-traits">Iterator traits</h2>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span> };
 
+	<span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> begin(s);
+
+	eadvance(p, <span style="color:#ae81ff">5</span>);
+
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+</code></pre></div><h2 id="iterator-traits">Iterator traits</h2>
 <h4 id="1-반복자가-가르키는-타입을-찾아서-리턴하는-방법">1. 반복자가 가르키는 타입을 찾아서 리턴하는 방법</h4>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-#include &lt;vector&gt;
-using namespace std;
-#include &lt;iterator&gt;
-
-template&lt;typename T&gt;
-typename iterator_traits&lt;T&gt;::value_type
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iterator&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">typename</span> iterator_traits<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value_type
 sum(T first, T last)
 {
-    typename iterator_traits&lt;T&gt;::value_type s = 0;
+	<span style="color:#66d9ef">typename</span> iterator_traits<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value_type s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-    while (first != last)
-    {
-        s = s + *first;
-        ++first;
-    }
-    return s;
+	<span style="color:#66d9ef">while</span> (first <span style="color:#f92672">!=</span> last)
+	{
+		s <span style="color:#f92672">=</span> s <span style="color:#f92672">+</span> <span style="color:#f92672">*</span>first;
+		<span style="color:#f92672">++</span>first;
+	}
+	<span style="color:#66d9ef">return</span> s;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //list&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
-    //vector&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
+	<span style="color:#75715e">//list&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//vector&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">int</span> s[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span> };
 
-    int s[10] = { 1,2,3,4,5,6,7,8,9,10 };
+	<span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> sum(begin(s), end(s));
 
-    int n = sum(begin(s), end(s));
-
-    cout &lt;&lt; n &lt;&lt; endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>C++11 이후 문법(타입 추론)을 활용한 방법(auto와 decltype)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iterator&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-#include &lt;vector&gt;
-#include &lt;iterator&gt;
-using namespace std;
 
-
-template&lt;typename T&gt;
-typename iterator_traits&lt;T&gt;::value_type
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">typename</span> iterator_traits<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value_type
 sum(T first, T last)
 {
-    typename 
-    remove_reference&lt;decltype(*first)&gt;::type s = 0;
+	<span style="color:#66d9ef">typename</span> 
+	remove_reference<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(<span style="color:#f92672">*</span>first)<span style="color:#f92672">&gt;::</span>type s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-    while (first != last)
-    {
-        s = s + *first;
-        ++first;
-    }
-    return s;
+	<span style="color:#66d9ef">while</span> (first <span style="color:#f92672">!=</span> last)
+	{
+		s <span style="color:#f92672">=</span> s <span style="color:#f92672">+</span> <span style="color:#f92672">*</span>first;
+		<span style="color:#f92672">++</span>first;
+	}
+	<span style="color:#66d9ef">return</span> s;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //list&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
-    //vector&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
+	<span style="color:#75715e">//list&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//vector&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10 };
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">int</span> s[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span> };
 
-    int s[10] = { 1,2,3,4,5,6,7,8,9,10 };
+	<span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> sum(begin(s), end(s));
 
-    int n = sum(begin(s), end(s));
-
-    cout &lt;&lt; n &lt;&lt; endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
+</code></pre></div><h2 id="insert-iterator">Insert iterator</h2>
+<h4 id="1-back-insert-iterator--반복문-없이-한방에-여러-데이터-삽입-가능">1. back insert iterator : 반복문 없이 한방에 여러 데이터 삽입 가능</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iterator&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<h2 id="insert-iterator">Insert iterator</h2>
-
-<h4 id="1-back-insert-iterator-반복문-없이-한방에-여러-데이터-삽입-가능">1. back insert iterator : 반복문 없이 한방에 여러 데이터 삽입 가능</h4>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-#include &lt;iterator&gt;
-using namespace std;
-
-int main(int argc, char** argv)
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">**</span> argv)
 {
-    list&lt;int&gt; s = { 1, 2, 3, 4, 5};
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>};
 
-    s.push_back(10);
+	s.push_back(<span style="color:#ae81ff">10</span>);
 
-    back_insert_iterator&lt; list&lt;int&gt; &gt; p( s );
-    *p = 20; // s.push_back(20);
+	back_insert_iterator<span style="color:#f92672">&lt;</span> list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> p( s );
+	<span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>; <span style="color:#75715e">// s.push_back(20);
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">40</span>,<span style="color:#ae81ff">50</span> };
+	copy(x, x <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>, p);
 
-    int x[5] = { 10,20,30,40,50 };
-    copy(x, x + 5, p);
-
-    for ( auto&amp; n : s )
-        cout &lt;&lt; n &lt;&lt; endl; 
+	<span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> n : s )
+		cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl; 
 }
-</code></pre>
-
-<pre><code class="language-cpp">int main(int argc, char** argv)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">**</span> argv)
 {
-    int x[5] = { 10,20,30,40,50 };
-    list&lt;int&gt; s = { 1, 2, 3, 4, 5 };
+	<span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">40</span>,<span style="color:#ae81ff">50</span> };
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span> };
 
-    copy(x, x + 5, back_inserter( s) );
+	copy(x, x <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>, back_inserter( s) );
 
-    for (auto&amp; n : s)
-        cout &lt;&lt; n &lt;&lt; endl; 
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> n : s)
+		cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl; 
 }
-</code></pre>
-
-<h2 id="iterator-adapter-기존-기능을-변경">Iterator adapter : 기존 기능을 변경</h2>
-
-<h4 id="1-reverse-iterator">1. reverse_iterator</h4>
-
-<pre><code class="language-cpp">int main()
+</code></pre></div><h2 id="iterator-adapter--기존-기능을-변경">Iterator adapter : 기존 기능을 변경</h2>
+<h4 id="1-reverse_iterator">1. reverse_iterator</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list&lt;int&gt; s = { 1,2,3,4,5,6,7,3,9,10};
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>};
 
-    auto p1 = begin(s);
-    auto p2 = end(s);
+	<span style="color:#66d9ef">auto</span> p1 <span style="color:#f92672">=</span> begin(s);
+	<span style="color:#66d9ef">auto</span> p2 <span style="color:#f92672">=</span> end(s);
 
-    reverse_iterator&lt; list&lt;int&gt;::iterator&gt; p3( p2 ); // p3와 p2는
-                                                    // 다른 객체
-    reverse_iterator&lt; list&lt;int&gt;::iterator&gt; p4( p1 );
+	reverse_iterator<span style="color:#f92672">&lt;</span> list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>iterator<span style="color:#f92672">&gt;</span> p3( p2 ); <span style="color:#75715e">// p3와 p2는
+</span><span style="color:#75715e"></span>													<span style="color:#75715e">// 다른 객체
+</span><span style="color:#75715e"></span>	reverse_iterator<span style="color:#f92672">&lt;</span> list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>iterator<span style="color:#f92672">&gt;</span> p4( p1 );
 
-    auto ret1 = find(p1, p2, 3); //
-    auto ret2 = find(p3, p4, 3); //
-
-    //++p3; // --p2 처럼 동작
-
-    cout &lt;&lt; *p3 &lt;&lt; endl; // 10
-    ++p3;
-    cout &lt;&lt; *p3 &lt;&lt; endl; // 9
-    ++p3;
-    cout &lt;&lt; *p3 &lt;&lt; endl; // 3
-    --p2;
-    cout &lt;&lt; *p2 &lt;&lt; endl; // 10
-}
-</code></pre>
-
-<h4 id="2-move-iterator">2. move iterator</h4>
-
+	<span style="color:#66d9ef">auto</span> ret1 <span style="color:#f92672">=</span> find(p1, p2, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">auto</span> ret2 <span style="color:#f92672">=</span> find(p3, p4, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">//++p3; // --p2 처럼 동작
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p3 <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 10
+</span><span style="color:#75715e"></span>	<span style="color:#f92672">++</span>p3;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p3 <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 9
+</span><span style="color:#75715e"></span>	<span style="color:#f92672">++</span>p3;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p3 <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 3
+</span><span style="color:#75715e"></span>	<span style="color:#f92672">--</span>p2;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p2 <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 10
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="2-move-iterator">2. move iterator</h4>
 <ul>
 <li>반복자 전달시 이동 생성자 호출 지원</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iterator&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;People.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;iterator&gt;
-#include &lt;vector&gt;
-#include &quot;People.h&quot;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;People&gt; v;
-    v.push_back(People(&quot;A&quot;));
-    v.push_back(People(&quot;B&quot;));
-    v.push_back(People(&quot;C&quot;));
-    v.push_back(People(&quot;D&quot;));
+    vector<span style="color:#f92672">&lt;</span>People<span style="color:#f92672">&gt;</span> v;
+    v.push_back(People(<span style="color:#e6db74">&#34;A&#34;</span>));
+    v.push_back(People(<span style="color:#e6db74">&#34;B&#34;</span>));
+    v.push_back(People(<span style="color:#e6db74">&#34;C&#34;</span>));
+    v.push_back(People(<span style="color:#e6db74">&#34;D&#34;</span>));
 
-    cout &lt;&lt; &quot;------------------------&quot; &lt;&lt; endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;------------------------&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    vector&lt;People&gt; v2(make_move_iterator(begin(v)),
+    vector<span style="color:#f92672">&lt;</span>People<span style="color:#f92672">&gt;</span> v2(make_move_iterator(begin(v)),
                       make_move_iterator(end(v)));
 }
-</code></pre>
-
-<h2 id="iterator-helper">Iterator helper</h2>
-
+</code></pre></div><h2 id="iterator-helper">Iterator helper</h2>
 <h4 id="next-advance-distance">next, advance, distance</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iterator&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;forward_list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;iterator&gt;
-#include &lt;forward_list&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int x[10] = { 1,2,3,4,5,6,7,8,9,10};
+    <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>};
 
-    forward_list&lt;int&gt; s = { 1,2,3,4,5,6,7,8,9,10};
+    forward_list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>};
 
-    auto p1 = next(begin(s));
+    <span style="color:#66d9ef">auto</span> p1 <span style="color:#f92672">=</span> next(begin(s));
 
-    advance(p1, 3); // p1 + 3;
-
-    cout &lt;&lt; *p1 &lt;&lt; endl; // 5
-
-    cout &lt;&lt; distance( begin(s), p1) &lt;&lt; endl; // p1 - begin(s)
-
+    advance(p1, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// p1 + 3;
+</span><span style="color:#75715e"></span>
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p1 <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 5
+</span><span style="color:#75715e"></span>
+    cout <span style="color:#f92672">&lt;&lt;</span> distance( begin(s), p1) <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// p1 - begin(s)
+</span><span style="color:#75715e"></span>
     iter_swap(p1, begin(s));
 
-    cout &lt;&lt; *p1 &lt;&lt; endl; // 1
-}
-</code></pre>
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p1 <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>}
+</code></pre></div>
               
             </div>
           </div>
@@ -934,7 +877,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

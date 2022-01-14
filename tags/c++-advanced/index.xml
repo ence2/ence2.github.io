@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>C&#43;&#43; Advanced on Keep calm carry on</title>
@@ -6,91 +6,86 @@
     <description>Recent content in C&#43;&#43; Advanced on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 28 Apr 2021 08:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://ence2.github.io/tags/c++-advanced/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 28 Apr 2021 08:00:00 +0900</lastBuildDate><atom:link href="https://ence2.github.io/tags/c++-advanced/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - Lambda expression[9]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</link>
       <pubDate>Wed, 28 Apr 2021 08:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</guid>
       <description>&lt;p&gt;Lambda expression과 관련한 인라인 함수, function object, 람다 표현, closure object, 캡쳐 변수, 고급 람다 표현, invoke 등에 대해 알아보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - Perfect forwarding[8]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</link>
       <pubDate>Tue, 27 Apr 2021 06:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</guid>
       <description>&lt;p&gt;Perfect forwarding 의 개념과 구현 방법을 배웁니다. forwarding reference 를 사용한 perfect forwarding을 알아 보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - rvalue와 lvalue, move semantics[7]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/</link>
       <pubDate>Mon, 26 Apr 2021 09:30:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/</guid>
       <description>&lt;p&gt;임시 객체,  rvalue, lvalue, 레퍼런스 붕괴 규칙, 우측값 참조, move semantics에 대해 알아 보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[6]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-/-decltype-type-deduction6/</link>
       <pubDate>Thu, 22 Apr 2021 02:30:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-/-decltype-type-deduction6/</guid>
       <description>&lt;p&gt;C++11에서 추가된 auto/decltype 문법은 쉬워 보이지만 컴파일러가 타입을 결정하는 규칙은 쉽지 않습니다. 또한, 배열과 auto 관계를 정확하게 이해 하기 위해서는 배열 이름의 의미를 정확히 파악하는 것이 좋습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 객체 초기화[5]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EA%B0%9D%EC%B2%B4-%EC%B4%88%EA%B8%B0%ED%99%945/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-%EA%B0%9D%EC%B2%B4-%EC%B4%88%EA%B8%B0%ED%99%945/</link>
       <pubDate>Thu, 22 Apr 2021 00:30:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EA%B0%9D%EC%B2%B4-%EC%B4%88%EA%B8%B0%ED%99%945/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-%EA%B0%9D%EC%B2%B4-%EC%B4%88%EA%B8%B0%ED%99%945/</guid>
       <description>&lt;p&gt;C++11의 등장으로 객체를 초기화 하는 방법에는 많은 변화가 생겼습니다. 기존 초기화 방식의 문제점을 살펴 보고, &amp;ldquo;uniform initialization&amp;rdquo;, &amp;ldquo;direct vs copy&amp;rdquo;, &amp;ldquo;defalue vs value&amp;rdquo; 등 새로운 초기화 방법에 대해 살펴보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 17 기본 문법[4]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-17-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%954/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-17-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%954/</link>
       <pubDate>Wed, 21 Apr 2021 09:50:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-17-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%954/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-17-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%954/</guid>
       <description>&lt;p&gt;C++17 에서 추가된 다양한 문법을 빠르게 소개합니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 11/14 기본 문법[3]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-11-14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-11/14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</link>
       <pubDate>Tue, 20 Apr 2021 09:50:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-11-14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</guid>
-      <description>&lt;p&gt;C++&lt;sup&gt;11&lt;/sup&gt;&amp;frasl;&lt;sub&gt;14&lt;/sub&gt; 에서 추가된 다양한 문법을 빠르게 소개합니다.&lt;/p&gt;</description>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-11/14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</guid>
+      <description>&lt;p&gt;C++11/14 에서 추가된 다양한 문법을 빠르게 소개합니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 중요 기본 문법 다시보기[2]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</link>
       <pubDate>Thu, 15 Apr 2021 10:50:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</guid>
       <description>&lt;p&gt;C++ 버전과 역사에 대해서 알아보고, 기본 문법의 This call, New, Name mangling, Conversion 등에 대해 알아보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - 개요[1]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</link>
       <pubDate>Thu, 15 Apr 2021 09:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</guid>
-      <description>&lt;p&gt;C++ 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C++ 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C++ 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C++&lt;sup&gt;98&lt;/sup&gt;&amp;frasl;&lt;sub&gt;03&lt;/sub&gt; 문법 뿐 아니라 C++&lt;sup&gt;11&lt;/sup&gt;&amp;frasl;&lt;sub&gt;14&lt;/sub&gt; 그리고 C++17/20의 내용도 배우게 됩니다.&lt;/p&gt;
-
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</guid>
+      <description>&lt;p&gt;C++ 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C++ 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C++ 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C++98/03 문법 뿐 아니라 C++11/14 그리고 C++17/20의 내용도 배우게 됩니다.&lt;/p&gt;
 &lt;p&gt;C++ 문법 뿐 아니라 C++ IDioms라고 알려져 있는 다양한 테크닉도 배우게 되며, 이 시리즈에서는 C++ 기본 문법을 다루지 않습니다.&lt;/p&gt;</description>
     </item>
     

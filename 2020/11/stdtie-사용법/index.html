@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="std::tie
-
 pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.">
 
 
 <meta property="og:description" content="std::tie
-
 pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="std::tie 사용법">
@@ -23,10 +21,8 @@ pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받�
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="std::tie
-
 pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.">
 <meta name="twitter:description" content="std::tie
-
 pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.">
 <meta property="og:locale" content="en-us">
 
@@ -102,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -260,38 +255,35 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <h3 id="std-tie">std::tie</h3>
-
+              <h3 id="stdtie">std::tie</h3>
 <p>pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.</p>
-
 <h3 id="코드">코드</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;tuple&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">auto</span> t <span style="color:#f92672">=</span> make_tuple(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>);
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;tuple&gt;
+    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> get<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span><span style="color:#f92672">&gt;</span>(t);
+    <span style="color:#66d9ef">int</span> y <span style="color:#f92672">=</span> get<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;</span>(t);
+    <span style="color:#66d9ef">int</span> z <span style="color:#f92672">=</span> get<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span><span style="color:#f92672">&gt;</span>(t);
 
-int main() {
-    auto t = make_tuple(1, 2, 3);
-
-    int x = get&lt;0&gt;(t);
-    int y = get&lt;1&gt;(t);
-    int z = get&lt;2&gt;(t);
-
-    cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n';    //1 2 3
-
-    x = y = z = 0;
-    cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n';    //0 0 0
-    
-    std::tie(x, y, z) = t;
-    cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n';    //1 2 3
-
-    x = y = z = 0;
-    std::tie(x, y, ignore) = t;    //세번째 자리는 무시 키워드 : ignore
-    cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; ' ' &lt;&lt; z &lt;&lt; '\n';    //1 2 0
-
-    return 0;
+    cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> y <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> z <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;    <span style="color:#75715e">//1 2 3
+</span><span style="color:#75715e"></span>
+    x <span style="color:#f92672">=</span> y <span style="color:#f92672">=</span> z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> y <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> z <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;    <span style="color:#75715e">//0 0 0
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>tie(x, y, z) <span style="color:#f92672">=</span> t;
+    cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> y <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> z <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;    <span style="color:#75715e">//1 2 3
+</span><span style="color:#75715e"></span>
+    x <span style="color:#f92672">=</span> y <span style="color:#f92672">=</span> z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    std<span style="color:#f92672">::</span>tie(x, y, ignore) <span style="color:#f92672">=</span> t;    <span style="color:#75715e">//세번째 자리는 무시 키워드 : ignore
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> y <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> z <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;    <span style="color:#75715e">//1 2 0
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 
-</code></pre>
+</code></pre></div>
               
             </div>
           </div>
@@ -391,7 +383,7 @@ int main() {
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

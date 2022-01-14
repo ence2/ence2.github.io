@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번시간에는 변하는 것을 분리하는 방법, 단위 전략 디자인, 상태 패턴 등에 대해 알아보겠습니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,234 +254,217 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번시간에는 변하는 것을 분리하는 방법, 단위 전략 디자인, 상태 패턴 등에 대해 알아보겠습니다.</p>
-
 <h2 id="1-변하는-것을-분리하는-방법">1. 변하는 것을 분리하는 방법</h2>
-
-<h3 id="변하는-것을-가상함수로-상속-기반-template-method">변하는 것을 가상함수로(상속 기반, template method)</h3>
-
+<h3 id="변하는-것을-가상함수로상속-기반-template-method">변하는 것을 가상함수로(상속 기반, template method)</h3>
 <ul>
 <li>변하지 않는 코드(전체 흐름) 안에 있는 변해야 하는 부분(정책)은 분리하는 것이 좋다
-
 <ul>
 <li>변해야 하는 부분(아래 코드에서는 유효성 체크 부분)을 별도의 가상함수로 분리</li>
-<li>변하는 것을 가상함수로 분리 할 때의 장점</li>
+<li>변하는 것을 가상함수로 분리 할 때의 장점
+<ul>
 <li>파생 클래스를 만들어 가상함수를 재정의 하면 됨</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;conio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;conio.h&gt;
-using namespace std;
-
-class Edit
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Edit</span>
 {
     string data;
-public:
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
 
-    virtual bool validate(char c)
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> validate(<span style="color:#66d9ef">char</span> c)
     {
-        return isdigit(c);
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">isdigit</span>(c);
     }
 
-    string getData()
+    string <span style="color:#a6e22e">getData</span>()
     {
         data.clear();
 
-        while( 1 )
+        <span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">1</span> )
         {
-            char c = getch();
+            <span style="color:#66d9ef">char</span> c <span style="color:#f92672">=</span> getch();
 
-            if ( c == 13 ) break;
+            <span style="color:#66d9ef">if</span> ( c <span style="color:#f92672">==</span> <span style="color:#ae81ff">13</span> ) <span style="color:#66d9ef">break</span>;
 
-            if ( validate(c) )
+            <span style="color:#66d9ef">if</span> ( validate(c) )
             {
                 data.push_back(c);
-                cout &lt;&lt; c;
+                cout <span style="color:#f92672">&lt;&lt;</span> c;
             }
         }
-        cout &lt;&lt; endl;
-        return data;
+        cout <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#66d9ef">return</span> data;
     }
 };
-//--------------------
-class AddressEdit : public Edit
+<span style="color:#75715e">//--------------------
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AddressEdit</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Edit
 {
-public:
-    virtual bool validate(char c)
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> validate(<span style="color:#66d9ef">char</span> c)
     {
-        return true;
+        <span style="color:#66d9ef">return</span> true;
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     AddressEdit edit;
 
-    while(1)
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>)
     {
-        string s = edit.getData();
-        cout &lt;&lt; s &lt;&lt; endl;
+        string s <span style="color:#f92672">=</span> edit.getData();
+        cout <span style="color:#f92672">&lt;&lt;</span> s <span style="color:#f92672">&lt;&lt;</span> endl;
     }
 }
-</code></pre>
-
-<h3 id="변하는-것을-다른-클래스로-포함-관계-strategy-pattern">변하는 것을 다른 클래스로(포함 관계, Strategy pattern)</h3>
-
+</code></pre></div><h3 id="변하는-것을-다른-클래스로포함-관계-strategy-pattern">변하는 것을 다른 클래스로(포함 관계, Strategy pattern)</h3>
 <ul>
 <li>인터페이스를 기반으로 약한 결합 처리</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;conio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;conio.h&gt;
-using namespace std;
-
-// validation 을 위한 인터페이스
-struct IValidator
+<span style="color:#75715e">// validation 을 위한 인터페이스
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IValidator</span>
 {
-    virtual bool validate(string s, char c) = 0;
-    virtual bool iscomplete(string s)  { return true;}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">validate</span>(string s, <span style="color:#66d9ef">char</span> c) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">iscomplete</span>(string s)  { <span style="color:#66d9ef">return</span> true;}
 
-    virtual ~IValidator() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IValidator() {}
 };
 
-// 주민 번호 : 801    1   확인.
-class Edit
+<span style="color:#75715e">// 주민 번호 : 801    1   확인.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Edit</span>
 {
     string data;
-    //---------------------
-    IValidator* pVal = 0;
-public:
-    void setValidator(IValidator* p ) { pVal = p;}
-    //---------------------------
-
-    string getData()
+    <span style="color:#75715e">//---------------------
+</span><span style="color:#75715e"></span>    IValidator<span style="color:#f92672">*</span> pVal <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> setValidator(IValidator<span style="color:#f92672">*</span> p ) { pVal <span style="color:#f92672">=</span> p;}
+    <span style="color:#75715e">//---------------------------
+</span><span style="color:#75715e"></span>
+    string <span style="color:#a6e22e">getData</span>()
     {
         data.clear();
 
-        while( 1 )
+        <span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">1</span> )
         {
-            char c = getch();
+            <span style="color:#66d9ef">char</span> c <span style="color:#f92672">=</span> getch();
 
-            if ( c == 13 &amp;&amp;
-                ( pVal == 0 || pVal-&gt;iscomplete(data)  ) ) break;
+            <span style="color:#66d9ef">if</span> ( c <span style="color:#f92672">==</span> <span style="color:#ae81ff">13</span> <span style="color:#f92672">&amp;&amp;</span>
+                ( pVal <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> pVal<span style="color:#f92672">-&gt;</span>iscomplete(data)  ) ) <span style="color:#66d9ef">break</span>;
 
-            if ( pVal == 0 || pVal-&gt;validate(data, c) )
+            <span style="color:#66d9ef">if</span> ( pVal <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> pVal<span style="color:#f92672">-&gt;</span>validate(data, c) )
             {
                 data.push_back(c);
-                cout &lt;&lt; c;
+                cout <span style="color:#f92672">&lt;&lt;</span> c;
             }
         }
-        cout &lt;&lt; endl;
-        return data;
+        cout <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#66d9ef">return</span> data;
     }
 };
 
-class LimitDigitValidator : public IValidator
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LimitDigitValidator</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IValidator
 {
-    int value;
-public:
-    LimitDigitValidator(int n) : value(n) {}
+    <span style="color:#66d9ef">int</span> value;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    LimitDigitValidator(<span style="color:#66d9ef">int</span> n) <span style="color:#f92672">:</span> value(n) {}
 
-    virtual bool validate( string s, char c )
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">validate</span>( string s, <span style="color:#66d9ef">char</span> c )
     {
-        return s.size() &lt; value &amp;&amp; isdigit(c);
+        <span style="color:#66d9ef">return</span> s.size() <span style="color:#f92672">&lt;</span> value <span style="color:#f92672">&amp;&amp;</span> isdigit(c);
     }
 
-    virtual bool iscomplete( string s)
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">iscomplete</span>( string s)
     {
-        return s.size() == value;
+        <span style="color:#66d9ef">return</span> s.size() <span style="color:#f92672">==</span> value;
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     Edit edit;
-    LimitDigitValidator v(5);
-    edit.setValidator(&amp;v);
+    LimitDigitValidator v(<span style="color:#ae81ff">5</span>);
+    edit.setValidator(<span style="color:#f92672">&amp;</span>v);
 
-    while(1)
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>)
     {
-        string s = edit.getData();
-        cout &lt;&lt; s &lt;&lt; endl;
+        string s <span style="color:#f92672">=</span> edit.getData();
+        cout <span style="color:#f92672">&lt;&lt;</span> s <span style="color:#f92672">&lt;&lt;</span> endl;
     }
 }
-</code></pre>
-
-<h3 id="template-method-vs-strategy-pattern-장단점">Template method vs strategy pattern 장단점</h3>
-
+</code></pre></div><h3 id="template-method-vs-strategy-pattern-장단점">Template method vs strategy pattern 장단점</h3>
 <ul>
 <li>Strategy 패턴
-
 <ul>
 <li>정책을 재사용 할 수 있고, 런타임에 정책을 교체 할 수 있음</li>
 <li>인터페이스를 통해 독립적으로 알고리즘을 변경 할 수 있음</li>
-</ul></li>
+</ul>
+</li>
 <li>Template method
-
 <ul>
 <li>알고리즘의 구조를 유지하면서, 동작의 일부를 파생 클래스에서 처리하도록 구현 가능(hook method)</li>
-<li>유연성이 떨어짐(런타임에 전략 교체 불가, 상속 관계로 구현하기 때문)
-
-<br /></li>
-</ul></li>
+<li>유연성이 떨어짐(런타임에 전략 교체 불가, 상속 관계로 구현하기 때문)</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="2-policy-base-design">2. Policy base design</h2>
-
-<h3 id="policy-base-design-단위-전략-디자인">Policy base design(단위 전략 디자인)</h3>
-
+<h3 id="policy-base-design단위-전략-디자인">Policy base design(단위 전략 디자인)</h3>
 <ul>
 <li>template 인자를 사용해서 정책 클래스를 교체하는 기법</li>
 <li>사용자에게 특정 기능을 선택하도록 제공
-
 <ul>
 <li>동기화 버전 list 제공 예제</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
 
-
-template&lt;typename T, typename ThreadModel = NoLock&gt; class List
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> ThreadModel <span style="color:#f92672">=</span> NoLock<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">List</span>
 {
-    ThreadModel tm; // 동기화 정책을 담은 클래스
-public:
-    void push_front(const T&amp; a)
+    ThreadModel tm; <span style="color:#75715e">// 동기화 정책을 담은 클래스
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> push_front(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a)
     {
         tm.Lock();
-        //...
-        tm.Unlock();
+        <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>        tm.Unlock();
     }
 };
 
-class MutexLock
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MutexLock</span>
 {
-public:
-    inline void Lock()   { cout &lt;&lt; &quot;mutex lock&quot; &lt;&lt; endl;}
-    inline void Unlock() { cout &lt;&lt; &quot;mutex Unlock&quot; &lt;&lt; endl;}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> Lock()   { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;mutex lock&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+    <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Unlock</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;mutex Unlock&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
 };
-class NoLock
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NoLock</span>
 {
-public:
-    inline void Lock()   {}
-    inline void Unlock() {}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> Lock()   {}
+    <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Unlock</span>() {}
 };
 
-List&lt;int, MutexLock&gt; s;
+List<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, MutexLock<span style="color:#f92672">&gt;</span> s;
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    s.push_front(10);
+    s.push_front(<span style="color:#ae81ff">10</span>);
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>단위 전략 vs Strategy 패턴 비교</li>
 </ul>
-
 <table>
 <thead>
 <tr>
@@ -491,14 +473,12 @@ int main()
 <th>유연성</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>전략 패턴</td>
 <td>가상 함수 기반, 느림</td>
 <td>런타임 정책 교체 가능</td>
 </tr>
-
 <tr>
 <td>단위 전략 패턴</td>
 <td>인라인 치환 가능, 빠름</td>
@@ -506,330 +486,308 @@ int main()
 </tr>
 </tbody>
 </table>
-
 <p>​</p>
-
 <h3 id="application-framework">Application Framework</h3>
-
 <blockquote>
 <p>각 분야의 프로그램은 전체적인 흐름이 항상 유사</p>
-
 <ul>
 <li>GUI, 게임, 앱 등</li>
 </ul>
-
 <p>main 함수에 전체적인 흐름을 담아서 라이브러리 내부에 감추자 -&gt; application framework</p>
-
 <ul>
 <li>MFC, IOS, Android 등등..</li>
 </ul>
 </blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
 
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CWinApp</span>; <span style="color:#75715e">// 클래스 전방 선언.
+</span><span style="color:#75715e"></span>
+CWinApp<span style="color:#f92672">*</span> g_app <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-class CWinApp; // 클래스 전방 선언.
-
-CWinApp* g_app = 0;
-
-class CWinApp
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CWinApp</span>
 {
-public:
-    CWinApp()    { g_app = this;}
-    virtual bool InitInstance() { return false; }
-    virtual int  ExitInstance() { return false; }
-    virtual int  Run()          { return 0; }
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    CWinApp()    { g_app <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">InitInstance</span>() { <span style="color:#66d9ef">return</span> false; }
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">int</span>  <span style="color:#a6e22e">ExitInstance</span>() { <span style="color:#66d9ef">return</span> false; }
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">int</span>  <span style="color:#a6e22e">Run</span>()          { <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>; }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    if ( g_app-&gt;InitInstance() == true)
-        g_app-&gt;Run();
-    g_app-&gt;ExitInstance();
+    <span style="color:#66d9ef">if</span> ( g_app<span style="color:#f92672">-&gt;</span>InitInstance() <span style="color:#f92672">==</span> true)
+        g_app<span style="color:#f92672">-&gt;</span>Run();
+    g_app<span style="color:#f92672">-&gt;</span>ExitInstance();
 }
 
-//-----------------------
-// 라이브러리 사용자
-// 1. CWinApp 의 파생 클래스 만들어야 한다.
-// 2. 사용자 클래스를 전역객체 생성
-class MyApp : public CWinApp
+<span style="color:#75715e">//-----------------------
+</span><span style="color:#75715e">// 라이브러리 사용자
+</span><span style="color:#75715e">// 1. CWinApp 의 파생 클래스 만들어야 한다.
+</span><span style="color:#75715e">// 2. 사용자 클래스를 전역객체 생성
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyApp</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> CWinApp
 {
-public:
-    virtual bool InitInstance()
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">bool</span> InitInstance()
     {
-        cout &lt;&lt; &quot;initialization&quot; &lt;&lt; endl;
-        return true;
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;initialization&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#66d9ef">return</span> true;
     }
 
-    virtual int  ExitInstance()
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">int</span>  <span style="color:#a6e22e">ExitInstance</span>()
     {
-        cout &lt;&lt; &quot;finish&quot; &lt;&lt; endl;
-        return 0;
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;finish&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
     }
 };
 
 MyApp theApp;
-</code></pre>
-
-<h3 id="함수와-정책-변해야-할-수-있는-정책은-인자화">함수와 정책(변해야 할 수 있는 정책은 인자화)</h3>
-
+</code></pre></div><h3 id="함수와-정책변해야-할-수-있는-정책은-인자화">함수와 정책(변해야 할 수 있는 정책은 인자화)</h3>
 <ul>
 <li>정렬 정책을 함수포인터로 전달</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-void Sort(int* x, int sz, bool(*cmp)(int, int))
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Sort</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> x, <span style="color:#66d9ef">int</span> sz, <span style="color:#66d9ef">bool</span>(<span style="color:#f92672">*</span>cmp)(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>))
 {
-    for (int i = 0; i &lt; sz-1; i++)
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> sz<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">++</span>)
     {
-        for( int j = i + 1; j &lt; sz; j++)
+        <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> sz; j<span style="color:#f92672">++</span>)
         {
-            if ( cmp( x[i],  x[j])  )
+            <span style="color:#66d9ef">if</span> ( cmp( x[i],  x[j])  )
                 swap( x[i], x[j] );
          }
      }
 }
 
-bool cmp1( int a, int b) { return a &lt; b;}
-bool cmp2( int a, int b) { return a &gt; b;}
-int main()
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp1</span>( <span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&lt;</span> b;}
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp2</span>( <span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b;}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int x[10] = { 1,3,5,7,9,2,4,6,8,10};
+    <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">10</span>};
 
-    Sort( x, 10, &amp;cmp2);
+    Sort( x, <span style="color:#ae81ff">10</span>, <span style="color:#f92672">&amp;</span>cmp2);
 
-    for ( auto n : x)
-        cout &lt;&lt; n &lt;&lt; &quot;, &quot;;
+    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">auto</span> n : x)
+        cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span>;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>템플릿(인라인 치환을 위해) + 람다 표현식으로 정책 전달</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-template&lt;typename T&gt;
-void Sort(int* x, int sz, T cmp)
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> Sort(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> x, <span style="color:#66d9ef">int</span> sz, T cmp)
 {
-    for (int i = 0; i &lt; sz-1; i++)
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> sz<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">++</span>)
     {
-        for( int j = i + 1; j &lt; sz; j++)
+        <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> sz; j<span style="color:#f92672">++</span>)
         {
-            if ( cmp( x[i],  x[j])  )
+            <span style="color:#66d9ef">if</span> ( cmp( x[i],  x[j])  )
                 swap( x[i], x[j] );
          }
      }
 }
 
-bool cmp1( int a, int b) { return a &lt; b;}
-bool cmp2( int a, int b) { return a &gt; b;}
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp1</span>( <span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&lt;</span> b;}
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp2</span>( <span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b;}
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int x[10] = { 1,3,5,7,9,2,4,6,8,10};
-    Sort( x, 10, [](int a, int b) { return a &gt; b;});
+    <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">10</span>};
+    Sort( x, <span style="color:#ae81ff">10</span>, [](<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b;});
 
-    for ( auto n : x)
-        cout &lt;&lt; n &lt;&lt; &quot;, &quot;;
+    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">auto</span> n : x)
+        cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span>;
 }
-</code></pre>
+</code></pre></div><h2 id="3-state-pattern">3. State pattern</h2>
+<h4 id="특정-조건에-따라-다른-처리를-해야-할-때-분기문if-switch-case을-사용-할-경우-조건이-추가-될-경우-분기문의-양이-늘어나는-문제가-발생">특정 조건에 따라 다른 처리를 해야 할 때 분기문(if, switch case)을 사용 할 경우, 조건이 추가 될 경우 분기문의 양이 늘어나는 문제가 발생</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<h2 id="3-state-pattern">3. State pattern</h2>
-
-<h4 id="특정-조건에-따라-다른-처리를-해야-할-때-분기문-if-switch-case-을-사용-할-경우-조건이-추가-될-경우-분기문의-양이-늘어나는-문제가-발생">특정 조건에 따라 다른 처리를 해야 할 때 분기문(if, switch case)을 사용 할 경우, 조건이 추가 될 경우 분기문의 양이 늘어나는 문제가 발생</h4>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-class Character
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Character</span>
 {
-    int gold = 0;
-    int item = 0;
-public:
-    void run()
+    <span style="color:#66d9ef">int</span> gold <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">int</span> item <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> run()
     {
-        if ( item == 1)
-            cout &lt;&lt; &quot;run&quot;    &lt;&lt; endl;
-        else if ( item == 2 )
-            cout &lt;&lt; &quot;fast run&quot; &lt;&lt; endl;
+        <span style="color:#66d9ef">if</span> ( item <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;run&#34;</span>    <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> ( item <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> )
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;fast run&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
     }
-    void attack()
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">attack</span>()
     {
-        if ( item == 1)
-             cout &lt;&lt; &quot;attack&quot; &lt;&lt; endl;
-        else if ( item == 2 )
-             cout &lt;&lt; &quot;attack2&quot; &lt;&lt; endl;
+        <span style="color:#66d9ef">if</span> ( item <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)
+             cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;attack&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( item <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> )
+             cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;attack2&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Character* p = new Character;
-    p-&gt;run();
-    p-&gt;attack();
+    Character<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Character;
+    p<span style="color:#f92672">-&gt;</span>run();
+    p<span style="color:#f92672">-&gt;</span>attack();
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>해결 방법1 : 변하는 부분을 가상함수로 처리
-
 <ul>
 <li>모든 동작을 가상함수화</li>
 <li>기존 객체의 동작이 변경된 것이 아닌, 동작이 변경된 새로운 객체가 생성 된 것</li>
 <li>객체의 변화가 아닌 클래스에 의한 변화</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-class Character
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Character</span>
 {
-    int gold = 0;
-    int item = 0;
-public:
-    void run()    { runImp(); }
-    void attack() { attackImp(); }
+    <span style="color:#66d9ef">int</span> gold <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">int</span> item <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> run()    { runImp(); }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">attack</span>() { attackImp(); }
 
-    virtual void runImp() {}
-    virtual void attackImp() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">runImp</span>() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">attackImp</span>() {}
 };
 
-class PowerItemCharacter : public Character
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PowerItemCharacter</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Character
 {
-public:
-    virtual void runImp() { cout &lt;&lt; &quot;fast run&quot; &lt;&lt; endl;}
-    virtual void attackImp() { cout &lt;&lt; &quot;attack&quot; &lt;&lt; endl;}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> runImp() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;fast run&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">attackImp</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;attack&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
 };
 
-class NormalCharacter : public Character
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NormalCharacter</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Character
 {
-public:
-    virtual void runImp() { cout &lt;&lt; &quot;run&quot; &lt;&lt; endl;}
-    virtual void attackImp() { cout &lt;&lt; &quot;power attack&quot; &lt;&lt; endl;}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> runImp() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;run&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">attackImp</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;power attack&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Character* p = new NormalCharacter;
-    p-&gt;run();
-    p-&gt;attack();
+    Character<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NormalCharacter;
+    p<span style="color:#f92672">-&gt;</span>run();
+    p<span style="color:#f92672">-&gt;</span>attack();
 
-    p = new PowerItemCharacter;
-    p-&gt;run();
-    p-&gt;attack();
+    p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PowerItemCharacter;
+    p<span style="color:#f92672">-&gt;</span>run();
+    p<span style="color:#f92672">-&gt;</span>attack();
 }
-</code></pre>
-
+</code></pre></div><ul>
+<li>
+<p>해결 방법2 : State pattern 사용</p>
 <ul>
-<li><p>해결 방법2 : State pattern 사용</p>
-
-<ul>
-<li><p>상태에 따라 변경되는 동작들을 다른 클래스로 분리</p></li>
-
-<li><p>동작의 인터페이스를 정의</p></li>
-</ul></li>
+<li>
+<p>상태에 따라 변경되는 동작들을 다른 클래스로 분리</p>
+</li>
+<li>
+<p>동작의 인터페이스를 정의</p>
+</li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-struct IState
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IState</span>
 {
-    virtual void run() = 0;
-    virtual void attack() = 0;
-    virtual ~IState() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">attack</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IState() {}
 };
 
-class Character
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Character</span>
 {
-    int gold = 0;
-    int item = 0;
-    IState* state;
-public:
-    void changeState(IState* p) { state = p;}
-    void run()    { state-&gt;run(); }
-    void attack() { state-&gt;attack(); }
+    <span style="color:#66d9ef">int</span> gold <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">int</span> item <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    IState<span style="color:#f92672">*</span> state;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> changeState(IState<span style="color:#f92672">*</span> p) { state <span style="color:#f92672">=</span> p;}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>()    { state<span style="color:#f92672">-&gt;</span>run(); }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">attack</span>() { state<span style="color:#f92672">-&gt;</span>attack(); }
 };
 
-class NormalState : public IState
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NormalState</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IState
 {
-    virtual void run()   { cout &lt;&lt; &quot;run&quot; &lt;&lt; endl;}
-    virtual void attack(){ cout &lt;&lt; &quot;attack&quot; &lt;&lt; endl;}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>()   { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;run&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">attack</span>(){ cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;attack&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
 };
-class PowerItemState : public IState
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PowerItemState</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IState
 {
-    virtual void run()   { cout &lt;&lt; &quot;fast run&quot; &lt;&lt; endl;}
-    virtual void attack(){ cout &lt;&lt; &quot;power attack&quot; &lt;&lt; endl;}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>()   { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;fast run&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">attack</span>(){ cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;power attack&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     NormalState ns;
     PowerItemState ps;
 
-    Character* p = new Character;
-    p-&gt;changeState(&amp;ns);
-    p-&gt;run();
-    p-&gt;attack();
+    Character<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Character;
+    p<span style="color:#f92672">-&gt;</span>changeState(<span style="color:#f92672">&amp;</span>ns);
+    p<span style="color:#f92672">-&gt;</span>run();
+    p<span style="color:#f92672">-&gt;</span>attack();
     
-    p-&gt;changeState(&amp;ps); // 아이템 획득.
-    p-&gt;run();
-    p-&gt;attack();
+    p<span style="color:#f92672">-&gt;</span>changeState(<span style="color:#f92672">&amp;</span>ps); <span style="color:#75715e">// 아이템 획득.
+</span><span style="color:#75715e"></span>    p<span style="color:#f92672">-&gt;</span>run();
+    p<span style="color:#f92672">-&gt;</span>attack();
 }
-</code></pre>
-
-<p>#### State pattern 정리</p>
-
+</code></pre></div><h4 id="state-pattern-정리">State pattern 정리</h4>
 <ul>
 <li>객체 자신의 내부 상태에 따라 행위(동작)을 변경하도록 처리
 객체는 마치 클래스를 바꾸는 것 처럼 보임</li>
 <li>앞서 살펴본 Strategy  pattern(전략 패턴)과 클래스 다이어그램 및 구조는 동일
-
 <ul>
 <li>전략 패턴은 알고리즘 교체의 의미</li>
-<li>State 패턴은 동작 교체의 의미
-
-<br /></li>
-</ul></li>
+<li>State 패턴은 동작 교체의 의미</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="4-summary">4. Summary</h2>
-
 <h4 id="변하지-않는-코드에서-변해야-하는-부분을-분리">변하지 않는 코드에서 변해야 하는 부분을 분리</h4>
-
 <ul>
 <li>일반 함수에서 변하는 것 -&gt; 함수 인자로 분리(함수 포인터 or 함수 객체 or 람다)</li>
 <li>멤버 함수에서 변하는 것
-
 <ul>
-<li>가상 함수로 분리(template method) 하는 방법</li>
+<li>가상 함수로 분리(template method) 하는 방법
+<ul>
 <li>실행 시간에 교체 X, 코드 재사용 불가</li>
 <li>상속 기반 패턴</li>
-<li>다른 클래스로 분리 하는 방법</li>
+</ul>
+</li>
+<li>다른 클래스로 분리 하는 방법
+<ul>
 <li>변하는 코드(정책) 재사용 가능</li>
 <li>교체 방법 2가지
-
 <ol>
 <li>인터페이스 활용 : Strategy, State pattern
-
 <ul>
 <li>실행시간 교체 가능, 가상함수 기반(느림)</li>
-</ul></li>
+</ul>
+</li>
 <li>템플릿 인자 활용 : Policy base design
-
 <ul>
 <li>실행시간 교체 불가, 인라인 치환 가능(빠른 성능)</li>
-</ul></li>
-</ol></li>
-</ul></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
               
             </div>
@@ -932,7 +890,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

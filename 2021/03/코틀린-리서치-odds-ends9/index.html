@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="코틀린의 새로운 특징중 하나인 type aliases와 Enum class, 예외처리, 연산자 오버로딩에 대해 살펴보겠습니다.">
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -257,120 +256,105 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>코틀린의 새로운 특징중 하나인 type aliases와 Enum class, 예외처리, 연산자 오버로딩에 대해 살펴보겠습니다.</p>
-
 <p>​</p>
-
 <h3 id="type-aliases">Type Aliases</h3>
-
 <p>긴 이름을 축약해서 사용 할 수 있도록 합니다. 신규 키워드 : typealias</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">typealias FloatSet <span style="color:#f92672">=</span> Set<span style="color:#f92672">&lt;</span>Float<span style="color:#f92672">&gt;</span>
 
-<pre><code class="language-python">typealias FloatSet = Set&lt;Float&gt;
+typealias MapWithStringKeys<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> Map<span style="color:#f92672">&lt;</span>String, T<span style="color:#f92672">&gt;</span>
 
-typealias MapWithStringKeys&lt;T&gt; = Map&lt;String, T&gt;
+typealias Predicate<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> (T) <span style="color:#f92672">-&gt;</span> Boolean
 
-typealias Predicate&lt;T&gt; = (T) -&gt; Boolean
-
-fun &lt;T&gt; where(items:Sequence&lt;T&gt;, p:Predicate&lt;T&gt;) : Sequence&lt;T&gt; { return items.filter { x -&gt; p(x) } }
-typealias PropertyChangedHandler = (Object, String) -&gt; Unit
-class Bike {
-    inner class Wheel {
+fun <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> where(items:Sequence<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, p:Predicate<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>) : Sequence<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> { <span style="color:#66d9ef">return</span> items<span style="color:#f92672">.</span>filter { x <span style="color:#f92672">-&gt;</span> p(x) } }
+typealias PropertyChangedHandler <span style="color:#f92672">=</span> (Object, String) <span style="color:#f92672">-&gt;</span> Unit
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Bike</span> {
+    inner <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Wheel</span> {
         
     }
 }
-typealias BikeWheel = Bike.Wheel
+typealias BikeWheel <span style="color:#f92672">=</span> Bike<span style="color:#f92672">.</span>Wheel
 
-fun main(args: Array&lt;String&gt;)
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>)
 {
-    var f:FloatSet = setOf(1.2f, 2.3f)
+    var f:FloatSet <span style="color:#f92672">=</span> setOf(<span style="color:#ae81ff">1.2</span>f, <span style="color:#ae81ff">2.3</span>f)
 
-    var m:MapWithStringKeys&lt;Double&gt; = mapOf(&quot;hello&quot;.to(2.3))
-    println(m) // -&gt; {hello=2.3}
+    var m:MapWithStringKeys<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> mapOf(<span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">.</span>to(<span style="color:#ae81ff">2.3</span>))
+    println(m) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> {hello<span style="color:#f92672">=</span><span style="color:#ae81ff">2.3</span>}
 }
-</code></pre>
-
-<h3 id="enumerations">Enumerations</h3>
-
-<pre><code class="language-python">enum class Direction { North, South, East, West }
-enum class Color(val rgb:Int){
-    Red(0xff0000) {
+</code></pre></div><h3 id="enumerations">Enumerations</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">enum <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Direction</span> { North, South, East, West }
+enum <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>(val rgb:Int){
+    Red(<span style="color:#ae81ff">0xff0000</span>) {
         override fun example(): String {
-            return &quot;blood&quot;
+            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;blood&#34;</span>
         }
     },
-    Green(0x00ff00) {
+    Green(<span style="color:#ae81ff">0x00ff00</span>) {
         override fun example(): String {
-            return &quot;grass&quot;
+            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;grass&#34;</span>
         }
     },
-    Blue(0x00ff00) {
+    Blue(<span style="color:#ae81ff">0x00ff00</span>) {
         override fun example(): String {
-            return &quot;Sky&quot;
+            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Sky&#34;</span>
         }
     };
 
     abstract fun example():String
 }
 
-fun main(args: Array&lt;String&gt;)
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>)
 {
-    var dir = Direction.East;
+    var dir <span style="color:#f92672">=</span> Direction<span style="color:#f92672">.</span>East;
     println(dir)
 
-    var b = Color.Blue
-    println(&quot;b has the name ${b.name}, value = ${b.rgb}, pos = ${b.ordinal}&quot;) // -&gt; b has the name Blue, value = 255, pos = 2
+    var b <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>Blue
+    println(<span style="color:#e6db74">&#34;b has the name $</span><span style="color:#e6db74">{b.name}</span><span style="color:#e6db74">, value = $</span><span style="color:#e6db74">{b.rgb}</span><span style="color:#e6db74">, pos = $</span><span style="color:#e6db74">{b.ordinal}</span><span style="color:#e6db74">&#34;</span>) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> b has the name Blue, value <span style="color:#f92672">=</span> <span style="color:#ae81ff">255</span>, pos <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
 
-    println(&quot;$b is the color of ${b.example()}&quot;) // -&gt; Blue is the color of Sky
+    println(<span style="color:#e6db74">&#34;$b is the color of ${b.example()}&#34;</span>) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> Blue <span style="color:#f92672">is</span> the color of Sky
 
-    for (c in Color.values())
+    <span style="color:#66d9ef">for</span> (c <span style="color:#f92672">in</span> Color<span style="color:#f92672">.</span>values())
         println(c)
 
-    println(&quot;value of red is ${Color.valueOf(&quot;Red&quot;).rgb}&quot;) // -&gt; value of red is 16711680
+    println(<span style="color:#e6db74">&#34;value of red is ${Color.valueOf(&#34;</span>Red<span style="color:#e6db74">&#34;).rgb}&#34;</span>) <span style="color:#f92672">//</span> <span style="color:#f92672">-&gt;</span> value of red <span style="color:#f92672">is</span> <span style="color:#ae81ff">16711680</span>
 }
-</code></pre>
-
-<h3 id="exceptions">Exceptions</h3>
-
-<pre><code class="language-python">fun main(args: Array&lt;String&gt;)
+</code></pre></div><h3 id="exceptions">Exceptions</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>)
 {
-    val v = arrayOf(1, 2, 3)
+    val v <span style="color:#f92672">=</span> arrayOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
 
-    try
+    <span style="color:#66d9ef">try</span>
     {
-        println(v[10])
+        println(v[<span style="color:#ae81ff">10</span>])
     }
     catch (e:ArrayIndexOutOfBoundsException)
     {
-        println(e.toString())
+        println(e<span style="color:#f92672">.</span>toString())
     }
-    finally
+    <span style="color:#66d9ef">finally</span>
     {
-        println(&quot;반드시 실행되는 구간&quot;)
+        println(<span style="color:#e6db74">&#34;반드시 실행되는 구간&#34;</span>)
     }
 
-    // try 구문을 변수에 담아서 사용 가능하다.
-    val text = &quot;123&quot;
-    val number:Int? = try {text.toInt()} catch (e:NumberFormatException) { null }
+    <span style="color:#f92672">//</span> <span style="color:#66d9ef">try</span> 구문을 변수에 담아서 사용 가능하다<span style="color:#f92672">.</span>
+    val text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123&#34;</span>
+    val number:Int<span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">try</span> {text<span style="color:#f92672">.</span>toInt()} catch (e:NumberFormatException) { null }
     println(number)
 }
-</code></pre>
-
-<h3 id="operator-overloads">Operator Overloads</h3>
-
-<pre><code class="language-python">data class Vector(var x:Int, var y:Int) {
+</code></pre></div><h3 id="operator-overloads">Operator Overloads</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vector</span>(var x:Int, var y:Int) {
     operator fun plus(other:Vector) : Vector {
-        return Vector(x + other.x, y + other.y)
+        <span style="color:#66d9ef">return</span> Vector(x <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>x, y <span style="color:#f92672">+</span> other<span style="color:#f92672">.</span>y)
     }
 }
 
-fun main(args: Array&lt;String&gt;)
+fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>)
 {
-    var v1 = Vector(3,4)
-    var v2 = Vector(11, 3)
-    println(v1 + v2)
+    var v1 <span style="color:#f92672">=</span> Vector(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>)
+    var v2 <span style="color:#f92672">=</span> Vector(<span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">3</span>)
+    println(v1 <span style="color:#f92672">+</span> v2)
 }
-</code></pre>
-
-<p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
+</code></pre></div><p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
               
             </div>
           </div>
@@ -474,7 +458,7 @@ fun main(args: Array&lt;String&gt;)
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

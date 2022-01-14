@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="numeric_limits 클래스 템플릿은 템플릿 특수화로 구현되었고, 명시한 타입의 최대값이나 최소값을 질의 할 수 있는 표준화 된 방법을 제공합니다.
-
 (예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits  :: max ())">
 
 
 <meta property="og:description" content="numeric_limits 클래스 템플릿은 템플릿 특수화로 구현되었고, 명시한 타입의 최대값이나 최소값을 질의 할 수 있는 표준화 된 방법을 제공합니다.
-
 (예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits  :: max ())">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C&#43;&#43; 변수 타입 최대 최소값 편리하게 확인하는 방법 std::numeric_limits">
@@ -23,10 +21,8 @@
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/c-%EB%B3%80%EC%88%98-%ED%83%80%EC%9E%85-%EC%B5%9C%EB%8C%80-%EC%B5%9C%EC%86%8C%EA%B0%92-%ED%8E%B8%EB%A6%AC%ED%95%98%EA%B2%8C-%ED%99%95%EC%9D%B8%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-stdnumeric_limits/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="numeric_limits 클래스 템플릿은 템플릿 특수화로 구현되었고, 명시한 타입의 최대값이나 최소값을 질의 할 수 있는 표준화 된 방법을 제공합니다.
-
 (예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits  :: max ())">
 <meta name="twitter:description" content="numeric_limits 클래스 템플릿은 템플릿 특수화로 구현되었고, 명시한 타입의 최대값이나 최소값을 질의 할 수 있는 표준화 된 방법을 제공합니다.
-
 (예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits  :: max ())">
 <meta property="og:locale" content="en-us">
 
@@ -102,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -261,47 +256,42 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>numeric_limits 클래스 템플릿은 템플릿 특수화로 구현되었고, 명시한 타입의 최대값이나 최소값을 질의 할 수 있는 표준화 된 방법을 제공합니다.</p>
-
-<p>(예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits <int> :: max ())</p>
-
-<pre><code class="language-cpp">#include &lt;limits&gt;
-#include &lt;iostream&gt;
- 
-int main() 
+<p>(예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits <!-- raw HTML omitted --> :: max ())</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;limits&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span> 
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() 
 {
-    std::cout &lt;&lt; &quot;type\tlowest()\tmin()\t\tmax()\n\n&quot;
-              &lt;&lt; &quot;bool\t&quot;
-              &lt;&lt; std::numeric_limits&lt;bool&gt;::lowest() &lt;&lt; &quot;\t\t&quot;
-              &lt;&lt; std::numeric_limits&lt;bool&gt;::min() &lt;&lt; &quot;\t\t&quot;
-              &lt;&lt; std::numeric_limits&lt;bool&gt;::max() &lt;&lt; '\n'
-              &lt;&lt; &quot;uchar\t&quot;
-              &lt;&lt; +std::numeric_limits&lt;unsigned char&gt;::lowest() &lt;&lt; &quot;\t\t&quot;
-              &lt;&lt; +std::numeric_limits&lt;unsigned char&gt;::min() &lt;&lt; &quot;\t\t&quot;
-              &lt;&lt; +std::numeric_limits&lt;unsigned char&gt;::max() &lt;&lt; '\n'
-              &lt;&lt; &quot;int\t&quot;
-              &lt;&lt; std::numeric_limits&lt;int&gt;::lowest() &lt;&lt; '\t'
-              &lt;&lt; std::numeric_limits&lt;int&gt;::min() &lt;&lt; '\t'
-              &lt;&lt; std::numeric_limits&lt;int&gt;::max() &lt;&lt; '\n'
-              &lt;&lt; &quot;float\t&quot;
-              &lt;&lt; std::numeric_limits&lt;float&gt;::lowest() &lt;&lt; '\t'
-              &lt;&lt; std::numeric_limits&lt;float&gt;::min() &lt;&lt; '\t'
-              &lt;&lt; std::numeric_limits&lt;float&gt;::max() &lt;&lt; '\n'
-              &lt;&lt; &quot;double\t&quot;
-              &lt;&lt; std::numeric_limits&lt;double&gt;::lowest() &lt;&lt; '\t'
-              &lt;&lt; std::numeric_limits&lt;double&gt;::min() &lt;&lt; '\t'
-              &lt;&lt; std::numeric_limits&lt;double&gt;::max() &lt;&lt; '\n';
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;type</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">lowest()</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">min()</span><span style="color:#ae81ff">\t\t</span><span style="color:#e6db74">max()</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;bool</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;::</span>lowest() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t\t</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;::</span>min() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t\t</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;::</span>max() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;uchar</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">+</span>std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;::</span>lowest() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t\t</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">+</span>std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;::</span>min() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t\t</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">+</span>std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;::</span>max() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;int</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>lowest() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>min() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>max() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;float</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;::</span>lowest() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;::</span>min() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;::</span>max() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;double</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;::</span>lowest() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;::</span>min() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>
+              <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>numeric_limits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;::</span>max() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
 }
-</code></pre>
-
-<p>Possible output:</p>
-
-<pre><code>type    lowest()    min()       max()
+</code></pre></div><p>Possible output:</p>
+<pre tabindex="0"><code>type	lowest()	min()		max()
  
-bool    0       0       1
-uchar   0       0       255
-int -2147483648 -2147483648 2147483647
-float   -3.40282e+38    1.17549e-38 3.40282e+38
-double  -1.79769e+308   2.22507e-308    1.79769e+308
+bool	0		0		1
+uchar	0		0		255
+int	-2147483648	-2147483648	2147483647
+float	-3.40282e+38	1.17549e-38	3.40282e+38
+double	-1.79769e+308	2.22507e-308	1.79769e+308
 </code></pre>
               
             </div>
@@ -402,7 +392,7 @@ double  -1.79769e+308   2.22507e-308    1.79769e+308
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

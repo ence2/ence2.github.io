@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번 포스팅에서는 template specialization, partial specialization, template meta programming에 대해서 알아보겠습니다. 다양한 템플릿 기술의 근본이 되는 아주 중요한 개념입니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,386 +254,352 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번 포스팅에서는 template specialization, partial specialization, template meta programming에 대해서 알아보겠습니다. 다양한 템플릿 기술의 근본이 되는 아주 중요한 개념입니다.</p>
-
 <h3 id="specialization-개념">Specialization 개념</h3>
-
 <p>template 구현시 특정 타입에 대해서 다르게 처리되도록 특수화를 할 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-// template specialization
-// primary template
-template&lt;typename T&gt; class Stack
+<span style="color:#75715e">// template specialization
+</span><span style="color:#75715e">// primary template
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Stack</span>
 {
-public:
-    void push(T v) { cout &lt;&lt; &quot;T&quot; &lt;&lt; endl; }
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> push(T v) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;T&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-// partial specialization
-template&lt;typename T&gt; class Stack&lt;T*&gt;
+<span style="color:#75715e">// partial specialization
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Stack</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">*&gt;</span>
 {
-public:
-    void push(T* v) { cout &lt;&lt; &quot;T*&quot; &lt;&lt; endl; }
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> push(T<span style="color:#f92672">*</span> v) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;T*&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-// specialization
-template&lt;&gt; class Stack&lt;char*&gt;
+<span style="color:#75715e">// specialization
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Stack</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">*&gt;</span>
 {
-public:
-    void push(char* v) { cout &lt;&lt; &quot;char*&quot; &lt;&lt; endl; }
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> push(<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> v) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;char*&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Stack&lt;int&gt;   s1; s1.push(0);
-    Stack&lt;int*&gt;  s2; s2.push(0);
-    Stack&lt;char*&gt; s3; s3.push(0);
+	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>   s1; s1.push(<span style="color:#ae81ff">0</span>);
+	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">*&gt;</span>  s2; s2.push(<span style="color:#ae81ff">0</span>);
+	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">*&gt;</span> s3; s3.push(<span style="color:#ae81ff">0</span>);
 }
-</code></pre>
-
-<h3 id="특수화-예제">특수화 예제</h3>
-
+</code></pre></div><h3 id="특수화-예제">특수화 예제</h3>
 <ul>
 <li>메인 템플릿의 템플릿 인자가 2개라면, 사용자는 반드시 템플릿 인자 2개를 전달 해야 한다. (디폴트 인자가 없을 경우)</li>
 <li>부분 특수화 버전을 만들 때 템플릿 인자의 개수는 메인 템플릿의 인자 개수와 다를 수 있다.</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T, typename U&gt; struct Test
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Test</span>
 {
-    static void foo() { cout &lt;&lt; &quot;T, U&quot; &lt;&lt; endl; }
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;T, U&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-template&lt;typename T, typename U&gt; struct Test&lt;T*, U&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Test</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">*</span>, U<span style="color:#f92672">&gt;</span>
 {
-    static void foo() { cout &lt;&lt; &quot;T*, U&quot; &lt;&lt; endl; }
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;T*, U&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-template&lt;typename T, typename U&gt; struct Test&lt;T*, U*&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Test</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">*</span>, U<span style="color:#f92672">*&gt;</span>
 {
-    static void foo() { cout &lt;&lt; &quot;T*, U*&quot; &lt;&lt; endl; }
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;T*, U*&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-// 핵심 : 부분 특수화 시에 템플릿 인자의 갯수는 변할수 있다
-template&lt;typename T&gt; struct Test&lt;T, T&gt;
+<span style="color:#75715e">// 핵심 : 부분 특수화 시에 템플릿 인자의 갯수는 변할수 있다
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Test</span><span style="color:#f92672">&lt;</span>T, T<span style="color:#f92672">&gt;</span>
 {
-    static void foo() { cout &lt;&lt; &quot;T, T&quot; &lt;&lt; endl; }
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;T, T&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-template&lt;typename U&gt; struct Test&lt;int, U&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Test</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, U<span style="color:#f92672">&gt;</span>
 {
-    static void foo() { cout &lt;&lt; &quot;int, U&quot; &lt;&lt; endl; }
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;int, U&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-// int, int : 특수화
-template&lt;&gt; struct Test&lt;int, int&gt;
+<span style="color:#75715e">// int, int : 특수화
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Test</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>
 {
-    static void foo() { cout &lt;&lt; &quot;int, int&quot; &lt;&lt; endl; }
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;int, int&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-template&lt;&gt; struct Test&lt;int, short&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Test</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">short</span><span style="color:#f92672">&gt;</span>
 {
-    static void foo() { cout &lt;&lt; &quot;int, short&quot; &lt;&lt; endl; }
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;int, short&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Test&lt;int, double&gt;::foo();   // T,  U
-    Test&lt;int*, double&gt;::foo();  // T*, U
-    Test&lt;int*, double*&gt;::foo(); // T*, U*
-    Test&lt;int, int&gt;::foo();     // T, T =&gt; int, int
-    Test&lt;int, char&gt;::foo();    // int, U
-    Test&lt;int, short&gt;::foo();   // int, short
-}
-</code></pre>
-
-<h3 id="specialization-주의사항">Specialization 주의사항</h3>
-
+	Test<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;::</span>foo();	<span style="color:#75715e">// T,  U
+</span><span style="color:#75715e"></span>	Test<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span>, <span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;::</span>foo();  <span style="color:#75715e">// T*, U
+</span><span style="color:#75715e"></span>	Test<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span>, <span style="color:#66d9ef">double</span><span style="color:#f92672">*&gt;::</span>foo(); <span style="color:#75715e">// T*, U*
+</span><span style="color:#75715e"></span>	Test<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>foo();     <span style="color:#75715e">// T, T =&gt; int, int
+</span><span style="color:#75715e"></span>	Test<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;::</span>foo();    <span style="color:#75715e">// int, U
+</span><span style="color:#75715e"></span>	Test<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">short</span><span style="color:#f92672">&gt;::</span>foo();   <span style="color:#75715e">// int, short
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="specialization-주의사항">Specialization 주의사항</h3>
 <ul>
 <li>부분 특수화의 디폴트 값은 표기하지 않음</li>
 </ul>
-
-<pre><code class="language-cpp">// partial specialization 과 default parameter
-template&lt;typename T, int N = 10&gt; class Stack
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// partial specialization 과 default parameter
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Stack</span>
 {
-    T buf[N];
+	T buf[N];
 };
 
-// 부분 특수화 - 디폴값은 표기 하지 않는다. 표기하지 않아도 primary 값이 적용된다.
-template&lt;typename T, int N&gt; class Stack&lt;T*, N&gt;
+<span style="color:#75715e">// 부분 특수화 - 디폴값은 표기 하지 않는다. 표기하지 않아도 primary 값이 적용된다.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">int</span> N<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Stack</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">*</span>, N<span style="color:#f92672">&gt;</span>
 {
-    T buf[N];
+	T buf[N];
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Stack&lt;int&gt; s1;  // N == 10
-    Stack&lt;int*&gt; s2; // N == 10
-}
-</code></pre>
-
-<ul>
+	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s1;  <span style="color:#75715e">// N == 10
+</span><span style="color:#75715e"></span>	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">*&gt;</span> s2; <span style="color:#75715e">// N == 10
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>클래스의 특정 멤버 함수 하나만 특수화 할 수 있지만, 부분 특수화 할 수는 없음</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-// 하나의 멤버 함수만 특수화 하기
-
-// primary template
-template&lt;typename T&gt; class Stack
+<span style="color:#75715e">// 하나의 멤버 함수만 특수화 하기
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// primary template
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Stack</span>
 {
-public:
-    void pop() {}
-    void push(T a);
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> pop() {}
+	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">push</span>(T a);
 };
 
-template&lt;typename T&gt; void Stack&lt;T&gt;::push(T a)
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> Stack<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>push(T a)
 {
-    cout &lt;&lt; &quot;T&quot; &lt;&lt; endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;T&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 };
 
-// 특정 멤버함수만 특수화 하는 코드
-template&lt;&gt; void Stack&lt;char*&gt;::push(char* a)
+<span style="color:#75715e">// 특정 멤버함수만 특수화 하는 코드
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span> <span style="color:#66d9ef">void</span> Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">*&gt;::</span>push(<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> a)
 {
-    cout &lt;&lt; &quot;char*&quot; &lt;&lt; endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;char*&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 };
 
-// 특정 멤버함수만 부분 특수화을 할수는 없다. 
-// 부분 특수화는 클래스 전체를 변경해야 한다.
-template&lt;&gt; void Stack&lt;T*&gt;::push(char* a)
+<span style="color:#75715e">// 특정 멤버함수만 부분 특수화을 할수는 없다. 
+</span><span style="color:#75715e">// 부분 특수화는 클래스 전체를 변경해야 한다.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span> <span style="color:#66d9ef">void</span> Stack<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">*&gt;::</span>push(<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> a)
 {
-    cout &lt;&lt; &quot;char*&quot; &lt;&lt; endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;char*&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Stack&lt;int&gt;   s1; s1.push(0);
-    Stack&lt;int*&gt;  s1; s2.push(0);
-    Stack&lt;char*&gt; s1; s3.push(0);
+	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>   s1; s1.push(<span style="color:#ae81ff">0</span>);
+	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">*&gt;</span>  s1; s2.push(<span style="color:#ae81ff">0</span>);
+	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">*&gt;</span> s1; s3.push(<span style="color:#ae81ff">0</span>);
 }
-</code></pre>
-
-<h3 id="특수화-활용">특수화 활용</h3>
-
+</code></pre></div><h3 id="특수화-활용">특수화 활용</h3>
 <ul>
 <li>IfThenElse 기법 (컴파일 타임에 조건에 따라 type 선택 가능)</li>
-<li>C++ 표준 <type_traits>의 conditional을 구현하는 방법</li>
+<li>C++ 표준 &lt;type_traits&gt;의 conditional을 구현하는 방법</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-// bool 기반의 type selection 기술.
-template&lt;bool, typename T, typename U&gt; struct IfThenElse
+<span style="color:#75715e">// bool 기반의 type selection 기술.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, <span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IfThenElse</span>
 {
-    typedef T type;
+	<span style="color:#66d9ef">typedef</span> T type;
 };
 
-template&lt;typename T, typename U&gt; struct IfThenElse&lt;false, T, U&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IfThenElse</span><span style="color:#f92672">&lt;</span>false, T, U<span style="color:#f92672">&gt;</span>
 {
-    typedef U type;
+	<span style="color:#66d9ef">typedef</span> U type;
 };
 
-template&lt;int N&gt; struct Bit
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span> N<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Bit</span>
 {
-//  using data_type = unsigned int;
+<span style="color:#75715e">//	using data_type = unsigned int;
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">using</span> data_type <span style="color:#f92672">=</span> <span style="color:#66d9ef">typename</span> IfThenElse<span style="color:#f92672">&lt;</span> (N <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">8</span>), <span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>type;
 
-    using data_type = typename IfThenElse&lt; (N &lt;= 8), char, unsigned int&gt;::type;
-
-    data_type data;
+	data_type data;
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Bit&lt;8&gt;  b1; // 8bit를 관리하기 위한 객체
-    Bit&lt;32&gt; b2; // 32bit를 관리하기 위한 객체
-
-    cout &lt;&lt; sizeof(b1) &lt;&lt; endl;
-    cout &lt;&lt; sizeof(b2) &lt;&lt; endl;
+	Bit<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">8</span><span style="color:#f92672">&gt;</span>  b1; <span style="color:#75715e">// 8bit를 관리하기 위한 객체
+</span><span style="color:#75715e"></span>	Bit<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">32</span><span style="color:#f92672">&gt;</span> b2; <span style="color:#75715e">// 32bit를 관리하기 위한 객체
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">sizeof</span>(b1) <span style="color:#f92672">&lt;&lt;</span> endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">sizeof</span>(b2) <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>couple template (stl pair와 유사)
-
 <ul>
 <li>템플릿의 인자로 자기 자신의 타인을 전달</li>
 <li>부분 특수화를 만들 때 템플릿 인자의 개수</li>
 <li>N을 표현하는 방법</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std; 
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std; 
-
-template&lt;typename T&gt; void printN(const T&amp; a) { cout &lt;&lt; T::N &lt;&lt; endl; }
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> printN(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a) { cout <span style="color:#f92672">&lt;&lt;</span> T<span style="color:#f92672">::</span>N <span style="color:#f92672">&lt;&lt;</span> endl; }
 
 
-// 임의의 타입 2개를 보관하는 구조체 
-template&lt;typename T, typename U&gt; struct couple
+<span style="color:#75715e">// 임의의 타입 2개를 보관하는 구조체 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">couple</span>
 {
-    T v1;
-    U v2;
+	T v1;
+	U v2;
 
-    static constexpr int N = 2;
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
 };
 
-// 2번째 인자가 recursive일때를 위한 부분전문화
-template&lt;typename A, typename B, typename C&gt; struct couple&lt;A, couple&lt;B, C&gt;&gt;
+<span style="color:#75715e">// 2번째 인자가 recursive일때를 위한 부분전문화
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> A, <span style="color:#66d9ef">typename</span> B, <span style="color:#66d9ef">typename</span> C<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">couple</span><span style="color:#f92672">&lt;</span>A, couple<span style="color:#f92672">&lt;</span>B, C<span style="color:#f92672">&gt;&gt;</span>
 {
-    A         v1;
-    couple&lt;B, C&gt; v2;
-    static constexpr int N = couple&lt;B, C&gt;::N + 1; // 핵심!
-};
+	A         v1;
+	couple<span style="color:#f92672">&lt;</span>B, C<span style="color:#f92672">&gt;</span> v2;
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> couple<span style="color:#f92672">&lt;</span>B, C<span style="color:#f92672">&gt;::</span>N <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// 핵심!
+</span><span style="color:#75715e"></span>};
 
-template&lt;typename A, typename B, typename C&gt; struct couple&lt;couple&lt;A, B&gt;, C&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> A, <span style="color:#66d9ef">typename</span> B, <span style="color:#66d9ef">typename</span> C<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">couple</span><span style="color:#f92672">&lt;</span>couple<span style="color:#f92672">&lt;</span>A, B<span style="color:#f92672">&gt;</span>, C<span style="color:#f92672">&gt;</span>
 {
-    couple&lt;A, B&gt;  v1;
-    C         v2;
-    static constexpr int N = couple&lt;A, B&gt;::N + 1; // 핵심!
-};
+	couple<span style="color:#f92672">&lt;</span>A, B<span style="color:#f92672">&gt;</span>  v1;
+	C         v2;
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> couple<span style="color:#f92672">&lt;</span>A, B<span style="color:#f92672">&gt;::</span>N <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// 핵심!
+</span><span style="color:#75715e"></span>};
 
-template&lt;typename A, typename B, typename C, typename D&gt; struct couple&lt;couple&lt;A, B&gt;, couple&lt;C, D&gt;&gt;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> A, <span style="color:#66d9ef">typename</span> B, <span style="color:#66d9ef">typename</span> C, <span style="color:#66d9ef">typename</span> D<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">couple</span><span style="color:#f92672">&lt;</span>couple<span style="color:#f92672">&lt;</span>A, B<span style="color:#f92672">&gt;</span>, couple<span style="color:#f92672">&lt;</span>C, D<span style="color:#f92672">&gt;&gt;</span>
 {
-    couple&lt;A, B&gt;  v1;
-    couple&lt;C, D&gt;  v2;
-    static constexpr int N = couple&lt;A, B&gt;::N + couple&lt;C, D&gt;::N; // 핵심!
-};
+	couple<span style="color:#f92672">&lt;</span>A, B<span style="color:#f92672">&gt;</span>  v1;
+	couple<span style="color:#f92672">&lt;</span>C, D<span style="color:#f92672">&gt;</span>  v2;
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> couple<span style="color:#f92672">&lt;</span>A, B<span style="color:#f92672">&gt;::</span>N <span style="color:#f92672">+</span> couple<span style="color:#f92672">&lt;</span>C, D<span style="color:#f92672">&gt;::</span>N; <span style="color:#75715e">// 핵심!
+</span><span style="color:#75715e"></span>};
 
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    couple&lt;couple&lt;int, int&gt;, couple&lt;int, int&gt;&gt; d4; 
+	couple<span style="color:#f92672">&lt;</span>couple<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>, couple<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> d4; 
 
-    printN(d4); // 4나와야 합니다.
-}
-</code></pre>
-
-<ul>
+	printN(d4); <span style="color:#75715e">// 4나와야 합니다.
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>tuple using couple (couple을 활용한 stl 표준의 tuple 구현)
-
 <ul>
 <li>무한하게 타입을 넣을 수 있을까? -&gt; C++11 Variadic template</li>
-</ul></li>
 </ul>
-
-<pre><code class="language-cpp">template&lt;typename T, typename U&gt; struct couple
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">couple</span>
 {
-    T v1;
-    U v2;
-    enum { N = 2 };
+	T v1;
+	U v2;
+	<span style="color:#66d9ef">enum</span> { N <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> };
 };
 
-// couple의 선형화 기술
-struct Null {}; // empty class(struct), sizeof(Null) : 1  
-                // 아무 멤버도 없지만 분명한 타입이다.
-                // 1. 함수 오버로딩이나
-                // 2. 템플릿 인자로 주로 활용
-
-template&lt;typename P1 = Null,
-    typename P2 = Null,
-    typename P3 = Null,
-    typename P4 = Null,
-    typename P5 = Null&gt; class xtuple : public couple&lt;P1, xtuple&lt;P2, P3, P4, P5, Null&gt;&gt;
-{
-};
-
-// 2개를 저장하는 xtuple을 위한 부분 전문화
-template&lt;typename P1, typename P2&gt;
-class xtuple&lt;P1, P2, Null, Null, Null&gt; : public couple&lt;P1, P2&gt;
+<span style="color:#75715e">// couple의 선형화 기술
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Null</span> {}; <span style="color:#75715e">// empty class(struct), sizeof(Null) : 1  
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 아무 멤버도 없지만 분명한 타입이다.
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 1. 함수 오버로딩이나
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 2. 템플릿 인자로 주로 활용
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> P1 <span style="color:#f92672">=</span> Null,
+	<span style="color:#66d9ef">typename</span> P2 <span style="color:#f92672">=</span> Null,
+	<span style="color:#66d9ef">typename</span> P3 <span style="color:#f92672">=</span> Null,
+	<span style="color:#66d9ef">typename</span> P4 <span style="color:#f92672">=</span> Null,
+	<span style="color:#66d9ef">typename</span> P5 <span style="color:#f92672">=</span> Null<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">xtuple</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> couple<span style="color:#f92672">&lt;</span>P1, xtuple<span style="color:#f92672">&lt;</span>P2, P3, P4, P5, Null<span style="color:#f92672">&gt;&gt;</span>
 {
 };
 
-
-
-int main()
+<span style="color:#75715e">// 2개를 저장하는 xtuple을 위한 부분 전문화
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> P1, <span style="color:#66d9ef">typename</span> P2<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">xtuple</span><span style="color:#f92672">&lt;</span>P1, P2, Null, Null, Null<span style="color:#f92672">&gt;</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> couple<span style="color:#f92672">&lt;</span>P1, P2<span style="color:#f92672">&gt;</span>
 {
-    //                                couple&lt;short, long&gt;  
-    //                      couple&lt;char, xxtuple&lt;s, l, Null, Null, Null&gt;&gt;
-    //          couple&lt;double, xtuple&lt;c, s, l, Null, Null&gt;&gt;
-    // couple&lt;int, xtuple&lt;d, c, s, l, Null&gt;&gt;
-    xtuple&lt;int, double, char, short, long&gt; t5; // 상속 받은후 추가한것이 없으므로
-                                              // 부모와 모양이 같다. 부모만 알면 이 객체의 모양을
-                                              // 알수 있다.
+};
 
-    xtuple&lt;int, int, int&gt; t3;
+
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#75715e">//								  couple&lt;short, long&gt;  
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//						couple&lt;char, xxtuple&lt;s, l, Null, Null, Null&gt;&gt;
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//			couple&lt;double, xtuple&lt;c, s, l, Null, Null&gt;&gt;
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// couple&lt;int, xtuple&lt;d, c, s, l, Null&gt;&gt;
+</span><span style="color:#75715e"></span>	xtuple<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span>, <span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">short</span>, <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> t5; <span style="color:#75715e">// 상속 받은후 추가한것이 없으므로
+</span><span style="color:#75715e"></span>											  <span style="color:#75715e">// 부모와 모양이 같다. 부모만 알면 이 객체의 모양을
+</span><span style="color:#75715e"></span>											  <span style="color:#75715e">// 알수 있다.
+</span><span style="color:#75715e"></span>
+	xtuple<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> t3;
 }
-</code></pre>
-
-<h3 id="template-meta-programming">template meta programming</h3>
-
+</code></pre></div><h3 id="template-meta-programming">template meta programming</h3>
 <p>컴파일 타임에 연산을 수행하도록 프로그래밍 하는 방법</p>
-
 <ul>
 <li>constexpr</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span> N<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">check</span> {};
 
-template&lt;int N&gt; struct check {};
-
-// constexpr 함수 - C++11, 컴파일 타임에 수행이 가능하면 컴파일 타임에 수행, 런타임에 가능하면 런타임에 수행함
-constexpr int add(int a, int b)
+<span style="color:#75715e">// constexpr 함수 - C++11, 컴파일 타임에 수행이 가능하면 컴파일 타임에 수행, 런타임에 가능하면 런타임에 수행함
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
 {
-    return a + b;
+	<span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int n = add(1, 2);
+	<span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> add(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>);
 
-    check&lt; add(1, 2) &gt; c; // ok..
+	check<span style="color:#f92672">&lt;</span> add(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>) <span style="color:#f92672">&gt;</span> c; <span style="color:#75715e">// ok..
+</span><span style="color:#75715e"></span>
 
+	<span style="color:#66d9ef">int</span> n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
 
-    int n1 = 1, n2 = 2;
-
-    int c = add(n1, n2); // ok
-
-    //check&lt; add(n1, n2) &gt; c; // error
-}
-</code></pre>
-
-<ul>
+	<span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> add(n1, n2); <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">//check&lt; add(n1, n2) &gt; c; // error
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>factorial</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-// template meta programming
-template&lt;int N&gt; struct factorial
+<span style="color:#75715e">// template meta programming
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span> N<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">factorial</span>
 {
-    //int value = 10;
-    //enum { value = N * factorial&lt;N-1&gt;::value };
-    static constexpr int value = N * factorial&lt;N - 1&gt;::value;
+	<span style="color:#75715e">//int value = 10;
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//enum { value = N * factorial&lt;N-1&gt;::value };
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> N <span style="color:#f92672">*</span> factorial<span style="color:#f92672">&lt;</span>N <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;::</span>value;
 };
-// 재귀의 종료를 위해 특수화 문법 사용
-template&lt;&gt; struct factorial&lt;1&gt;
+<span style="color:#75715e">// 재귀의 종료를 위해 특수화 문법 사용
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">factorial</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;</span>
 {
-    //enum { value = 1 };
-    static constexpr int value = 1;
+	<span style="color:#75715e">//enum { value = 1 };
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int n = factorial&lt;5&gt;::value; // 5 * 4 * 3 * 2 * 1  =&gt; 120 
-    //          5 * f&lt;4&gt;::v
-    //              4 * f&lt;3&gt;::v
-    //                  3 * f&lt;2&gt;::v
-    //                      2 * f&lt;1&gt;::v
-    //                          1   
-
-    cout &lt;&lt; n &lt;&lt; endl;
+	<span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> factorial<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">5</span><span style="color:#f92672">&gt;::</span>value; <span style="color:#75715e">// 5 * 4 * 3 * 2 * 1  =&gt; 120 
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//			5 * f&lt;4&gt;::v
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//				4 * f&lt;3&gt;::v
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//					3 * f&lt;2&gt;::v
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//						2 * f&lt;1&gt;::v
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//							1	
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
+</code></pre></div><p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
               
             </div>
           </div>
@@ -736,7 +701,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

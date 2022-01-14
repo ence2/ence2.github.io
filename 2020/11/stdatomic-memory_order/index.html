@@ -5,30 +5,20 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="std::atomic&lt;T&gt;
-
-
 동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)
-
 std::atomic&lt;int&gt; x;
-std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
-
-
+std::cout &lt;&lt; &#34;is lock free ? : &#34; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
 is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.">
 
 
 <meta property="og:description" content="std::atomic&lt;T&gt;
-
-
 동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)
-
 std::atomic&lt;int&gt; x;
-std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
-
-
+std::cout &lt;&lt; &#34;is lock free ? : &#34; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
 is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="std::atomic, memory_order">
@@ -37,24 +27,14 @@ is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.">
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/stdatomic-memory_order/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="std::atomic&lt;T&gt;
-
-
 동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)
-
 std::atomic&lt;int&gt; x;
-std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
-
-
+std::cout &lt;&lt; &#34;is lock free ? : &#34; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
 is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.">
 <meta name="twitter:description" content="std::atomic&lt;T&gt;
-
-
 동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)
-
 std::atomic&lt;int&gt; x;
-std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
-
-
+std::cout &lt;&lt; &#34;is lock free ? : &#34; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
 is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.">
 <meta property="og:locale" content="en-us">
 
@@ -130,7 +110,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -288,45 +267,25 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <pre><code class="language-cpp">std::atomic&lt;T&gt;
-</code></pre>
-
-<p>동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)</p>
-
-<pre><code class="language-cpp">std::atomic&lt;int&gt; x;
-std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.is_lock_free() &lt;&lt; std::endl;
-</code></pre>
-
-<p>is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.</p>
-
+              <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+</code></pre></div><p>동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> x;
+std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;is lock free ? : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> boolalpha <span style="color:#f92672">&lt;&lt;</span> x.is_lock_free() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</code></pre></div><p>is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.</p>
 <p><code>atomic</code> 객체들의 경우 원자적 연산 시에 메모리에 접근할 때 어떠한 방식으로 접근하는지 지정할 수 있습니다.</p>
-
-<h4 id="memory-order-relexed">memory_order_relexed</h4>
-
+<h4 id="memory_order_relexed">memory_order_relexed</h4>
 <p><code>memory_order_relaxed</code> 는 가장 <strong>느슨한</strong> 조건입니다. 다시 말해, <code>memory_order_relaxed</code> 방식으로 메모리에서 읽거나 쓸 경우, 주위의 다른 메모리 접근들과 순서가 바뀌어도 무방합니다.</p>
-
-<pre><code class="language-cpp">  b-&gt;store(1, memory_order_relaxed);      // b = 1 (쓰기)
-  int x = a-&gt;load(memory_order_relaxed);  // x = a (읽기)
-</code></pre>
-
-<h4 id="memory-order-acquire">memory_order_acquire</h4>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">  b<span style="color:#f92672">-&gt;</span>store(<span style="color:#ae81ff">1</span>, memory_order_relaxed);      <span style="color:#75715e">// b = 1 (쓰기)
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> a<span style="color:#f92672">-&gt;</span>load(memory_order_relaxed);  <span style="color:#75715e">// x = a (읽기)
+</span></code></pre></div><h4 id="memory_order_acquire">memory_order_acquire</h4>
 <p><code>memory_order_acquire</code> 의 경우, <code>release</code> 와는 반대로 <strong>해당 명령 뒤에 오는 모든 메모리 명령들이 해당 명령 위로 재배치 되는 것을 금지</strong> 합니다.</p>
-
-<h4 id="memory-order-acq-rel">memory_order_acq_rel</h4>
-
+<h4 id="memory_order_acq_rel">memory_order_acq_rel</h4>
 <p><code>memory_order_acq_rel</code> 은 이름에서도 알 수 있듯이, <code>acquire</code> 와 <code>release</code> 를 모두 수행하는 것입니다. 이는, 읽기와 쓰기를 모두 수행하는 명령들, 예를 들어서 <code>fetch_add</code> 와 같은 함수에서 사용될 수 있습니다.</p>
-
-<h4 id="memory-order-seq-cst">memory_order_seq_cst</h4>
-
+<h4 id="memory_order_seq_cst">memory_order_seq_cst</h4>
 <p><code>memory_order_seq_cst</code> 는 메모리 명령의 <strong>순차적 일관성(sequential consistency)</strong> 을 보장해줍니다.</p>
-
 <p>순차적 일관성이란, 메모리 명령 재배치도 없고, 모든 쓰레드에서 모든 시점에 동일한 값을 관찰할 수 있는, 여러분이 생각하는 그대로 CPU 가 작동하는 방식이라 생각하면 됩니다.</p>
-
 <p><code>memory_order_seq_cst</code> 를 사용하는 메모리 명령들 사이에선 이러한 순차적 일관성을 보장해줍니다.</p>
-
 <p>정리해보자면 다음과 같습니다.</p>
-
 <table>
 <thead>
 <tr>
@@ -334,25 +293,21 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
 <th>허용된 <code>memory order</code></th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>쓰기 (store)</td>
 <td><code>memory_order_relaxed</code>, <code>memory_order_release</code>, <code>memory_order_seq_cst</code></td>
 </tr>
-
 <tr>
 <td>읽기 (load)</td>
 <td><code>memory_order_relaxed</code>, <code>memory_order_consume</code>, <code>memory_order_acquire</code>, <code>memory_order_seq_cst</code></td>
 </tr>
-
 <tr>
 <td>읽고 - 수정하고 - 쓰기 (read - modify - write)</td>
 <td><code>memory_order_relaxed</code>, <code>memory_order_consume</code>, <code>memory_order_acquire</code>, <code>memory_order_release</code>, <code>memory_order_acq_rel</code>, <code>memory_order_seq_cst</code></td>
 </tr>
 </tbody>
 </table>
-
 <p><code>C++ atomic</code> 객체들의 경우 따로 지정하지 않는다면 기본으로 <code>memory_order_seq_cst</code> 로 설정되는데, 이는 일부 CPU 에서 매우 값비싼 명령 입니다. 만약에 제약 조건을 좀 더 느슨하게 할 수 있을 때 더 약한 수준의 <code>memory_order</code> 을 사용한다면 프로그램의 성능을 더 크게 향상 시킬 수 있습니다.</p>
               
             </div>
@@ -453,7 +408,7 @@ std::cout &lt;&lt; &quot;is lock free ? : &quot; &lt;&lt; boolalpha &lt;&lt; x.i
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

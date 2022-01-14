@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="C&#43;&#43;20에서 추가된 Ranges는 C#의 linq와 흡사하게 컨테이너의 데이터를 손쉽게 다룰 수 있는 다양한 알고리즘을 제공합니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,258 +254,227 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>C++20에서 추가된 Ranges는 C#의 linq와 흡사하게 컨테이너의 데이터를 손쉽게 다룰 수 있는 다양한 알고리즘을 제공합니다.</p>
-
 <h3 id="ranges-소개">Ranges 소개</h3>
-
 <ul>
-<li><p><strong>신규 헤더 ranges 추가</strong></p></li>
-
-<li><p><strong>아이템들의 집합</strong></p></li>
-
-<li><p><strong>iterable 할 수 있어야 함, concept range = requires -&gt; 최소 요구조건 begin(), end()</strong></p>
-
+<li>
+<p><strong>신규 헤더 ranges 추가</strong></p>
+</li>
+<li>
+<p><strong>아이템들의 집합</strong></p>
+</li>
+<li>
+<p><strong>iterable 할 수 있어야 함, concept range = requires -&gt; 최소 요구조건 begin(), end()</strong></p>
 <ul>
-<li>배열, std 컨테이너들 등
-
-<br /></li>
-</ul></li>
+<li>배열, std 컨테이너들 등</li>
 </ul>
-
+</li>
+</ul>
 <h3 id="views">Views</h3>
-
 <ol>
 <li><strong>DB의 view와 비슷하게 원본 컨테이너의 포인터 컨테이너를 만들어 원하는 만큼의 가시성을 제공함</strong></li>
 <li><strong>view 끼리 합 연산이 가능함</strong></li>
 <li><strong>view 변환이 가능함</strong></li>
 <li><strong>지연된 연산을 수행함 ( 명시 시점이 아닌, 실제 사용시 연산이 수행됨 )</strong></li>
 </ol>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;ranges&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ranges&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::vector&lt;int&gt; v = {1, 2, 3, 4, 5, 6, 7, 8, 9}
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
     
-    std::ranges::take_view tv(v, 3); // auto r1 v | std::views::take(3); 와 동일하며 뷰를 생성함
-    auto r1 v | std::views::take(3); // 같은 의미 다른 표현
+    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>take_view tv(v, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// auto r1 v | std::views::take(3); 와 동일하며 뷰를 생성함
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> r1 v <span style="color:#f92672">|</span> std<span style="color:#f92672">::</span>views<span style="color:#f92672">::</span>take(<span style="color:#ae81ff">3</span>); <span style="color:#75715e">// 같은 의미 다른 표현
+</span><span style="color:#75715e"></span>    
+   std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(r1).name() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+   std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(tv).name() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     
-   std::cout &lt;&lt; typeid(r1).name() &lt;&lt; std::endl;
-   std::cout &lt;&lt; typeid(tv).name() &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>transform_view trv(tv, [](<span style="color:#66d9ef">int</span> a) { std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;op&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#66d9ef">return</span> a<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>; });
     
-    std::ranges::transform_view trv(tv, [](int a) { std::cout &lt;&lt; &quot;op&quot; &lt;&lt; std::endl; return a*2; });
+    <span style="color:#75715e">// 위의 take_view와 transform을 합친 표현법
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> r <span style="color:#f92672">=</span> v <span style="color:#f92672">|</span> std<span style="color:#f92672">::</span>views<span style="color:#f92672">::</span>take(<span style="color:#ae81ff">3</span>) <span style="color:#f92672">|</span> std:views<span style="color:#f92672">::</span>transform( [](<span style="color:#66d9ef">int</span> a){ <span style="color:#66d9ef">return</span> a<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>; });
     
-    // 위의 take_view와 transform을 합친 표현법
-    auto r = v | std::views::take(3) | std:views::transform( [](int a){ return a*2; });
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;start iterating&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     
-    std::cout &lt;&lt; &quot;start iterating&quot; &lt;&lt; std::endl;
-    
-    auto p1 = std::ranges::begin(trv); 
-    std::cout &lt;&lt; *p1 &lt;&lt; std::endl; // 이 타이밍에 지연된 연산이 수행됨 -&gt; 출력 : 2
-    
-    for(auto n : r)
-        std::cout &lt;&lt; n &lt;&lt; std::endl; // 지연된 연산 : 2, 4, 6 출력
-}
-</code></pre>
-
-<h3 id="ref-view">Ref_view</h3>
-
+    <span style="color:#66d9ef">auto</span> p1 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>begin(trv); 
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p1 <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 이 타이밍에 지연된 연산이 수행됨 -&gt; 출력 : 2
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> n : r)
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 지연된 연산 : 2, 4, 6 출력
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="ref_view">Ref_view</h3>
 <ol>
 <li><strong>ref_view는 기존의 range에 대한 reference</strong></li>
 <li><strong>내부적으로 포인터 연산을 수행하는 구조</strong></li>
 </ol>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;ranges&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ranges&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::vector&lt;int&gt; v = {1, 2, 3, 4, 5, 6, 7, 8, 9}
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>}
     
-    std::ranges::ref_view rv(v);
+    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>ref_view rv(v);
     
-    auto p1 = rv.begin();
-    auto p2 = v.begin();
+    <span style="color:#66d9ef">auto</span> p1 <span style="color:#f92672">=</span> rv.begin();
+    <span style="color:#66d9ef">auto</span> p2 <span style="color:#f92672">=</span> v.begin();
     
-    std::cout &lt;&lt; *p1 &lt;&lt; std::endl; // 1
-    std::cout &lt;&lt; *p2 &lt;&lt; std::endl; // 2
-    
-    std::cout &lt;&lt; &amp;v &lt;&lt; std::endl;
-    std::cout &lt;&lt; &amp;(rv.base(()) &lt;&lt; std::endl; // 위 주소와 동일, rv가 참조하던 원본 주소 출력
-}
-</code></pre>
-
-<ol>
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p1 <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p2 <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 2
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>v <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>(rv.base(()) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 위 주소와 동일, rv가 참조하던 원본 주소 출력
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ol start="3">
 <li><strong>vector에 대한 기존 &amp;(참조) 문법을 사용하면 되는데, ref_view를 사용하는 이유?</strong></li>
 </ol>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;ranges&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ranges&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::vector&lt;int&gt; v1 = {1, 2, 3, 4, 5}
-    std::vector&lt;int&gt; v2 = {6, 7, 8, 9, 10}
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v2 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>}
     
-    // 기존 C++의 참조 : 이동 불가능한 참조
-    std::vector&lt;int&gt;&amp; r1(v1);
-    std::vector&lt;int&gt;&amp; r2(v2);
+    <span style="color:#75715e">// 기존 C++의 참조 : 이동 불가능한 참조
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> r1(v1);
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> r2(v2);
     
-    r1 = r2; // 이 의미는? -&gt; 이렇게 대입 시 vector 자체를 복사
+    r1 <span style="color:#f92672">=</span> r2; <span style="color:#75715e">// 이 의미는? -&gt; 이렇게 대입 시 vector 자체를 복사
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// ref_view를 사용시 std::refernce_wraaper의 range 버전이며, 이동 가능한 참조
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>ref_view rf1(v1);
+    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>ref_view rf2(v2);
     
-    // ref_view를 사용시 std::refernce_wraaper의 range 버전이며, 이동 가능한 참조
-    std::ranges::ref_view rf1(v1);
-    std::ranges::ref_view rf2(v2);
-    
-    std::cout &lt;&lt; v1[0] &lt;&lt; std:;endl; // 1
-    std::cout &lt;&lt; v2[0] &lt;&lt; std::endl; // 6
-    
-    std::cout &lt;&lt; rf1[0] &lt;&lt; std:;endl; // 6
-    std::cout &lt;&lt; rf2[0] &lt;&lt; std::endl; // 6
-}
-</code></pre>
-
-<ol>
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> v1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> std:;endl; <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> v2[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 6
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> rf1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> std:;endl; <span style="color:#75715e">// 6
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> rf2[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 6
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ol start="4">
 <li><strong>활용 예</strong></li>
 </ol>
-
-<pre><code class="language-cpp">template&lt;typename R&gt; class take_view
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> R<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">take_view</span>
 {
     R rg;
-    int count;
-public:
-    template&lt;typename A&gt;
-    take_view(A&amp;&amp; r, int cnt) : rg(std::forward&lt;A&gt;(r)), count(cnt)
+    <span style="color:#66d9ef">int</span> count;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> A<span style="color:#f92672">&gt;</span>
+    take_view(A<span style="color:#f92672">&amp;&amp;</span> r, <span style="color:#66d9ef">int</span> cnt) <span style="color:#f92672">:</span> rg(std<span style="color:#f92672">::</span>forward<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span>(r)), count(cnt)
         
-    // TODO : begin(), end() 구현
-};
-template&lt;typename A&gt;
-take_view(A&amp;&amp;, int) -&gt; take_view&lt; std::ranges::ref_view&lt;std::remove_reference_t&lt;A&gt; &gt; &gt;;
+    <span style="color:#75715e">// TODO : begin(), end() 구현
+</span><span style="color:#75715e"></span>};
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> A<span style="color:#f92672">&gt;</span>
+take_view(A<span style="color:#f92672">&amp;&amp;</span>, <span style="color:#66d9ef">int</span>) <span style="color:#f92672">-&gt;</span> take_view<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>ref_view<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>remove_reference_t<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span>;
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::vector&lt;int&gt; v1 = { 1, 2, 3, 4, 5};
-    std::vector&lt;int&gt; v1 = { 6, 7, 8, 9, 10};
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v1 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>};
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v1 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>};
     
-    take_view tv1(v1, 3);
-    take_view tv2(v2, 3);
+    take_view tv1(v1, <span style="color:#ae81ff">3</span>);
+    take_view tv2(v2, <span style="color:#ae81ff">3</span>);
     
-    tv1 = tv2;
+    tv1 <span style="color:#f92672">=</span> tv2;
 }
-</code></pre>
-
-<h3 id="reverse-view">Reverse_view</h3>
-
+</code></pre></div><h3 id="reverse_view">Reverse_view</h3>
 <p>view를 거꾸로 볼 수 있음</p>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;ranges&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ranges&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::vector&lt;int&gt; v1 = { 1, 2, 3, 4, 5};
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v1 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>};
     
-    std::ranges::revers_view rv1(v);
-    // auto rv1 = std::views::revers(v); // 위와 동일 표현
-    
-    for(auto n : rv1 )
-        std:;cout &lt;&lt; n &lt;&lt; &quot;, &quot;;
+    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>revers_view rv1(v);
+    <span style="color:#75715e">// auto rv1 = std::views::revers(v); // 위와 동일 표현
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> n : rv1 )
+        std:;cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span>;
 }
-</code></pre>
-
-<h3 id="filter-view">Filter_view</h3>
-
+</code></pre></div><h3 id="filter_view">Filter_view</h3>
 <p>원하는 조건 필터링 가능</p>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;ranges&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ranges&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::vector&lt;int&gt; v = { 1, 2, 3, 4, 5};
+	std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>};
     
-    std::ranges::filter_view fv(v, [](int n) { return n % 2 == 0 }); // 짝수만 필터링
-    // auto fv = std::views::filter(fv2, 3); // 같은 의미, 함수 객체를 생성하는 방법
-    // auto fv = v | std::views::filter( [](int n) { retgurn n % 2 = 0; }); // 파이프라인을 사용하는 같은 표현법 | 을 이용해서 여러
-                                                                            // 조건을 합칠 수 있음
-    
-    for(auto n : v1)
-        std::cout &lt;&lt; n &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>filter_view fv(v, [](<span style="color:#66d9ef">int</span> n) { <span style="color:#66d9ef">return</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> }); <span style="color:#75715e">// 짝수만 필터링
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// auto fv = std::views::filter(fv2, 3); // 같은 의미, 함수 객체를 생성하는 방법
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// auto fv = v | std::views::filter( [](int n) { retgurn n % 2 = 0; }); // 파이프라인을 사용하는 같은 표현법 | 을 이용해서 여러
+</span><span style="color:#75715e"></span>    																		<span style="color:#75715e">// 조건을 합칠 수 있음
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> n : v1)
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
-
-<h3 id="range-응용">Range 응용</h3>
-
+</code></pre></div><h3 id="range-응용">Range 응용</h3>
 <ul>
 <li><strong>정렬과 치환</strong></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;ranges&gt;
-#include &lt;algorithm&gt;
-
-int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ranges&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::vector&lt;int&gt; v = { 1, 2, 3, 4, 5};
-    std::sort(v.begin(), v.end()); // 기존 C++ 정렬 알고리즘 -&gt; 인자로 반복자 전달
+	std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>};
+    std<span style="color:#f92672">::</span>sort(v.begin(), v.end()); <span style="color:#75715e">// 기존 C++ 정렬 알고리즘 -&gt; 인자로 반복자 전달
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>range<span style="color:#f92672">::</span>sort(v); <span style="color:#75715e">// Range의 정렬 알고리즘 -&gt; 인자로 Range를 전달, 코드가 간결해짐
+</span><span style="color:#75715e"></span>    				     <span style="color:#75715e">// sort에 lamda로 정렬 조건 전달 가능
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">auto</span> fv <span style="color:#f92672">=</span> v <span style="color:#f92672">|</span> std<span style="color:#f92672">::</span>views<span style="color:#f92672">::</span>filter([](<span style="color:#66d9ef">int</span> n) { <span style="color:#66d9ef">return</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>; });
     
-    std::range::sort(v); // Range의 정렬 알고리즘 -&gt; 인자로 Range를 전달, 코드가 간결해짐
-                         // sort에 lamda로 정렬 조건 전달 가능
-    
-    auto fv = v | std::views::filter([](int n) { return n % 2 == 0; });
-    
-    std::ranges::replace_if( fv, [](int n) { return n &gt; 0;}, 0); //0보다 큰 것을 0으로 치환
-    
-    for ( auto n : v)
-        std::cout &lt;&lt; n &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>replace_if( fv, [](<span style="color:#66d9ef">int</span> n) { <span style="color:#66d9ef">return</span> n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>;}, <span style="color:#ae81ff">0</span>); <span style="color:#75715e">//0보다 큰 것을 0으로 치환
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">auto</span> n : v)
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li><strong>projection</strong></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;ranges&gt;
-#include &lt;algorithm&gt;
-#include &lt;fuctional&gt;
-#include &lt;string&gt;
-
-struct Person
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ranges&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fuctional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Person</span>
 {
-    std::string name;
-    int age;
+    std<span style="color:#f92672">::</span>string name;
+    <span style="color:#66d9ef">int</span> age;
 }
 
-int main
+<span style="color:#66d9ef">int</span> main
 {
-    std::vector&lt;Person&gt; v;
+    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Person<span style="color:#f92672">&gt;</span> v;
     
-    v.emplace_back(&quot;aa&quot;, 20);
-    v.emplace_back(&quot;xx&quot;, 22);
-    v.emplace_back(&quot;cc&quot;, 11);
-    v.emplace_back(&quot;oo&quot;, 54);
-    v.emplace_back(&quot;xx&quot;, 43);
+    v.emplace_back(<span style="color:#e6db74">&#34;aa&#34;</span>, <span style="color:#ae81ff">20</span>);
+    v.emplace_back(<span style="color:#e6db74">&#34;xx&#34;</span>, <span style="color:#ae81ff">22</span>);
+    v.emplace_back(<span style="color:#e6db74">&#34;cc&#34;</span>, <span style="color:#ae81ff">11</span>);
+    v.emplace_back(<span style="color:#e6db74">&#34;oo&#34;</span>, <span style="color:#ae81ff">54</span>);
+    v.emplace_back(<span style="color:#e6db74">&#34;xx&#34;</span>, <span style="color:#ae81ff">43</span>);
     
-    // range를 이용해서 나이순으로 간결하게 정렬하기
-    //std::ranges::sort(v, const Person&amp; p1, const Person&amp; p2) { return p1.age &lt; p2.age; }); // C++17 이전 가능하던 방법
-    
-    // C++20 range 활용 방법
-    std::ranges::sort(v, std::less{}, &amp;Person::age); // 구조체의 age를 기준으로 정렬( 새로운 방법 -&gt; projection )
-    
-    for (auto&amp;&amp; p : v)
-        std::cout &lt;&lt; p.name &lt;&lt; &quot; : &quot; &lt;&lt; p.age &lt;&lt; std::endl;
+    <span style="color:#75715e">// range를 이용해서 나이순으로 간결하게 정렬하기
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//std::ranges::sort(v, const Person&amp; p1, const Person&amp; p2) { return p1.age &lt; p2.age; }); // C++17 이전 가능하던 방법
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// C++20 range 활용 방법
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>ranges<span style="color:#f92672">::</span>sort(v, std<span style="color:#f92672">::</span>less{}, <span style="color:#f92672">&amp;</span>Person<span style="color:#f92672">::</span>age); <span style="color:#75715e">// 구조체의 age를 기준으로 정렬( 새로운 방법 -&gt; projection )
+</span><span style="color:#75715e"></span>    
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;&amp;</span> p : v)
+        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> p.name <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> p.age <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
-
-<p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
+</code></pre></div><p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
               
             </div>
           </div>
@@ -608,7 +576,7 @@ int main
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

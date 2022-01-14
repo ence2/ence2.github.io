@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번 시간에는 C&#43;&#43;의 atomic, memory order 등에 관해서 알아보겠습니다.">
@@ -94,7 +94,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -253,83 +252,73 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번 시간에는 C++의 atomic, memory order 등에 관해서 알아보겠습니다.</p>
-
-<h2 id="std-atomic">std::atomic</h2>
-
+<h2 id="stdatomic">std::atomic</h2>
 <h4 id="스레드간-동기화-문제가-발생할-때-해결하는-방법">스레드간 동기화 문제가 발생할 때 해결하는 방법</h4>
-
 <ol>
 <li>OS 제공 동기화 도구 사용 std::mutex</li>
 <li>CPU가 제공하는 OPCODE 사용 (인텔의 경우 lock prefix 사용, atomic operation)</li>
 </ol>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;mutex&gt;
-#include &lt;windows.h&gt;
-
-std::mutex m;
-long x = 0; // 모든 스레드가 공유.
-
-void foo()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+std<span style="color:#f92672">::</span>mutex m;
+<span style="color:#66d9ef">long</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// 모든 스레드가 공유.
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    for ( int i = 0; i &lt; 100000; ++i)
+    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100000</span>; <span style="color:#f92672">++</span>i)
     {
-//        m.lock();
-//        ++x;
-//        m.unlock();
-
-//        __asm
-//        {
-//            lock inc x
-//        }
-        InterlockedIncrement(&amp;x);
+<span style="color:#75715e">//        m.lock();
+</span><span style="color:#75715e">//        ++x;
+</span><span style="color:#75715e">//        m.unlock();
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//        __asm
+</span><span style="color:#75715e">//        {
+</span><span style="color:#75715e">//            lock inc x
+</span><span style="color:#75715e">//        }
+</span><span style="color:#75715e"></span>        InterlockedIncrement(<span style="color:#f92672">&amp;</span>x);
     }
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(foo);
-    std::thread t2(foo);
-    std::thread t3(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t3(foo);
     t1.join();
     t2.join();
     t3.join();
-    std::cout &lt;&lt; x &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
+</code></pre></div><h4 id="c-표준에서-제공하는-원자-연산-방법">C++ 표준에서 제공하는 원자 연산 방법</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atomic&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> x{<span style="color:#ae81ff">0</span>};
 
-<h4 id="c-표준에서-제공하는-원자-연산-방법">C++ 표준에서 제공하는 원자 연산 방법</h4>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;atomic&gt;
-
-std::atomic&lt;long&gt; x{0};
-
-void foo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    for ( int i = 0; i &lt; 100000; ++i)
+    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100000</span>; <span style="color:#f92672">++</span>i)
     {
-        // atomic op flag
-        ++x; // x.operator++()
-    }
+        <span style="color:#75715e">// atomic op flag
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">++</span>x; <span style="color:#75715e">// x.operator++()
+</span><span style="color:#75715e"></span>    }
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(foo);
-    std::thread t2(foo);
-    std::thread t3(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t3(foo);
     t1.join();
     t2.join();
     t3.join();
-    std::cout &lt;&lt; x &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
-
-<h4 id="std-atomic-연산">std::atomic 연산</h4>
-
+</code></pre></div><h4 id="stdatomic-연산">std::atomic 연산</h4>
 <table>
 <thead>
 <tr>
@@ -337,69 +326,56 @@ int main()
 <th>내 용</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>연산자 재정의</td>
 <td>++, &ndash;, +=, -=, &amp;=, ^=, |=</td>
 </tr>
-
 <tr>
 <td>멤버 함수</td>
 <td>fetch_add, fetch_sub, fetch_and, fetch_or, fetch_xor, is_lock_free, load, store</td>
 </tr>
 </tbody>
 </table>
-
 <ul>
 <li>fetch_ 함수들은 memory_order를 인자로 전달 할 수 있음</li>
 </ul>
-
 <h4 id="lock-free">lock-free</h4>
-
 <ul>
 <li>OS 수준 동기화 도구를 사용하지 않고, CPU level의 명령어를 사용해서 동기화 하는 것</li>
 </ul>
-
 <h2 id="memory-order">memory order</h2>
-
 <h4 id="reordering">Reordering</h4>
-
 <ul>
 <li>성능 향상을 위해서 어셈블리 레벨에서 코드의 실행훈서를 변경하는 것</li>
 <li>컴파일러 최적화에 의해 하단 코드가 의도한대로 동작하지 않을 수 있음(컴파일 시간 or 런타임 모두 발생)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atomic&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-<pre><code class="language-cpp">#include &lt;atomic&gt;
-int a = 0;
-int b = 0;
-
-// thread A
-void foo()
+<span style="color:#75715e">// thread A
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    a = b + 1;
-    //----- fence -----------
-    //__asm { mfence }
-    //std::atomic_thread_fence( std::memory_order_release); // reordering을 막는 방법
-    b = 1;
+    a <span style="color:#f92672">=</span> b <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#75715e">//----- fence -----------
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//__asm { mfence }
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//std::atomic_thread_fence( std::memory_order_release); // reordering을 막는 방법
+</span><span style="color:#75715e"></span>    b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 }
 
-// thread B
-void goo()
+<span style="color:#75715e">// thread B
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">goo</span>()
 {
-    if ( b == 1 )
+    <span style="color:#66d9ef">if</span> ( b <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> )
     {
-        // a == 1 을 보장할수 있을까 ?
-    }
+        <span style="color:#75715e">// a == 1 을 보장할수 있을까 ?
+</span><span style="color:#75715e"></span>    }
 }
-</code></pre>
-
-<h4 id="memory-order-옵션">memory order 옵션</h4>
-
+</code></pre></div><h4 id="memory-order-옵션">memory order 옵션</h4>
 <ul>
 <li>동기화 수준</li>
 </ul>
-
 <table>
 <thead>
 <tr>
@@ -407,100 +383,89 @@ void goo()
 <th>내 용</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>memory_order_relaxed</td>
 <td>오버헤드 가장 적음, atomic operation만 보장, 실행 순서 변경 가능</td>
 </tr>
-
 <tr>
 <td>memory_order_consume</td>
 <td></td>
 </tr>
-
 <tr>
 <td>memory_order_acquire</td>
 <td></td>
 </tr>
-
 <tr>
 <td>memory_order_release</td>
 <td></td>
 </tr>
-
 <tr>
 <td>memory_order_acq_rel</td>
 <td></td>
 </tr>
-
 <tr>
 <td>memory_order_cst</td>
 <td></td>
 </tr>
 </tbody>
 </table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atomic&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-<pre><code class="language-cpp">#include &lt;atomic&gt;
-#include &lt;thread&gt;
-
-std::atomic&lt;int&gt; x = 0;
-std::atomic&lt;int&gt; y = 0;
-
-void foo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    int n1 = y.load(std::memory_order_relaxed);
-    x.store(n1, std::memory_order_relaxed);
+    <span style="color:#66d9ef">int</span> n1 <span style="color:#f92672">=</span> y.load(std<span style="color:#f92672">::</span>memory_order_relaxed);
+   	x.store(n1, std<span style="color:#f92672">::</span>memory_order_relaxed);
 }
 
-void goo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">goo</span>()
 {
-    int n2 = x.load(std::memory_order_relaxed);
-    y.store(100, std::memory_order_relaxed);
+    <span style="color:#66d9ef">int</span> n2 <span style="color:#f92672">=</span> x.load(std<span style="color:#f92672">::</span>memory_order_relaxed);
+    y.store(<span style="color:#ae81ff">100</span>, std<span style="color:#f92672">::</span>memory_order_relaxed);
 }
 
-void main()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(foo);
-    std::thread t2(goo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(goo);
 }
-</code></pre>
-
-<h4 id="release-acqure-모델">release-acqure 모델</h4>
-
+</code></pre></div><h4 id="release-acqure-모델">release-acqure 모델</h4>
 <ul>
 <li>release 이전의 코드는 acquire 이후에 읽을 수 있다는 것을 보장</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;atomic&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> data1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> data2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+std<span style="color:#f92672">::</span>atomic<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-<pre><code class="language-cpp">#include &lt;atomic&gt;
-#include &lt;thread&gt;
-
-std::atomic&lt;int&gt; data1 = 0;
-std::atomic&lt;int&gt; data2 = 0;
-std::atomic&lt;int&gt; flag = 0;
-
-void foo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>()
 {
-    data1.store(100, std::memory_order_relaxed);
-    data2.store(200, std::memory_order_relaxed);
-    flag.store(1, std::memory_order_release);
+    data1.store(<span style="color:#ae81ff">100</span>, std<span style="color:#f92672">::</span>memory_order_relaxed);
+    data2.store(<span style="color:#ae81ff">200</span>, std<span style="color:#f92672">::</span>memory_order_relaxed);
+   	flag.store(<span style="color:#ae81ff">1</span>, std<span style="color:#f92672">::</span>memory_order_release);
 }
 
-void goo()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">goo</span>()
 {
-    if (flag.load(std::memory_order_acquire) &gt; 0)
+	<span style="color:#66d9ef">if</span> (flag.load(std<span style="color:#f92672">::</span>memory_order_acquire) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)
     {
-       assert(data2.load(std::memory_order_relaxed) == 10);
-       assert(data2.load(std::memory_order_relaxed) == 20);
+       assert(data2.load(std<span style="color:#f92672">::</span>memory_order_relaxed) <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span>);
+       assert(data2.load(std<span style="color:#f92672">::</span>memory_order_relaxed) <span style="color:#f92672">==</span> <span style="color:#ae81ff">20</span>);
     }
 }
 
-void main()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>()
 {
-    std::thread t1(foo);
-    std::thread t2(goo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(foo);
+    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t2(goo);
 }
-</code></pre>
+</code></pre></div>
               
             </div>
           </div>
@@ -600,7 +565,7 @@ void main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

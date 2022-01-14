@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>C&#43;&#43; on Keep calm carry on</title>
@@ -6,11 +6,7 @@
     <description>Recent content in C&#43;&#43; on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 25 Oct 2021 07:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://ence2.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 25 Oct 2021 07:00:00 +0900</lastBuildDate><atom:link href="https://ence2.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43; Concurrent - Parallel STL[5]</title>
       <link>https://ence2.github.io/2021/10/c-concurrent-parallel-stl5/</link>
@@ -40,10 +36,10 @@
     
     <item>
       <title>C&#43;&#43; Concurrent - Promise / future / async[2]</title>
-      <link>https://ence2.github.io/2021/09/c-concurrent-promise-future-async2/</link>
+      <link>https://ence2.github.io/2021/09/c-concurrent-promise-/-future-/-async2/</link>
       <pubDate>Tue, 21 Sep 2021 07:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/09/c-concurrent-promise-future-async2/</guid>
+      <guid>https://ence2.github.io/2021/09/c-concurrent-promise-/-future-/-async2/</guid>
       <description>&lt;p&gt;이번 시간에는 C++의 비동기 처리 관련 기술을 살펴보겠습니다.&lt;/p&gt;</description>
     </item>
     
@@ -153,7 +149,7 @@
       <pubDate>Sun, 27 Jun 2021 08:00:00 +0900</pubDate>
       
       <guid>https://ence2.github.io/2021/06/c-stl-utility6/</guid>
-      <description>&lt;p&gt;이번 시간에는 STL의 스마트 포인터, &lt;chrono&gt;, &lt;function&gt;에 대해 살펴보겠습니다.&lt;/p&gt;</description>
+      <description>&lt;p&gt;이번 시간에는 STL의 스마트 포인터, &lt;!-- raw HTML omitted --&gt;, &lt;!-- raw HTML omitted --&gt;에 대해 살펴보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -163,7 +159,6 @@
       
       <guid>https://ence2.github.io/2021/06/c-stl-stl-%EC%84%A4%EA%B3%84-%EC%B2%A0%ED%95%992/</guid>
       <description>&lt;p&gt;이번 시간에는 다음 내용을 살펴보겠습니다.&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;제너릭 알고리즘의 개념, 컨테이너와 알고리즘의 연결(iterator)&lt;/li&gt;
 &lt;li&gt;STL의 구조와 유사한 방식으로 간략한 라이브러리 설계&lt;/li&gt;
@@ -179,7 +174,6 @@
       
       <guid>https://ence2.github.io/2021/06/c-stl-preview1/</guid>
       <description>&lt;p&gt;C++ 표준 라이브러리인 STL에 대해서 학습하는 시리즈입니다. 단순한 STL의 사용법 뿐 아니라 STL의 주요 요소를 직접 구현해 보면서 STL의 설계 철학도 배우게 됩니다.&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;STL의 단순한 개념뿐 아니라 iterator_category, iterator_traits 등의 깊이 있는 개념을 배우게 됩니다.&lt;/li&gt;
 &lt;li&gt;shared_ptr&amp;lt;&amp;gt;, weak_ptr&amp;lt;&amp;gt;, unique_ptr&amp;lt;&amp;gt;등의 스마트 포인터에 대해서 배우게 됩니다.&lt;/li&gt;
@@ -189,84 +183,83 @@
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - Lambda expression[9]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</link>
       <pubDate>Wed, 28 Apr 2021 08:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-lambda-expression9/</guid>
       <description>&lt;p&gt;Lambda expression과 관련한 인라인 함수, function object, 람다 표현, closure object, 캡쳐 변수, 고급 람다 표현, invoke 등에 대해 알아보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - Perfect forwarding[8]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</link>
       <pubDate>Tue, 27 Apr 2021 06:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-perfect-forwarding8/</guid>
       <description>&lt;p&gt;Perfect forwarding 의 개념과 구현 방법을 배웁니다. forwarding reference 를 사용한 perfect forwarding을 알아 보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - rvalue와 lvalue, move semantics[7]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/</link>
       <pubDate>Mon, 26 Apr 2021 09:30:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-rvalue%EC%99%80-lvalue-move-semantics7/</guid>
       <description>&lt;p&gt;임시 객체,  rvalue, lvalue, 레퍼런스 붕괴 규칙, 우측값 참조, move semantics에 대해 알아 보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; auto / decltype type deduction[6]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-/-decltype-type-deduction6/</link>
       <pubDate>Thu, 22 Apr 2021 02:30:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-decltype-type-deduction6/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-auto-/-decltype-type-deduction6/</guid>
       <description>&lt;p&gt;C++11에서 추가된 auto/decltype 문법은 쉬워 보이지만 컴파일러가 타입을 결정하는 규칙은 쉽지 않습니다. 또한, 배열과 auto 관계를 정확하게 이해 하기 위해서는 배열 이름의 의미를 정확히 파악하는 것이 좋습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 객체 초기화[5]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EA%B0%9D%EC%B2%B4-%EC%B4%88%EA%B8%B0%ED%99%945/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-%EA%B0%9D%EC%B2%B4-%EC%B4%88%EA%B8%B0%ED%99%945/</link>
       <pubDate>Thu, 22 Apr 2021 00:30:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EA%B0%9D%EC%B2%B4-%EC%B4%88%EA%B8%B0%ED%99%945/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-%EA%B0%9D%EC%B2%B4-%EC%B4%88%EA%B8%B0%ED%99%945/</guid>
       <description>&lt;p&gt;C++11의 등장으로 객체를 초기화 하는 방법에는 많은 변화가 생겼습니다. 기존 초기화 방식의 문제점을 살펴 보고, &amp;ldquo;uniform initialization&amp;rdquo;, &amp;ldquo;direct vs copy&amp;rdquo;, &amp;ldquo;defalue vs value&amp;rdquo; 등 새로운 초기화 방법에 대해 살펴보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 17 기본 문법[4]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-17-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%954/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-17-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%954/</link>
       <pubDate>Wed, 21 Apr 2021 09:50:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-17-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%954/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-17-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%954/</guid>
       <description>&lt;p&gt;C++17 에서 추가된 다양한 문법을 빠르게 소개합니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 11/14 기본 문법[3]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-11-14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-11/14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</link>
       <pubDate>Tue, 20 Apr 2021 09:50:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-11-14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</guid>
-      <description>&lt;p&gt;C++&lt;sup&gt;11&lt;/sup&gt;&amp;frasl;&lt;sub&gt;14&lt;/sub&gt; 에서 추가된 다양한 문법을 빠르게 소개합니다.&lt;/p&gt;</description>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-11/14-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%953/</guid>
+      <description>&lt;p&gt;C++11/14 에서 추가된 다양한 문법을 빠르게 소개합니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - C&#43;&#43; 중요 기본 문법 다시보기[2]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</link>
       <pubDate>Thu, 15 Apr 2021 10:50:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</guid>
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-c-%EC%A4%91%EC%9A%94-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-%EB%8B%A4%EC%8B%9C%EB%B3%B4%EA%B8%B02/</guid>
       <description>&lt;p&gt;C++ 버전과 역사에 대해서 알아보고, 기본 문법의 This call, New, Name mangling, Conversion 등에 대해 알아보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>C&#43;&#43; 고급 문법/테크닉 - 개요[1]</title>
-      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</link>
+      <link>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</link>
       <pubDate>Thu, 15 Apr 2021 09:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</guid>
-      <description>&lt;p&gt;C++ 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C++ 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C++ 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C++&lt;sup&gt;98&lt;/sup&gt;&amp;frasl;&lt;sub&gt;03&lt;/sub&gt; 문법 뿐 아니라 C++&lt;sup&gt;11&lt;/sup&gt;&amp;frasl;&lt;sub&gt;14&lt;/sub&gt; 그리고 C++17/20의 내용도 배우게 됩니다.&lt;/p&gt;
-
+      <guid>https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/</guid>
+      <description>&lt;p&gt;C++ 관련 고급 문법과 다양한 고급 테크닉을 공부하겠습니다. C++ 언어의 문법들을 다양한 관점에서 깊이 있게 살펴 보고, C++ 진영에서 사용되는 다양한 코딩 관례, 테크닉을 깊이 있는 관점에서 배우게 됩니다. C++98/03 문법 뿐 아니라 C++11/14 그리고 C++17/20의 내용도 배우게 됩니다.&lt;/p&gt;
 &lt;p&gt;C++ 문법 뿐 아니라 C++ IDioms라고 알려져 있는 다양한 테크닉도 배우게 되며, 이 시리즈에서는 C++ 기본 문법을 다루지 않습니다.&lt;/p&gt;</description>
     </item>
     
@@ -376,7 +369,6 @@
       
       <guid>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-%EC%A0%88-concept6/</guid>
       <description>&lt;p&gt;C++20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.&lt;/p&gt;
-
 &lt;p&gt;사용자가 만들 수 도 있고, 미리 만들어 져 있는 C++ 표준 Concept로도 제공합니다.&lt;/p&gt;</description>
     </item>
     
@@ -387,7 +379,6 @@
       
       <guid>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-designated-initialization-constexpr-consteval-etc..5/</guid>
       <description>&lt;p&gt;다음의 C++20에 추가된 기능을 살펴보겠습니다.&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;Designated Initialization(지정된 초기화)&lt;/li&gt;
 &lt;li&gt;Constexpr&lt;/li&gt;
@@ -403,7 +394,6 @@
       
       <guid>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-three-way-comparison4/</guid>
       <description>&lt;p&gt;c++20에는 새로된 연산자 &amp;lt;=&amp;gt; (three-way comparison operator)가 추가되었습니다.&lt;/p&gt;
-
 &lt;p&gt;이 연산자의 의미는 다음과 같습니다.&lt;/p&gt;</description>
     </item>
     
@@ -414,9 +404,7 @@
       
       <guid>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-attributes3/</guid>
       <description>&lt;p&gt;Attributes는 C++17에서 추가된 문법입니다.&lt;/p&gt;
-
 &lt;p&gt;Attributes는 컴파일러 지시문으로 표준이 나오기 전에는 컴파일러마다 다른 방식으로 사용했습니다.&lt;/p&gt;
-
 &lt;p&gt;C++ 20에서 추가된 Attributes는 다음과 같습니다.&lt;/p&gt;</description>
     </item>
     
@@ -427,7 +415,6 @@
       
       <guid>https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-%EB%9E%8C%EB%8B%A4%EC%9D%98-%EB%B3%80%ED%99%942/</guid>
       <description>&lt;p&gt;C++20 에서 추가된 람다 표현식의 특징은 다음과 같습니다.&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;템플릿 사용 가능&lt;/li&gt;
 &lt;li&gt;평가 되지 않은 표현식 사용 가능&lt;/li&gt;
@@ -455,20 +442,17 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
       
       <guid>https://ence2.github.io/2020/11/stdadvance-%EC%98%88%EC%A0%9C/</guid>
       <description>&lt;p&gt;iterator를 원하는 위치로 옮길 수 있는 함수이다. 컨테이너의 iterator를 i번째 위치로 옮기고 싶을 때 사용할 수 있습니다.&lt;/p&gt;
-
 &lt;p&gt;표현식 std::advance(i, n)은 반복자 i를 거리 n만큼 증가시킵니다.&lt;/p&gt;
-
 &lt;ul&gt;
-&lt;li&gt;n &amp;gt; 0 이면,&lt;/li&gt;
-&lt;/ul&gt;
-
+&lt;li&gt;
+&lt;p&gt;n &amp;gt; 0 이면,&lt;/p&gt;
 &lt;p&gt;++i를 n번 수행하는 것과 동등(다만, __InIter 형식이 임의접근 반복자의 모형이면 advance가 훨씬 더 빠릅니다.)&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;n &amp;lt; 0 이면,&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&amp;ndash;i를 n번 수행하는 것과 동등합니다.&lt;/p&gt;</description>
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;n &amp;lt; 0 이면,&lt;/p&gt;
+&lt;p&gt;&amp;ndash;i를 n번 수행하는 것과 동등합니다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -487,8 +471,7 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
       
       <guid>https://ence2.github.io/2020/11/c-%EB%B3%80%EC%88%98-%ED%83%80%EC%9E%85-%EC%B5%9C%EB%8C%80-%EC%B5%9C%EC%86%8C%EA%B0%92-%ED%8E%B8%EB%A6%AC%ED%95%98%EA%B2%8C-%ED%99%95%EC%9D%B8%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-stdnumeric_limits/</guid>
       <description>&lt;p&gt;numeric_limits 클래스 템플릿은 템플릿 특수화로 구현되었고, 명시한 타입의 최대값이나 최소값을 질의 할 수 있는 표준화 된 방법을 제공합니다.&lt;/p&gt;
-
-&lt;p&gt;(예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits &lt;int&gt; :: max ())&lt;/p&gt;</description>
+&lt;p&gt;(예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits &lt;!-- raw HTML omitted --&gt; :: max ())&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -497,8 +480,7 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
       <pubDate>Sat, 14 Nov 2020 22:48:24 +0900</pubDate>
       
       <guid>https://ence2.github.io/2020/11/stdlock_guard/</guid>
-      <description>&lt;h4 id=&#34;std-lock-guard&#34;&gt;std::lock_guard&lt;/h4&gt;
-
+      <description>&lt;h4 id=&#34;stdlock_guard&#34;&gt;std::lock_guard&lt;/h4&gt;
 &lt;p&gt;std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.&lt;/p&gt;</description>
     </item>
     
@@ -527,7 +509,6 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
       
       <guid>https://ence2.github.io/2020/11/%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%9C-shared_ptr-%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%95%98%EA%B2%8C-%EC%A7%80%EC%9A%B0%EB%8A%94-%EB%B2%95/</guid>
       <description>&lt;p&gt;스마트포인터 shared_ptr의 경우 참조 카운팅이 zero가 되어야 삭제 되는데, 그 시점이 약간 애매 할 수 있어 여러가지 처리를 해 줘야 합니다.&lt;/p&gt;
-
 &lt;p&gt;shared_ptr 생성 시점에서 deleter를 전달 할 수 있고 이를 활용하면 스마트 포인터를 더욱 스마트하게 사용 할 수 있습니다.&lt;/p&gt;</description>
     </item>
     
@@ -538,9 +519,7 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
       
       <guid>https://ence2.github.io/2020/11/then%EA%B3%BC-unwrap%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-future%EC%9D%98-%EB%8B%A4%EC%A4%91-%EC%97%B0%EC%86%8D-%EA%B5%AC%ED%98%84/</guid>
       <description>&lt;p&gt;비동기 프로그래밍에서 futue는 강력한 도구입니다.&lt;/p&gt;
-
 &lt;p&gt;이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.&lt;/p&gt;
-
 &lt;p&gt;future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.&lt;/p&gt;</description>
     </item>
     
@@ -551,9 +530,7 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
       
       <guid>https://ence2.github.io/2020/11/c-google-coding-convention-style-%EC%A0%95%EB%A6%AC/</guid>
       <description>&lt;p&gt;코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.&lt;/p&gt;
-
 &lt;p&gt;컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.&lt;/p&gt;
-
 &lt;p&gt;컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.&lt;/p&gt;</description>
     </item>
     
@@ -563,16 +540,11 @@ C++20 에 추가된 다양한 문법과 라이브러리를 정리합니다.
       <pubDate>Tue, 10 Nov 2020 22:02:59 +0900</pubDate>
       
       <guid>https://ence2.github.io/2020/11/stdfor_each%EC%99%80-stdtransform/</guid>
-      <description>&lt;h2 id=&#34;for-each&#34;&gt;for_each&lt;/h2&gt;
-
-&lt;p&gt;&lt;algorithm&gt; 에 정의됨&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;template &amp;lt;class InputIterator, class Function&amp;gt;
+      <description>&lt;h2 id=&#34;for_each&#34;&gt;for_each&lt;/h2&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt; 에 정의됨&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;template&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;InputIterator&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Function&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
 Function for_each(InputIterator first, InputIterator last, Function fn);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;범위 내에 원소들에 대해 함수를 실행시킵니다.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;범위 내에 원소들에 대해 함수를 실행시킵니다.&lt;/p&gt;
 &lt;p&gt;범위 내 (&lt;code&gt;first&lt;/code&gt; 부터 &lt;code&gt;last&lt;/code&gt; 전 까지) 원소들 각각에 대해 함수 &lt;code&gt;fn&lt;/code&gt; 을 실행한다. 참고로 함수의 리턴값은 무시됩니다.&lt;/p&gt;</description>
     </item>
     
@@ -583,7 +555,6 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
       
       <guid>https://ence2.github.io/2020/11/stdinvoke/</guid>
       <description>&lt;h2 id=&#34;개요&#34;&gt;개요&lt;/h2&gt;
-
 &lt;p&gt;지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C + + 17에 추가 되었습니다.&lt;/p&gt;</description>
     </item>
     
@@ -602,16 +573,11 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
       <pubDate>Mon, 09 Nov 2020 21:45:07 +0900</pubDate>
       
       <guid>https://ence2.github.io/2020/11/stdatomic-memory_order/</guid>
-      <description>&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;std::atomic&amp;lt;T&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;std::atomic&amp;lt;int&amp;gt; x;
-std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt; boolalpha &amp;lt;&amp;lt; x.is_lock_free() &amp;lt;&amp;lt; std::endl;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.&lt;/p&gt;</description>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;atomic&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;T&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;동기화 객체 없이 원자적 계산 가능합니다..(CPU 지원 필요)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;atomic&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; x;
+std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;cout &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;is lock free ? : &amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; boolalpha &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; x.is_lock_free() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;endl;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;is lock free가 true인 경우 CPU에서 지원 해주는 것입니다.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -621,7 +587,6 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       
       <guid>https://ence2.github.io/2020/11/boostmake_ready_future/</guid>
       <description>&lt;h4 id=&#34;making-immediate-futures-easier&#34;&gt;Making immediate futures easier&lt;/h4&gt;
-
 &lt;p&gt;일부 함수는 구성 시점에서 값을 알 수 있습니다. 이 경우 값을 즉시 사용할 수 있지만 future 또는 shared_future로 반환해야합니다. make_ready_future를 사용하면 공유 상태에서 미리 계산 된 결과를 보유하는 future를 만들 수 있습니다.&lt;/p&gt;</description>
     </item>
     
@@ -631,7 +596,7 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       <pubDate>Sun, 08 Nov 2020 23:31:17 +0900</pubDate>
       
       <guid>https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/</guid>
-      <description>&lt;p&gt;비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 future에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &amp;ldquo;연결&amp;rdquo;됩니다. then 함수를 사용하여 등록 된 연속 futue는 대기를 차단하거나 폴링 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다&lt;/p&gt;</description>
+      <description>&lt;p&gt;비동기 프로그래밍에서 하나의 비동기 작업이 완료되면 두 번째 작업을 호출하고 여기에 데이터를 전달하는 것이 매우 일반적입니다. 현재 C ++ 표준은 future에 대한 연속 등록을 허용하지 않습니다. 를 사용하면 결과를 기다리는 대신 결과가 준비되면 호출되는 비동기 작업에 연속 작업이 &amp;ldquo;연결&amp;quot;됩니다. then 함수를 사용하여 등록 된 연속 futue는 대기를 차단하거나 폴링 스레드를 낭비하지 않도록하여 애플리케이션의 응답 성과 확장 성을 크게 향상시킵니다&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -640,26 +605,21 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       <pubDate>Sun, 08 Nov 2020 23:22:20 +0900</pubDate>
       
       <guid>https://ence2.github.io/2020/11/std-upper_bound/</guid>
-      <description>&lt;h3 id=&#34;upper-bound&#34;&gt;upper_bound&lt;/h3&gt;
-
+      <description>&lt;h3 id=&#34;upper_bound&#34;&gt;upper_bound&lt;/h3&gt;
 &lt;p&gt;컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>#define 매크로, const와 차이점, 유의 사항</title>
-      <link>https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</link>
+      <link>https://ence2.github.io/2020/11/#define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</link>
       <pubDate>Sun, 08 Nov 2020 23:10:09 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</guid>
+      <guid>https://ence2.github.io/2020/11/#define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/</guid>
       <description>&lt;h3 id=&#34;define-상수&#34;&gt;#define 상수&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;#define 상수명 값
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;define-지시문-매크로-함수&#34;&gt;#define 지시문 (매크로 함수)&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;#define 식별자(인수1, 인수2 ...) 토큰열
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define 상수명 값
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;define-지시문-매크로-함수&#34;&gt;#define 지시문 (매크로 함수)&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define 식별자(인수1, 인수2 ...) 토큰열
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -678,9 +638,7 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       
       <guid>https://ence2.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
       <description>&lt;p&gt;C++의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.&lt;/p&gt;
-
 &lt;p&gt;Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.&lt;/p&gt;
-
 &lt;p&gt;begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.&lt;/p&gt;</description>
     </item>
     
@@ -691,16 +649,13 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       
       <guid>https://ence2.github.io/2020/11/c-%EC%BA%90%EC%8A%A4%ED%8C%85-%EC%B4%9D%EC%A0%95%EB%A6%AC%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%AC%EC%9D%B8%ED%84%B0-%EC%BA%90%EC%8A%A4%ED%8C%85-%ED%8F%AC%ED%95%A8/</guid>
       <description>&lt;p&gt;캐스트는 자료형간 또는 포인터간 형변환시 사용됩니다.&lt;/p&gt;
-
 &lt;p&gt;캐스트는 크게 묵시적 캐스트(implicit cast)와 명시적 캐스트(explicit cast) 두 가지로 나눌 수 있습니다.&lt;/p&gt;
-
 &lt;p&gt;특별히 캐스트 연산자를 사용하지 않고 형변환이 이루어지는 경우를 &amp;ldquo;묵시적 캐스트&amp;rdquo; 라고 합니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;   int i = 10;
-   char c = i;         // 묵시적 캐스트
-   char c = (char) i;  // 명시적 캐스트 (c-style)
-   char c = static_cast&amp;lt;char&amp;gt;(i) // C++ style
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; i;         &lt;span style=&#34;color:#75715e&#34;&gt;// 묵시적 캐스트
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;) i;  &lt;span style=&#34;color:#75715e&#34;&gt;// 명시적 캐스트 (c-style)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static_cast&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;(i) &lt;span style=&#34;color:#75715e&#34;&gt;// C++ style
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -710,9 +665,7 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       
       <guid>https://ence2.github.io/2020/11/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%82%BD%EC%9E%85%EC%8B%9C-insert%EC%99%80-emplace-%EC%B0%A8%EC%9D%B4/</guid>
       <description>&lt;h3 id=&#34;insert와-emplace&#34;&gt;Insert와 Emplace&lt;/h3&gt;
-
 &lt;p&gt;둘 다 컨테이너에 데이터를 삽입 하는 행위이나 차이가 있습니다.&lt;/p&gt;
-
 &lt;p&gt;Insert로 삽입 시 Map의 경우 std::make_pair를 이용해야하며, emplace는 간단하게 삽입이 가능하며, 내부 동작 또한 다릅니다.&lt;/p&gt;</description>
     </item>
     
@@ -722,8 +675,7 @@ std::cout &amp;lt;&amp;lt; &amp;quot;is lock free ? : &amp;quot; &amp;lt;&amp;lt
       <pubDate>Sun, 08 Nov 2020 21:38:48 +0900</pubDate>
       
       <guid>https://ence2.github.io/2020/11/stdtie-%EC%82%AC%EC%9A%A9%EB%B2%95/</guid>
-      <description>&lt;h3 id=&#34;std-tie&#34;&gt;std::tie&lt;/h3&gt;
-
+      <description>&lt;h3 id=&#34;stdtie&#34;&gt;std::tie&lt;/h3&gt;
 &lt;p&gt;pair, tuple으로 묶인 녀석들을 던저서 여러 변수에 한번에 받아 올 수 있습니다.&lt;/p&gt;</description>
     </item>
     

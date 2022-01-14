@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번시간에는 Composite 패턴, Decorator 패턴에 대해 살펴보겠습니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,428 +254,401 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번시간에는 Composite 패턴, Decorator 패턴에 대해 살펴보겠습니다.</p>
-
 <h2 id="1-composite-패턴">1. Composite 패턴</h2>
-
 <h4 id="개념">개념</h4>
-
 <ul>
 <li>개체들을 트리 구조로 구성하여 부분과 전체를 나타내는 계층 구조 표현</li>
 <li>개별 객체와 복합 객체를 구별하지 않고 동일한 방법(다형성)으로 다룰 수 있음</li>
 </ul>
-
 <h4 id="composite-패턴을-활용한-메뉴-구조-만들기">Composite 패턴을 활용한 메뉴 구조 만들기</h4>
-
 <ul>
 <li>상속 관계를 통해 구현</li>
 <li>파생 클래스에서 포함 관계를 표현하는 컨테이너 정의시 기반 클래스 형태로 선언(모든 타입의 파생 클래스를 담을 수 있음)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-class BaseMenu
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BaseMenu</span>
 {
     string title;
-public:
-    BaseMenu( string s) : title(s) {}
-    string getTitle() const { return title;}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    BaseMenu( string s) <span style="color:#f92672">:</span> title(s) {}
+    string <span style="color:#a6e22e">getTitle</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> title;}
 
-    virtual BaseMenu* getSubMenu(int idx)
+    <span style="color:#66d9ef">virtual</span> BaseMenu<span style="color:#f92672">*</span> <span style="color:#a6e22e">getSubMenu</span>(<span style="color:#66d9ef">int</span> idx)
     {
-        throw &quot;unsupported function..&quot;
-        return 0;
+        <span style="color:#66d9ef">throw</span> <span style="color:#e6db74">&#34;unsupported function..&#34;</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
     }
-    void addMenu(BaseMenu* p)
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addMenu</span>(BaseMenu<span style="color:#f92672">*</span> p)
     {
-         throw &quot;unsupported function..&quot;;
+         <span style="color:#66d9ef">throw</span> <span style="color:#e6db74">&#34;unsupported function..&#34;</span>;
      }
 
-    virtual void command() = 0;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">command</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 };
 
-class MenuItem : public BaseMenu
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MenuItem</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> BaseMenu
 {
-    int id;
-public:
-    MenuItem(string s, int n) : BaseMenu(s),  id(n) {}
+    <span style="color:#66d9ef">int</span> id;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    MenuItem(string s, <span style="color:#66d9ef">int</span> n) <span style="color:#f92672">:</span> BaseMenu(s),  id(n) {}
 
-    virtual void command()
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">command</span>()
     {
-        cout &lt;&lt; getTitle() &lt;&lt; endl;
+        cout <span style="color:#f92672">&lt;&lt;</span> getTitle() <span style="color:#f92672">&lt;&lt;</span> endl;
         getchar();
     }
 };
 
-class PopupMenu : public BaseMenu
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PopupMenu</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> BaseMenu
 {
-    vector&lt;BaseMenu*&gt; v;
-public:
-    PopupMenu( string s) : BaseMenu(s) {}
+    vector<span style="color:#f92672">&lt;</span>BaseMenu<span style="color:#f92672">*&gt;</span> v;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    PopupMenu( string s) <span style="color:#f92672">:</span> BaseMenu(s) {}
 
-    void addMenu(BaseMenu* p) { v.push_back(p);}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addMenu</span>(BaseMenu<span style="color:#f92672">*</span> p) { v.push_back(p);}
 
-    virtual void command()
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">command</span>()
     {
-        while( 1 )
+        <span style="color:#66d9ef">while</span>( <span style="color:#ae81ff">1</span> )
         {
-            system(&quot;cls&quot;);
+            system(<span style="color:#e6db74">&#34;cls&#34;</span>);
 
-            int sz = v.size();
+            <span style="color:#66d9ef">int</span> sz <span style="color:#f92672">=</span> v.size();
 
-            for ( int i = 0; i &lt; sz; i++)
+            <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> sz; i<span style="color:#f92672">++</span>)
             {
-                cout &lt;&lt; i + 1 &lt;&lt; &quot;. &quot; &lt;&lt; v[i]-&gt;getTitle() &lt;&lt; endl;
+                cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;. &#34;</span> <span style="color:#f92672">&lt;&lt;</span> v[i]<span style="color:#f92672">-&gt;</span>getTitle() <span style="color:#f92672">&lt;&lt;</span> endl;
             }
 
-            cout &lt;&lt; sz + 1 &lt;&lt; &quot;. 상위 메뉴로&quot; &lt;&lt; endl;
+            cout <span style="color:#f92672">&lt;&lt;</span> sz <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;. 상위 메뉴로&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 
-            //------------------------------
-            int cmd;
-            cout &lt;&lt; &quot;메뉴를 선택하세요 &gt;&gt; &quot;;
-            cin &gt;&gt; cmd;
+            <span style="color:#75715e">//------------------------------
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">int</span> cmd;
+            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;메뉴를 선택하세요 &gt;&gt; &#34;</span>;
+            cin <span style="color:#f92672">&gt;&gt;</span> cmd;
 
-            if ( cmd &lt; 1 || cmd &gt; sz + 1 )
-                continue;
+            <span style="color:#66d9ef">if</span> ( cmd <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> cmd <span style="color:#f92672">&gt;</span> sz <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> )
+                <span style="color:#66d9ef">continue</span>;
 
-            if ( cmd == sz + 1 )
-                break;
+            <span style="color:#66d9ef">if</span> ( cmd <span style="color:#f92672">==</span> sz <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> )
+                <span style="color:#66d9ef">break</span>;
             
-            // 다형성
-            v[cmd-1]-&gt; command();
+            <span style="color:#75715e">// 다형성
+</span><span style="color:#75715e"></span>            v[cmd<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span> command();
         }
 
     }
-    BaseMenu* getSubMenu(int idx)
+    BaseMenu<span style="color:#f92672">*</span> <span style="color:#a6e22e">getSubMenu</span>(<span style="color:#66d9ef">int</span> idx)
     {
-        return v[idx];
+        <span style="color:#66d9ef">return</span> v[idx];
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    PopupMenu* menubar = new PopupMenu(&quot;mebuBar&quot;);
-    PopupMenu* pm1 = new PopupMenu(&quot;화면설정&quot;);
-    PopupMenu* pm2 = new PopupMenu(&quot;소리설정&quot;);
-    MenuItem*  m1  = new MenuItem(&quot;정보 확인&quot;, 11);
-    menubar-&gt;addMenu( pm1 );
-    menubar-&gt;addMenu( pm2 );
-    menubar-&gt;addMenu( m1 );
-    pm1-&gt;addMenu( new MenuItem(&quot;해상도변경&quot;, 21));
-    pm1-&gt;addMenu( new MenuItem(&quot;명암 변경&quot;, 22));
-    pm2-&gt;addMenu( new MenuItem(&quot;음량 조절&quot;, 31));
+    PopupMenu<span style="color:#f92672">*</span> menubar <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PopupMenu(<span style="color:#e6db74">&#34;mebuBar&#34;</span>);
+    PopupMenu<span style="color:#f92672">*</span> pm1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PopupMenu(<span style="color:#e6db74">&#34;화면설정&#34;</span>);
+    PopupMenu<span style="color:#f92672">*</span> pm2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PopupMenu(<span style="color:#e6db74">&#34;소리설정&#34;</span>);
+    MenuItem<span style="color:#f92672">*</span>  m1  <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MenuItem(<span style="color:#e6db74">&#34;정보 확인&#34;</span>, <span style="color:#ae81ff">11</span>);
+    menubar<span style="color:#f92672">-&gt;</span>addMenu( pm1 );
+    menubar<span style="color:#f92672">-&gt;</span>addMenu( pm2 );
+    menubar<span style="color:#f92672">-&gt;</span>addMenu( m1 );
+    pm1<span style="color:#f92672">-&gt;</span>addMenu( <span style="color:#66d9ef">new</span> MenuItem(<span style="color:#e6db74">&#34;해상도변경&#34;</span>, <span style="color:#ae81ff">21</span>));
+    pm1<span style="color:#f92672">-&gt;</span>addMenu( <span style="color:#66d9ef">new</span> MenuItem(<span style="color:#e6db74">&#34;명암 변경&#34;</span>, <span style="color:#ae81ff">22</span>));
+    pm2<span style="color:#f92672">-&gt;</span>addMenu( <span style="color:#66d9ef">new</span> MenuItem(<span style="color:#e6db74">&#34;음량 조절&#34;</span>, <span style="color:#ae81ff">31</span>));
 
-    BaseMenu* p = menubar-&gt;getSubMenu(1)-&gt;getSubMenu(0);
+    BaseMenu<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> menubar<span style="color:#f92672">-&gt;</span>getSubMenu(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">-&gt;</span>getSubMenu(<span style="color:#ae81ff">0</span>);
 
-    menubar-&gt;getSubMenu(1)-&gt;addMenu( new MenuItem(&quot;AA&quot;, 100));
+    menubar<span style="color:#f92672">-&gt;</span>getSubMenu(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">-&gt;</span>addMenu( <span style="color:#66d9ef">new</span> MenuItem(<span style="color:#e6db74">&#34;AA&#34;</span>, <span style="color:#ae81ff">100</span>));
 
-    // 시작하려면
-    menubar-&gt;command();
+    <span style="color:#75715e">// 시작하려면
+</span><span style="color:#75715e"></span>    menubar<span style="color:#f92672">-&gt;</span>command();
 }
-</code></pre>
-
-<h2 id="2-composite-패턴과-event-처리">2. Composite 패턴과 Event 처리</h2>
-
+</code></pre></div><h2 id="2-composite-패턴과-event-처리">2. Composite 패턴과 Event 처리</h2>
 <h4 id="메뉴-클릭시-처리해야-할-코드를-작성하는-방법">메뉴 클릭시 처리해야 할 코드를 작성하는 방법</h4>
-
 <ol>
-<li><p>메뉴 선택시 하는 일을 가상함수로 분리</p>
-
+<li>
+<p>메뉴 선택시 하는 일을 가상함수로 분리</p>
 <ul>
 <li>파생 클래스의 수가 많아짐</li>
-</ul></li>
-</ol>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;menu.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MenuItem</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> BaseMenu
+{
+    <span style="color:#66d9ef">int</span> id;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    MenuItem(string s, <span style="color:#66d9ef">int</span> n) <span style="color:#f92672">:</span> BaseMenu(s),  id(n) {}
 
-<pre><code class="language-cpp">   #include &quot;menu.hpp&quot;
-   
-   class MenuItem : public BaseMenu
-   {
-       int id;
-   public:
-       MenuItem(string s, int n) : BaseMenu(s),  id(n) {}
-   
-       virtual void command()
-       {
-           // 변해야 하는 것을 가상함수로.
-           doCommand();
-       }
-       virtual void doCommand() {}
-   };
-   
-   class AddStudentMenu : public MenuItem
-   {
-   public:
-       using MenuItem::MenuItem; // 생성자 상속..
-   
-       virtual void doCommand() { cout &lt;&lt; &quot;Add Student&quot; &lt;&lt; endl; }
-   };
-   
-   class RemoveStudentMenu : public MenuItem
-   {
-   public:
-       using MenuItem::MenuItem;
-       virtual void doCommand() { cout &lt;&lt; &quot;Remove Student&quot; &lt;&lt; endl; }
-   };
-   
-   int main()
-   {
-       AddStudentMenu    m1( &quot;Add Student &quot; , 11);
-       RemoveStudentMenu m2( &quot;Remove Student &quot; , 12);
-   
-       m1.command();
-       m2.command();
-   }
-</code></pre>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">command</span>()
+    {
+        <span style="color:#75715e">// 변해야 하는 것을 가상함수로.
+</span><span style="color:#75715e"></span>        doCommand();
+    }
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doCommand</span>() {}
+};
 
-<ol>
-<li>Interface를 포함시켜 다른 클래스에 처리를 위임(Listener 개념)</li>
-</ol>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AddStudentMenu</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> MenuItem
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">using</span> MenuItem<span style="color:#f92672">::</span>MenuItem; <span style="color:#75715e">// 생성자 상속..
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doCommand</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Add Student&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
+};
 
-<pre><code class="language-cpp">   #include &quot;menu.hpp&quot;
-   
-   // 메뉴 메세지를 처리하려면 아래 인터페이스를 정의 해야 한다.
-   struct IMenuListener
-   {
-       virtual void doCommand( int id) = 0;
-       virtual ~IMenuListener() {}
-   };
-   
-   class MenuItem : public BaseMenu
-   {
-       int id;
-       IMenuListener* pListener = 0;
-   
-   public:
-       void setListener(IMenuListener* p) { pListener = p;}
-       MenuItem(string s, int n) : BaseMenu(s),  id(n) {}
-   
-       virtual void command()
-       {
-           // 변하는 것을 다른 클래스로..!
-           if ( pListener != 0 )
-               pListener-&gt;doCommand( id );
-       }
-   };
-   
-   class Dialog : public IMenuListener
-   {
-   public:
-       virtual void doCommand(int id)
-       {
-           //cout &lt;&lt; &quot;Dialog doCommand&quot; &lt;&lt; endl;
-           switch( id )
-           {
-           case 11: cout &lt;&lt; &quot;11&quot; &lt;&lt; endl; break;
-           case 12: cout &lt;&lt; &quot;12&quot; &lt;&lt; endl; break;
-           }
-       }
-   };
-   
-   int main()
-   {
-       Dialog dlg;
-       MenuItem m1( &quot;Add Student &quot; , 11);
-       MenuItem m2( &quot;Remove Student &quot; , 12);
-   
-       m1.setListener(&amp;dlg);
-       m2.setListener(&amp;dlg);
-   
-       m1.command();
-       m2.command();
-   }
-</code></pre>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RemoveStudentMenu</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> MenuItem
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">using</span> MenuItem<span style="color:#f92672">::</span>MenuItem;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doCommand</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Remove Student&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
+};
 
-<ol>
-<li><p>객체가 아닌 함수(함수포인터, 람다) 를 연결</p>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    AddStudentMenu    m1( <span style="color:#e6db74">&#34;Add Student &#34;</span> , <span style="color:#ae81ff">11</span>);
+    RemoveStudentMenu m2( <span style="color:#e6db74">&#34;Remove Student &#34;</span> , <span style="color:#ae81ff">12</span>);
 
+    m1.command();
+    m2.command();
+}
+</code></pre></div></li>
+<li>
+<p>Interface를 포함시켜 다른 클래스에 처리를 위임(Listener 개념)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;menu.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 메뉴 메세지를 처리하려면 아래 인터페이스를 정의 해야 한다.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IMenuListener</span>
+{
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doCommand</span>( <span style="color:#66d9ef">int</span> id) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IMenuListener() {}
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MenuItem</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> BaseMenu
+{
+    <span style="color:#66d9ef">int</span> id;
+    IMenuListener<span style="color:#f92672">*</span> pListener <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> setListener(IMenuListener<span style="color:#f92672">*</span> p) { pListener <span style="color:#f92672">=</span> p;}
+    MenuItem(string s, <span style="color:#66d9ef">int</span> n) <span style="color:#f92672">:</span> BaseMenu(s),  id(n) {}
+
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">command</span>()
+    {
+        <span style="color:#75715e">// 변하는 것을 다른 클래스로..!
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> ( pListener <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> )
+            pListener<span style="color:#f92672">-&gt;</span>doCommand( id );
+    }
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dialog</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IMenuListener
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> doCommand(<span style="color:#66d9ef">int</span> id)
+    {
+        <span style="color:#75715e">//cout &lt;&lt; &#34;Dialog doCommand&#34; &lt;&lt; endl;
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">switch</span>( id )
+        {
+        <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">11</span><span style="color:#f92672">:</span> cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;11&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#66d9ef">break</span>;
+        <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">12</span><span style="color:#f92672">:</span> cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;12&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#66d9ef">break</span>;
+        }
+    }
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    Dialog dlg;
+    MenuItem m1( <span style="color:#e6db74">&#34;Add Student &#34;</span> , <span style="color:#ae81ff">11</span>);
+    MenuItem m2( <span style="color:#e6db74">&#34;Remove Student &#34;</span> , <span style="color:#ae81ff">12</span>);
+
+    m1.setListener(<span style="color:#f92672">&amp;</span>dlg);
+    m2.setListener(<span style="color:#f92672">&amp;</span>dlg);
+
+    m1.command();
+    m2.command();
+}
+</code></pre></div></li>
+<li>
+<p>객체가 아닌 함수(함수포인터, 람다) 를 연결</p>
 <ul>
 <li>멤버 함수 포인터를 받기 위해 템플릿으로 처리</li>
-</ul></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;foo&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dialog</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> Close() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Dialog Close&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+};
+
+<span style="color:#75715e">//-----------------------
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IAction</span>
+{
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Execute</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>IAction() {}
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FunctionAction</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IAction
+{
+    <span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span>(<span style="color:#f92672">*</span>FP)();
+
+    FP handler;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    FunctionAction(FP f) <span style="color:#f92672">:</span> handler(f) {}
+
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Execute</span>() {handler();}
+};
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MemberAction</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IAction
+{
+    <span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span>(T<span style="color:#f92672">::*</span>FP)();
+
+    FP handler;
+    T<span style="color:#f92672">*</span> target;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    MemberAction(FP f, T<span style="color:#f92672">*</span> obj) <span style="color:#f92672">:</span> handler(f), target(obj) {}
+
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Execute</span>() { (target<span style="color:#f92672">-&gt;*</span>handler)();}
+};
+
+<span style="color:#75715e">// 함수 템플릿
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+MemberAction<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> action( <span style="color:#66d9ef">void</span>(T<span style="color:#f92672">::*</span>f)(), T<span style="color:#f92672">*</span> obj)
+{
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MemberAction<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>( f, obj);
+}
+
+FunctionAction<span style="color:#f92672">*</span> <span style="color:#a6e22e">action</span>( <span style="color:#66d9ef">void</span>(<span style="color:#f92672">*</span>f)() )
+{
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> FunctionAction( f);
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    Dialog dlg;
+
+    IAction<span style="color:#f92672">*</span> p1 <span style="color:#f92672">=</span> action(<span style="color:#f92672">&amp;</span>foo);
+    IAction<span style="color:#f92672">*</span> p2 <span style="color:#f92672">=</span> action(<span style="color:#f92672">&amp;</span>Dialog<span style="color:#f92672">::</span>Close, <span style="color:#f92672">&amp;</span>dlg);
+
+    p1<span style="color:#f92672">-&gt;</span>Execute();
+    p2<span style="color:#f92672">-&gt;</span>Execute();
+}
+</code></pre></div></li>
+<li>
+<p>위 action을 표준의 bind로 처리 할 수 있음(C++11)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;foo&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">goo</span>(<span style="color:#66d9ef">int</span> n) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;goo : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dialog</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> Close() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Dialog Close&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>()<span style="color:#f92672">&gt;</span> f;
+    f <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>foo;
+    f();    <span style="color:#75715e">// foo 호출
+</span><span style="color:#75715e"></span>
+    Dialog dlg;
+
+    f <span style="color:#f92672">=</span> bind(<span style="color:#f92672">&amp;</span>Dialog<span style="color:#f92672">::</span>Close, <span style="color:#f92672">&amp;</span>dlg); <span style="color:#75715e">// action(&amp;Dialog::Close, &amp;dlg)
+</span><span style="color:#75715e"></span>    f(); <span style="color:#75715e">// dlg.Close()
+</span><span style="color:#75715e"></span>
+    f <span style="color:#f92672">=</span> bind(<span style="color:#f92672">&amp;</span>goo, <span style="color:#ae81ff">5</span>);
+    f(); <span style="color:#75715e">// goo(5)
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
 </ol>
-
-<pre><code class="language-cpp">   #include &lt;iostream&gt;
-   using namespace std;
-   
-   void foo() { cout &lt;&lt; &quot;foo&quot; &lt;&lt; endl;}
-   
-   class Dialog
-   {
-   public:
-       void Close() { cout &lt;&lt; &quot;Dialog Close&quot; &lt;&lt; endl;}
-   };
-   
-   //-----------------------
-   
-   struct IAction
-   {
-       virtual void Execute() = 0;
-       virtual ~IAction() {}
-   };
-   
-   class FunctionAction : public IAction
-   {
-       typedef void(*FP)();
-   
-       FP handler;
-   public:
-       FunctionAction(FP f) : handler(f) {}
-   
-       virtual void Execute() {handler();}
-   };
-   
-   template&lt;typename T&gt;
-   class MemberAction : public IAction
-   {
-       typedef void(T::*FP)();
-   
-       FP handler;
-       T* target;
-   public:
-       MemberAction(FP f, T* obj) : handler(f), target(obj) {}
-   
-       virtual void Execute() { (target-&gt;*handler)();}
-   };
-   
-   // 함수 템플릿
-   template&lt;typename T&gt;
-   MemberAction&lt;T&gt;* action( void(T::*f)(), T* obj)
-   {
-       return new MemberAction&lt;T&gt;( f, obj);
-   }
-   
-   FunctionAction* action( void(*f)() )
-   {
-       return new FunctionAction( f);
-   }
-   
-   int main()
-   {
-       Dialog dlg;
-       
-       IAction* p1 = action(&amp;foo);
-       IAction* p2 = action(&amp;Dialog::Close, &amp;dlg);
-   
-       p1-&gt;Execute();
-       p2-&gt;Execute();
-   }
-</code></pre>
-
-<ol>
-<li>위 action을 표준의 bind로 처리 할 수 있음(C++11)</li>
-</ol>
-
-<pre><code class="language-cpp">   #include &lt;iostream&gt;
-   #include &lt;functional&gt;
-   using namespace std;
-   
-   void foo() { cout &lt;&lt; &quot;foo&quot; &lt;&lt; endl;}
-   void goo(int n) { cout &lt;&lt; &quot;goo : &quot; &lt;&lt; n &lt;&lt; endl;}
-   
-   class Dialog
-   {
-   public:
-       void Close() { cout &lt;&lt; &quot;Dialog Close&quot; &lt;&lt; endl;}
-   };
-   
-   int main()
-   {
-       function&lt;void()&gt; f;
-       f = &amp;foo;
-       f();    // foo 호출
-   
-       Dialog dlg;
-   
-       f = bind(&amp;Dialog::Close, &amp;dlg); // action(&amp;Dialog::Close, &amp;dlg)
-       f(); // dlg.Close()
-   
-       f = bind(&amp;goo, 5);
-       f(); // goo(5)
-   }
-</code></pre>
-
 <h2 id="3-decorator-pattern">3. Decorator pattern</h2>
-
 <h4 id="개념-1">개념</h4>
-
 <ul>
 <li>기존의 있던 동작은 유지하되, 새로운 기능이 추가 되야 할 경우 사용하는 패턴</li>
 <li>런타임에 객체에 기능을 추가</li>
 <li>기능 추가 대상 객체 -&gt; Concrete Component</li>
 <li>추가 될 기능 객체 -&gt; Concrete Decorator</li>
 </ul>
-
 <h4 id="예제">예제</h4>
-
 <ul>
 <li>미사일을 쏘는 객체</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-// 우주선과 기능추가객체의 공통의 기반 클래스
-struct Component
+<span style="color:#75715e">// 우주선과 기능추가객체의 공통의 기반 클래스
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Component</span>
 {
-    virtual void Fire() = 0;
-    virtual ~Component() {}
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Fire</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>Component() {}
 };
 
-class SpaceCraft : public Component
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SpaceCraft</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Component
 {
-    int color;
-    int speed;
-public:
-    void Fire() { cout &lt;&lt; &quot;Space Craft : ----------&quot; &lt;&lt; endl;}
+    <span style="color:#66d9ef">int</span> color;
+    <span style="color:#66d9ef">int</span> speed;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> Fire() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Space Craft : ----------&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
 };
 
-//---------------
-// 기능 추가 클래스의 공통의 기반 클래스
-class IDecorator : public Component
+<span style="color:#75715e">//---------------
+</span><span style="color:#75715e">// 기능 추가 클래스의 공통의 기반 클래스
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">IDecorator</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Component
 {
-    Component* craft;
-public:
-    IDecorator( Component* p) : craft(p) {}
+    Component<span style="color:#f92672">*</span> craft;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    IDecorator( Component<span style="color:#f92672">*</span> p) <span style="color:#f92672">:</span> craft(p) {}
 
-    void Fire() { craft-&gt;Fire();}
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Fire</span>() { craft<span style="color:#f92672">-&gt;</span>Fire();}
 };
 
 
-class LeftMissile : public IDecorator
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LeftMissile</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IDecorator
 {
-public:
-    LeftMissile( Component* p) : IDecorator(p) {}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    LeftMissile( Component<span style="color:#f92672">*</span> p) <span style="color:#f92672">:</span> IDecorator(p) {}
 
-    void Fire()
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Fire</span>()
     {
-        IDecorator::Fire();
-        cout &lt;&lt; &quot;Left Missile : &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot; &lt;&lt; endl;
+        IDecorator<span style="color:#f92672">::</span>Fire();
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Left Missile : &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
     }
 };
 
-class RightMissile : public IDecorator
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RightMissile</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> IDecorator
 {
-public:
-    RightMissile( Component* p) : IDecorator(p) {}
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    RightMissile( Component<span style="color:#f92672">*</span> p) <span style="color:#f92672">:</span> IDecorator(p) {}
 
-    void Fire()
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Fire</span>()
     {
-        IDecorator::Fire();
-        cout &lt;&lt; &quot;Rigth Missile : &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot; &lt;&lt; endl;
+        IDecorator<span style="color:#f92672">::</span>Fire();
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Rigth Missile : &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     SpaceCraft sc;
 
-    LeftMissile  lm(&amp;sc);
-    RightMissile rm(&amp;lm);
+    LeftMissile  lm(<span style="color:#f92672">&amp;</span>sc);
+    RightMissile rm(<span style="color:#f92672">&amp;</span>lm);
 
     rm.Fire();
 }
-</code></pre>
+</code></pre></div>
               
             </div>
           </div>
@@ -778,7 +750,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

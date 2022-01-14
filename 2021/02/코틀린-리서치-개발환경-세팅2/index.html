@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
-
 이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
 
 
 <meta property="og:description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
-
 이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="코틀린 리서치 - 개발환경 세팅[2]">
@@ -23,10 +21,8 @@
 <meta property="twitter:url" content="https://ence2.github.io/2021/02/%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A6%AC%EC%84%9C%EC%B9%98-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%852/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
-
 이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
 <meta name="twitter:description" content="코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)
-
 이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.">
 <meta property="og:locale" content="en-us">
 
@@ -106,7 +102,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -265,64 +260,50 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>코틀린은 JVM 위에서 동작하기에 플랫폼에 독립적입니다. (possible Windows or linux 등등..)</p>
-
 <p>이는 곧 JDK를 사용한다는 말이며, 작성 관련해서는 다양한 IDE가 존재합니다.</p>
-
 <p>자바가 오라클에 인수 된 이후로부터 JDK의 라이센스는 상업적 이용시 구독 비용이 발생하게 되었으며, 회사의 RnD성 프로젝트에서는 돈이 남아 돌지 않는 이상 무료 라이센스인 open JDK를 권장합니다.(for free)</p>
-
 <p>본 블로그에서는 회사에서의 사용을 염두하여 openJDK 및 IntelliJ IDEA 환경에서 코틀린 리서치를 진행합니다.</p>
-
 <h3 id="ide-설치">IDE 설치</h3>
-
 <ul>
 <li><a href="https://www.jetbrains.com/ko-kr/idea/download/#section=windows">https://www.jetbrains.com/ko-kr/idea/download/#section=windows</a> 다음 주소에서 개발 플랫폼에 맞는 Community 다운로드 및 설치</li>
 </ul>
-
 <h3 id="jdk-설치">JDK 설치</h3>
-
 <ul>
 <li><a href="https://openjdk.java.net/">https://openjdk.java.net/</a> 다음 주소에서 개발 플랫폼 및 원하는 버전의 open JDK 다운로드(<a href="https://jdk.java.net/archive/">https://jdk.java.net/archive/</a> 아카이브)</li>
 <li>적당한 위치에 다운로드 받은 파일(ex : openjdk-11_windows-x64_bin.zip)의 압축 해제</li>
 <li>환경변수 -&gt; 시스템변수 -&gt; 새로만들기 -&gt; 이름 &ldquo;JAVA_HOME&rdquo;, 값 &ldquo;&ldquo;폴더 경로&rdquo;(ex : D:\openjdk-11_windows-x64_bin\jdk-11)</li>
 <li>시스템 변수 -&gt; 존재하는 Path에 %JAVA_HOME%\bin 값 추가</li>
 </ul>
-
 <h3 id="jdk-설치-확인">JDK 설치 확인</h3>
-
 <ul>
-<li>cmd -&gt; java -version 입력 -&gt; jdk 관련 출력 확인</li>
+<li>
+<p>cmd -&gt; java -version 입력 -&gt; jdk 관련 출력 확인</p>
+<pre tabindex="0"><code>C:\Users\id&gt;java -version
+openjdk version &quot;11&quot; 2018-09-25
+OpenJDK Runtime Environment 18.9 (build 11+28)
+OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
+</code></pre></li>
 </ul>
-
-<pre><code>  C:\Users\id&gt;java -version
-  openjdk version &quot;11&quot; 2018-09-25
-  OpenJDK Runtime Environment 18.9 (build 11+28)
-  OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)
-</code></pre>
-
 <h3 id="idea에서-코틀린-프로젝트-생성">IDEA에서 코틀린 프로젝트 생성</h3>
-
 <ul>
-<li><p>IDEA 실행 -&gt; Projects -&gt; New Project</p>
-
+<li>
+<p>IDEA 실행 -&gt; Projects -&gt; New Project</p>
 <ul>
 <li>Kotlin -&gt; 템플릿은 Console Application -&gt; Project JDK는 위에서 설치한 JDK
-<img src="https://ence2.github.io/img/kotlin2_11.png" alt="1" /></li>
+<img src="https://ence2.github.io/img/kotlin2_11.png" alt="1"></li>
 <li>JVM Target 설치한 JDK로 세팅
-<img src="https://ence2.github.io/img/kotlin2_22.png" alt="2" /></li>
+<img src="https://ence2.github.io/img/kotlin2_22.png" alt="2"></li>
 <li>자동으로 생성된 프로젝트 Build and Run시 Configuration 세팅 요구 할 경우 다음과 같이 설정
-<img src="https://ence2.github.io/img/kotlin2_33.png" alt="3" /></li>
+<img src="https://ence2.github.io/img/kotlin2_33.png" alt="3"></li>
 <li>Build and Run 후 Output에 HelloWorld 정상 출력 확인
-<img src="https://ence2.github.io/img/kotlin2_44.png" alt="4" />
-<br /></li>
-</ul></li>
+<img src="https://ence2.github.io/img/kotlin2_44.png" alt="4"></li>
 </ul>
-
-<h3 id="코틀린-웹-컴파일러-for-study">코틀린 웹 컴파일러(for study)</h3>
-
+</li>
+</ul>
+<h3 id="코틀린-웹-컴파일러for-study">코틀린 웹 컴파일러(for study)</h3>
 <ul>
 <li><a href="https://try.kotlinlang.org/">https://try.kotlinlang.org/</a></li>
 </ul>
-
 <p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
               
             </div>
@@ -427,7 +408,7 @@ if (!doNotTrack) {
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

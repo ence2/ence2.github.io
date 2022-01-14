@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번 시간에는 STL의 알고리즘에 관해 살펴보겠습니다.">
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -257,281 +256,250 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번 시간에는 STL의 알고리즘에 관해 살펴보겠습니다.</p>
-
 <h2 id="algorithm-basic">Algorithm basic</h2>
-
 <h4 id="1-멤버-함수가-아닌-일반-함수로-되어-있음">1. 멤버 함수가 아닌 일반 함수로 되어 있음</h4>
-
 <ul>
 <li>STL 알고리즘은 특정한 컨테이너가 아닌 다양한 컨테이너에 대해서 사용 할 수 있는 일반 함수로 되어 있다.</li>
 </ul>
-
 <h4 id="2-stl-알고리즘을-사용하기-위한-헤더">2. STL 알고리즘을 사용하기 위한 헤더</h4>
-
 <ul>
-<li><algorithm></li>
-<li><numeric></li>
-<li><memory></li>
+<li>
+<!-- raw HTML omitted -->
+</li>
+<li>
+<!-- raw HTML omitted -->
+</li>
+<li>
+<!-- raw HTML omitted -->
+</li>
 </ul>
-
 <h4 id="3-알고리즘은-컨테이너를-알지-못함">3. 알고리즘은 컨테이너를 알지 못함</h4>
-
 <ul>
 <li>remove를 호출해도 실제 제거가 되지 않음(컨테이너 마다 메모리 해제 방법이 다르기 때문)</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;int&gt; v = { 1,2,3,1,2,3,1,2,3,1 };
+	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span> };
 
-    auto p = remove(begin(v), end(v), 3);
+	<span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> remove(begin(v), end(v), <span style="color:#ae81ff">3</span>);
 
-    show(v);  // 1,2,1,2,1,2,1, 2,3,1
-
-    v.erase(p, end(v)); // 지울 때는 멤버 함수
-
-    show(v);  // 1,2,1,2,1,2,1
-
-    return 0;
+	show(v);  <span style="color:#75715e">// 1,2,1,2,1,2,1, 2,3,1
+</span><span style="color:#75715e"></span>
+	v.erase(p, end(v)); <span style="color:#75715e">// 지울 때는 멤버 함수
+</span><span style="color:#75715e"></span>
+	show(v);  <span style="color:#75715e">// 1,2,1,2,1,2,1
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<h4 id="4-알고리즘-보다-컨테이너의-멤버-함수가-좋은-경우가-있음">4. 알고리즘 보다 컨테이너의 멤버 함수가 좋은 경우가 있음</h4>
-
+</code></pre></div><h4 id="4-알고리즘-보다-컨테이너의-멤버-함수가-좋은-경우가-있음">4. 알고리즘 보다 컨테이너의 멤버 함수가 좋은 경우가 있음</h4>
 <ul>
 <li>list는 요소 제거시 메모리를 재정렬 하도록 처리 하는 것이 더 비효율적임</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list&lt;int&gt; v = { 1,2,3,1,2,3,1,2,3,1 };
-    v.remove(3); // 당기는 것이 아니라 메모리 제거
-    return 0;
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span> };
+	v.remove(<span style="color:#ae81ff">3</span>); <span style="color:#75715e">// 당기는 것이 아니라 메모리 제거
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<h2 id="algorithm-function">Algorithm &amp; function</h2>
-
+</code></pre></div><h2 id="algorithm--function">Algorithm &amp; function</h2>
 <h4 id="1-functor">1. Functor</h4>
-
 <ul>
 <li>함수 객체 : () 연산을 재정의 해서 함수처럼 사용하는 모든 객체</li>
 <li>장점 : 함수 객체는 인라인 치환 가능, 상태를 갖을 수 있음</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-// ()를 사용해서 호출하는 것
-// 1. 함수
-// 2. 함수 포인터
-// 3. ()를 재정의한 클래스
-// 4. 람다표현식...
-
-struct Plus
+<span style="color:#75715e">// ()를 사용해서 호출하는 것
+</span><span style="color:#75715e">// 1. 함수
+</span><span style="color:#75715e">// 2. 함수 포인터
+</span><span style="color:#75715e">// 3. ()를 재정의한 클래스
+</span><span style="color:#75715e">// 4. 람다표현식...
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Plus</span>
 {
-    int operator()(int a, int b) const
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">operator</span>()(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) <span style="color:#66d9ef">const</span>
     {
-        return a + b;
+        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     Plus p;
-    int n = p(1,2); // p.operator()(1,2)
-    cout &lt;&lt; n &lt;&lt; endl;
+    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> p(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>); <span style="color:#75715e">// p.operator()(1,2)
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    // a + b; // a.operator+(b)
-    // a - b; // a.operator-(b)
-    // a();   // a.operator()()
-    // a(1,2);// a.operator()(1,2)
-}
-</code></pre>
-
-<h4 id="2-알고리즘에-functor-전달">2. 알고리즘에 Functor 전달</h4>
-
+    <span style="color:#75715e">// a + b; // a.operator+(b)
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// a - b; // a.operator-(b)
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// a();   // a.operator()()
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// a(1,2);// a.operator()(1,2)
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="2-알고리즘에-functor-전달">2. 알고리즘에 Functor 전달</h4>
 <ul>
 <li>STL 알고리즘은 함수를 인자로 가지는 경우가 있음(전달하는 함수의 매개변수는 보통 2개를 넘지 않음)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;int&gt; v = {1,2,3,4,5,6,7,8,9,10};
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>};
 
-    // 1. 일반 함수 전달.
-    for_each(begin(v), end(v), foo );
+    <span style="color:#75715e">// 1. 일반 함수 전달.
+</span><span style="color:#75715e"></span>    for_each(begin(v), end(v), foo );
 
-    // 2. 함수 객체를 전달.
-    for_each(begin(v), end(v), s );
+    <span style="color:#75715e">// 2. 함수 객체를 전달.
+</span><span style="color:#75715e"></span>    for_each(begin(v), end(v), s );
 
-    // 3. 람다표현식
-    for_each(begin(v), end(v), [](int a){ cout &lt;&lt; a &lt;&lt; endl;} );
+    <span style="color:#75715e">// 3. 람다표현식
+</span><span style="color:#75715e"></span>    for_each(begin(v), end(v), [](<span style="color:#66d9ef">int</span> a){ cout <span style="color:#f92672">&lt;&lt;</span> a <span style="color:#f92672">&lt;&lt;</span> endl;} );
 
-    return 0;
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>transform 알고리즘 : 인자로 전달된 모든 요소에 연산을 적용 후 다른 컨테이너에 복사
-
 <ul>
 <li>단항함수 버전과 이항함수 버전 존재</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;  // plus&lt;&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;ecourse_stl.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;list&gt;
-#include &lt;algorithm&gt;
-#include &lt;functional&gt;  // plus&lt;&gt;
-#include &quot;ecourse_stl.hpp&quot;
-using namespace std;
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">foo</span>( <span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;}
 
-int foo( int a, int b) { return a + b;}
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list&lt;int&gt; s1 = {1,2,3,4,5};
-    list&lt;int&gt; s2 = {1,2,3,4,5};
-    list&lt;int&gt; s3 = {0,0,0,0,0};
+    list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>};
+    list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s2 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>};
+    list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s3 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>};
 
-    //transform( begin(s1), end(s1), begin(s2) , foo);
-
-    //transform( begin(s1), end(s1), begin(s2), begin(s3), foo);
-
-    //transform( begin(s1), end(s1), begin(s2), begin(s3),
-    //                        multiplies&lt;int&gt;());
-
+    <span style="color:#75715e">//transform( begin(s1), end(s1), begin(s2) , foo);
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//transform( begin(s1), end(s1), begin(s2), begin(s3), foo);
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//transform( begin(s1), end(s1), begin(s2), begin(s3),
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//                        multiplies&lt;int&gt;());
+</span><span style="color:#75715e"></span>
     transform( begin(s1), end(s1), begin(s2), begin(s3),
-                                [](int a,int b) { return a + b;});
+                                [](<span style="color:#66d9ef">int</span> a,<span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;});
 
-    return 0;
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 
-</code></pre>
-
-<h2 id="algorithm의-변형">Algorithm의 변형</h2>
-
-<h4 id="1-조건자-predicator">1. 조건자(Predicator)</h4>
-
+</code></pre></div><h2 id="algorithm의-변형">Algorithm의 변형</h2>
+<h4 id="1-조건자predicator">1. 조건자(Predicator)</h4>
 <ul>
 <li>bool 타입을 리턴 하는 함수 객체</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-bool foo( int a) { return a % 3 == 0;}
-int main()
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">foo</span>( <span style="color:#66d9ef">int</span> a) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>;}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;int&gt; v = { 6, 9, 3, 1, 2};
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>};
 
-    // find 는 정말 generic 한가 ?
+    <span style="color:#75715e">// find 는 정말 generic 한가 ?
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 주어진 구간에서 첫번째 나오는 3의 배수를 찾고 싶다.
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//auto p = find( begin(v), end(v), 3);
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//auto p = find_if( begin(v), end(v), foo);
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> find_if( begin(v), end(v),
+                    [](<span style="color:#66d9ef">int</span> a) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>;});
 
-    // 주어진 구간에서 첫번째 나오는 3의 배수를 찾고 싶다.
-
-    //auto p = find( begin(v), end(v), 3);
-
-    //auto p = find_if( begin(v), end(v), foo);
-
-    auto p = find_if( begin(v), end(v),
-                    [](int a) { return a % 3 == 0;});
-
-    cout &lt;&lt; *p &lt;&lt; endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h4 id="2-stl-알고리즘의-4가지-형태">2. STL 알고리즘의 4가지 형태</h4>
-
+</code></pre></div><h4 id="2-stl-알고리즘의-4가지-형태">2. STL 알고리즘의 4가지 형태</h4>
 <ul>
 <li>기본 버전</li>
 <li>조건자 버전 : _if</li>
 <li>복사 버전 : _copy</li>
 <li>조건자 복사 버전 _copy_if</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;int&gt; v1 = {1,2,3,4,5,6,7,8,9,10};
-    vector&lt;int&gt; v2 = {0,0,0,0,0,0,0,0,0,0};
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>};
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v2 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>};
 
-    // 기본 버전
-    //remove( begin(v1), end(v1), 3);
-
-    // 조건자 버전
-    //remove_if( begin(v1), end(v1), [](int a) { return a % 3 == 0;});
-
-    // 복사 버전. 리턴 값 p는 v2의 반복자..
-    //auto p = remove_copy( begin(v1), end(v1), begin(v2), 3);
-
-    //
-    auto p = remove_copy_if( begin(v1), end(v1), begin(v2),
-                            [](int a) { return a % 3 == 0;});
+    <span style="color:#75715e">// 기본 버전
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//remove( begin(v1), end(v1), 3);
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 조건자 버전
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//remove_if( begin(v1), end(v1), [](int a) { return a % 3 == 0;});
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 복사 버전. 리턴 값 p는 v2의 반복자..
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//auto p = remove_copy( begin(v1), end(v1), begin(v2), 3);
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> remove_copy_if( begin(v1), end(v1), begin(v2),
+                            [](<span style="color:#66d9ef">int</span> a) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>;});
 
     v2.erase(p, end(v2));
 }
-</code></pre>
-
-<h4 id="3-std-bind-함수-인자를-미리-설정-해-놓을-수-있음">3. std::bind -&gt; 함수 인자를 미리 설정 해 놓을 수 있음</h4>
-
+</code></pre></div><h4 id="3-stdbind---함수-인자를-미리-설정-해-놓을-수-있음">3. std::bind -&gt; 함수 인자를 미리 설정 해 놓을 수 있음</h4>
 <ul>
 <li>find_if에 이항 함수를 전달 하고 싶을 때</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>placeholders;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;functional&gt;
-using namespace std;
-using namespace std::placeholders;
-
-// 4항 함수
-void foo( int a, int b, int c, int d)
+<span style="color:#75715e">// 4항 함수
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>( <span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span> c, <span style="color:#66d9ef">int</span> d)
 {
-    printf(&quot;%d, %d, %d, %d\n&quot;, a, b, c, d);
+    printf(<span style="color:#e6db74">&#34;%d, %d, %d, %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, a, b, c, d);
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    foo(1,2,3,4);   // 4항 함수..
+    foo(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>);   <span style="color:#75715e">// 4항 함수..
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 4항 함수 =&gt; 2항으로
+</span><span style="color:#75715e"></span>    bind(<span style="color:#f92672">&amp;</span>foo, <span style="color:#ae81ff">10</span>, _2, _1, <span style="color:#ae81ff">20</span> )(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>);<span style="color:#75715e">// 10, 2, 1, 20
+</span><span style="color:#75715e"></span>
 
-    // 4항 함수 =&gt; 2항으로
-    bind(&amp;foo, 10, _2, _1, 20 )(1,2);// 10, 2, 1, 20
+    <span style="color:#75715e">// 4항 함수 =&gt; 3항으로
+</span><span style="color:#75715e"></span>    bind(<span style="color:#f92672">&amp;</span>foo, _3, _2,_1, <span style="color:#ae81ff">100</span> )(<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">10</span>); <span style="color:#75715e">// 10, 20, 30, 100
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 4항을 =&gt; 무항으로..
+</span><span style="color:#75715e"></span>    bind(<span style="color:#f92672">&amp;</span>foo, <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>)();
 
 
-    // 4항 함수 =&gt; 3항으로
-    bind(&amp;foo, _3, _2,_1, 100 )(30,20,10); // 10, 20, 30, 100
+    modulus<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> m;
+    cout <span style="color:#f92672">&lt;&lt;</span> m(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">3</span>) <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 10 % 3;
+</span><span style="color:#75715e"></span>
+    bind(m, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>)(); <span style="color:#75715e">// 10 % 3
+</span><span style="color:#75715e"></span>    bind(m, _1, <span style="color:#ae81ff">3</span>)(<span style="color:#ae81ff">7</span>); <span style="color:#75715e">// 10 % 3
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>};
 
-    // 4항을 =&gt; 무항으로..
-    bind(&amp;foo, 1,2,3,4)();
+    <span style="color:#75715e">// 3의 배수가 아닌것 찾기.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> find_if( x, x<span style="color:#f92672">+</span><span style="color:#ae81ff">3</span>, bind(m , _1 , <span style="color:#ae81ff">3</span> )  );
 
-
-    modulus&lt;int&gt; m;
-    cout &lt;&lt; m(10,3) &lt;&lt; endl; // 10 % 3;
-
-    bind(m, 10, 3)(); // 10 % 3
-    bind(m, _1, 3)(7); // 10 % 3
-
-    int x[3] = { 1,2,3};
-
-    // 3의 배수가 아닌것 찾기.
-    auto p = find_if( x, x+3, bind(m , _1 , 3 )  );
-
-    cout &lt;&lt; *p &lt;&lt; endl; // 1
-}
-</code></pre>
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>}
+</code></pre></div>
               
             </div>
           </div>
@@ -635,7 +603,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

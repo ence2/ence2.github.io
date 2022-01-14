@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번 항목에서는 템플릿의 기본 문법에 대해서 살펴 보겠습니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,454 +254,405 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번 항목에서는 템플릿의 기본 문법에 대해서 살펴 보겠습니다.</p>
-
 <h3 id="class-template">Class template</h3>
-
 <ul>
 <li>클래스 템플릿의 디폴트 값 표기
-
 <ul>
-<li>T a = T(); // C++<sup>98</sup>&frasl;<sub>03</sub></li>
+<li>T a = T(); // C++98/03</li>
 <li>T a = {}; // C++11</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; class complex
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">complex</span>
 {
-    T re;
-    T im;
-public:
-    complex(T r = {}, T i = {}) : re(r), im(i) {}
+	T re;
+	T im;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	complex(T r <span style="color:#f92672">=</span> {}, T i <span style="color:#f92672">=</span> {}) <span style="color:#f92672">:</span> re(r), im(i) {}
     
-    // 클래스 템플릿의 멤버함수 템플릿
-    template&lt;typename U&gt; T func(const U&amp; c);
+    <span style="color:#75715e">// 클래스 템플릿의 멤버함수 템플릿
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> T func(<span style="color:#66d9ef">const</span> U<span style="color:#f92672">&amp;</span> c);
 };
 
-template&lt;typename T&gt; template&lt;typename U&gt;
-//template&lt;typename T, typename T&gt; 이렇게 두개 붙혀서 쓰면 오류
-T Complex&lt;T&gt;::func(const U&amp; c)
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span>
+<span style="color:#75715e">//template&lt;typename T, typename T&gt; 이렇게 두개 붙혀서 쓰면 오류
+</span><span style="color:#75715e"></span>T Complex<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>func(<span style="color:#66d9ef">const</span> U<span style="color:#f92672">&amp;</span> c)
 {
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    complex&lt;int&gt; c1(3, 5);
+	complex<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> c1(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>);
 }
-</code></pre>
-
-<h3 id="generic-copy-constructor">Generic copy constructor</h3>
-
+</code></pre></div><h3 id="generic-copy-constructor">Generic copy constructor</h3>
 <ul>
 <li>복사 생성자를 따로 구현 하지 않을 경우, 컴파일러에서 생성해주는데 다른 타입의 템플릿 클래스들을 대입 할 경우 오류가 발생함</li>
 <li>일반화된 복사 생성자를 구현 할 경우 다른 클래스 템플릿 타입간 대입 가능</li>
 <li>Shared_ptr 등 에서 이러한 기법을 사용함</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; class complex
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">complex</span>
 {
-    T re;
-    T im;
-public:
-    complex(T a = T(), T b = T()) : re(a), im(b) {}
-    
-    // 복사 생성자 모양 1.
-    //complex(const complex&lt;T&gt;&amp;);       // complex&lt;double&gt; c3 = c1; 일때 c1은 반드시 complex&lt;double&gt; 이어야 한다.
+	T re;
+	T im;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	complex(T a <span style="color:#f92672">=</span> T(), T b <span style="color:#f92672">=</span> T()) <span style="color:#f92672">:</span> re(a), im(b) {}
+	
+	<span style="color:#75715e">// 복사 생성자 모양 1.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//complex(const complex&lt;T&gt;&amp;);		// complex&lt;double&gt; c3 = c1; 일때 c1은 반드시 complex&lt;double&gt; 이어야 한다.
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// 복사 생성자 모양 2.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//complex(const complex&lt;int&gt;&amp;);		// complex&lt;double&gt; c3 = c1; 일때 c1은 반드시 complex&lt;int&gt; 이어야 한다.
+</span><span style="color:#75715e"></span>
 
-    // 복사 생성자 모양 2.
-    //complex(const complex&lt;int&gt;&amp;);     // complex&lt;double&gt; c3 = c1; 일때 c1은 반드시 complex&lt;int&gt; 이어야 한다.
-
-
-    // 복사 생성자 모양 3. 일반화된 복사 생성자
-    // &quot;U가 T로 복사 가능하다면 complex&lt;U&gt; 는 complex&lt;T&gt; 로 복사 가능해야 한다.&quot;
-    template&lt;typename U&gt; complex(const complex&lt;U&gt;&amp;);        // complex&lt;double&gt; c3 = c1; 일때 c1은 complex&lt;U&gt; 이므로, 임의의 타입의 complex 이다.
-
-    template&lt;typename&gt; friend class complex;
+	<span style="color:#75715e">// 복사 생성자 모양 3. 일반화된 복사 생성자
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;U가 T로 복사 가능하다면 complex&lt;U&gt; 는 complex&lt;T&gt; 로 복사 가능해야 한다.&#34;
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> complex(<span style="color:#66d9ef">const</span> complex<span style="color:#f92672">&lt;</span>U<span style="color:#f92672">&gt;&amp;</span>);		<span style="color:#75715e">// complex&lt;double&gt; c3 = c1; 일때 c1은 complex&lt;U&gt; 이므로, 임의의 타입의 complex 이다.
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">friend</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">complex</span>;
 };
 
-template&lt;typename T&gt; template&lt;typename U&gt;
-complex&lt;T&gt;::complex(const complex&lt;U&gt;&amp; c) : re(c.re), im(c.im)
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span>
+complex<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>complex(<span style="color:#66d9ef">const</span> complex<span style="color:#f92672">&lt;</span>U<span style="color:#f92672">&gt;&amp;</span> c) <span style="color:#f92672">:</span> re(c.re), im(c.im)
 {
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    complex&lt;int&gt; c1(1, 2); // ok
-    complex&lt;int&gt; c2 = c1;  // ok. 복사 생성자
-    complex&lt;double&gt; c3 = c1; // ok but, 복사 생성자를 생성하지 않을 경우 Error
-}
-</code></pre>
-
-<h3 id="template과-friend-함수">Template과 friend 함수</h3>
-
+	complex<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> c1(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>	complex<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> c2 <span style="color:#f92672">=</span> c1;  <span style="color:#75715e">// ok. 복사 생성자
+</span><span style="color:#75715e"></span>	complex<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> c3 <span style="color:#f92672">=</span> c1; <span style="color:#75715e">// ok but, 복사 생성자를 생성하지 않을 경우 Error
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="template과-friend-함수">Template과 friend 함수</h3>
 <ul>
 <li>같은 이름이 있을 때 함수 템플릿 보다는 일반 함수가 우선해서 선택됩니다.</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; 
-void foo(T a) 
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> 
+<span style="color:#66d9ef">void</span> foo(T a) 
 {
-    cout &lt;&lt; &quot;T&quot; &lt;&lt; endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;T&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 }
 
-void foo(int a); // { cout &lt;&lt; &quot;int&quot; &lt;&lt; endl; }
-
-int main()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span> a); <span style="color:#75715e">// { cout &lt;&lt; &#34;int&#34; &lt;&lt; endl; }
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    foo(3); // link error.
-}
-</code></pre>
-
-<ul>
+	foo(<span style="color:#ae81ff">3</span>); <span style="color:#75715e">// link error.
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>아래 코드는 오류가 발생함</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; class Point
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>
 {
-    T x, y;
-public:
-    Point()         : x(0), y(0) {}
-    Point(T a, T b) : x(a), y(b) {}
+	T x, y;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Point()         <span style="color:#f92672">:</span> x(<span style="color:#ae81ff">0</span>), y(<span style="color:#ae81ff">0</span>) {}
+	Point(T a, T b) <span style="color:#f92672">:</span> x(a), y(b) {}
 
-    // 아래 표현은 템플릿이 아님
-    friend ostream&amp; operator &lt;&lt;(ostream&amp; os, const Point&lt;T&gt;&amp; p);
+    <span style="color:#75715e">// 아래 표현은 템플릿이 아님
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">friend</span> ostream<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">&lt;&lt;</span>(ostream<span style="color:#f92672">&amp;</span> os, <span style="color:#66d9ef">const</span> Point<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> p);
 };
 
-template&lt;typename T&gt;
-ostream&amp; operator &lt;&lt;(ostream&amp; os, const Point&lt;T&gt;&amp; p)
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+ostream<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">&lt;&lt;</span>(ostream<span style="color:#f92672">&amp;</span> os, <span style="color:#66d9ef">const</span> Point<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> p)
 {
-    return os &lt;&lt; p.x &lt;&lt; &quot;, &quot; &lt;&lt; p.y;
+	<span style="color:#66d9ef">return</span> os <span style="color:#f92672">&lt;&lt;</span> p.x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">&lt;&lt;</span> p.y;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Point&lt;int&gt; p(1, 2);
-    cout &lt;&lt; p &lt;&lt; endl;
+	Point<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> p(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>);
+	cout <span style="color:#f92672">&lt;&lt;</span> p <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>위 코드 해결
-
 <ul>
 <li>friend 구현을 템플릿으로 구현 -&gt; N : N 관계가 형성되나 많은 내부 구현 코드가 발생</li>
 <li>friend 함수 구현을 클래스 내부에 구현 1:1 -&gt; 더 나은 방법</li>
-</ul></li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-// 해결책 1.
-// 클래스와 friend 함수
-// 1 : 1, 
-// 1 : N, 
-// N : 1, 
-// N : N   =&gt;
-template&lt;typename T&gt; class Point
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#75715e">// 해결책 1.
+</span><span style="color:#75715e">// 클래스와 friend 함수
+</span><span style="color:#75715e">// 1 : 1, 
+</span><span style="color:#75715e">// 1 : N, 
+</span><span style="color:#75715e">// N : 1, 
+</span><span style="color:#75715e">// N : N   =&gt;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>
 {
-    T x, y;
-public:
-    Point() : x(0), y(0) {}
-    Point(T a, T b) : x(a), y(b) {}
+	T x, y;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Point() <span style="color:#f92672">:</span> x(<span style="color:#ae81ff">0</span>), y(<span style="color:#ae81ff">0</span>) {}
+	Point(T a, T b) <span style="color:#f92672">:</span> x(a), y(b) {}
+	
+	<span style="color:#75715e">// 함수 템플릿이 아님..
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//friend ostream&amp; operator &lt;&lt;(ostream&amp; os, const Point&lt;T&gt;&amp; p);
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// 함수 템플릿.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span>
+	<span style="color:#66d9ef">friend</span> ostream<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">&lt;&lt;</span>(ostream<span style="color:#f92672">&amp;</span> os, <span style="color:#66d9ef">const</span> Point<span style="color:#f92672">&lt;</span>U<span style="color:#f92672">&gt;&amp;</span> p);
     
-    // 함수 템플릿이 아님..
-    //friend ostream&amp; operator &lt;&lt;(ostream&amp; os, const Point&lt;T&gt;&amp; p);
+   	<span style="color:#75715e">// 다른 방법 -&gt; friend 함수 구현을 클래스 내부에 구현
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//friend ostream&amp; operator &lt;&lt;(ostream&amp; os, const Point&lt;T&gt;&amp; p)
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//{
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//	return os &lt;&lt; p.x &lt;&lt; &#34;, &#34; &lt;&lt; p.y;
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//}
+</span><span style="color:#75715e"></span>};
 
-    // 함수 템플릿.
-    template&lt;typename U&gt;
-    friend ostream&amp; operator &lt;&lt;(ostream&amp; os, const Point&lt;U&gt;&amp; p);
-    
-    // 다른 방법 -&gt; friend 함수 구현을 클래스 내부에 구현
-    //friend ostream&amp; operator &lt;&lt;(ostream&amp; os, const Point&lt;T&gt;&amp; p)
-    //{
-    //  return os &lt;&lt; p.x &lt;&lt; &quot;, &quot; &lt;&lt; p.y;
-    //}
-};
-
-// 함수 템플릿
-template&lt;typename T&gt;
-ostream&amp; operator &lt;&lt;(ostream&amp; os, const Point&lt;T&gt;&amp; p)
+<span style="color:#75715e">// 함수 템플릿
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+ostream<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">&lt;&lt;</span>(ostream<span style="color:#f92672">&amp;</span> os, <span style="color:#66d9ef">const</span> Point<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&amp;</span> p)
 {
-    return os &lt;&lt; p.x &lt;&lt; &quot;, &quot; &lt;&lt; p.y;
+	<span style="color:#66d9ef">return</span> os <span style="color:#f92672">&lt;&lt;</span> p.x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">&lt;&lt;</span> p.y;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Point&lt;int&gt; p(1, 2);
-    cout &lt;&lt; p &lt;&lt; endl;
+	Point<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> p(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>);
+	cout <span style="color:#f92672">&lt;&lt;</span> p <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h3 id="typename">Typename</h3>
-
+</code></pre></div><h3 id="typename">Typename</h3>
 <ul>
 <li>클래스 이름:: 으로 접근 가능한 요소들
-
 <ul>
 <li>값 : enum 상수, static 멤버 변수</li>
 <li>타입 : typedef, using</li>
-</ul></li>
+</ul>
+</li>
 <li>템플릿 내부에서 T::이름 으로 명시 할 때 컴파일러는 값으로 해석, 타입 일 때 명시가 필요함 -&gt; typename</li>
 </ul>
-
-<pre><code class="language-cpp">class A
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>
 {
-public:
-    //......
-    // static int DWORD;
-     typedef int DWORD;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#75715e">//......
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// static int DWORD;
+</span><span style="color:#75715e"></span>	 <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> DWORD;
 };
-int p = 0;
+<span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-template&lt;typename T&gt; void foo(T a)  // T 는 A
-{
-    // 아래 한줄을 해석해 보세요
-    T::DWORD * p; // 1. DWORD는 T안에 있는 static 멤버 변수이다. 그런데, 곱하기 p를 하고 있다
-                  // 2. DWORD는 T안에 있는 내포 타입이다. 포인터 변수 p를 선언하고 있다.
-
-    // T안에 내포된 타입을 사용하려면 typename이 필요하다.
-    typename T::DWORD * p1;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> foo(T a)  <span style="color:#75715e">// T 는 A
+</span><span style="color:#75715e"></span>{
+	<span style="color:#75715e">// 아래 한줄을 해석해 보세요
+</span><span style="color:#75715e"></span>	T<span style="color:#f92672">::</span>DWORD <span style="color:#f92672">*</span> p; <span style="color:#75715e">// 1. DWORD는 T안에 있는 static 멤버 변수이다. 그런데, 곱하기 p를 하고 있다
+</span><span style="color:#75715e"></span>				  <span style="color:#75715e">// 2. DWORD는 T안에 있는 내포 타입이다. 포인터 변수 p를 선언하고 있다.
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// T안에 내포된 타입을 사용하려면 typename이 필요하다.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span>DWORD <span style="color:#f92672">*</span> p1;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    A a;
-    foo(a);
+	A a;
+	foo(a);
 }
-</code></pre>
-
-<h3 id="value-type">Value_type</h3>
-
+</code></pre></div><h3 id="value_type">Value_type</h3>
 <ul>
 <li>모든 컨테이너는 자신이 저장하는 타입을 value_type으로 갖고 있음</li>
 </ul>
-
-<pre><code class="language-cpp">// 모든 컨테이너를 처리하는 함수
-template&lt;typename T&gt; void print_first_element(T&amp; c)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// 모든 컨테이너를 처리하는 함수
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> print_first_element(T<span style="color:#f92672">&amp;</span> c)
 {
-    // T : list&lt;double&gt;
-    // 우리가 필요한것은 double 이 필요하다.
-    // ? n = c.front();
+	<span style="color:#75715e">// T : list&lt;double&gt;
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// 우리가 필요한것은 double 이 필요하다.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// ? n = c.front();
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// 모든 컨테이너는 자신이 저장하는 타입을 value_type으로 알려준다.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span>value_type n <span style="color:#f92672">=</span> c.front();
 
-    // 모든 컨테이너는 자신이 저장하는 타입을 value_type으로 알려준다.
-    typename T::value_type n = c.front();
-
-    // C++11 auto사용가능.
-    //auto n = c.front();
-
-    cout &lt;&lt; n &lt;&lt; endl;
+	<span style="color:#75715e">// C++11 auto사용가능.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//auto n = c.front();
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
 }
 
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //vector&lt;int&gt;    v = { 1,2,3,4,5 };
-    //vector&lt;double&gt; v = { 1,2,3,4,5 };
-    list&lt;double&gt; v = { 1,2,3,4,5 };
+	<span style="color:#75715e">//vector&lt;int&gt;    v = { 1,2,3,4,5 };
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//vector&lt;double&gt; v = { 1,2,3,4,5 };
+</span><span style="color:#75715e"></span>	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span> };
 
-    print_first_element(v);
+	print_first_element(v);
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>std vector의 생성자가 다양 할 수 있는 이유 -&gt; value_type</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-using namespace std;
-
-// C++17. class template type deduction
-template&lt;typename T&gt; class Vector
+<span style="color:#75715e">// C++17. class template type deduction
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vector</span>
 {
-    T* buff;
-    int sz;
-public:
-    Vector() {}
-    Vector(int s, T v) {}
-    template&lt;typename C&gt; Vector(const C&amp; c) {};
+	T<span style="color:#f92672">*</span> buff;
+	<span style="color:#66d9ef">int</span> sz;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Vector() {}
+	Vector(<span style="color:#66d9ef">int</span> s, T v) {}
+	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> C<span style="color:#f92672">&gt;</span> Vector(<span style="color:#66d9ef">const</span> C<span style="color:#f92672">&amp;</span> c) {};
 };
-// class template type deduction guide
-Vector()-&gt;Vector&lt;int&gt;;
-template&lt;typename C&gt; Vector(const C&amp; c)-&gt;Vector&lt; ? &gt;;
+<span style="color:#75715e">// class template type deduction guide
+</span><span style="color:#75715e"></span>Vector()<span style="color:#f92672">-&gt;</span>Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> C<span style="color:#f92672">&gt;</span> Vector(<span style="color:#66d9ef">const</span> C<span style="color:#f92672">&amp;</span> c)<span style="color:#f92672">-&gt;</span>Vector<span style="color:#f92672">&lt;</span> <span style="color:#f92672">?</span> <span style="color:#f92672">&gt;</span>;
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Vector&lt;int&gt; v1(10, 3);
-    Vector      v2(10, 3); // C++14 error. C++17 ok
-                           
-    Vector      v3;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v1(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>);
+	Vector      v2(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// C++14 error. C++17 ok
+</span><span style="color:#75715e"></span>						   
+	Vector      v3;
 
-    list&lt;int&gt; s = { 1,2,3 };
+	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> };
 }
-</code></pre>
-
-<h3 id="template-키워드-관련-문법-실수">Template 키워드 관련 문법 실수</h3>
-
-<pre><code class="language-cpp">class Test
+</code></pre></div><h3 id="template-키워드-관련-문법-실수">Template 키워드 관련 문법 실수</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>
 {
-public:
-    template&lt;typename T&gt; static void f() {}
-    template&lt;typename T&gt; class Complex {};
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> f() {}
+	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Complex</span> {};
 };
 
-template&lt;typename T&gt; typename T::template Complex&lt;int&gt; foo(T a)  // T 는 Test
-{
-    Test::f&lt;int&gt;(); // ok
-
-    T::f&lt;int&gt;();    // error. &lt; 를 해석할수 없다.
-    T::template f&lt;int&gt;();    // ok
-
-    Test::Complex&lt;int&gt; c1; // ok.. Test의 선언을 조사할수 있다.
-    T::Complex&lt;int&gt; c2;    // error.
-    T::template Complex&lt;int&gt; c3;    // error. 표준 문법이 아니지만, MS 컴파일러에서는 허용됨
-    typename T::template Complex&lt;int&gt; c4;    // ok, 정확한 문법ㅉ
-
-    return c4;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span><span style="color:#66d9ef">template</span> Complex<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> foo(T a)  <span style="color:#75715e">// T 는 Test
+</span><span style="color:#75715e"></span>{
+	Test<span style="color:#f92672">::</span>f<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(); <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
+	T<span style="color:#f92672">::</span>f<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>();    <span style="color:#75715e">// error. &lt; 를 해석할수 없다.
+</span><span style="color:#75715e"></span>	T<span style="color:#f92672">::</span><span style="color:#66d9ef">template</span> f<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>();    <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
+	Test<span style="color:#f92672">::</span>Complex<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> c1; <span style="color:#75715e">// ok.. Test의 선언을 조사할수 있다.
+</span><span style="color:#75715e"></span>	T<span style="color:#f92672">::</span>Complex<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> c2;    <span style="color:#75715e">// error.
+</span><span style="color:#75715e"></span>	T<span style="color:#f92672">::</span><span style="color:#66d9ef">template</span> Complex<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> c3;    <span style="color:#75715e">// error. 표준 문법이 아니지만, MS 컴파일러에서는 허용됨
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span><span style="color:#66d9ef">template</span> Complex<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> c4;    <span style="color:#75715e">// ok, 정확한 문법ㅉ
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">return</span> c4;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Test t;
-    foo(t);
+	Test t;
+	foo(t);
 }
-</code></pre>
-
-<h3 id="template-parameter">Template parameter</h3>
-
+</code></pre></div><h3 id="template-parameter">Template parameter</h3>
 <ul>
 <li>템플릿의 인자로 전달 가능한 것은 3가지가 있습니다.
-
 <ul>
 <li>type 인자</li>
 <li>값(none type) 인자</li>
 <li>template 인자</li>
-</ul></li>
+</ul>
+</li>
 <li>값(none type) 인자 예제</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// 1. 정수형 상수(실수 안됨.)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span> N<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test1</span> {};
 
-<pre><code class="language-cpp">// 1. 정수형 상수(실수 안됨.)
-template&lt;int N&gt; class Test1 {};
+<span style="color:#75715e">// 2. enum 상수
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Color</span> { red <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, green <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>};
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test2</span> {};
 
-// 2. enum 상수
-enum Color { red = 1, green = 2};
-template&lt;Color&gt; class Test2 {};
+<span style="color:#75715e">// 3. 포인터 : 지역변수 주소안됨, 전역 변수주소는 가능
+</span><span style="color:#75715e">//			   no linkage 를 가지는 변수 주소는 안됨
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">*&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test3</span> {};
 
-// 3. 포인터 : 지역변수 주소안됨, 전역 변수주소는 가능
-//             no linkage 를 가지는 변수 주소는 안됨
-template&lt;int*&gt; class Test3 {};
+<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-int x = 0;
+<span style="color:#75715e">// 4. 함수 포인터
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>(<span style="color:#f92672">*</span>)(<span style="color:#66d9ef">void</span>)<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test4</span> {};
 
-// 4. 함수 포인터
-template&lt;int(*)(void)&gt; class Test4 {};
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int n = 10;
+	<span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 
-    Test1&lt;10&gt; t1; // ok
-    //Test1&lt;n&gt;  t2; // error. 변수 안됨.
-    Test2&lt;red&gt; t3; // ok
-
-    //Test3&lt;&amp;n&gt; t4; // error;
-    Test3&lt;&amp;x&gt; t5; // ok
-
-    Test4&lt;&amp;main&gt; t6;// ok
-}
-</code></pre>
-
-<ul>
+	Test1<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">10</span><span style="color:#f92672">&gt;</span> t1; <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//Test1&lt;n&gt;  t2; // error. 변수 안됨.
+</span><span style="color:#75715e"></span>	Test2<span style="color:#f92672">&lt;</span>red<span style="color:#f92672">&gt;</span> t3; <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">//Test3&lt;&amp;n&gt; t4; // error;
+</span><span style="color:#75715e"></span>	Test3<span style="color:#f92672">&lt;&amp;</span>x<span style="color:#f92672">&gt;</span> t5; <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
+	Test4<span style="color:#f92672">&lt;&amp;</span>main<span style="color:#f92672">&gt;</span> t6;<span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>C++17 auto</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;typeinfo&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;typeinfo&gt;
-using namespace std;
-
-// non-type(값) parameter
-// 정수형 상수, enum 상수, 포인터, 함수 포인터, 멤버 함수 포인터.
-// c++17 : auto
-
-template&lt;auto N&gt; struct Test
+<span style="color:#75715e">// non-type(값) parameter
+</span><span style="color:#75715e">// 정수형 상수, enum 상수, 포인터, 함수 포인터, 멤버 함수 포인터.
+</span><span style="color:#75715e">// c++17 : auto
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">auto</span> N<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Test</span>
 {
-    Test()
-    {
-        cout &lt;&lt; typeid(N).name() &lt;&lt; endl;
-    }
+	Test()
+	{
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(N).name() <span style="color:#f92672">&lt;&lt;</span> endl;
+	}
 };
 
-int x = 0;
+<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Test&lt;10&gt; t1; // N : int의 값
-    Test&lt;&amp;x&gt; t2; // N : int* 의 값.
-    Test&lt;&amp;main&gt; t3;  
+	Test<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">10</span><span style="color:#f92672">&gt;</span> t1; <span style="color:#75715e">// N : int의 값
+</span><span style="color:#75715e"></span>	Test<span style="color:#f92672">&lt;&amp;</span>x<span style="color:#f92672">&gt;</span> t2; <span style="color:#75715e">// N : int* 의 값.
+</span><span style="color:#75715e"></span>	Test<span style="color:#f92672">&lt;&amp;</span>main<span style="color:#f92672">&gt;</span> t3;  
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>template 인자 예제</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">list</span> {};
 
-<pre><code class="language-cpp">template&lt;typename T&gt; class list {};
-
-template&lt;typename T, template&lt;typename&gt; class C&gt; class stack
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">stack</span>
 {
-    //C c; // error, list c
-    C&lt;T&gt; c; // ok.. list&lt;int&gt; c
-};
+	<span style="color:#75715e">//C c; // error, list c
+</span><span style="color:#75715e"></span>	C<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> c; <span style="color:#75715e">// ok.. list&lt;int&gt; c
+</span><span style="color:#75715e"></span>};
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list      s1; // error. list 는 타입은 아니고 템플릿
-    list&lt;int&gt; s2; // ok.    list&lt;int&gt;는 타입.
-
-    stack&lt;int, list &gt; s3; // ok
-
+	list      s1; <span style="color:#75715e">// error. list 는 타입은 아니고 템플릿
+</span><span style="color:#75715e"></span>	list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s2; <span style="color:#75715e">// ok.    list&lt;int&gt;는 타입.
+</span><span style="color:#75715e"></span>
+	stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, list <span style="color:#f92672">&gt;</span> s3; <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>defalue parameter</li>
 </ul>
-
-<pre><code class="language-cpp">template&lt;typename T = int, int N = 10&gt; struct Stack
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Stack</span>
 {
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Stack&lt;int, 10&gt; s1;
+	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span><span style="color:#f92672">&gt;</span> s1;
 
-    Stack&lt;int&gt; s2; 
+	Stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s2; 
 
-    Stack&lt;&gt; s3; // 모든 인자를 디폴트 값 사용.
-}
-</code></pre>
-
-<ul>
+	Stack<span style="color:#f92672">&lt;&gt;</span> s3; <span style="color:#75715e">// 모든 인자를 디폴트 값 사용.
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>가변인자 template</li>
 </ul>
-
-<pre><code class="language-cpp">// C++11 : 가변인자 템플릿
-template&lt;typename ... T&gt; class Test {};
-template&lt;int ... N&gt; class Test {};
-</code></pre>
-
-<p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// C++11 : 가변인자 템플릿
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> ... T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span> {};
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span> ... N<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span> {};
+</code></pre></div><p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
               
             </div>
           </div>
@@ -804,7 +754,7 @@ template&lt;int ... N&gt; class Test {};
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

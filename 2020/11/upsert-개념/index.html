@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="정의
-
 간략하게 Update &#43; Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.">
 
 
 <meta property="og:description" content="정의
-
 간략하게 Update &#43; Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UPSERT 개념">
@@ -23,10 +21,8 @@
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/upsert-%EA%B0%9C%EB%85%90/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="정의
-
 간략하게 Update &#43; Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.">
 <meta name="twitter:description" content="정의
-
 간략하게 Update &#43; Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.">
 <meta property="og:locale" content="en-us">
 
@@ -98,7 +94,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,40 +250,32 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <h3 id="정의">정의</h3>
-
 <p>간략하게 Update + Insert이며, Update 할 대상 row가 있을 경우 Update, 없을 경우 Insert입니다.</p>
-
 <h3 id="mysql의-경우-사용-방법">MySql의 경우 사용 방법</h3>
-
 <blockquote>
-<pre><code class="language-sql">INSERT INTO t1 (a,b,c) VALUES (1,2,3)  ON DUPLICATE KEY UPDATE c=c+1;
-</code></pre>
-</blockquote>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> t1 (a,b,<span style="color:#66d9ef">c</span>) <span style="color:#66d9ef">VALUES</span> (<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>)  <span style="color:#66d9ef">ON</span> DUPLICATE <span style="color:#66d9ef">KEY</span> <span style="color:#66d9ef">UPDATE</span> <span style="color:#66d9ef">c</span><span style="color:#f92672">=</span><span style="color:#66d9ef">c</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+</code></pre></div></blockquote>
 <h3 id="mssql의-경우-사용-방법">MsSql의 경우 사용 방법</h3>
-
 <blockquote>
-<pre><code class="language-sql">CREATE PROCEDURE dbo.InsertOrUpdateEmployee
-       @ID INT,
-       @Name VARCHAR(50),
-       @ItemName VARCHAR(50),  
-       @ItemCatName VARCHAR(50),
-       @ItemQty DECIMAL(15,2)
-AS BEGIN
-    IF NOT EXISTS (SELECT * FROM dbo.Table1 WHERE ID = @ID)
-       INSERT INTO dbo.Table1(ID, Name, ItemName, ItemCatName, ItemQty)
-       VALUES(@ID, @Name, @ItemName, @ItemCatName, @ItemQty)
-    ELSE
-       UPDATE dbo.Table1
-       SET Name = @Name,
-           ItemName = @ItemName,
-           ItemCatName = @ItemCatName,
-           ItemQty = @ItemQty
-       WHERE ID = @ID
-END
-</code></pre>
-</blockquote>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">PROCEDURE</span> dbo.InsertOrUpdateEmployee
+       <span style="color:#f92672">@</span>ID INT,
+       <span style="color:#f92672">@</span>Name VARCHAR(<span style="color:#ae81ff">50</span>),
+       <span style="color:#f92672">@</span>ItemName VARCHAR(<span style="color:#ae81ff">50</span>),  
+       <span style="color:#f92672">@</span>ItemCatName VARCHAR(<span style="color:#ae81ff">50</span>),
+       <span style="color:#f92672">@</span>ItemQty DECIMAL(<span style="color:#ae81ff">15</span>,<span style="color:#ae81ff">2</span>)
+<span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">BEGIN</span>
+    <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">EXISTS</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> dbo.Table1 <span style="color:#66d9ef">WHERE</span> ID <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>ID)
+       <span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> dbo.Table1(ID, Name, ItemName, ItemCatName, ItemQty)
+       <span style="color:#66d9ef">VALUES</span>(<span style="color:#f92672">@</span>ID, <span style="color:#f92672">@</span>Name, <span style="color:#f92672">@</span>ItemName, <span style="color:#f92672">@</span>ItemCatName, <span style="color:#f92672">@</span>ItemQty)
+    <span style="color:#66d9ef">ELSE</span>
+       <span style="color:#66d9ef">UPDATE</span> dbo.Table1
+       <span style="color:#66d9ef">SET</span> Name <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>Name,
+           ItemName <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>ItemName,
+           ItemCatName <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>ItemCatName,
+           ItemQty <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>ItemQty
+       <span style="color:#66d9ef">WHERE</span> ID <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>ID
+<span style="color:#66d9ef">END</span>
+</code></pre></div></blockquote>
 <ul>
 <li>추후에 Merge를 활용 한 방법 추가 예정입니다.</li>
 </ul>
@@ -389,7 +376,7 @@ END
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

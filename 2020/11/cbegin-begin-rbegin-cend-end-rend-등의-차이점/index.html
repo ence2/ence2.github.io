@@ -5,20 +5,16 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="C&#43;&#43;의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.
-
 Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.
-
 begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.">
 
 
 <meta property="og:description" content="C&#43;&#43;의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.
-
 Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.
-
 begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cbegin, begin, rbegin, cend, end, rend 등의 차이점">
@@ -27,14 +23,10 @@ begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()�
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/cbegin-begin-rbegin-cend-end-rend-%EB%93%B1%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="C&#43;&#43;의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.
-
 Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.
-
 begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.">
 <meta name="twitter:description" content="C&#43;&#43;의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.
-
 Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.
-
 begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.">
 <meta property="og:locale" content="en-us">
 
@@ -110,7 +102,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -269,41 +260,22 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>C++의 STL 컨테이너들은 Iterator(반복자)를 통해서 내부에 있는 데이터의 한 위치를 가리킬 수가 있습니다.</p>
-
 <p>Iterator는 for 문을 돌리거나 STL이 제공하는 알고리즘을 실행할 때 사용하게 됩니다.</p>
-
 <p>begin(), end()는 순방향으로 움직일 때 사용하며, rbegin(), rend()는 역방향으로 움직일 때 사용합니다.</p>
-
 <p>iterator 타입은 선언할 때 타입 이름이 상당히 길게 열거됩니다.</p>
-
-<pre><code class="language-cpp">std::vector&lt; std::vector&lt;int&gt;&gt;::iterator it = ptWord.begin();
-</code></pre>
-
-<p>그래서 C++11에서는 auto 라는 키워드가 추가가 되었습니다.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;::</span>iterator it <span style="color:#f92672">=</span> ptWord.begin();
+</code></pre></div><p>그래서 C++11에서는 auto 라는 키워드가 추가가 되었습니다.</p>
 <p>그런데 auto 키워드의 문제는 begin(), end(), rbegin(), rend() 로는 const_iterator 타입을 받을 수 없다는 것입니다.</p>
-
 <p>begin()으로 받으면 타입 추론에 의해서 iterator 타입으로 받게 됩니다.</p>
-
 <p>이런 이유로 cbegin()과 cend(), crbegin(), crend()가 새롭게 추가되었습니다.</p>
-
 <p>상수 반복자라는 의미로 앞에 c가 붙었습니다.</p>
-
 <p>이렇게 되면 반복자가 가리키는 곳의 값을 변경할 수 없습니다.</p>
-
 <p>역방향 상수 반복자의 경우 const_reverse_iterator로 타입명만 해도 상당한 길이입니다.</p>
-
 <p>auto와 crbegin()을 사용하면 간단하게 표현이 가능합니다.</p>
-
-<pre><code class="language-cpp">auto it = ptWord.crbegin();
-</code></pre>
-
-<p>또한 순방향도 아래와 같이 간단하게 표현이 가능합니다.</p>
-
-<pre><code class="language-cpp">auto it = ptWord.cbegin();
-</code></pre>
-
-<p>auto 키워드와 cbegin(), range based for loop 등을 사용하면 STL을 보다 편리하게 사용 가능해집니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> ptWord.crbegin();
+</code></pre></div><p>또한 순방향도 아래와 같이 간단하게 표현이 가능합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> ptWord.cbegin();
+</code></pre></div><p>auto 키워드와 cbegin(), range based for loop 등을 사용하면 STL을 보다 편리하게 사용 가능해집니다.</p>
               
             </div>
           </div>
@@ -403,7 +375,7 @@ if (!doNotTrack) {
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

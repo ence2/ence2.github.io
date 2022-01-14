@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="코틀린의 패키지, 함수 표현법, Lambda 표현식에 대해 알아보겠습니다.">
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -257,123 +256,93 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>코틀린의 패키지, 함수 표현법, Lambda 표현식에 대해 알아보겠습니다.</p>
-
 <h3 id="top-level-functions">Top-Level Functions</h3>
-
 <p>코틀린에서 모든것은 패키지의 일부입니다.</p>
-
 <p>package name 형식으로 감싸진 모듈은 다른 파일에서 import하여 사용 할 수 있습니다.</p>
-
-<pre><code class="language-python">//func.kt
-package ExampleModule.Hello
-
-fun HelloModule()
-{
-    println(&quot;called!&quot;)
-}
-
-//main.kt
-package ExampleModule.Hello.*
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">//</span>func<span style="color:#f92672">.</span>kt
+package ExampleModule<span style="color:#f92672">.</span>Hello
 
 fun HelloModule()
 {
-    println(&quot;called!&quot;)
+    println(<span style="color:#e6db74">&#34;called!&#34;</span>)
 }
-</code></pre>
 
-<h3 id="return-type-and-arguments">Return Type and Arguments</h3>
+<span style="color:#f92672">//</span>main<span style="color:#f92672">.</span>kt
+package ExampleModule<span style="color:#f92672">.</span>Hello<span style="color:#f92672">.*</span>
 
+fun HelloModule()
+{
+    println(<span style="color:#e6db74">&#34;called!&#34;</span>)
+}
+</code></pre></div><h3 id="return-type-and-arguments">Return Type and Arguments</h3>
 <p>코틀린의 함수는 다음과 같은 형식으로 반환 형식과 input paramter를 지정 할 수 있습니다.</p>
-
-<pre><code class="language-python">fun main(args: Array&lt;String&gt;) {
-    square(10)
-    println(square(10))
-    println(triple(3))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun main(args: Array<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>) {
+    square(<span style="color:#ae81ff">10</span>)
+    println(square(<span style="color:#ae81ff">10</span>))
+    println(triple(<span style="color:#ae81ff">3</span>))
 }
 
-fun square(x:Int = 5) : Int
+fun square(x:Int <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>) : Int
 {
-    return x * x
+    <span style="color:#66d9ef">return</span> x <span style="color:#f92672">*</span> x
 }
 
-fun triple(x:Int) = x*3 // 이런 방식도 가능하다.
-</code></pre>
-
-<h3 id="local-a-k-a-inner-functions">Local (a.k.a Inner) Functions</h3>
-
+fun triple(x:Int) <span style="color:#f92672">=</span> x<span style="color:#f92672">*</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">//</span> 이런 방식도 가능하다<span style="color:#f92672">.</span>
+</code></pre></div><h3 id="local-aka-inner-functions">Local (a.k.a Inner) Functions</h3>
 <p>함수 안에 함수를 선언하여 사용 할 수 있습니다.</p>
-
-<pre><code class="language-python">fun solve_quadratic_equation(a:Double, b:Double, c:Double) : Pair&lt;Double, Double&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun solve_quadratic_equation(a:Double, b:Double, c:Double) : Pair<span style="color:#f92672">&lt;</span>Double, Double<span style="color:#f92672">&gt;</span>
 {
-    fun calc_discriminant(a:Double, b:Double, c:Double = 5.0): Double
-    // fun calc_discriminant(): Double // 인자를 생략해도 내부적으로 캡쳐되어 사용 가능
+    fun calc_discriminant(a:Double, b:Double, c:Double <span style="color:#f92672">=</span> <span style="color:#ae81ff">5.0</span>): Double
+    <span style="color:#f92672">//</span> fun calc_discriminant(): Double <span style="color:#f92672">//</span> 인자를 생략해도 내부적으로 캡쳐되어 사용 가능
     {
-        return b*b-4*a*c
+        <span style="color:#66d9ef">return</span> b<span style="color:#f92672">*</span>b<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>a<span style="color:#f92672">*</span>c
     }
 
-    var root_disc = Math.sqrt(calc_discriminant(a,b,c))
+    var root_disc <span style="color:#f92672">=</span> Math<span style="color:#f92672">.</span>sqrt(calc_discriminant(a,b,c))
 
-    return Pair((-b+root_disc)/(2*a),(-b-root_disc)/(2*a))
+    <span style="color:#66d9ef">return</span> Pair((<span style="color:#f92672">-</span>b<span style="color:#f92672">+</span>root_disc)<span style="color:#f92672">/</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a),(<span style="color:#f92672">-</span>b<span style="color:#f92672">-</span>root_disc)<span style="color:#f92672">/</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a))
 }
-</code></pre>
-
-<h3 id="infix-functions">Infix Functions</h3>
-
+</code></pre></div><h3 id="infix-functions">Infix Functions</h3>
 <p>코틀린에서 infix Function이라 불리는 특정 함수들은 다음과 같은 방법으로 사용이 가능합니다.</p>
-
-<pre><code class="language-python">fun InfixFunctionExample()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun InfixFunctionExample()
 {
-    val alphabat = 'z' downTo 'a' // downTo is Infix Function
+    val alphabat <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;z&#39;</span> downTo <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">//</span> downTo <span style="color:#f92672">is</span> Infix Function
 }
-</code></pre>
-
-<p>downTo 함수의 구현부를 살펴보면 infix 키워드로 구현 되어있음을 알 수 있습니다.</p>
-
-<pre><code class="language-python">public infix fun Char.downTo(to: Char): CharProgression {
-    return CharProgression.fromClosedRange(this, to, -1)
+</code></pre></div><p>downTo 함수의 구현부를 살펴보면 infix 키워드로 구현 되어있음을 알 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">public infix fun Char<span style="color:#f92672">.</span>downTo(to: Char): CharProgression {
+    <span style="color:#66d9ef">return</span> CharProgression<span style="color:#f92672">.</span>fromClosedRange(this, to, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
 }
-</code></pre>
-
-<p>이러한 방식으로 개발자도 custom infix 함수를 작성 할 수 있습니다.</p>
-
+</code></pre></div><p>이러한 방식으로 개발자도 custom infix 함수를 작성 할 수 있습니다.</p>
 <h3 id="lambda-functions">Lambda Functions</h3>
-
 <p>코틀린의 람다 함수는 다른 언어의 람다 표현식과 같은 개념이며 <code>{ 파라메터  -&gt; 계산식 }</code>으로 표현합니다.</p>
-
-<pre><code class="language-python">fun LambdaExample()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun LambdaExample()
 {
-    var product:(int, int) -&gt; Int = {x, y -&gt; x*y}
+    var product:(int, int) <span style="color:#f92672">-&gt;</span> Int <span style="color:#f92672">=</span> {x, y <span style="color:#f92672">-&gt;</span> x<span style="color:#f92672">*</span>y}
 
-    var result = product(2, 3)
+    var result <span style="color:#f92672">=</span> product(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
 
     println(result)
 }
-</code></pre>
-
-<h3 id="extension-method">Extension method</h3>
-
+</code></pre></div><h3 id="extension-method">Extension method</h3>
 <p>코틀린에서는 기존에 존재하는 객체에 사용자가 특정 함수를 포함시킬 수 있습니다.</p>
-
-<pre><code class="language-python">fun &lt;T&gt; ArrayList&lt;T&gt;.swap(index1:Int, index2:Int)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fun <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;.</span>swap(index1:Int, index2:Int)
 {
-    val temp = this[index1]
-    this[index1] = this[index2]
-    this[index2] = temp
+    val temp <span style="color:#f92672">=</span> this[index1]
+    this[index1] <span style="color:#f92672">=</span> this[index2]
+    this[index2] <span style="color:#f92672">=</span> temp
 }
 
 fun ExtensionFuncExample()
 {
-    var MyIntFunc = fun Int.(value:Int) = this + value
-    var x = 1
+    var MyIntFunc <span style="color:#f92672">=</span> fun Int<span style="color:#f92672">.</span>(value:Int) <span style="color:#f92672">=</span> this <span style="color:#f92672">+</span> value
+    var x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
 
-    print(x.MyIntFunc(10)) // Int 객체에 MyIntFunc가 포함된 것처럼 사용 가능하다.
+    print(x<span style="color:#f92672">.</span>MyIntFunc(<span style="color:#ae81ff">10</span>)) <span style="color:#f92672">//</span> Int 객체에 MyIntFunc가 포함된 것처럼 사용 가능하다<span style="color:#f92672">.</span>
 
-    val myList = arrayListOf(1, 2, 3)
-    myList.swap(0, 2) // arrayList에 swap을 추가하여 사용 가능
+    val myList <span style="color:#f92672">=</span> arrayListOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+    myList<span style="color:#f92672">.</span>swap(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>) <span style="color:#f92672">//</span> arrayList에 swap을 추가하여 사용 가능
 }
-</code></pre>
-
-<p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
+</code></pre></div><p><a href="https://kotlinlang.org/docs/reference/">더 많은 코틀린 관련 정보</a></p>
               
             </div>
           </div>
@@ -477,7 +446,7 @@ fun ExtensionFuncExample()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

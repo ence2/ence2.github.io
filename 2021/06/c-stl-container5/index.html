@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번 시간에는 STL의 Container에 대해서 알아보겠습니다.">
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -257,483 +256,439 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번 시간에는 STL의 Container에 대해서 알아보겠습니다.</p>
-
 <h2 id="stl-container-특징">STL Container 특징</h2>
-
 <h4 id="1-container-basic">1. Container basic</h4>
-
 <ul>
-<li><p>시퀀스 컨테이너 : 요소가 삽입된 순서대로 놓여있는 컨테이너</p>
-
+<li>
+<p>시퀀스 컨테이너 : 요소가 삽입된 순서대로 놓여있는 컨테이너</p>
 <ul>
 <li>list, vector, deque, forward_list, array</li>
-</ul></li>
-
-<li><p>연관 컨테이너</p>
-
+</ul>
+</li>
+<li>
+<p>연관 컨테이너</p>
 <ul>
 <li>삽입 순서와 상관없이 규칙을 가지고 요소를 보관</li>
 <li>set, muti-set, map, multi-map, unordered_set, unordered-multiset, unordered_map, unordered_multimap</li>
-</ul></li>
-
-<li><p>Adapter container</p>
-
+</ul>
+</li>
+<li>
+<p>Adapter container</p>
 <ul>
 <li>stack, queue, priority_queue</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h4 id="2-공통-특징">2. 공통 특징</h4>
-
 <ul>
 <li>값을 보관함</li>
 <li>멤버 함수 뿐 아니라 member type 제공</li>
 <li>반복자 제공</li>
 <li>제거와 리턴을 동시에 하지 않음 ( .back()과 .pop_back() )</li>
 </ul>
-
 <h4 id="3-policy-base-design">3. Policy base design</h4>
-
 <ul>
 <li>메모리 할당 방식을 제공(Allocator)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T,
-         typename Allocator = allocator&lt;T&gt; &gt; class vector
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T,
+         <span style="color:#66d9ef">typename</span> Allocator <span style="color:#f92672">=</span> allocator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">vector</span>
 {
-    //....
-    Allocator ax;
-public:
-    void push_back(const T&amp; a)
+    <span style="color:#75715e">//....
+</span><span style="color:#75715e"></span>    Allocator ax;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> push_back(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a)
     {
-        // 메모리 할당이 필요하다.
-        // new, malloc, 공유 메모리, pool,
-        T* p = ax.allocate(1);
+        <span style="color:#75715e">// 메모리 할당이 필요하다.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// new, malloc, 공유 메모리, pool,
+</span><span style="color:#75715e"></span>        T<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> ax.allocate(<span style="color:#ae81ff">1</span>);
 
-        ax.deallocate(p, 1);
+        ax.deallocate(p, <span style="color:#ae81ff">1</span>);
 
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;int, MyAlloc&gt; v;
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, MyAlloc<span style="color:#f92672">&gt;</span> v;
 
-    v.push_back(10);
+    v.push_back(<span style="color:#ae81ff">10</span>);
 }
 
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>단위 전략 디자인 제공</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-#include &lt;cctype&gt;
-
-struct ci_char_traits : public std::char_traits&lt;char&gt;
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cctype&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ci_char_traits</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> std<span style="color:#f92672">::</span>char_traits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span>
 {
-    static char to_upper(char ch)
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> <span style="color:#a6e22e">to_upper</span>(<span style="color:#66d9ef">char</span> ch)
     {
-        return std::toupper((unsigned char) ch);
+        <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>toupper((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span>) ch);
     }
-    static bool eq(char c1, char c2) {
-         return to_upper(c1) == to_upper(c2);
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">eq</span>(<span style="color:#66d9ef">char</span> c1, <span style="color:#66d9ef">char</span> c2) {
+         <span style="color:#66d9ef">return</span> to_upper(c1) <span style="color:#f92672">==</span> to_upper(c2);
      }
-    static bool lt(char c1, char c2) {
-         return to_upper(c1) &lt;  to_upper(c2);
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">lt</span>(<span style="color:#66d9ef">char</span> c1, <span style="color:#66d9ef">char</span> c2) {
+         <span style="color:#66d9ef">return</span> to_upper(c1) <span style="color:#f92672">&lt;</span>  to_upper(c2);
     }
-    static int compare(const char* s1, const char* s2, size_t n) {
-        while ( n-- != 0 ) {
-            if ( to_upper(*s1) &lt; to_upper(*s2) ) return -1;
-            if ( to_upper(*s1) &gt; to_upper(*s2) ) return 1;
-            ++s1; ++s2;
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compare</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> s1, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> s2, size_t n) {
+        <span style="color:#66d9ef">while</span> ( n<span style="color:#f92672">--</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> ) {
+            <span style="color:#66d9ef">if</span> ( to_upper(<span style="color:#f92672">*</span>s1) <span style="color:#f92672">&lt;</span> to_upper(<span style="color:#f92672">*</span>s2) ) <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> ( to_upper(<span style="color:#f92672">*</span>s1) <span style="color:#f92672">&gt;</span> to_upper(<span style="color:#f92672">*</span>s2) ) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#f92672">++</span>s1; <span style="color:#f92672">++</span>s2;
         }
-        return 0;
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
     }
-    static const char* find(const char* s, int n, char a) {
-        auto const ua (to_upper(a));
-        while ( n-- != 0 )
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">find</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> s, <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">char</span> a) {
+        <span style="color:#66d9ef">auto</span> <span style="color:#66d9ef">const</span> ua (to_upper(a));
+        <span style="color:#66d9ef">while</span> ( n<span style="color:#f92672">--</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> )
         {
-            if (to_upper(*s) == ua)
-                return s;
-            s++;
+            <span style="color:#66d9ef">if</span> (to_upper(<span style="color:#f92672">*</span>s) <span style="color:#f92672">==</span> ua)
+                <span style="color:#66d9ef">return</span> s;
+            s<span style="color:#f92672">++</span>;
         }
-        return nullptr;
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;
     }
 };
 
-using ci_string = std::basic_string&lt;char, ci_char_traits&gt;;
+<span style="color:#66d9ef">using</span> ci_string <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>basic_string<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span>, ci_char_traits<span style="color:#f92672">&gt;</span>;
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    ci_string s1 = &quot;abcd&quot;;
-    ci_string s2 = &quot;ABCD&quot;;
+    ci_string s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abcd&#34;</span>;
+    ci_string s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ABCD&#34;</span>;
 
-    if ( s1 == s2 )
-        cout &lt;&lt; &quot;same&quot; &lt;&lt; endl;
-    else
-        cout &lt;&lt; &quot;not same&quot; &lt;&lt; endl;
+    <span style="color:#66d9ef">if</span> ( s1 <span style="color:#f92672">==</span> s2 )
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;same&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">else</span>
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;not same&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
+</code></pre></div><h2 id="sequence선형-contianer">Sequence(선형) Contianer</h2>
+<h4 id="1-선형-컨테이너들은-인터페이스가-동일하지만-vector는-push_front를-제공하지-않는-등-제공-유무-여부가-다름">1. 선형 컨테이너들은 인터페이스가 동일하지만, vector는 push_front를 제공하지 않는 등 제공 유/무 여부가 다름</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;deque&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;forward_list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;array&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<h2 id="sequence-선형-contianer">Sequence(선형) Contianer</h2>
-
-<h4 id="1-선형-컨테이너들은-인터페이스가-동일하지만-vector는-push-front를-제공하지-않는-등-제공-유-무-여부가-다름">1. 선형 컨테이너들은 인터페이스가 동일하지만, vector는 push_front를 제공하지 않는 등 제공 유/무 여부가 다름</h4>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;list&gt;
-#include &lt;vector&gt;
-#include &lt;deque&gt;
-#include &lt;forward_list&gt;
-#include &lt;array&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    list&lt;int&gt; s;
-    //deque&lt;int&gt; s;
-    //vector&lt;int&gt; s;
+    list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s;
+    <span style="color:#75715e">//deque&lt;int&gt; s;
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//vector&lt;int&gt; s;
+</span><span style="color:#75715e"></span>
+    s.push_front(<span style="color:#ae81ff">10</span>);
+    s.push_back(<span style="color:#ae81ff">20</span>);
 
-    s.push_front(10);
-    s.push_back(20);
-
-    cout &lt;&lt; s[0] &lt;&lt; endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> s[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h4 id="2-vector">2. Vector</h4>
-
+</code></pre></div><h4 id="2-vector">2. Vector</h4>
 <ul>
 <li>생성/삽입/접근</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    // vector 생성
-    vector&lt;int&gt; v1;
-    vector&lt;int&gt; v2(10);
-    vector&lt;int&gt; v3(10, 3);
-    vector&lt;int&gt; v4(v3);
+    <span style="color:#75715e">// vector 생성
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v1;
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v2(<span style="color:#ae81ff">10</span>);
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v3(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>);
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v4(v3);
 
-    vector&lt;int&gt; v5 = {1,2,3,4};
-    vector&lt;int&gt; v6{1,2,3,4};
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v5 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>};
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v6{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>};
 
-    vector&lt;int&gt; v7(10,0); // 10 개를 0으로 초기화
-    vector&lt;int&gt; v8{10,0}; // 2개를 10, 0 으로 초기화
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v7(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">0</span>); <span style="color:#75715e">// 10 개를 0으로 초기화
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v8{<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">0</span>}; <span style="color:#75715e">// 2개를 10, 0 으로 초기화
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//----------------------
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v;
+    <span style="color:#75715e">//v.push_front(10); // error.
+</span><span style="color:#75715e"></span>    v.push_back(<span style="color:#ae81ff">10</span>);
+    v.push_back(<span style="color:#ae81ff">20</span>);
+    <span style="color:#75715e">//v.insert( 위치,  30);
+</span><span style="color:#75715e"></span>
+    v.insert( begin(v)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>,  <span style="color:#ae81ff">30</span>); <span style="color:#75715e">// 10 30 20
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 요소 꺼내기
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> v.front();
+    <span style="color:#66d9ef">int</span> n1 <span style="color:#f92672">=</span> v[<span style="color:#ae81ff">0</span>];
 
-    //----------------------
-    vector&lt;int&gt; v;
-    //v.push_front(10); // error.
-    v.push_back(10);
-    v.push_back(20);
-    //v.insert( 위치,  30);
+    <span style="color:#66d9ef">int</span> x[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>};
 
-    v.insert( begin(v)+1,  30); // 10 30 20
+    v.assign( x, x<span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>);
 
-    // 요소 꺼내기
-    int n = v.front();
-    int n1 = v[0];
-
-    int x[5] = { 1,2,3,4,5};
-
-    v.assign( x, x+5);
-
-    //sort( begin(v), end(v));
-
-    v[100] = 10;   // 예외 없이 runtime error
-    //v.at(100) = 10; // 예외 발생
-
-    for ( int i = 0; i &lt; v.size(); i++)
-        v[i] = 10; // ok
-        v.at(i) = 10; // !!
-}
-</code></pre>
-
-<ul>
+    <span style="color:#75715e">//sort( begin(v), end(v));
+</span><span style="color:#75715e"></span>
+    v[<span style="color:#ae81ff">100</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;   <span style="color:#75715e">// 예외 없이 runtime error
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//v.at(100) = 10; // 예외 발생
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">for</span> ( <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> v.size(); i<span style="color:#f92672">++</span>)
+        v[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>        v.at(i) <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">// !!
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>size와 capacity(메모리사용량)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;int&gt; v(10,0);
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">0</span>);
 
-    v.resize(7);    // ?
-
-    cout &lt;&lt; v.size()     &lt;&lt; endl; // 7
-    cout &lt;&lt; v.capacity() &lt;&lt; endl; // 10
-
-    v.push_back(0);
-    cout &lt;&lt; v.size()     &lt;&lt; endl; // 8
-    cout &lt;&lt; v.capacity() &lt;&lt; endl; // 10
-
+    v.resize(<span style="color:#ae81ff">7</span>);    <span style="color:#75715e">// ?
+</span><span style="color:#75715e"></span>
+    cout <span style="color:#f92672">&lt;&lt;</span> v.size()     <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 7
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> v.capacity() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 10
+</span><span style="color:#75715e"></span>
+    v.push_back(<span style="color:#ae81ff">0</span>);
+    cout <span style="color:#f92672">&lt;&lt;</span> v.size()     <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 8
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> v.capacity() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 10
+</span><span style="color:#75715e"></span>
     v.pop_back();
-    cout &lt;&lt; v.size()     &lt;&lt; endl; // 7
-    cout &lt;&lt; v.capacity() &lt;&lt; endl; // 10
-
+    cout <span style="color:#f92672">&lt;&lt;</span> v.size()     <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 7
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> v.capacity() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 10
+</span><span style="color:#75715e"></span>
     v.shrink_to_fit();
-    cout &lt;&lt; v.size()     &lt;&lt; endl; // 7
-    cout &lt;&lt; v.capacity() &lt;&lt; endl; // 7
+    cout <span style="color:#f92672">&lt;&lt;</span> v.size()     <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 7
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> v.capacity() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 7
+</span><span style="color:#75715e"></span>
+    v.push_back(<span style="color:#ae81ff">0</span>);
 
-    v.push_back(0);
-
-    cout &lt;&lt; v.size()     &lt;&lt; endl; // 8
-    cout &lt;&lt; v.capacity() &lt;&lt; endl; // 컴파일러마다 다름
-}
-</code></pre>
-
-<h4 id="3-std-array">3. std::array</h4>
-
+    cout <span style="color:#f92672">&lt;&lt;</span> v.size()     <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 8
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> v.capacity() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 컴파일러마다 다름
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="3-stdarray">3. std::array</h4>
 <ul>
-<li><p>vector는 heap을 사용하지만, std::array는 일반 배열처럼 stack 사용</p></li>
-
-<li><p>동적으로 크기 변경 불가</p></li>
+<li>
+<p>vector는 heap을 사용하지만, std::array는 일반 배열처럼 stack 사용</p>
+</li>
+<li>
+<p>동적으로 크기 변경 불가</p>
+</li>
 </ul>
-
 <h4 id="4-객체-삽입시-최적화-관련">4. 객체 삽입시 최적화 관련</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-class Point
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>
 {
-    int x, y;
-public:
-    Point(int a, int b) : x(a), y(b){ cout &lt;&lt; &quot;Point()&quot; &lt;&lt; endl; }
+    <span style="color:#66d9ef">int</span> x, y;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Point(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) <span style="color:#f92672">:</span> x(a), y(b){ cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Point()&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 
-    ~Point() { cout &lt;&lt; &quot;~Point()&quot; &lt;&lt; endl;}
+    <span style="color:#f92672">~</span>Point() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;~Point()&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
 
-    Point(const Point&amp; ) { cout &lt;&lt; &quot;Point(const Point&amp;)&quot; &lt;&lt; endl;}
+    Point(<span style="color:#66d9ef">const</span> Point<span style="color:#f92672">&amp;</span> ) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Point(const Point&amp;)&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;Point&gt; v;
+    vector<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;</span> v;
 
-    // 1.
-    //Point p1(10, 20);
-    //v.push_back(p1 );
+    <span style="color:#75715e">// 1.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//Point p1(10, 20);
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//v.push_back(p1 );
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 2. 임시객체로 넣기
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//v.push_back( Point(10,20));
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 3. 객체 자체를 vector가 만들게 한다.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 객체를 전달하지 말고, 생성자 인자를 전달한다.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//v.emplace_back( 10, 20 ); // emplace_front()
+</span><span style="color:#75715e"></span>                                <span style="color:#75715e">// insert ==&gt; emplace
+</span><span style="color:#75715e"></span>
 
-    // 2. 임시객체로 넣기
-    //v.push_back( Point(10,20));
+    Point p1(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>); <span style="color:#75715e">// 객체 생성
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// p1 사용...
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//v.push_back(p1 );
+</span><span style="color:#75715e"></span>    v.push_back( move(p1) );
 
-    // 3. 객체 자체를 vector가 만들게 한다.
-    // 객체를 전달하지 말고, 생성자 인자를 전달한다.
-    //v.emplace_back( 10, 20 ); // emplace_front()
-                                // insert ==&gt; emplace
-
-
-    Point p1(10, 20); // 객체 생성
-    // p1 사용...
-
-    //v.push_back(p1 );
-    v.push_back( move(p1) );
-
-    // p1은 이제 필요 없다.
-
-    cout &lt;&lt; &quot;-----------&quot; &lt;&lt; endl;
+    <span style="color:#75715e">// p1은 이제 필요 없다.
+</span><span style="color:#75715e"></span>
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;-----------&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h2 id="adapter-container의-원리">Adapter container의 원리</h2>
-
+</code></pre></div><h2 id="adapter-container의-원리">Adapter container의 원리</h2>
 <h4 id="1-stack을-만드는-2가지-방법">1. stack을 만드는 2가지 방법</h4>
-
 <ul>
 <li>stack을 처음 부터 새롭게 구현</li>
 <li>list의 인터페이스를 변경해서 stack처럼 동작하도록 처리</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-// list 가 제공된다.
-#include &lt;list&gt;
-/*
-// 그런데 stack 이 필요하다.
-template&lt;typename T, typename C = deque&lt;T&gt; &gt; class stack
+<span style="color:#75715e">// list 가 제공된다.
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">/*
+</span><span style="color:#75715e">// 그런데 stack 이 필요하다.
+</span><span style="color:#75715e">template&lt;typename T, typename C = deque&lt;T&gt; &gt; class stack
+</span><span style="color:#75715e">{
+</span><span style="color:#75715e">    C st;
+</span><span style="color:#75715e">public:
+</span><span style="color:#75715e">    inline void push(const T&amp; a) { st.push_back(a);}
+</span><span style="color:#75715e">    inline void pop()            { st.pop_back();}
+</span><span style="color:#75715e">    inline T&amp;   top()            { return st.back();}
+</span><span style="color:#75715e">    inline bool empty()          { return st.empty();}
+</span><span style="color:#75715e">};
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;deque&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stack&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    C st;
-public:
-    inline void push(const T&amp; a) { st.push_back(a);}
-    inline void pop()            { st.pop_back();}
-    inline T&amp;   top()            { return st.back();}
-    inline bool empty()          { return st.empty();}
-};
-*/
-#include &lt;vector&gt;
-#include &lt;deque&gt;
-#include &lt;stack&gt;
+<span style="color:#75715e">//    stack&lt;int, list&lt;int, MyAlloc&lt;int&gt;&gt; &gt; s3;
+</span><span style="color:#75715e"></span>
+    stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s2;
+    stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> s1;
+    stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> s;
 
-int main()
-{
-//    stack&lt;int, list&lt;int, MyAlloc&lt;int&gt;&gt; &gt; s3;
+    s.push(<span style="color:#ae81ff">10</span>);
+    s.push(<span style="color:#ae81ff">20</span>);
 
-    stack&lt;int&gt; s2;
-    stack&lt;int, vector&lt;int&gt;&gt; s1;
-    stack&lt;int, list&lt;int&gt;&gt; s;
+    cout <span style="color:#f92672">&lt;&lt;</span> s.top() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 20
+</span><span style="color:#75715e"></span>    s.pop();
 
-    s.push(10);
-    s.push(20);
-
-    cout &lt;&lt; s.top() &lt;&lt; endl; // 20
-    s.pop();
-
-    cout &lt;&lt; s.top() &lt;&lt; endl; // 10
-}
-</code></pre>
-
-<ul>
+    cout <span style="color:#f92672">&lt;&lt;</span> s.top() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 10
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>STL의 우선순위 큐, deque 등도 비슷한 방법으로 구현됨</li>
 </ul>
-
 <h2 id="associative-container">Associative container</h2>
-
 <h4 id="1-set">1. set</h4>
-
 <ul>
 <li>STL에서 tree를 쓰는 대부분의 컨테이너는 red black tree 사용</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;set&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;set&gt;
-#include &lt;functional&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //set&lt;int&gt; s;
-    set&lt;int, greater&lt;int&gt; &gt; s;
+    <span style="color:#75715e">//set&lt;int&gt; s;
+</span><span style="color:#75715e"></span>    set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, greater<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> s;
 
-    //s.push_front(10); // error
-    s.insert(30);
-    s.insert(40);   // &lt; 연산으로 비교, &gt;
-    s.insert(20);
-    s.insert(10);
-    s.insert(45);
-    s.insert(25);
+    <span style="color:#75715e">//s.push_front(10); // error
+</span><span style="color:#75715e"></span>    s.insert(<span style="color:#ae81ff">30</span>);
+    s.insert(<span style="color:#ae81ff">40</span>);   <span style="color:#75715e">// &lt; 연산으로 비교, &gt;
+</span><span style="color:#75715e"></span>    s.insert(<span style="color:#ae81ff">20</span>);
+    s.insert(<span style="color:#ae81ff">10</span>);
+    s.insert(<span style="color:#ae81ff">45</span>);
+    s.insert(<span style="color:#ae81ff">25</span>);
 
-    // 알고리즘의 find를 쓸 경우 선형 검색 -&gt; 비권장, 성능 나쁨
-    //auto p2 = find( begin(s), end(s), 10);
-    //cout &lt;&lt; *p2 &lt;&lt; endl;
+    <span style="color:#75715e">// 알고리즘의 find를 쓸 경우 선형 검색 -&gt; 비권장, 성능 나쁨
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//auto p2 = find( begin(s), end(s), 10);
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//cout &lt;&lt; *p2 &lt;&lt; endl;
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">auto</span> p2 <span style="color:#f92672">=</span> s.find(<span style="color:#ae81ff">10</span>); <span style="color:#75715e">// 이진 검색.
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p2 <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    auto p2 = s.find(10); // 이진 검색.
-    cout &lt;&lt; *p2 &lt;&lt; endl;
+    <span style="color:#66d9ef">auto</span> p <span style="color:#f92672">=</span> begin(s);
 
-    auto p = begin(s);
-
-    //*p = 10;
-    while( p != end(s))
+    <span style="color:#75715e">//*p = 10;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span>( p <span style="color:#f92672">!=</span> end(s))
     {
-        cout &lt;&lt; *p &lt;&lt; endl;
-        ++p;
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">&lt;&lt;</span> endl;
+        <span style="color:#f92672">++</span>p;
     }
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>중복 삽입시</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;set&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;set&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //set&lt;int&gt; s;
+    <span style="color:#75715e">//set&lt;int&gt; s;
+</span><span style="color:#75715e"></span>
+    multiset<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s;
 
-    multiset&lt;int&gt; s;
+    s.insert(<span style="color:#ae81ff">30</span>);
+    s.insert(<span style="color:#ae81ff">40</span>);
+    s.insert(<span style="color:#ae81ff">20</span>);
+    s.insert(<span style="color:#ae81ff">10</span>);
+    s.insert(<span style="color:#ae81ff">45</span>);
+    s.insert(<span style="color:#ae81ff">25</span>);
 
-    s.insert(30);
-    s.insert(40);
-    s.insert(20);
-    s.insert(10);
-    s.insert(45);
-    s.insert(25);
+    <span style="color:#75715e">// set : pair
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// multiset : iterator
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> ret <span style="color:#f92672">=</span> s.insert(<span style="color:#ae81ff">20</span>);
 
-    // set : pair
-    // multiset : iterator
-    auto ret = s.insert(20);
-
-    //pair&lt;set&lt;int&gt;::iterator, bool&gt; ret = s.insert(20);
-
-//    if ( ret.second == false )
-//        cout &lt;&lt; &quot;fail&quot; &lt;&lt; endl;
-
-    for( auto n : s)
-        cout &lt;&lt; n &lt;&lt; endl;
+    <span style="color:#75715e">//pair&lt;set&lt;int&gt;::iterator, bool&gt; ret = s.insert(20);
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//    if ( ret.second == false )
+</span><span style="color:#75715e">//        cout &lt;&lt; &#34;fail&#34; &lt;&lt; endl;
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">auto</span> n : s)
+        cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
+</code></pre></div><h4 id="2-map">2. map</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;map&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<h4 id="2-map">2. map</h4>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;map&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    map&lt;string, string&gt; m;
+    map<span style="color:#f92672">&lt;</span>string, string<span style="color:#f92672">&gt;</span> m;
 
-    // 1. pair 만들어서 insert
-    pair&lt;string, string&gt; p1(&quot;월요일&quot;,&quot;mon&quot;);
+    <span style="color:#75715e">// 1. pair 만들어서 insert
+</span><span style="color:#75715e"></span>    pair<span style="color:#f92672">&lt;</span>string, string<span style="color:#f92672">&gt;</span> p1(<span style="color:#e6db74">&#34;월요일&#34;</span>,<span style="color:#e6db74">&#34;mon&#34;</span>);
     m.insert( p1 );
 
-    // 2. make_pair
-    m.insert( make_pair(&quot;화요일&quot;,&quot;tue&quot;));
+    <span style="color:#75715e">// 2. make_pair
+</span><span style="color:#75715e"></span>    m.insert( make_pair(<span style="color:#e6db74">&#34;화요일&#34;</span>,<span style="color:#e6db74">&#34;tue&#34;</span>));
 
-    // 3. [] 연산
-    m[ &quot;수요일&quot;] = &quot;wed&quot;;
+    <span style="color:#75715e">// 3. [] 연산
+</span><span style="color:#75715e"></span>    m[ <span style="color:#e6db74">&#34;수요일&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;wed&#34;</span>;
 
-    cout &lt;&lt; m[ &quot;월요일&quot;] &lt;&lt; endl; // &quot;mon&quot;
-    cout &lt;&lt; m[ &quot;토요일&quot;] &lt;&lt; endl; // 첨자로 접근시 없으면 : make_pair(&quot;토요일&quot;, &quot;&quot;) 항목추가
-
-    auto ret = m.find(&quot;일요일&quot;);
-    if ( ret == m.end())
-        cout &lt;&lt; &quot;fail&quot; &lt;&lt; endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> m[ <span style="color:#e6db74">&#34;월요일&#34;</span>] <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// &#34;mon&#34;
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> m[ <span style="color:#e6db74">&#34;토요일&#34;</span>] <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 첨자로 접근시 없으면 : make_pair(&#34;토요일&#34;, &#34;&#34;) 항목추가
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">auto</span> ret <span style="color:#f92672">=</span> m.find(<span style="color:#e6db74">&#34;일요일&#34;</span>);
+    <span style="color:#66d9ef">if</span> ( ret <span style="color:#f92672">==</span> m.end())
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;fail&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h4 id="3-unordered-컨테이너들">3. unordered 컨테이너들</h4>
-
+</code></pre></div><h4 id="3-unordered-컨테이너들">3. unordered 컨테이너들</h4>
 <ul>
 <li>내부적으로 hash table 사용</li>
 <li>표준에서 제공하는 hash function</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;functional&gt;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    hash&lt;int&gt; hi;
-    hash&lt;double&gt; hd;
-    hash&lt;string&gt; hs;
+    hash<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> hi;
+    hash<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> hd;
+    hash<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> hs;
 
-    cout &lt;&lt; hi(50) &lt;&lt; endl;
-    cout &lt;&lt; hd(3.4) &lt;&lt; endl;
-    cout &lt;&lt; hs(&quot;hello&quot;) &lt;&lt; endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> hi(<span style="color:#ae81ff">50</span>) <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> hd(<span style="color:#ae81ff">3.4</span>) <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> hs(<span style="color:#e6db74">&#34;hello&#34;</span>) <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
+</code></pre></div>
               
             </div>
           </div>
@@ -837,7 +792,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

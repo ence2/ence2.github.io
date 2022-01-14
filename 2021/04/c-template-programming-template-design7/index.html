@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번에는 템플릿 코드의 메모리 사용량을 줄이는 방법, CRTP, SFINAE typelinst 등에 대해서 살펴보겠습니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,776 +254,716 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>이번에는 템플릿 코드의 메모리 사용량을 줄이는 방법, CRTP, SFINAE typelinst 등에 대해서 살펴보겠습니다.</p>
-
 <p>​</p>
-
 <h3 id="thin-template">Thin template</h3>
-
 <p>템플릿을 사용하면 소스코드 용량이 늘어나게됩니다.</p>
-
-<pre><code class="language-cpp">// 멤버 함수 4개 * 3개 타입 =&gt; 12개 함수 생성
-template&lt;typename T&gt; class Vector
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// 멤버 함수 4개 * 3개 타입 =&gt; 12개 함수 생성
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vector</span>
 {
-    T* buff;
-    int sz;
-public:
-    int size() const;
-    bool empty() const;
-    void push_front(const T&amp; a);
-    T&amp; front();
+	T<span style="color:#f92672">*</span> buff;
+	<span style="color:#66d9ef">int</span> sz;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">int</span> size() <span style="color:#66d9ef">const</span>;
+	<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">empty</span>() <span style="color:#66d9ef">const</span>;
+	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">push_front</span>(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a);
+	T<span style="color:#f92672">&amp;</span> front();
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Vector&lt;int&gt;    v1;
-    Vector&lt;short&gt;  v2;
-    Vector&lt;double&gt; v3;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>    v1;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">short</span><span style="color:#f92672">&gt;</span>  v2;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> v3;
 }
-</code></pre>
-
-<p>소스코드 용량을 줄이는 방법1</p>
-
-<pre><code class="language-cpp">// 방법 1. template parameter T를 사용하지 않은 멤버 함수는 기반 클래스로 옮기자
-// 멤버 함수 2개 * 3개 타입 + 기반 클래스 멤버 함수 2개 =&gt; 8개
-
-class VectorBase
+</code></pre></div><p>소스코드 용량을 줄이는 방법1</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// 방법 1. template parameter T를 사용하지 않은 멤버 함수는 기반 클래스로 옮기자
+</span><span style="color:#75715e">// 멤버 함수 2개 * 3개 타입 + 기반 클래스 멤버 함수 2개 =&gt; 8개
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">VectorBase</span>
 {
-protected:
-    int sz;
-public:
-    int size() const;
-    bool empty() const;
+<span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">int</span> sz;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">int</span> size() <span style="color:#66d9ef">const</span>;
+	<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">empty</span>() <span style="color:#66d9ef">const</span>;
 };
-template&lt;typename T&gt; class Vector : public VectorBase
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vector</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> VectorBase
 {
-    T* buff;
-public:
-    void push_front(const T&amp; a);
-    T&amp; front();
+	T<span style="color:#f92672">*</span> buff;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> push_front(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a);
+	T<span style="color:#f92672">&amp;</span> front();
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Vector&lt;int&gt;    v1;
-    Vector&lt;short&gt;  v2;
-    Vector&lt;double&gt; v3;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>    v1;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">short</span><span style="color:#f92672">&gt;</span>  v2;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> v3;
 }
-</code></pre>
-
-<p>소스코드 용량을 줄이는 방법2 -&gt; Thin template</p>
-
-<pre><code class="language-cpp">// 방법 2. void* 기반 컨테이너 + 캐스팅을 책임지는 파생 클래스
-// 멤버 함수 2개 * 3개 타입 + 기반 클래스 멤버 함수 2개 =&gt; 8개
-
-class VectorBase
+</code></pre></div><p>소스코드 용량을 줄이는 방법2 -&gt; Thin template</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// 방법 2. void* 기반 컨테이너 + 캐스팅을 책임지는 파생 클래스
+</span><span style="color:#75715e">// 멤버 함수 2개 * 3개 타입 + 기반 클래스 멤버 함수 2개 =&gt; 8개
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">VectorBase</span>
 {
-protected:
-    void* buff;
-    int sz;
-public:
-    int size() const;
-    bool empty() const;
+<span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> buff;
+	<span style="color:#66d9ef">int</span> sz;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">int</span> size() <span style="color:#66d9ef">const</span>;
+	<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">empty</span>() <span style="color:#66d9ef">const</span>;
 
-    void  push_front(const void* a);
-    void* front();
+	<span style="color:#66d9ef">void</span>  <span style="color:#a6e22e">push_front</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> a);
+	<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">front</span>();
 };
 
-// 캐스팅만 책임지는 파생 클래스
-template&lt;typename T&gt; class Vector : public VectorBase
+<span style="color:#75715e">// 캐스팅만 책임지는 파생 클래스
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vector</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> VectorBase
 {
-public:
-    inline int size() const   { return VectorBase::size(); }
-    inline bool empty() const { return VectorBase::empty(); }
-    inline void push_front(const T&amp; a) { VectorBase::push_front(static_cast&lt;void*&gt;(a)); }
-    inline T&amp; front() { return static_casst&lt;T&amp;&gt;(VectorBase::front());   }
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">int</span> size() <span style="color:#66d9ef">const</span>   { <span style="color:#66d9ef">return</span> VectorBase<span style="color:#f92672">::</span>size(); }
+	<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">empty</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> VectorBase<span style="color:#f92672">::</span>empty(); }
+	<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">push_front</span>(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a) { VectorBase<span style="color:#f92672">::</span>push_front(<span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span><span style="color:#f92672">*&gt;</span>(a)); }
+	<span style="color:#66d9ef">inline</span> T<span style="color:#f92672">&amp;</span> front() { <span style="color:#66d9ef">return</span> static_casst<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&amp;&gt;</span>(VectorBase<span style="color:#f92672">::</span>front());	}
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Vector&lt;int&gt;    v1;
-    Vector&lt;short&gt;  v2;
-    Vector&lt;double&gt; v3;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>    v1;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">short</span><span style="color:#f92672">&gt;</span>  v2;
+	Vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> v3;
 }
-</code></pre>
-
-<h3 id="crtp-curiously-recurring-template-patten">CRTP : Curiously Recurring Template Patten</h3>
-
+</code></pre></div><h3 id="crtp--curiously-recurring-template-patten">CRTP : Curiously Recurring Template Patten</h3>
 <p>기반 클래스(부모, 과거)에서  상속된 파생 클래스(자식, 미래)의 이름을 사용 할 수 있는 방법.</p>
-
 <p>파생 클래스를 만들 때 기반 클래스의 템플릿 인자로 자신의 이름을 전달하여 구현</p>
-
 <ul>
 <li>CRTP 활용 1 : 상속 관계에서 가상함수(virtual)을 사용하지 않고 다형성 구현 가능 -&gt; 장점 : 가상함수가 수백개 일 경우 메모리 사용량이 증가함</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-// CRTP : Curiously Reccuring Template Pattern
-template&lt;typename T&gt; class Window
+<span style="color:#75715e">// CRTP : Curiously Reccuring Template Pattern
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Window</span>
 {
-public:
-    void msgLoop() // void msgLoop(Window* this)
-    {
-        static_cast&lt;T*&gt;(this)-&gt;onKeyDown();  // T를 사용해서 자식의 onKeyDown 호출, virutal 없이 가상함수 처럼 동작
-    }
-    void onKeyDown() { cout &lt;&lt; &quot;Window onKeyDown&quot; &lt;&lt; endl; }
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> msgLoop() <span style="color:#75715e">// void msgLoop(Window* this)
+</span><span style="color:#75715e"></span>	{
+		<span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">*&gt;</span>(<span style="color:#66d9ef">this</span>)<span style="color:#f92672">-&gt;</span>onKeyDown();  <span style="color:#75715e">// T를 사용해서 자식의 onKeyDown 호출, virutal 없이 가상함수 처럼 동작
+</span><span style="color:#75715e"></span>	}
+	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onKeyDown</span>() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Window onKeyDown&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-class MyWindow : public Window&lt;MyWindow&gt; // 상속시 T에 자기 이름 전달
-{
-public:
-    void onKeyDown() { cout &lt;&lt; &quot;Window onKeyDown&quot; &lt;&lt; endl; }
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyWindow</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Window<span style="color:#f92672">&lt;</span>MyWindow<span style="color:#f92672">&gt;</span> <span style="color:#75715e">// 상속시 T에 자기 이름 전달
+</span><span style="color:#75715e"></span>{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> onKeyDown() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Window onKeyDown&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    MyWindow w;
-    w.msgLoop();
+	MyWindow w;
+	w.msgLoop();
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>CRTP 활용 2 : Singleton 패턴 구현</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; class Singleton
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Singleton</span>
 {
-public:
-    static T* instance;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">static</span> T<span style="color:#f92672">*</span> instance;
 
-    static T&amp; getInstance()
-    {
-        if (instance == 0)
-            instance = new T;
-        return *instance;
-    }
+	<span style="color:#66d9ef">static</span> T<span style="color:#f92672">&amp;</span> getInstance()
+	{
+		<span style="color:#66d9ef">if</span> (instance <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+			instance <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> T;
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>instance;
+	}
 };
 
-template&lt;typename T&gt; T* Singleton&lt;T&gt;::instance = 0;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> T<span style="color:#f92672">*</span> Singleton<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>instance <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-class Cursor : public Singleton&lt;Cursor&gt;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cursor</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Singleton<span style="color:#f92672">&lt;</span>Cursor<span style="color:#f92672">&gt;</span>
 {
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Cursor&amp; c = Cursor::getInstance();
+	Cursor<span style="color:#f92672">&amp;</span> c <span style="color:#f92672">=</span> Cursor<span style="color:#f92672">::</span>getInstance();
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>CRTP 활용 3 : static 변수 적용 범위를 파생 클래스의 이름으로 그룹화 해서 관리하기</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T&gt; struct Count
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Count</span>
 {
-private:
-    static int cnt;
-public:
-    Count() { ++cnt; }
-    ~Count() { --cnt; }
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> cnt;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Count() { <span style="color:#f92672">++</span>cnt; }
+	<span style="color:#f92672">~</span>Count() { <span style="color:#f92672">--</span>cnt; }
 
-    static int count() { return cnt; }
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">count</span>() { <span style="color:#66d9ef">return</span> cnt; }
 };
-template&lt;typename T&gt; int Count&lt;T&gt;::cnt = 0;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">int</span> Count<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>cnt <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-class Mouse : public Count&lt;Mouse&gt;
-{
-};
-class Keyboard : public Count&lt;Keyboard&gt;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Mouse</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Count<span style="color:#f92672">&lt;</span>Mouse<span style="color:#f92672">&gt;</span>
 {
 };
-int main()
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Keyboard</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Count<span style="color:#f92672">&lt;</span>Keyboard<span style="color:#f92672">&gt;</span>
 {
-    Mouse m1, m2;
-    Keyboard k1, k2;
+};
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	Mouse m1, m2;
+	Keyboard k1, k2;
 
-    cout &lt;&lt; k1.count() &lt;&lt; endl;
+	cout <span style="color:#f92672">&lt;&lt;</span> k1.count() <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<h3 id="policy-based-design">Policy-based design</h3>
-
+</code></pre></div><h3 id="policy-based-design">Policy-based design</h3>
 <ol>
-<li><p>클래스가 사용하는 정책을 성능저하 없이 교체 할 수 있음, 이 기법을 사용하는 대표적인 라이브러리 -&gt; &ldquo;STL&rdquo;</p></li>
-
-<li><p>성능 저하 없이 정책을 교체 할 수 있음</p></li>
+<li>
+<p>클래스가 사용하는 정책을 성능저하 없이 교체 할 수 있음, 이 기법을 사용하는 대표적인 라이브러리 -&gt; &ldquo;STL&rdquo;</p>
+</li>
+<li>
+<p>성능 저하 없이 정책을 교체 할 수 있음</p>
+</li>
 </ol>
-
 <ul>
 <li>List를 제공 할 때 lock 사용 유/무 버전을 사용자가 선택 할 수 있도록 제공 하도록 구현 예제</li>
 </ul>
-
-<pre><code class="language-cpp">template&lt;typename T, typename ThreadModel&gt; class List
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> ThreadModel<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">List</span>
 {
-    ThreadModel tm;
-public:
-    void push_front(const T&amp; a)
-    {
-        tm.Lock();
-        //......
-        tm.Unlock();
-    }
+	ThreadModel tm;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">void</span> push_front(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a)
+	{
+		tm.Lock();
+		<span style="color:#75715e">//......
+</span><span style="color:#75715e"></span>		tm.Unlock();
+	}
 };
 
-// 동기화 정책을 담은 정책 클래스 : 반드시 Lock()/Unlock() 이 있어야 한다.
-struct NoLock
+<span style="color:#75715e">// 동기화 정책을 담은 정책 클래스 : 반드시 Lock()/Unlock() 이 있어야 한다.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NoLock</span>
 {
-    inline void Lock() {}
-    inline void Unlock() {}
+	<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Lock</span>() {}
+	<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Unlock</span>() {}
 };
 
-struct Win32Lock
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Win32Lock</span>
 {
-    inline void Lock()   { } // implement lock using win32 api
-    inline void Unlock() { }
+	<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Lock</span>()   { } <span style="color:#75715e">// implement lock using win32 api
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Unlock</span>() { }
 };
 
-struct LinuxLock
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">LinuxLock</span>
 {
-    inline void Lock() { } // implement lock using linux system call
-    inline void Unlock() { }
+	<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Lock</span>() { } <span style="color:#75715e">// implement lock using linux system call
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Unlock</span>() { }
 };
 
 
-List&lt;int, NoLock&gt; st; // NoLock 버전 제공
-
-int main()
+List<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, NoLock<span style="color:#f92672">&gt;</span> st; <span style="color:#75715e">// NoLock 버전 제공
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    st.push_front(10);
+	st.push_front(<span style="color:#ae81ff">10</span>);
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>메모리 할당 방식을 사용자가 선택 할 수 있도록 제공하는 예제</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;limits&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;limits&gt;
-using namespace std;
-
-template &lt;class T&gt; class ecAlloc 
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ecAlloc</span> 
 {
-public:
-    typedef T        value_type;
-    typedef T*       pointer;
-    typedef const T* const_pointer;
-    typedef T&amp;       reference;
-    typedef const T&amp; const_reference;
-    typedef std::size_t    size_type;
-    typedef std::ptrdiff_t difference_type;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">typedef</span> T        value_type;
+	<span style="color:#66d9ef">typedef</span> T<span style="color:#f92672">*</span>       pointer;
+	<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">const</span> T<span style="color:#f92672">*</span> const_pointer;
+	<span style="color:#66d9ef">typedef</span> T<span style="color:#f92672">&amp;</span>       reference;
+	<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> const_reference;
+	<span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>size_t    size_type;
+	<span style="color:#66d9ef">typedef</span> std<span style="color:#f92672">::</span>ptrdiff_t difference_type;
 
-    // policy clone 을 위한 도구. &quot;rebind&quot; 동영상 참고.
-    template &lt;class U&gt; struct rebind 
-    {
-        typedef ecAlloc&lt;U&gt; other;
-    };
+	<span style="color:#75715e">// policy clone 을 위한 도구. &#34;rebind&#34; 동영상 참고.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">U</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">rebind</span> 
+	{
+		<span style="color:#66d9ef">typedef</span> ecAlloc<span style="color:#f92672">&lt;</span>U<span style="color:#f92672">&gt;</span> other;
+	};
 
-    pointer address(reference value) const              { return &amp;value;    }
-    const_pointer address(const_reference value) const  { return &amp;value;    }
+	pointer <span style="color:#a6e22e">address</span>(reference value) <span style="color:#66d9ef">const</span>				{ <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span>value;	}
+	const_pointer <span style="color:#a6e22e">address</span>(const_reference value) <span style="color:#66d9ef">const</span> 	{ <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span>value;	}
 
-    ecAlloc() noexcept { }
-    ecAlloc(const ecAlloc&amp;) noexcept { }
-    ~ecAlloc() noexcept { }
-    template &lt;class U&gt; ecAlloc(const ecAlloc&lt;U&gt;&amp;) noexcept {}
+	ecAlloc() <span style="color:#66d9ef">noexcept</span> { }
+	ecAlloc(<span style="color:#66d9ef">const</span> ecAlloc<span style="color:#f92672">&amp;</span>) <span style="color:#66d9ef">noexcept</span> { }
+	<span style="color:#f92672">~</span>ecAlloc() <span style="color:#66d9ef">noexcept</span> { }
+	<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">U</span><span style="color:#f92672">&gt;</span> ecAlloc(<span style="color:#66d9ef">const</span> ecAlloc<span style="color:#f92672">&lt;</span>U<span style="color:#f92672">&gt;&amp;</span>) <span style="color:#66d9ef">noexcept</span> {}
 
-    size_type max_size() const throw() {
-        return numeric_limits&lt;std::size_t&gt;::max() / sizeof(T);
-    }
+	size_type <span style="color:#a6e22e">max_size</span>() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">throw</span>() {
+		<span style="color:#66d9ef">return</span> numeric_limits<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>size_t<span style="color:#f92672">&gt;::</span>max() <span style="color:#f92672">/</span> <span style="color:#66d9ef">sizeof</span>(T);
+	}
 
-    // 메모리만 할당하는 함수. 초기화(생성자 호출) 하지 않습니다.
-    pointer allocate(size_type num, const void* = 0) 
-    {
-        cerr &lt;&lt; &quot;allocate &quot; &lt;&lt; num &lt;&lt; &quot; element(s)&quot;
-                  &lt;&lt; &quot; of size &quot; &lt;&lt; sizeof(T) &lt;&lt; endl;
-        pointer ret = (pointer)(::operator new(num * sizeof(T)));
-        cerr &lt;&lt; &quot; allocated at: &quot; &lt;&lt; (void*)ret &lt;&lt; endl;
-        return ret;
-    }
+	<span style="color:#75715e">// 메모리만 할당하는 함수. 초기화(생성자 호출) 하지 않습니다.
+</span><span style="color:#75715e"></span>	pointer <span style="color:#a6e22e">allocate</span>(size_type num, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) 
+	{
+		cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;allocate &#34;</span> <span style="color:#f92672">&lt;&lt;</span> num <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; element(s)&#34;</span>
+			      <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; of size &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">sizeof</span>(T) <span style="color:#f92672">&lt;&lt;</span> endl;
+		pointer ret <span style="color:#f92672">=</span> (pointer)(<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span> <span style="color:#66d9ef">new</span>(num <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(T)));
+		cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; allocated at: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)ret <span style="color:#f92672">&lt;&lt;</span> endl;
+		<span style="color:#66d9ef">return</span> ret;
+	}
 
-    // 초기화(생성자 호출) 함수. Placement new를 사용합니다.
-    void construct(pointer p, const T&amp; value) {     
-        new((void*)p)T(value);
-    }
+	<span style="color:#75715e">// 초기화(생성자 호출) 함수. Placement new를 사용합니다.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">construct</span>(pointer p, <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> value) {		
+		<span style="color:#66d9ef">new</span>((<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)p)T(value);
+	}
 
-    // 객체 파괴(소멸자 호출) 함수
-    void destroy(pointer p) {
-        p-&gt;~T();
-    }
+	<span style="color:#75715e">// 객체 파괴(소멸자 호출) 함수
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">destroy</span>(pointer p) {
+		p<span style="color:#f92672">-&gt;~</span>T();
+	}
 
-    // 메모리 해지
-    void deallocate(pointer p, size_type num) {
-        cerr &lt;&lt; &quot;deallocate &quot; &lt;&lt; num &lt;&lt; &quot; element(s)&quot;
-            &lt;&lt; &quot; of size &quot; &lt;&lt; sizeof(T)
-            &lt;&lt; &quot; at: &quot; &lt;&lt; (void*)p &lt;&lt; endl;
-        ::operator delete((void*)p);
-    }
+	<span style="color:#75715e">// 메모리 해지
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deallocate</span>(pointer p, size_type num) {
+		cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;deallocate &#34;</span> <span style="color:#f92672">&lt;&lt;</span> num <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; element(s)&#34;</span>
+			<span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; of size &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">sizeof</span>(T)
+			<span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; at: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)p <span style="color:#f92672">&lt;&lt;</span> endl;
+		<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span> <span style="color:#66d9ef">delete</span>((<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)p);
+	}
 };
-// return that all specializations of this allocator are interchangeable
-template &lt;class T1, class T2&gt;
-bool operator== (const ecAlloc&lt;T1&gt;&amp;, const ecAlloc&lt;T2&gt;&amp;) noexcept
+<span style="color:#75715e">// return that all specializations of this allocator are interchangeable
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T1</span>, <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T2</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">==</span> (<span style="color:#66d9ef">const</span> ecAlloc<span style="color:#f92672">&lt;</span>T1<span style="color:#f92672">&gt;&amp;</span>, <span style="color:#66d9ef">const</span> ecAlloc<span style="color:#f92672">&lt;</span>T2<span style="color:#f92672">&gt;&amp;</span>) <span style="color:#66d9ef">noexcept</span>
 {
-    return true;
+	<span style="color:#66d9ef">return</span> true;
 }
-template &lt;class T1, class T2&gt;
-bool operator!= (const ecAlloc&lt;T1&gt;&amp;, const ecAlloc&lt;T2&gt;&amp;) noexcept
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T1</span>, <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T2</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">!=</span> (<span style="color:#66d9ef">const</span> ecAlloc<span style="color:#f92672">&lt;</span>T1<span style="color:#f92672">&gt;&amp;</span>, <span style="color:#66d9ef">const</span> ecAlloc<span style="color:#f92672">&lt;</span>T2<span style="color:#f92672">&gt;&amp;</span>) <span style="color:#66d9ef">noexcept</span>
 {
-    return false;
+	<span style="color:#66d9ef">return</span> false;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    vector&lt;int, ecAlloc&lt;int&gt;&gt; v(2, 0);
+	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, ecAlloc<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> v(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>);
 
-    v.resize(4);
+	v.resize(<span style="color:#ae81ff">4</span>);
 }
-</code></pre>
-
-<h3 id="sfiae-subsitution-failure-is-not-an-error">SFIAE : Subsitution Failure is Not An Error</h3>
-
+</code></pre></div><h3 id="sfiae--subsitution-failure-is-not-an-error">SFIAE : Subsitution Failure is Not An Error</h3>
 <ul>
 <li>컴파일러가 이름으로 함수를 찾는 순서 : exactly matching -&gt; template -&gt; variable argument</li>
 <li>함수 템플릿을 사용시 T의 타입이 결정되고 함수를 생성하려고 할 때 리턴 타입이나 함수 인자 등에서 치환에 실패하면 컴파일 에러가 아니라, 함수 후보군에서 제외</li>
 <li>동일한 이름의 다른 함수가 있다면 그 함수를 사용하게 됨</li>
 </ul>
-
-<pre><code class="language-cpp">template&lt;typename T&gt;
-typename T::type foo(T t) //int::type foo(int t)
-{
-    cout &lt;&lt; &quot;T&quot; &lt;&lt; endl;
-    return 0;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">typename</span> T<span style="color:#f92672">::</span>type foo(T t) <span style="color:#75715e">//int::type foo(int t)
+</span><span style="color:#75715e"></span>{
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;T&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 
-void foo(...) { cout &lt;&lt; &quot;...&quot; &lt;&lt; endl; }
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(...) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;...&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    foo(3); // output : ...
-}
-</code></pre>
-
-<ul>
-<li><p>특정 타입에만 적용되는 템플릿을 구현하고 싶을 때</p>
-
+    foo(<span style="color:#ae81ff">3</span>); <span style="color:#75715e">// output : ...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
+<li>
+<p>특정 타입에만 적용되는 템플릿을 구현하고 싶을 때</p>
 <ol>
-<li><p>static_assert를 활용 하여 구현 : 조건을 만족하지 않으면 컴파일 에러</p></li>
-
-<li><p>enable_if 방식으로 구현 : 조건을 만족하지 않으면 함수를 생성하지 않고, 동일 이름의 다른 함수가 있으면 사용</p></li>
-</ol></li>
+<li>
+<p>static_assert를 활용 하여 구현 : 조건을 만족하지 않으면 컴파일 에러</p>
+</li>
+<li>
+<p>enable_if 방식으로 구현 : 조건을 만족하지 않으면 함수를 생성하지 않고, 동일 이름의 다른 함수가 있으면 사용</p>
+</li>
+</ol>
+</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;type_traits&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;type_traits&gt;
-using namespace std;
-
-// foo 함수를 정수 계열에 대해서만 코드 생성되게 하고 싶다.
-// 방법 1. static_assert 
-// 특징 : T가 정수가 아니면 무조건 error 발생.
-template&lt;typename T&gt; void foo(T a)
+<span style="color:#75715e">// foo 함수를 정수 계열에 대해서만 코드 생성되게 하고 싶다.
+</span><span style="color:#75715e">// 방법 1. static_assert 
+</span><span style="color:#75715e">// 특징 : T가 정수가 아니면 무조건 error 발생.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> foo(T a)
 {
-    static_assert(is_integral&lt;T&gt;::value, &quot;error&quot;);
+	<span style="color:#66d9ef">static_assert</span>(is_integral<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value, <span style="color:#e6db74">&#34;error&#34;</span>);
 }
 
-// 방법 2. enable_if
-// 특징 : T가 정수가 아니면 error가 아니라 코드 생성을 하지 않음. 호출 가능한 다른 foo()가 있으면 사용됨
-// enable_if 위치 1. 함수 리턴 타입에 적용
-template&lt;typename T&gt; typename enable_if&lt; is_integral&lt;T&gt;::value,void &gt;::type foo(T a)
-{
-}
-
-// enable_if 위치 2. 함수 인자 타입에 적용 - 생성자.. 
-template&lt;typename T&gt;   
-void foo(T a, typename enable_if&lt; is_integral&lt;T&gt;::value, void &gt;::type* p = nullptr )
+<span style="color:#75715e">// 방법 2. enable_if
+</span><span style="color:#75715e">// 특징 : T가 정수가 아니면 error가 아니라 코드 생성을 하지 않음. 호출 가능한 다른 foo()가 있으면 사용됨
+</span><span style="color:#75715e">// enable_if 위치 1. 함수 리턴 타입에 적용
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">typename</span> enable_if<span style="color:#f92672">&lt;</span> is_integral<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value,<span style="color:#66d9ef">void</span> <span style="color:#f92672">&gt;::</span>type foo(T a)
 {
 }
 
-// enable_if 위치 3. 템플릿 인자에 적용
-// template&lt;typename T, void* = nullptr &gt;
-template&lt;typename T, typename enable_if&lt; is_integral&lt;T&gt;::value, void &gt;::type* = nullptr &gt;
-void foo(T a)
+<span style="color:#75715e">// enable_if 위치 2. 함수 인자 타입에 적용 - 생성자.. 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>   
+<span style="color:#66d9ef">void</span> foo(T a, <span style="color:#66d9ef">typename</span> enable_if<span style="color:#f92672">&lt;</span> is_integral<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value, <span style="color:#66d9ef">void</span> <span style="color:#f92672">&gt;::</span>type<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span> )
 {
 }
 
-void foo(...) {}
-
-int main()
+<span style="color:#75715e">// enable_if 위치 3. 템플릿 인자에 적용
+</span><span style="color:#75715e">// template&lt;typename T, void* = nullptr &gt;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> enable_if<span style="color:#f92672">&lt;</span> is_integral<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value, <span style="color:#66d9ef">void</span> <span style="color:#f92672">&gt;::</span>type<span style="color:#f92672">*</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> foo(T a)
 {
-    foo(3);
 }
-</code></pre>
 
-<h3 id="member-detect-idioms">Member detect idioms</h3>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(...) {}
 
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	foo(<span style="color:#ae81ff">3</span>);
+}
+</code></pre></div><h3 id="member-detect-idioms">Member detect idioms</h3>
 <p>클래스 안에 특정한 멤버함수, 멤버 데이터, 멤버 타입 등이 있는지 조사하는 방법</p>
-
 <ul>
 <li>특정 멤버 함수가 있는지 조사 방법</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;array&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;type_traits&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;array&gt;
-#include &lt;type_traits&gt;
-using namespace std;
-
-template&lt;typename T&gt; struct has_resize
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">has_resize</span>
 {
-    using YES = char;
-    using NO = short;
+	<span style="color:#66d9ef">using</span> YES <span style="color:#f92672">=</span> <span style="color:#66d9ef">char</span>;
+	<span style="color:#66d9ef">using</span> NO <span style="color:#f92672">=</span> <span style="color:#66d9ef">short</span>;
 
-    template&lt;typename U&gt; static YES check(typename std::add_pointer&lt;decltype(U().resize(0))&gt;::type  a);
-    template&lt;typename U&gt; static NO  check(...);
-    
-    static constexpr bool value = (sizeof(check&lt;T&gt;(0)) == sizeof(YES));
+	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">static</span> YES check(<span style="color:#66d9ef">typename</span> std<span style="color:#f92672">::</span>add_pointer<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">decltype</span>(U().resize(<span style="color:#ae81ff">0</span>))<span style="color:#f92672">&gt;::</span>type  a);
+	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">static</span> NO  check(...);
+	
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">bool</span> value <span style="color:#f92672">=</span> (<span style="color:#66d9ef">sizeof</span>(check<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">0</span>)) <span style="color:#f92672">==</span> <span style="color:#66d9ef">sizeof</span>(YES));
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    cout &lt;&lt; has_resize&lt;vector&lt;int&gt;&gt;::value &lt;&lt; endl;     // 1
-    cout &lt;&lt; has_resize&lt;array&lt;int, 10&gt;&gt;::value &lt;&lt; endl;  // 0
-}
-</code></pre>
-
-<ul>
+	cout <span style="color:#f92672">&lt;&lt;</span> has_resize<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;::</span>value <span style="color:#f92672">&lt;&lt;</span> endl;     <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> has_resize<span style="color:#f92672">&lt;</span>array<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">10</span><span style="color:#f92672">&gt;&gt;::</span>value <span style="color:#f92672">&lt;&lt;</span> endl;  <span style="color:#75715e">// 0
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>멤버 변수가 value 타입을 갖고 있는지 여부 조사 방법</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-struct NoValueType
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NoValueType</span>
 {
 };
 
-struct HasValueType
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">HasValueType</span>
 {
-    typedef int value_type;
+	<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> value_type;
 };
 
-template&lt;typename T&gt; struct has_value_type
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">has_value_type</span>
 {
-    using YES = char;
-    using NO = short;
+	<span style="color:#66d9ef">using</span> YES <span style="color:#f92672">=</span> <span style="color:#66d9ef">char</span>;
+	<span style="color:#66d9ef">using</span> NO <span style="color:#f92672">=</span> <span style="color:#66d9ef">short</span>;
 
-    template&lt;typename U&gt; static YES check(typename U::value_type*  a);
-    template&lt;typename U&gt; static NO  check(...);
+	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">static</span> YES check(<span style="color:#66d9ef">typename</span> U<span style="color:#f92672">::</span>value_type<span style="color:#f92672">*</span>  a);
+	<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">static</span> NO  check(...);
 
-    static constexpr bool value = (sizeof(check&lt;T&gt;(0)) == sizeof(YES));
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">bool</span> value <span style="color:#f92672">=</span> (<span style="color:#66d9ef">sizeof</span>(check<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">0</span>)) <span style="color:#f92672">==</span> <span style="color:#66d9ef">sizeof</span>(YES));
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    cout &lt;&lt; has_value_type&lt;HasValueType&gt;::value &lt;&lt; endl; // 1
-    cout &lt;&lt; has_value_type&lt;NoValueType&gt;::value &lt;&lt; endl;  // 0
-}
-</code></pre>
-
-<h3 id="typelist">Typelist</h3>
-
+	cout <span style="color:#f92672">&lt;&lt;</span> has_value_type<span style="color:#f92672">&lt;</span>HasValueType<span style="color:#f92672">&gt;::</span>value <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> has_value_type<span style="color:#f92672">&lt;</span>NoValueType<span style="color:#f92672">&gt;::</span>value <span style="color:#f92672">&lt;&lt;</span> endl;  <span style="color:#75715e">// 0
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="typelist">Typelist</h3>
 <p>loki libaray의 Typelist의 구현 살펴보기</p>
-
 <ul>
 <li>type을 보관하는 list 형태 템플릿</li>
 </ul>
-
-<pre><code class="language-cpp">// 1. 값을 보관하지 않는다.
-// 2. N개의 타입을 보관한다.
-// 3. NullType 과 매크로 도입
-
-// Typelist : 타입을 여러개 보관하는 type의 list(값이 아님.)
-template&lt;typename T, typename U&gt; struct Typelist
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// 1. 값을 보관하지 않는다.
+</span><span style="color:#75715e">// 2. N개의 타입을 보관한다.
+</span><span style="color:#75715e">// 3. NullType 과 매크로 도입
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Typelist : 타입을 여러개 보관하는 type의 list(값이 아님.)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Typelist</span>
 {
-    typedef T Head;
-    typedef U Tail;
+	<span style="color:#66d9ef">typedef</span> T Head;
+	<span style="color:#66d9ef">typedef</span> U Tail;
 };
 
-struct NullType {}; // 모든 typelist의 끝은 NullType으로 표현
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NullType</span> {}; <span style="color:#75715e">// 모든 typelist의 끝은 NullType으로 표현
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 매크로 도입
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define TYPELIST_1(T1)       Typelist&lt;T1, NullType&gt;
+</span><span style="color:#75715e">#define TYPELIST_2(T1, T2)   Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_3(T1, T2, T3)   Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_4(T1, T2, T3, T4)   Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+</span><span style="color:#75715e"></span>
 
-// 매크로 도입
-#define TYPELIST_1(T1)       Typelist&lt;T1, NullType&gt;
-#define TYPELIST_2(T1, T2)   Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
-#define TYPELIST_3(T1, T2, T3)   Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
-#define TYPELIST_4(T1, T2, T3, T4)   Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
-
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Typelist&lt;int, NullType&gt; t1;
-    Typelist&lt;int, Typelist&lt;double, NullType&gt;&gt; t2;
-    //Typelist&lt;int, Typelist&lt;double, Typelist&lt;char, NullType&gt;&gt;&gt; t3;
-
-    TYPELIST_1(int) t4; // 
-    TYPELIST_4(int, double, char, short) t4; // 
-}
-</code></pre>
-
-<ul>
+	Typelist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, NullType<span style="color:#f92672">&gt;</span> t1;
+	Typelist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, Typelist<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, NullType<span style="color:#f92672">&gt;&gt;</span> t2;
+	<span style="color:#75715e">//Typelist&lt;int, Typelist&lt;double, Typelist&lt;char, NullType&gt;&gt;&gt; t3;
+</span><span style="color:#75715e"></span>
+	TYPELIST_1(<span style="color:#66d9ef">int</span>) t4; <span style="color:#75715e">// 
+</span><span style="color:#75715e"></span>	TYPELIST_4(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span>, <span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">short</span>) t4; <span style="color:#75715e">// 
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>활용, 가변 인자 템플릿 없이 튜플에 여러 타입을 전달 할 수 있음</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T, typename U&gt; struct Typelist
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Typelist</span>
 {
-    typedef T Head;
-    typedef U Tail;
+	<span style="color:#66d9ef">typedef</span> T Head;
+	<span style="color:#66d9ef">typedef</span> U Tail;
 };
-struct NullType {};
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NullType</span> {};
 
-#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
-#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
-#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
-#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+<span style="color:#75715e">#define TYPELIST_1(T1)				Typelist&lt;T1, NullType&gt;
+</span><span style="color:#75715e">#define TYPELIST_2(T1, T2)			Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_3(T1, T2, T3)		Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_4(T1, T2, T3, T4)	Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//-------------------------------------------
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">xtuple</span> {};
 
-//-------------------------------------------
-template&lt;typename T&gt; class xtuple {};
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //xtuple&lt;int&gt; t1;
-
-    xtuple&lt; TYPELIST_3(int, double, char) &gt; t1;
+	<span style="color:#75715e">//xtuple&lt;int&gt; t1;
+</span><span style="color:#75715e"></span>
+	xtuple<span style="color:#f92672">&lt;</span> TYPELIST_3(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span>, <span style="color:#66d9ef">char</span>) <span style="color:#f92672">&gt;</span> t1;
 
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>typelist 요소의 갯수 구하기</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T, typename U&gt; struct Typelist
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Typelist</span>
 {
-    typedef T Head;
-    typedef U Tail;
+	<span style="color:#66d9ef">typedef</span> T Head;
+	<span style="color:#66d9ef">typedef</span> U Tail;
 };
-struct NullType {};
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NullType</span> {};
 
-#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
-#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
-#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
-#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
-//-----------------------------------------------------------------------------------------------------
-// Typelist의 요소 갯수 구하기.
-
-// 1. 사용하는 모습을 보고 primary template 작성.
-template&lt;typename T&gt; struct Length;
-//{
-//};
-
-// 2. 갯수를 구할수 있도록 부분 특수화
-template&lt;typename T, typename U&gt; struct Length&lt;Typelist&lt;T, U&gt;&gt;
+<span style="color:#75715e">#define TYPELIST_1(T1)				Typelist&lt;T1, NullType&gt;
+</span><span style="color:#75715e">#define TYPELIST_2(T1, T2)			Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_3(T1, T2, T3)		Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_4(T1, T2, T3, T4)	Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+</span><span style="color:#75715e"></span><span style="color:#75715e">//-----------------------------------------------------------------------------------------------------
+</span><span style="color:#75715e">// Typelist의 요소 갯수 구하기.
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 1. 사용하는 모습을 보고 primary template 작성.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Length</span>;
+<span style="color:#75715e">//{
+</span><span style="color:#75715e">//};
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 2. 갯수를 구할수 있도록 부분 특수화
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Length</span><span style="color:#f92672">&lt;</span>Typelist<span style="color:#f92672">&lt;</span>T, U<span style="color:#f92672">&gt;&gt;</span>
 {
-    enum { value = Length&lt;U&gt;::value + 1 };
-};
-
-// 3. 재귀를 종료 하기 위한 전문화(특수화)
-template&lt;&gt; struct Length&lt;NullType&gt;
-{
-    enum { value = 0 };
+	<span style="color:#66d9ef">enum</span> { value <span style="color:#f92672">=</span> Length<span style="color:#f92672">&lt;</span>U<span style="color:#f92672">&gt;::</span>value <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> };
 };
 
-
-template&lt;typename T&gt; void test()
+<span style="color:#75715e">// 3. 재귀를 종료 하기 위한 전문화(특수화)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Length</span><span style="color:#f92672">&lt;</span>NullType<span style="color:#f92672">&gt;</span>
 {
-    cout &lt;&lt; Length&lt;T&gt;::value &lt;&lt; endl; // 4
+	<span style="color:#66d9ef">enum</span> { value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> };
+};
+
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> test()
+{
+	cout <span style="color:#f92672">&lt;&lt;</span> Length<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;::</span>value <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 4
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	test<span style="color:#f92672">&lt;</span> TYPELIST_4(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">short</span>, <span style="color:#66d9ef">double</span>) <span style="color:#f92672">&gt;</span>();
 }
-
-int main()
-{
-    test&lt; TYPELIST_4(int, char, short, double) &gt;();
-}
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>typelist의 at 구현 (n번째 요소의 타입)</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T, typename U&gt; struct Typelist
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Typelist</span>
 {
-    typedef T Head;
-    typedef U Tail;
+	<span style="color:#66d9ef">typedef</span> T Head;
+	<span style="color:#66d9ef">typedef</span> U Tail;
 };
-struct NullType {};
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NullType</span> {};
 
-#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
-#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
-#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
-#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
-//-----------------------------------------------------------------------------------------------------
-// Typelist의 N 번째 요소의 타입 구하기
-// 1. 사용하는 코드를 보고 primary template 작성.
-// T : Typelist
-template&lt;typename T, int N&gt; struct TypeAt;
+<span style="color:#75715e">#define TYPELIST_1(T1)				Typelist&lt;T1, NullType&gt;
+</span><span style="color:#75715e">#define TYPELIST_2(T1, T2)			Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_3(T1, T2, T3)		Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_4(T1, T2, T3, T4)	Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+</span><span style="color:#75715e"></span><span style="color:#75715e">//-----------------------------------------------------------------------------------------------------
+</span><span style="color:#75715e">// Typelist의 N 번째 요소의 타입 구하기
+</span><span style="color:#75715e">// 1. 사용하는 코드를 보고 primary template 작성.
+</span><span style="color:#75715e">// T : Typelist
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">int</span> N<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">TypeAt</span>;
 
 
-// 2. 원하는 타입을 구할수 있도록 부분특수화
-//  T : Typelist의 요소 타입
-/*
-template&lt;typename T, typename U, int N&gt; struct TypeAt&lt;Typelist&lt;T, U&gt;, N&gt;
+<span style="color:#75715e">// 2. 원하는 타입을 구할수 있도록 부분특수화
+</span><span style="color:#75715e">//  T : Typelist의 요소 타입
+</span><span style="color:#75715e"></span><span style="color:#75715e">/*
+</span><span style="color:#75715e">template&lt;typename T, typename U, int N&gt; struct TypeAt&lt;Typelist&lt;T, U&gt;, N&gt;
+</span><span style="color:#75715e">{
+</span><span style="color:#75715e">	typedef ? type;
+</span><span style="color:#75715e">};
+</span><span style="color:#75715e">*/</span>
+<span style="color:#75715e">// N == 0 일때.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">TypeAt</span><span style="color:#f92672">&lt;</span>Typelist<span style="color:#f92672">&lt;</span>T, U<span style="color:#f92672">&gt;</span>, <span style="color:#ae81ff">0</span><span style="color:#f92672">&gt;</span>
 {
-    typedef ? type;
-};
-*/
-// N == 0 일때.
-template&lt;typename T, typename U&gt; struct TypeAt&lt;Typelist&lt;T, U&gt;, 0&gt;
-{
-    typedef T type;
-};
-
-// N != 0 일때.
-template&lt;typename T, typename U, int N&gt; struct TypeAt&lt;Typelist&lt;T, U&gt;, N&gt;
-{
-    typedef  typename  TypeAt&lt;U, N-1&gt;::type   type;
+	<span style="color:#66d9ef">typedef</span> T type;
 };
 
-template&lt;typename T&gt; void test()
+<span style="color:#75715e">// N != 0 일때.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U, <span style="color:#66d9ef">int</span> N<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">TypeAt</span><span style="color:#f92672">&lt;</span>Typelist<span style="color:#f92672">&lt;</span>T, U<span style="color:#f92672">&gt;</span>, N<span style="color:#f92672">&gt;</span>
 {
-    typename TypeAt&lt;T, 3&gt;::type n;  // char
+	<span style="color:#66d9ef">typedef</span>  <span style="color:#66d9ef">typename</span>  TypeAt<span style="color:#f92672">&lt;</span>U, N<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;::</span>type   type;
+};
 
-    cout &lt;&lt; typeid(n).name() &lt;&lt; endl;
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> test()
+{
+	<span style="color:#66d9ef">typename</span> TypeAt<span style="color:#f92672">&lt;</span>T, <span style="color:#ae81ff">3</span><span style="color:#f92672">&gt;::</span>type n;  <span style="color:#75715e">// char
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(n).name() <span style="color:#f92672">&lt;&lt;</span> endl;
 
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    test&lt;TYPELIST_4(int, char, double, long)&gt;();
+	test<span style="color:#f92672">&lt;</span>TYPELIST_4(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">double</span>, <span style="color:#66d9ef">long</span>)<span style="color:#f92672">&gt;</span>();
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>typelist에 type add하기</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T, typename U&gt; struct Typelist
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Typelist</span>
 {
-    typedef T Head;
-    typedef U Tail;
+	<span style="color:#66d9ef">typedef</span> T Head;
+	<span style="color:#66d9ef">typedef</span> U Tail;
 };
-struct NullType {};
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NullType</span> {};
 
-#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
-#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
-#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
-#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
-//-------------------------------------------------------------------------------------------
-// Typelist 끝에 타입 추가하기.
+<span style="color:#75715e">#define TYPELIST_1(T1)				Typelist&lt;T1, NullType&gt;
+</span><span style="color:#75715e">#define TYPELIST_2(T1, T2)			Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_3(T1, T2, T3)		Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_4(T1, T2, T3, T4)	Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+</span><span style="color:#75715e"></span><span style="color:#75715e">//-------------------------------------------------------------------------------------------
+</span><span style="color:#75715e">// Typelist 끝에 타입 추가하기.
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> TL, <span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Append</span>;
 
-template&lt;typename TL, typename T&gt; struct Append;
 
-
-//     TL         T
-// 1. NullType, NullType   =&gt; NullType
-template&lt;&gt; struct Append&lt;NullType, NullType&gt;
+<span style="color:#75715e">//     TL         T
+</span><span style="color:#75715e">// 1. NullType, NullType   =&gt; NullType
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Append</span><span style="color:#f92672">&lt;</span>NullType, NullType<span style="color:#f92672">&gt;</span>
 {
-    typedef NullType type;
-};
-
-// 2. NullType, 임의의타입   =&gt; Typelist&lt;임의의타입, NullType&gt;
-template&lt;typename T&gt; struct Append&lt;NullType, T&gt;
-{
-    typedef Typelist&lt;T, NullType&gt; type;
+	<span style="color:#66d9ef">typedef</span> NullType type;
 };
 
-// 3. NullType, Typelist&lt;Head, Tail&gt;  =&gt; Typelist&lt;Head, Tail&gt;
-template&lt;typename Head, typename Tail&gt; struct Append&lt;NullType, Typelist&lt;Head, Tail&gt; &gt;
+<span style="color:#75715e">// 2. NullType, 임의의타입   =&gt; Typelist&lt;임의의타입, NullType&gt;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Append</span><span style="color:#f92672">&lt;</span>NullType, T<span style="color:#f92672">&gt;</span>
 {
-    typedef Typelist&lt;Head, Tail&gt; type;
+	<span style="color:#66d9ef">typedef</span> Typelist<span style="color:#f92672">&lt;</span>T, NullType<span style="color:#f92672">&gt;</span> type;
 };
 
-
-// 4. Typelist&lt;Head, Tail&gt;, NullType  =&gt; Typelist&lt;Head, Tail&gt;
-//    이번 단계의 코드는 없어도 됩니다. 5단계의 코드만 있으면 됩니다.
-template&lt;typename Head, typename Tail&gt; struct Append&lt;Typelist&lt;Head, Tail&gt;, NullType &gt;
+<span style="color:#75715e">// 3. NullType, Typelist&lt;Head, Tail&gt;  =&gt; Typelist&lt;Head, Tail&gt;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Head, <span style="color:#66d9ef">typename</span> Tail<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Append</span><span style="color:#f92672">&lt;</span>NullType, Typelist<span style="color:#f92672">&lt;</span>Head, Tail<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span>
 {
-    typedef Typelist&lt;Head, Tail&gt; type;
+	<span style="color:#66d9ef">typedef</span> Typelist<span style="color:#f92672">&lt;</span>Head, Tail<span style="color:#f92672">&gt;</span> type;
 };
 
 
-// 5. Typelist&lt;Head, Tail&gt;, T =&gt;  Typelist&lt;Head, Append&lt;Tail, T&gt;::type&gt; 
-template&lt;typename Head, typename Tail, typename T&gt; struct Append&lt;Typelist&lt;Head, Tail&gt;, T &gt;
+<span style="color:#75715e">// 4. Typelist&lt;Head, Tail&gt;, NullType  =&gt; Typelist&lt;Head, Tail&gt;
+</span><span style="color:#75715e">//    이번 단계의 코드는 없어도 됩니다. 5단계의 코드만 있으면 됩니다.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Head, <span style="color:#66d9ef">typename</span> Tail<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Append</span><span style="color:#f92672">&lt;</span>Typelist<span style="color:#f92672">&lt;</span>Head, Tail<span style="color:#f92672">&gt;</span>, NullType <span style="color:#f92672">&gt;</span>
 {
-    typedef Typelist&lt;Head, typename Append&lt;Tail, T&gt;::type&gt; type;
+	<span style="color:#66d9ef">typedef</span> Typelist<span style="color:#f92672">&lt;</span>Head, Tail<span style="color:#f92672">&gt;</span> type;
 };
 
-template&lt;typename T&gt; void test()
-{
-    typename Append&lt;T, int&gt;::type t1;
 
-    cout &lt;&lt; typeid(t1).name() &lt;&lt; endl;  // int, char, double, int, NullType
+<span style="color:#75715e">// 5. Typelist&lt;Head, Tail&gt;, T =&gt;  Typelist&lt;Head, Append&lt;Tail, T&gt;::type&gt; 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Head, <span style="color:#66d9ef">typename</span> Tail, <span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Append</span><span style="color:#f92672">&lt;</span>Typelist<span style="color:#f92672">&lt;</span>Head, Tail<span style="color:#f92672">&gt;</span>, T <span style="color:#f92672">&gt;</span>
+{
+	<span style="color:#66d9ef">typedef</span> Typelist<span style="color:#f92672">&lt;</span>Head, <span style="color:#66d9ef">typename</span> Append<span style="color:#f92672">&lt;</span>Tail, T<span style="color:#f92672">&gt;::</span>type<span style="color:#f92672">&gt;</span> type;
+};
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> test()
+{
+	<span style="color:#66d9ef">typename</span> Append<span style="color:#f92672">&lt;</span>T, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>type t1;
+
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(t1).name() <span style="color:#f92672">&lt;&lt;</span> endl;  <span style="color:#75715e">// int, char, double, int, NullType
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	test<span style="color:#f92672">&lt;</span>TYPELIST_3(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">double</span>)<span style="color:#f92672">&gt;</span>();
 }
-
-int main()
-{
-    test&lt;TYPELIST_3(int, char, double)&gt;();
-}
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>typelist 활용, GenScatterHierachy 구현 해보기</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-template&lt;typename T, typename U&gt; struct Typelist
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">typename</span> U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Typelist</span>
 {
-    typedef T Head;
-    typedef U Tail;
+	<span style="color:#66d9ef">typedef</span> T Head;
+	<span style="color:#66d9ef">typedef</span> U Tail;
 };
-struct NullType {};
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NullType</span> {};
 
-#define TYPELIST_1(T1)              Typelist&lt;T1, NullType&gt;
-#define TYPELIST_2(T1, T2)          Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
-#define TYPELIST_3(T1, T2, T3)      Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
-#define TYPELIST_4(T1, T2, T3, T4)  Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
-
-//-------------------------------------------------------------------------------------------
-// Typelist 활용 
-
-// Holder : 임의 타입의 data 하나 보관..
-template&lt;typename T&gt; struct Holder
+<span style="color:#75715e">#define TYPELIST_1(T1)				Typelist&lt;T1, NullType&gt;
+</span><span style="color:#75715e">#define TYPELIST_2(T1, T2)			Typelist&lt;T1, Typelist&lt;T2, NullType&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_3(T1, T2, T3)		Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, NullType&gt;&gt;&gt;
+</span><span style="color:#75715e">#define TYPELIST_4(T1, T2, T3, T4)	Typelist&lt;T1, Typelist&lt;T2, Typelist&lt;T3, Typelist&lt;T4, NullType&gt;&gt;&gt;&gt;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//-------------------------------------------------------------------------------------------
+</span><span style="color:#75715e">// Typelist 활용 
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Holder : 임의 타입의 data 하나 보관..
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Holder</span>
 {
-    T value;
-};
-
-// loki 라이브러리의 GenScatterHierachy  =&gt; MakeCode
-
-template&lt;typename T, template&lt;typename&gt; class Unit&gt; 
-class MakeCode : public Unit&lt;T&gt; 
-{
+	T value;
 };
 
-template&lt;template&lt;typename&gt; class Unit&gt;
-class MakeCode&lt;NullType, Unit&gt;
+<span style="color:#75715e">// loki 라이브러리의 GenScatterHierachy  =&gt; MakeCode
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T, <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Unit</span><span style="color:#f92672">&gt;</span> 
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MakeCode</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Unit<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> 
 {
 };
 
-int main()
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Unit</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MakeCode</span><span style="color:#f92672">&lt;</span>NullType, Unit<span style="color:#f92672">&gt;</span>
 {
-    MakeCode&lt;int, Holder&gt; mc1; // 기반 클래스 Holder&lt;int&gt; 이므로
-    MakeCode&lt;double, Holder&gt;  mc2; // Holder&lt;doulbe&gt;
-    MakeCode&lt;NullType, Holder&gt; mc3; // empty
-}
-</code></pre>
+};
 
-<p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	MakeCode<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, Holder<span style="color:#f92672">&gt;</span> mc1; <span style="color:#75715e">// 기반 클래스 Holder&lt;int&gt; 이므로
+</span><span style="color:#75715e"></span>	MakeCode<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, Holder<span style="color:#f92672">&gt;</span>  mc2; <span style="color:#75715e">// Holder&lt;doulbe&gt;
+</span><span style="color:#75715e"></span>	MakeCode<span style="color:#f92672">&lt;</span>NullType, Holder<span style="color:#f92672">&gt;</span> mc3; <span style="color:#75715e">// empty
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p><a href="https://en.cppreference.com/w/">더 많은 C++ 관련 정보</a></p>
               
             </div>
           </div>
@@ -1053,7 +992,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - 개요[1]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - 개요[1]">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -1126,7 +1065,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 
@@ -1139,7 +1078,7 @@ int main()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95-%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - 개요[1]">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2021/04/c-%EA%B3%A0%EA%B8%89-%EB%AC%B8%EB%B2%95/%ED%85%8C%ED%81%AC%EB%8B%89-%EA%B0%9C%EC%9A%941/" data-tooltip="C&#43;&#43; 고급 문법/테크닉 - 개요[1]">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>

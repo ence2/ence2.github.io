@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>English on Keep calm carry on</title>
@@ -6,11 +6,7 @@
     <description>Recent content in English on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Sat, 15 May 2021 20:14:52 +0900</lastBuildDate>
-    
-	<atom:link href="https://ence2.github.io/tags/english/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 15 May 2021 20:14:52 +0900</lastBuildDate><atom:link href="https://ence2.github.io/tags/english/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>실무에서 바로 쓰는 영어 이메일</title>
       <link>https://ence2.github.io/2021/05/%EC%8B%A4%EB%AC%B4%EC%97%90%EC%84%9C-%EB%B0%94%EB%A1%9C-%EC%93%B0%EB%8A%94-%EC%98%81%EC%96%B4-%EC%9D%B4%EB%A9%94%EC%9D%BC/</link>
@@ -18,17 +14,18 @@
       
       <guid>https://ence2.github.io/2021/05/%EC%8B%A4%EB%AC%B4%EC%97%90%EC%84%9C-%EB%B0%94%EB%A1%9C-%EC%93%B0%EB%8A%94-%EC%98%81%EC%96%B4-%EC%9D%B4%EB%A9%94%EC%9D%BC/</guid>
       <description>&lt;h2 id=&#34;개-요&#34;&gt;개 요&lt;/h2&gt;
-
 &lt;h4 id=&#34;그냥-한글-메일처럼-쓰면-안되나&#34;&gt;그냥 한글 메일처럼 쓰면 안되나?&lt;/h4&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;영문 이메일만의 형식, 생각보다 까다로운 규칙
-비지니스에서는 따짐&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;상대방이 말을 못 알아들음
+&lt;li&gt;
+&lt;p&gt;영문 이메일만의 형식, 생각보다 까다로운 규칙
+비지니스에서는 따짐&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;상대방이 말을 못 알아들음
 의사소통이 잘 되는 이메일, 간단 명료, 정확, 갈끔
 오해 표현 금지, 정중하지만 중립적인 표현
-간단하지만 있어보이는 메일&lt;/p&gt;&lt;/li&gt;
+간단하지만 있어보이는 메일&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
     
@@ -39,7 +36,6 @@
       
       <guid>https://ence2.github.io/2021/02/%EB%87%8C%EC%97%90%EC%84%9C-clear%EB%90%9C-%EC%88%98%EB%8A%A5-%EC%88%98%EC%A4%80-%EC%98%81%EC%96%B4-%EC%96%B4%ED%9C%98/</guid>
       <description>&lt;p&gt;뇌에서 날라간 수능 수준 어휘를 본 포스팅에 정리 합니다.&lt;/p&gt;
-
 &lt;p&gt;MD33000 수준(GRE) 어휘는 다른 포스팅에서 정리 예정&lt;/p&gt;</description>
     </item>
     

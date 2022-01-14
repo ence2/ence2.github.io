@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="c&#43;&#43;20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.
-
 이 연산자의 의미는 다음과 같습니다.">
 
 
 <meta property="og:description" content="c&#43;&#43;20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.
-
 이 연산자의 의미는 다음과 같습니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C&#43;&#43;20 리서치 - Three Way Comparison(&lt;=&gt;)[4]">
@@ -23,10 +21,8 @@
 <meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-three-way-comparison4/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="c&#43;&#43;20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.
-
 이 연산자의 의미는 다음과 같습니다.">
 <meta name="twitter:description" content="c&#43;&#43;20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.
-
 이 연산자의 의미는 다음과 같습니다.">
 <meta property="og:locale" content="en-us">
 
@@ -104,7 +100,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -263,9 +258,7 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>c++20에는 새로된 연산자 &lt;=&gt; (three-way comparison operator)가 추가되었습니다.</p>
-
 <p>이 연산자의 의미는 다음과 같습니다.</p>
-
 <table>
 <thead>
 <tr>
@@ -273,75 +266,60 @@ if (!doNotTrack) {
 <th>의미</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>(a &lt;=&gt; b)  &lt; 0</td>
 <td>a &lt; b</td>
 </tr>
-
 <tr>
 <td>(a &lt;=&gt; b)  &gt; 0</td>
 <td>a &gt; b</td>
 </tr>
-
 <tr>
 <td>(a &lt;=&gt; b)  == 0</td>
 <td>a == b</td>
 </tr>
 </tbody>
 </table>
-
 <h3 id="예제">예제</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;compare&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+<span style="color:#66d9ef">bool</span> r1 <span style="color:#f92672">=</span> a <span style="color:#f92672">&lt;</span> b;
+<span style="color:#66d9ef">auto</span> r2 <span style="color:#f92672">=</span> a <span style="color:#f92672">&lt;=&gt;</span> b;
 
-<pre><code class="language-cpp">#include &lt;compare&gt;
+<span style="color:#66d9ef">if</span> (r2 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;a &gt; b&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (r2 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;a &lt; b&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (r2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;a == b&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 
-int a = 10, b = 20;
-bool r1 = a &lt; b;
-auto r2 = a &lt;=&gt; b;
-
-if (r2 &gt; 0) std::cout &lt;&lt; &quot;a &gt; b&quot; &lt;&lt; std::endl;
-else if (r2 &lt; 0) std::cout &lt;&lt; &quot;a &lt; b&quot; &lt;&lt; std::endl;
-else if (r2 == 0) std::cout &lt;&lt; &quot;a == b&quot; &lt;&lt; std::endl;
-
-std::cout &lt;&lt; typeid(r2).name() &lt;&lt; std::endl; //std::string_ordering
-</code></pre>
-
-<h3 id="어디에-쓰나">어디에 쓰나?</h3>
-
+std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(r2).name() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">//std::string_ordering
+</span></code></pre></div><h3 id="어디에-쓰나">어디에 쓰나?</h3>
 <ul>
 <li>사용자 타입을 만든 후 기존 타입과의 비교 operatior 연산자를 오버라이딩 할 때 &lt;=&gt; 를 활용 할 경우 기존 18개 -&gt; 3개 구현으로 코드양이 많이 줄어듭니다.</li>
 </ul>
-
-<h3 id="연산자의-반환-타입">&lt;=&gt; 연산자의 반환 타입</h3>
-
+<h3 id="-연산자의-반환-타입">&lt;=&gt; 연산자의 반환 타입</h3>
 <ul>
 <li><strong>std::strong_ordering : 두 비교 대상이 같다.</strong></li>
 <li><strong>std::weak_ordering : 두 비교 대상이 대등하다.(완벽하게 같진 않을 수 있음)</strong></li>
 <li><strong>std::partial_ordering : 비교를 없는 등의 경우의 의미를 나타내기 위해 사용 ( 실수 계산시 NaN 케이스 등 )</strong></li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;compare&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+<span style="color:#66d9ef">double</span> d1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, d2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+<span style="color:#66d9ef">auto</span> r1 <span style="color:#f92672">=</span> n1 <span style="color:#f92672">&lt;=&gt;</span> n2;
+<span style="color:#66d9ef">auto</span> r2 <span style="color:#f92672">=</span> d1 <span style="color:#f92672">&lt;=&gt;</span> d2;
+<span style="color:#66d9ef">auto</span> r3 <span style="color:#f92672">=</span> n1 <span style="color:#f92672">&lt;=&gt;</span> d2;
 
-<pre><code class="language-cpp">#include &lt;compare&gt;
-
-int n1 = 10, n2 = 20;
-double d1 = 10, d2 = 20;
-auto r1 = n1 &lt;=&gt; n2;
-auto r2 = d1 &lt;=&gt; d2;
-auto r3 = n1 &lt;=&gt; d2;
-
-if (r1 &lt; 0 ){} // r1 == std::strong_ordering::less
-if (r2 &gt; 0 ){} // r1 == std::strong_ordering::greater
-if (r3 == 0 ){} // r1 == std::strong_ordering::equal
-
-std::cout &lt;&lt; typeid(r1).name() &lt;&lt; std::endl; // struct std::strong_ordering
-std::cout &lt;&lt; typeid(r2).name() &lt;&lt; std::endl; // struct std::partial_ordering
-std::cout &lt;&lt; typeid(r3).name() &lt;&lt; std::endl; // struct std::partial_ordering
-</code></pre>
-
-<h3 id="추가-정보">추가 정보</h3>
-
+<span style="color:#66d9ef">if</span> (r1 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> ){} <span style="color:#75715e">// r1 == std::strong_ordering::less
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (r2 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> ){} <span style="color:#75715e">// r1 == std::strong_ordering::greater
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (r3 <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> ){} <span style="color:#75715e">// r1 == std::strong_ordering::equal
+</span><span style="color:#75715e"></span>
+std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(r1).name() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// struct std::strong_ordering
+</span><span style="color:#75715e"></span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(r2).name() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// struct std::partial_ordering
+</span><span style="color:#75715e"></span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">typeid</span>(r3).name() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// struct std::partial_ordering
+</span></code></pre></div><h3 id="추가-정보">추가 정보</h3>
 <p>&lt;=&gt; 연산자는 Rewrite Expression라는 개념을 사용하며 의미는 사용자가 만든 표현식을 컴파일러가 컴파일 시간에 다시 작성한다는 의미입니다.</p>
-
 <p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
               
             </div>
@@ -444,7 +422,7 @@ std::cout &lt;&lt; typeid(r3).name() &lt;&lt; std::endl; // struct std::partial_
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

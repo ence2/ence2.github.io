@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="C&#43;&#43;20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.
-
 사용자가 만들 수 도 있고, 미리 만들어 져 있는 C&#43;&#43; 표준 Concept로도 제공합니다.">
 
 
 <meta property="og:description" content="C&#43;&#43;20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.
-
 사용자가 만들 수 도 있고, 미리 만들어 져 있는 C&#43;&#43; 표준 Concept로도 제공합니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C&#43;&#43;20 리서치 - Requires 절, Concept[6]">
@@ -23,10 +21,8 @@
 <meta property="twitter:url" content="https://ence2.github.io/2021/01/c-20-%EB%A6%AC%EC%84%9C%EC%B9%98-requires-%EC%A0%88-concept6/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="C&#43;&#43;20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.
-
 사용자가 만들 수 도 있고, 미리 만들어 져 있는 C&#43;&#43; 표준 Concept로도 제공합니다.">
 <meta name="twitter:description" content="C&#43;&#43;20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.
-
 사용자가 만들 수 도 있고, 미리 만들어 져 있는 C&#43;&#43; 표준 Concept로도 제공합니다.">
 <meta property="og:locale" content="en-us">
 
@@ -104,7 +100,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -263,219 +258,206 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>C++20에서 추가된 Requires와 Concept은 타입이 가져야 하는 요구 조건을 정의하는 문법입니다.</p>
-
 <p>사용자가 만들 수 도 있고, 미리 만들어 져 있는 C++ 표준 Concept로도 제공합니다.</p>
-
 <h3 id="requires와-concept-개요">Requires와 Concept 개요</h3>
-
 <ul>
-<li><p><strong>템플릿 인자가 가져야 하는 조건을 표기하는 문법</strong></p></li>
-
-<li><p><strong>조건을 만족하는 경우에만 템플릿 사용</strong></p></li>
-
-<li><p><strong>Concept 뿐 아니라 type traits 등도 사용 가능</strong></p></li>
-
-<li><p><strong>신규 키워드 : concept, requires</strong></p></li>
-
-<li><p><strong>신규 헤더 : concepts</strong></p></li>
+<li>
+<p><strong>템플릿 인자가 가져야 하는 조건을 표기하는 문법</strong></p>
+</li>
+<li>
+<p><strong>조건을 만족하는 경우에만 템플릿 사용</strong></p>
+</li>
+<li>
+<p><strong>Concept 뿐 아니라 type traits 등도 사용 가능</strong></p>
+</li>
+<li>
+<p><strong>신규 키워드 : concept, requires</strong></p>
+</li>
+<li>
+<p><strong>신규 헤더 : concepts</strong></p>
+</li>
 </ul>
-
 <h3 id="requires-clauses">Requires Clauses</h3>
-
 <p><strong>장점 및 특징</strong></p>
-
 <ul>
-<li><strong>템플릿에 requires + (조건)으로 제약조건 표기 가능</strong></li>
-<li><strong>컴파일 시간에 결정되는 bool 형식의 상수 값(반드시 bool 타입이어야 함)</strong></li>
+<li>
+<p><strong>템플릿에 requires + (조건)으로 제약조건 표기 가능</strong></p>
+</li>
+<li>
+<p><strong>컴파일 시간에 결정되는 bool 형식의 상수 값(반드시 bool 타입이어야 함)</strong></p>
+</li>
+<li>
+<p><strong>조건을 함수 형식(constexpr or consteval 함수)으로 사용가능( 괄호로 묶기 반드시 필요 )</strong></p>
+</li>
+<li>
+<p><strong>읽기 좋은 에러 메세지 출력 ( 통상적으로 템플릿 사용시 에러 메세지가 매우 복잡 )</strong></p>
+</li>
+<li>
+<p><strong>치환 실패는 에러가 아니라 SFINAE 규칙 적용</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;type_traits&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> std<span style="color:#f92672">::</span>is_integral_v<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#75715e">// 문법 &#34;requires + (조건)&#34; 로 제약 조건 명시 가능
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> goo(T arg)
+{
+}
 
-<li><p><strong>조건을 함수 형식(constexpr or consteval 함수)으로 사용가능( 괄호로 묶기 반드시 필요 )</strong></p></li>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> std<span style="color:#f92672">::</span>is_integral_v<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+T gcd(T a, T b)
+{
+    <span style="color:#66d9ef">return</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> a : gcd(b, a <span style="color:#f92672">%</span> b);
+}
 
-<li><p><strong>읽기 좋은 에러 메세지 출력 ( 통상적으로 템플릿 사용시 에러 메세지가 매우 복잡 )</strong></p></li>
+<span style="color:#66d9ef">double</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#66d9ef">double</span> a, <span style="color:#66d9ef">double</span> b) { <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>; };
 
-<li><p><strong>치환 실패는 에러가 아니라 SFINAE 규칙 적용</strong></p></li>
+<span style="color:#66d9ef">int</span> main
+{
+    goo(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">// OK
+</span><span style="color:#75715e"></span>    goo(<span style="color:#ae81ff">3.4</span>); <span style="color:#75715e">// Error : 에러 메세지가 가독성 좋게 출력됨
+</span><span style="color:#75715e"></span>
+    gcd(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// OK : template을 사용해서 int 버전 함수 생성
+</span><span style="color:#75715e"></span>    gcd(<span style="color:#ae81ff">4.2</span>, <span style="color:#ae81ff">2.1</span>); <span style="color:#75715e">// OK : double 버전
+</span><span style="color:#75715e"></span>    gcd(<span style="color:#ae81ff">4.2f</span>, <span style="color:#ae81ff">2.1f</span>) <span style="color:#75715e">// OK : float 버전에서 % 연산으로 인해 에러가 발생함으로 컴파일러가
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// requires 조건을 만족하지 않을 경우 템플릿을 사용하지 않은 double 버전 함수 선택
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// SFINAE라는 기술로 구현 ( Subsituation failure is not an error )
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
+<li>
+<p><strong>Requires 절과 함수 오버로딩</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;concepts&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> std<span style="color:#f92672">::</span>random_access_iterator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#75715e">// 반복자 임의 접근 가능한지 여부( C++ 표준 concepts )
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> MyAdvance(T<span style="color:#f92672">&amp;</span> p, <span style="color:#66d9ef">int</span> n) <span style="color:#75715e">// 간단한 구현을 위해 n &gt; 0 인 경우만
+</span><span style="color:#75715e"></span>{
+    <span style="color:#75715e">// 임의 접근
+</span><span style="color:#75715e"></span>    p <span style="color:#f92672">=</span> p <span style="color:#f92672">+</span> n; 
+}
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> std<span style="color:#f92672">::</span>input_iterator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> MyAdvance(T<span style="color:#f92672">&amp;</span> p, <span style="color:#66d9ef">int</span> n)
+{
+    <span style="color:#75715e">// 임의 접근 아닌 경우
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span>(n<span style="color:#f92672">--</span>) <span style="color:#f92672">++</span>p;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// C++20 에서는 concepts을 이용하여 advance를 아주 손쉽게 구현 할 수 있다.
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>vector v <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>};
+    std<span style="color:#f92672">::</span>list l <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>};
+
+    MyAdvance(std<span style="color:#f92672">::</span>begin(v), <span style="color:#ae81ff">4</span>);
+    MyAdvance(std<span style="color:#f92672">::</span>begin(l), <span style="color:#ae81ff">4</span>);
+}
+</code></pre></div></li>
+<li>
+<p><strong>Requires 절의 위치</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> true <span style="color:#75715e">// 이 위치 OK
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> f1(T a)
+{}
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> 
+<span style="color:#66d9ef">void</span> f2(T a) <span style="color:#66d9ef">requires</span> true <span style="color:#75715e">// 이 위치도 OK
+</span><span style="color:#75715e"></span>{}
+</code></pre></div></li>
 </ul>
-
-<pre><code class="language-cpp">  #include &lt;type_traits&gt;
-  
-  template&lt;typename T&gt; requires std::is_integral_v&lt;T&gt; // 문법 &quot;requires + (조건)&quot; 로 제약 조건 명시 가능
-  void goo(T arg)
-  {
-  }
-  
-  template&lt;typename T&gt; requires std::is_integral_v&lt;T&gt;
-  T gcd(T a, T b)
-  {
-      return b == 0 ? a : gcd(b, a % b);
-  }
-  
-  double gcd(double a, double b) { return 0; };
-  
-  int main
-  {
-      goo(1); // OK
-      goo(3.4); // Error : 에러 메세지가 가독성 좋게 출력됨
-      
-      gcd(4, 2); // OK : template을 사용해서 int 버전 함수 생성
-      gcd(4.2, 2.1); // OK : double 버전
-      gcd(4.2f, 2.1f) // OK : float 버전에서 % 연산으로 인해 에러가 발생함으로 컴파일러가
-                      // requires 조건을 만족하지 않을 경우 템플릿을 사용하지 않은 double 버전 함수 선택
-                      // SFINAE라는 기술로 구현 ( Subsituation failure is not an error )
-  }
-</code></pre>
-
-<ul>
-<li><strong>Requires 절과 함수 오버로딩</strong></li>
-</ul>
-
-<pre><code class="language-cpp">  #include &lt;iostream&gt;
-  #include &lt;vector&gt;
-  #include &lt;list&gt;
-  #include &lt;concepts&gt;
-  
-  template&lt;typename T&gt; requires std::random_access_iterator&lt;T&gt; // 반복자 임의 접근 가능한지 여부( C++ 표준 concepts )
-  void MyAdvance(T&amp; p, int n) // 간단한 구현을 위해 n &gt; 0 인 경우만
-  {
-      // 임의 접근
-      p = p + n; 
-  }
-  
-  template&lt;typename T&gt; requires std::input_iterator&lt;T&gt;
-  void MyAdvance(T&amp; p, int n)
-  {
-      // 임의 접근 아닌 경우
-      while(n--) ++p;
-  }
-  
-  int main()
-  {
-      // C++20 에서는 concepts을 이용하여 advance를 아주 손쉽게 구현 할 수 있다.
-      std::vector v = {1, 2, 3, 4, 5, 6};
-      std::list l = {1, 2, 3, 4, 5, 6};
-      
-      MyAdvance(std::begin(v), 4);
-      MyAdvance(std::begin(l), 4);
-  }
-</code></pre>
-
-<ul>
-<li><strong>Requires 절의 위치</strong></li>
-</ul>
-
-<pre><code class="language-cpp">  template&lt;typename T&gt; requires true // 이 위치 OK
-  void f1(T a)
-  {}
-  
-  template&lt;typename T&gt; 
-  void f2(T a) requires true // 이 위치도 OK
-  {}
-</code></pre>
-
 <h3 id="concept">Concept</h3>
-
 <ul>
-<li><strong>concept이란 requirements의 명명된 집합이며 다음과 같은 형태를 취합니다.</strong></li>
+<li>
+<p><strong>concept이란 requirements의 명명된 집합이며 다음과 같은 형태를 취합니다.</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">파라메터</span> list<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">concept</span> <span style="color:#960050;background-color:#1e0010">컨셉이름</span> <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">제약</span> <span style="color:#960050;background-color:#1e0010">조건</span> <span style="color:#960050;background-color:#1e0010">표현식</span>;
+</code></pre></div></li>
+<li>
+<p><strong>예제</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;type_traits&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">concept</span> Integral <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>is_integral_v<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;&amp;</span> true; <span style="color:#75715e">// 요구 조건 제약사항 concepts 생성
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> Integral<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> foo(T a)
+{
+
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">bool</span> b <span style="color:#f92672">=</span> Integral<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>;
+
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> b <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+}
+</code></pre></div></li>
+<li>
+<p><strong>Requires expression</strong></p>
+</li>
+<li>
+<p><strong>형태 : requires ( 파라메터 list[생략가능] ) { 요구사항; };</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;type_traits&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">concept</span> True <span style="color:#f92672">=</span> true; <span style="color:#75715e">// 기본형
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">concept</span> Modulus <span style="color:#f92672">=</span> requres(T a, T b) <span style="color:#75715e">// Requires expression 형태 : 조건을 디테일 하게 명시 할 수 있음
+</span><span style="color:#75715e"></span>{
+    a <span style="color:#f92672">%</span> b;
+};
+
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> Modules<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> T Mod(T a, T b) <span style="color:#75715e">// requires 절 : 일반적 템플릿에 requires와 위에서 만든 concept을 사용
+</span><span style="color:#75715e"></span>{
+    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">%</span> b;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    Mod(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>); <span style="color:#75715e">// Ok
+</span><span style="color:#75715e"></span>    Mod(<span style="color:#ae81ff">5.4</span>, <span style="color:#ae81ff">2.2</span>); <span style="color:#75715e">// Error : 일치하는 오버로드 함수가 없음, concept의 제약조건을 % 연산에 대해서만 명시 했기 때문에 ( 실수는 % 연산 불가 )
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">  
+  <span style="color:#f92672">-</span> <span style="color:#960050;background-color:#1e0010">이러한</span> <span style="color:#960050;background-color:#1e0010">원리를</span> <span style="color:#960050;background-color:#1e0010">이용해서</span> <span style="color:#960050;background-color:#1e0010">표준에서</span> concepts <span style="color:#960050;background-color:#1e0010">헤더에</span> <span style="color:#960050;background-color:#1e0010">미리</span> <span style="color:#960050;background-color:#1e0010">구현해놓은</span> <span style="color:#960050;background-color:#1e0010">다양한</span> concept이 <span style="color:#960050;background-color:#1e0010">존재합니다</span>.
+  
+<span style="color:#f92672">-</span> <span style="color:#f92672">**</span>Partial ordering : <span style="color:#960050;background-color:#1e0010">여러개의</span> concept을 <span style="color:#960050;background-color:#1e0010">만족</span> <span style="color:#960050;background-color:#1e0010">할</span> <span style="color:#960050;background-color:#1e0010">경우</span> <span style="color:#960050;background-color:#1e0010">어떤</span> concept을 <span style="color:#960050;background-color:#1e0010">적용</span> <span style="color:#960050;background-color:#1e0010">하는지에</span> <span style="color:#960050;background-color:#1e0010">대한</span> <span style="color:#960050;background-color:#1e0010">규칙입니다</span>.<span style="color:#f92672">**</span>
 
-<pre><code class="language-cpp">  template &lt;파라메터 list&gt;
-  concept 컨셉이름 = 제약 조건 표현식;
-</code></pre>
+  <span style="color:#960050;background-color:#1e0010">```</span>c<span style="color:#f92672">++</span>
+  <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+  <span style="color:#66d9ef">concept</span> C1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(T) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>;
+  
+  <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+  <span style="color:#66d9ef">concept</span> C2 <span style="color:#f92672">=</span> C1<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">sizeof</span>(T) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// 기존의 C1을 활용하여 조건 확장 가능
+</span><span style="color:#75715e"></span>  
+  <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> C1<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+  <span style="color:#66d9ef">void</span> foo(T a) { }
+  
+  <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> C2<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+  <span style="color:#66d9ef">void</span> foo(T a) { }
+  
+  <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+  {
+      foo(<span style="color:#ae81ff">3</span>); <span style="color:#75715e">// int : C1과 C2를 만족하는데, 어떤 concept을 사용할지? -&gt; 보다 많은 조건을 만족하는 concept 실행
+</span><span style="color:#75715e"></span>  }
+</code></pre></div><ul>
+<li>
+<p><strong>concepts의 syntax sugar</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#incldue &lt;concepts&gt;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">requires</span> std<span style="color:#f92672">::</span>integral<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#75715e">// 기본 표기법
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> f1(T a){ }
 
-<ul>
-<li><strong>예제</strong></li>
+<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>integral T<span style="color:#f92672">&gt;</span> <span style="color:#75715e">// 이 표현도 같은 의미, 더욱 간결
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> f2(T a){ }
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f3</span>()(std<span style="color:#f92672">::</span>integral <span style="color:#66d9ef">auto</span> a){ } <span style="color:#75715e">// 이 표현도 같은 의미이며 템플릿입니다. 더 더욱 간결
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 추가정보 : C++20의 간결해진 템플릿 표현법( 표준이지만 아직 VC에서 지원 하지 않음, 추후에 지원 될 예정 )
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">easy_template</span>()(<span style="color:#66d9ef">auto</span> a){ } <span style="color:#75715e">// c++20 부터 템플릿 작성시 이러한 표현으로 가능하며 의미는 == template&lt;typeame T&gt; void 함수명(T a)
+</span></code></pre></div></li>
+<li>
+<p><strong>C++20 표준이 제공하는 concepts은 다음에서 참조 -&gt; <a href="https://en.cppreference.com/w/cpp/concepts">링크</a></strong></p>
+</li>
 </ul>
-
-<pre><code class="language-cpp">  #include &lt;type_traits&gt;
-  
-  template&lt;typename T&gt;
-  concept Integral = std::is_integral_v&lt;T&gt; &amp;&amp; true; // 요구 조건 제약사항 concepts 생성
-  
-  template&lt;typename T&gt; requires Integral&lt;T&gt;
-  void foo(T a)
-  {
-      
-  }
-  
-  int main()
-  {
-      bool b = Integral&lt;int&gt;;
-      
-      std::cout &lt;&lt; b &lt;&lt; std::endl;
-  }
-</code></pre>
-
-<ul>
-<li><p><strong>Requires expression</strong></p></li>
-
-<li><p><strong>형태 : requires ( 파라메터 list[생략가능] ) { 요구사항; };</strong></p></li>
-</ul>
-
-<pre><code class="language-cpp">  #include &lt;type_traits&gt;
-  
-  template&lt;typename T&gt; concept True = true; // 기본형
-  
-  template&lt;typename T&gt; concept Modulus = requres(T a, T b) // Requires expression 형태 : 조건을 디테일 하게 명시 할 수 있음
-  {
-      a % b;
-  };
-  
-  template&lt;typename T&gt; requires Modules&lt;T&gt; T Mod(T a, T b) // requires 절 : 일반적 템플릿에 requires와 위에서 만든 concept을 사용
-  {
-      return a % b;
-  }
-  
-  int main()
-  {
-      Mod(10, 5); // Ok
-      Mod(5.4, 2.2); // Error : 일치하는 오버로드 함수가 없음, concept의 제약조건을 % 연산에 대해서만 명시 했기 때문에 ( 실수는 % 연산 불가 )
-  }
-</code></pre>
-
-<pre><code class="language-cpp">  
-  - 이러한 원리를 이용해서 표준에서 concepts 헤더에 미리 구현해놓은 다양한 concept이 존재합니다.
-  
-- **Partial ordering : 여러개의 concept을 만족 할 경우 어떤 concept을 적용 하는지에 대한 규칙입니다.**
-
-  ```c++
-  template&lt;typename T&gt;
-  concept C1 = sizeof(T) &gt; 1;
-  
-  template&lt;typename T&gt;
-  concept C2 = C1&lt;T&gt; &amp;&amp; sizeof(T) &lt; 8; // 기존의 C1을 활용하여 조건 확장 가능
-  
-  template&lt;typename T&gt; requires C1&lt;T&gt;
-  void foo(T a) { }
-  
-  template&lt;typename T&gt; requires C2&lt;T&gt;
-  void foo(T a) { }
-  
-  int main()
-  {
-      foo(3); // int : C1과 C2를 만족하는데, 어떤 concept을 사용할지? -&gt; 보다 많은 조건을 만족하는 concept 실행
-  }
-</code></pre>
-
-<ul>
-<li><strong>concepts의 syntax sugar</strong></li>
-</ul>
-
-<pre><code class="language-cpp">  #incldue &lt;concepts&gt;
-  
-  template&lt;typename T&gt; requires std::integral&lt;T&gt; // 기본 표기법
-  void f1(T a){ }
-  
-  template&lt;std::integral T&gt; // 이 표현도 같은 의미, 더욱 간결
-  void f2(T a){ }
-  
-  void f3()(std::integral auto a){ } // 이 표현도 같은 의미이며 템플릿입니다. 더 더욱 간결
-  
-  // 추가정보 : C++20의 간결해진 템플릿 표현법( 표준이지만 아직 VC에서 지원 하지 않음, 추후에 지원 될 예정 )
-  void easy_template()(auto a){ } // c++20 부터 템플릿 작성시 이러한 표현으로 가능하며 의미는 == template&lt;typeame T&gt; void 함수명(T a)
-</code></pre>
-
-<ul>
-<li><strong>C++20 표준이 제공하는 concepts은 다음에서 참조 -&gt; <a href="https://en.cppreference.com/w/cpp/concepts">링크</a></strong></li>
-</ul>
-
 <p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
               
             </div>
@@ -578,7 +560,7 @@ if (!doNotTrack) {
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

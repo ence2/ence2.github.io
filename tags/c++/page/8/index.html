@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content=", development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="The Game Server Developer">
@@ -74,7 +74,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -308,7 +307,6 @@ if (!doNotTrack) {
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>스마트포인터 shared_ptr의 경우 참조 카운팅이 zero가 되어야 삭제 되는데, 그 시점이 약간 애매 할 수 있어 여러가지 처리를 해 줘야 합니다.</p>
-
 <p>shared_ptr 생성 시점에서 deleter를 전달 할 수 있고 이를 활용하면 스마트 포인터를 더욱 스마트하게 사용 할 수 있습니다.</p>
       
       <p>
@@ -368,9 +366,7 @@ if (!doNotTrack) {
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>비동기 프로그래밍에서 futue는 강력한 도구입니다.</p>
-
 <p>이전 포스팅에서 future와 then을 결합하여 연속 연결을 만드는 부분에 대하여 알아봤습니다.</p>
-
 <p>future를 리턴하는 3개 이상의 비동기 연속 연결을 만드려면 unwrap을 이용해야 합니다.</p>
       
       <p>
@@ -428,9 +424,7 @@ if (!doNotTrack) {
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>코딩 컨벤션이란 협업 관계에서 프로그래머 사이의 규칙입니다.</p>
-
 <p>컨벤션이 잘 되어 있을 경우 그 구조만으로 의도 파악이 쉽고(내부에서 Lock을 사용하는 함수를 바로 알아본다거나) 유지보수 비용과 버그를 줄일 수 있습니다.</p>
-
 <p>컨벤션 규칙은 다양하며 본인 스타일이 있더라도 회사에서 정하는 규칙이 있을 경우 따르는 것이 좋습니다.</p>
       
       <p>
@@ -489,16 +483,11 @@ if (!doNotTrack) {
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <h2 id="for-each">for_each</h2>
-
-<p><algorithm> 에 정의됨</p>
-
-<pre><code class="language-cpp">template &lt;class InputIterator, class Function&gt;
+        <h2 id="for_each">for_each</h2>
+<p><!-- raw HTML omitted --> 에 정의됨</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InputIterator</span>, <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Function</span><span style="color:#f92672">&gt;</span>
 Function for_each(InputIterator first, InputIterator last, Function fn);
-</code></pre>
-
-<p>범위 내에 원소들에 대해 함수를 실행시킵니다.</p>
-
+</code></pre></div><p>범위 내에 원소들에 대해 함수를 실행시킵니다.</p>
 <p>범위 내 (<code>first</code> 부터 <code>last</code> 전 까지) 원소들 각각에 대해 함수 <code>fn</code> 을 실행한다. 참고로 함수의 리턴값은 무시됩니다.</p>
       
       <p>
@@ -558,7 +547,6 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <h2 id="개요">개요</h2>
-
 <p>지정 된 인수를 사용 하 여 호출 가능 개체를 호출 합니다. C + + 17에 추가 되었습니다.</p>
       
       <p>
@@ -659,7 +647,7 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
         
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="C&#43;&#43;20에 추가된 coroutine은 기존 sub-routine과 다르게 caller 함수와 협력 관계로 동작합니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,182 +254,168 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>C++20에 추가된 coroutine은 기존 sub-routine과 다르게 caller 함수와 협력 관계로 동작합니다.</p>
-
 <h3 id="coroutine-개념-및-특징">Coroutine 개념 및 특징</h3>
-
-<p><img src="https://ence2.github.io/img/coroutine.png" alt="structure" /></p>
-
+<p><img src="https://ence2.github.io/img/coroutine.png" alt="structure"></p>
 <ol>
 <li>co-routine은 호출 중간에 작업을 중단 하고 호출 위치로 복귀 이후, 중단 시점에서 다시 작업 재개가 가능합니다.</li>
 <li>Heap에 coroutine의 Stack frame을 보관하여 복귀 시점을 찾는 등의 동작으로 구현 되어 있습니다.</li>
 <li>C++20에서는 다른 언어의 co-routine 보다 사용이 다소 복잡하지만, 유연성을 제공합니다.</li>
 <li>single thread로 동작 할 수도 있고, multi thread로도 동작 할 수 있습니다.</li>
 <li>신규 헤더 : coroutine</li>
-<li>신규 키워드 : co_await, co_yield
-
-<br />
-
-<br /></li>
+<li>신규 키워드 : co_await, co_yield</li>
 </ol>
-
 <h3 id="기본-예제">기본 예제</h3>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;coroutine&gt;
-#include &lt;Windows.h&gt;
-
-// Coroutine을 사용하기 위한 최소한의 구현 객체 Coroutine framework
-template&lt;typename T&gt;
-class Generator
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;coroutine&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Coroutine을 사용하기 위한 최소한의 구현 객체 Coroutine framework
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Generator</span>
 {
-public:
-    struct Promise
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Promise</span>
     {
-private:
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
         T value;
-public:
-        T Getvalue() { return value; }
-        Generator get_return_object()
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        T Getvalue() { <span style="color:#66d9ef">return</span> value; }
+        Generator <span style="color:#a6e22e">get_return_object</span>()
         {
-            return Generator{ std::coroutine_handle&lt;Promise&gt;::from_promise(*this) };
+            <span style="color:#66d9ef">return</span> Generator{ std<span style="color:#f92672">::</span>coroutine_handle<span style="color:#f92672">&lt;</span>Promise<span style="color:#f92672">&gt;::</span>from_promise(<span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>) };
+		}
+        
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">yield_value</span>(<span style="color:#66d9ef">int</span> n)
+        {
+            value <span style="color:#f92672">=</span> n;
+            <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>suspend_always{};
         }
         
-        auto yield_value(int n)
-        {
-            value = n;
-            return std::suspend_always{};
-        }
-        
-        auto initial_suspend() { return std::suspend_always{}; }
-        auto return_void() { return std::suspend_never{}; }
-        auto final_suspend() { return std::suspend_always{}; }
-        auto unhandled_exception() { return exit(1); }
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">initial_suspend</span>() { <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>suspend_always{}; }
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">return_void</span>() { <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>suspend_never{}; }
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">final_suspend</span>() { <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>suspend_always{}; }
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">unhandled_exception</span>() { <span style="color:#66d9ef">return</span> exit(<span style="color:#ae81ff">1</span>); }
     };
-    using promise_type = Promise;
+    <span style="color:#66d9ef">using</span> promise_type <span style="color:#f92672">=</span> Promise;
     
-    std::coroutine_handle&lt;promise_type&gt; coro;
+    std<span style="color:#f92672">::</span>coroutine_handle<span style="color:#f92672">&lt;</span>promise_type<span style="color:#f92672">&gt;</span> coro;
     
-    Generator( std::coroutine_handle&lt;promise_type&gt; c ) : coro(c) {}
+    Generator( std<span style="color:#f92672">::</span>coroutine_handle<span style="color:#f92672">&lt;</span>promise_type<span style="color:#f92672">&gt;</span> c ) <span style="color:#f92672">:</span> coro(c) {}
     
-    ~Generator() { if ( coro ) coro.destroy(); }
+    <span style="color:#f92672">~</span>Generator() { <span style="color:#66d9ef">if</span> ( coro ) coro.destroy(); }
 };
 
-Generator f()
+Generator <span style="color:#a6e22e">f</span>()
 {
-    std::cout &lt;&lt; &quot;Run 1&quot; &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Run 1&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     
-    Sleep(10000);
-    //co_await std::suspend_always {}; // 작업 중단 시점 명시, suspend_always -&gt; awaitable object
-    co_yiled 10;
+    Sleep(<span style="color:#ae81ff">10000</span>);
+    <span style="color:#75715e">//co_await std::suspend_always {}; // 작업 중단 시점 명시, suspend_always -&gt; awaitable object
+</span><span style="color:#75715e"></span>    co_yiled <span style="color:#ae81ff">10</span>;
     
-    std::cout &lt;&lt; &quot;Run 2&quot; &lt;&lt; std::endl;
-    co_yield 20;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Run 2&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    <span style="color:#66d9ef">co_yield</span> <span style="color:#ae81ff">20</span>;
     
-    std::cout &lt;&lt; &quot;Run 3&quot; &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Run 3&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Generator&lt;int&gt; g = foo();
+    Generator<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g <span style="color:#f92672">=</span> foo();
     
-    std::cout &lt;&lt; &quot;main1&quot; &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;main1&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
    
-    
-    while(true)
+   	
+    <span style="color:#66d9ef">while</span>(true)
     {
          g.coro.resume();
         
-        // 코루틴이 작업중인지 확인 가능
-        if( g.coro.done() ) break;
+        <span style="color:#75715e">// 코루틴이 작업중인지 확인 가능
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>( g.coro.done() ) <span style="color:#66d9ef">break</span>;
     }
     
-    std::cout &lt;&lt; g.coro.promise().getvalue() &lt;&lt; std::endl; // 코루틴과 값 주고 받기
-    
-    std::cout &lt;&lt; &quot;main2&quot; &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> g.coro.promise().getvalue() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl; <span style="color:#75715e">// 코루틴과 값 주고 받기
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;main2&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     g.coro.resume();
     
-    std::cout &lt;&lt; g.coro.promise().getvalue() &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> g.coro.promise().getvalue() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     
-    std::cout &lt;&lt; &quot;main3&quot; &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;main3&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
-
-<h3 id="awatible-object-멀티-스레딩">Awatible object (멀티 스레딩)</h3>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;coroutine&gt;
-#include &lt;Windows.h&gt;
-
-// Coroutine을 사용하기 위한 최소한의 구현 객체 Coroutine framework
-template&lt;typename T&gt;
-class Generator
+</code></pre></div><h3 id="awatible-object-멀티-스레딩">Awatible object (멀티 스레딩)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;coroutine&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Coroutine을 사용하기 위한 최소한의 구현 객체 Coroutine framework
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Generator</span>
 {
-public:
-    struct Promise
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Promise</span>
     {
-private:
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
         T value;
-public:
-        T Getvalue() { return value; }
-        Generator get_return_object()
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+        T Getvalue() { <span style="color:#66d9ef">return</span> value; }
+        Generator <span style="color:#a6e22e">get_return_object</span>()
         {
-            return Generator{ std::coroutine_handle&lt;Promise&gt;::from_promise(*this) };
+            <span style="color:#66d9ef">return</span> Generator{ std<span style="color:#f92672">::</span>coroutine_handle<span style="color:#f92672">&lt;</span>Promise<span style="color:#f92672">&gt;::</span>from_promise(<span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>) };
+		}
+        
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">yield_value</span>(<span style="color:#66d9ef">int</span> n)
+        {
+            value <span style="color:#f92672">=</span> n;
+            <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>suspend_always{};
         }
         
-        auto yield_value(int n)
-        {
-            value = n;
-            return std::suspend_always{};
-        }
-        
-        auto initial_suspend() { return std::suspend_always{}; }
-        auto return_void() { return std::suspend_never{}; }
-        auto final_suspend() { return std::suspend_always{}; }
-        auto unhandled_exception() { return exit(1); }
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">initial_suspend</span>() { <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>suspend_always{}; }
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">return_void</span>() { <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>suspend_never{}; }
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">final_suspend</span>() { <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>suspend_always{}; }
+        <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">unhandled_exception</span>() { <span style="color:#66d9ef">return</span> exit(<span style="color:#ae81ff">1</span>); }
     };
-    using promise_type = Promise;
+    <span style="color:#66d9ef">using</span> promise_type <span style="color:#f92672">=</span> Promise;
     
-    std::coroutine_handle&lt;promise_type&gt; coro;
+    std<span style="color:#f92672">::</span>coroutine_handle<span style="color:#f92672">&lt;</span>promise_type<span style="color:#f92672">&gt;</span> coro;
     
-    Generator( std::coroutine_handle&lt;promise_type&gt; c ) : coro(c) {}
+    Generator( std<span style="color:#f92672">::</span>coroutine_handle<span style="color:#f92672">&lt;</span>promise_type<span style="color:#f92672">&gt;</span> c ) <span style="color:#f92672">:</span> coro(c) {}
     
-    ~Generator() { if ( coro ) coro.destroy(); }
+    <span style="color:#f92672">~</span>Generator() { <span style="color:#66d9ef">if</span> ( coro ) coro.destroy(); }
 };
 
-struct resume_new_thread
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">resume_new_thread</span>
 {
-    void await_suspend(std::coroutine_handle&lt;&gt; handle)
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">await_suspend</span>(std<span style="color:#f92672">::</span>coroutine_handle<span style="color:#f92672">&lt;&gt;</span> handle)
     {
-        std::thread t([handle]() { handle(); });
+        std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t([handle]() { handle(); });
         t.detach();
     }
-    constexpr bool await_read() const noexcept { return false; }
-    constexpr bool await_resume() const noexcept { }
+    <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">await_read</span>() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">noexcept</span> { <span style="color:#66d9ef">return</span> false; }
+    <span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">await_resume</span>() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">noexcept</span> { }
 }
 
-Generator f()
+Generator <span style="color:#a6e22e">f</span>()
 {
-    std::cout &lt;&lt; &quot;Run 1 : &quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Run 1 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>get_id() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     
-    co_wait resume_new_thread{}; //여기에 걸리면 새로운 thread를 만들어라
-    
-    std::cout &lt;&lt; &quot;Run 2 : &quot; &lt;&lt; std::this_thread::get_id() &lt;&lt; std::endl;
+	co_wait resume_new_thread{}; <span style="color:#75715e">//여기에 걸리면 새로운 thread를 만들어라
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Run 2 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>this_thread<span style="color:#f92672">::</span>get_id() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Generator&lt;int&gt; g = foo();
-     g.coro.resume(); // resume시 새로운 스레드가 생겨서 Run 2 실행(멀티스레딩)
+    Generator<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g <span style="color:#f92672">=</span> foo();
+     g.coro.resume(); <span style="color:#75715e">// resume시 새로운 스레드가 생겨서 Run 2 실행(멀티스레딩)
+</span><span style="color:#75715e"></span>    
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;main&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
     
-    std::cout &lt;&lt; &quot;main&quot; &lt;&lt; std::endl;
-    
-    int n;
-    std::cin &gt;&gt; n;
+    <span style="color:#66d9ef">int</span> n;
+    std<span style="color:#f92672">::</span>cin <span style="color:#f92672">&gt;&gt;</span> n;
 
 }
-</code></pre>
-
-<p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
+</code></pre></div><p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
               
             </div>
           </div>
@@ -532,7 +517,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

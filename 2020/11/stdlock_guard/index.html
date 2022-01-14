@@ -5,16 +5,14 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="std::lock_guard
-
 std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.">
 
 
 <meta property="og:description" content="std::lock_guard
-
 std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="std::lock_guard">
@@ -23,10 +21,8 @@ std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock
 <meta property="twitter:url" content="https://ence2.github.io/2020/11/stdlock_guard/">
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="std::lock_guard
-
 std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.">
 <meta name="twitter:description" content="std::lock_guard
-
 std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.">
 <meta property="og:locale" content="en-us">
 
@@ -102,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -260,46 +255,41 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <h4 id="std-lock-guard">std::lock_guard</h4>
-
+              <h4 id="stdlock_guard">std::lock_guard</h4>
 <p>std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.</p>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;thread&gt;
-#include &lt;mutex&gt;
-
-std::mutex m1;
-int main() {
-   std::thread th([&amp;]() {
-   std::lock_guard&lt;std::mutex&gt; lock_guard(m1);
-   for (int i = 0; i &lt; 100; i++) {
-   std::cout &lt;&lt; &quot;th1&quot; &lt;&lt; std::endl;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;thread&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mutex&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+std<span style="color:#f92672">::</span>mutex m1;
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+   std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> th([<span style="color:#f92672">&amp;</span>]() {
+   std<span style="color:#f92672">::</span>lock_guard<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> lock_guard(m1);
+   <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>; i<span style="color:#f92672">++</span>) {
+   std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;th1&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
    }
    });
-   std::thread th2([&amp;]() {
-   std::lock_guard&lt;std::mutex&gt; lock_guard(m1);
-   for (int i = 0; i &lt; 100; i++) {
-   std::cout &lt;&lt; &quot;th2&quot; &lt;&lt; std::endl;
+   std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> th2([<span style="color:#f92672">&amp;</span>]() {
+   std<span style="color:#f92672">::</span>lock_guard<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>mutex<span style="color:#f92672">&gt;</span> lock_guard(m1);
+   <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>; i<span style="color:#f92672">++</span>) {
+   std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;th2&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
    }
    });
 
-   std::cout &lt;&lt; &quot;hello&quot; &lt;&lt; std::endl;
+   std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
    th.join();
    th2.join();
 }
-</code></pre>
-
-<p>또한  중간에 리턴되어 unlock이 되지 않는 문제를 해결 할 수 있습니다.</p>
-
-<pre><code class="language-cpp">...
+</code></pre></div><p>또한  중간에 리턴되어 unlock이 되지 않는 문제를 해결 할 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">...
 mutex.lock()
 
-if(n == 10)
-   return false;
+<span style="color:#66d9ef">if</span>(n <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span>)
+   <span style="color:#66d9ef">return</span> false;
 
 mutex.unlock()
 ...
-</code></pre>
+</code></pre></div>
               
             </div>
           </div>
@@ -399,7 +389,7 @@ mutex.unlock()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

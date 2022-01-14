@@ -5,18 +5,16 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="대용량 서비스에서 각 장비에서 발생하는 로그를 한 장소에 모으고 해당 정보를 통합 모니터링 할 수 있는 시스템은 반드시 필요합니다.
 장비가 몇 대 안될 경우 직접 장비에 접근하여 파일 로그를 살펴보며 이슈 대응이 가능하지만, 물리 장비가 수백, 수천대 일 경우는 참 난감한 상황입니다.
-
 이러한 상황을 해결하기 위한 로그 분석 모니터링 서비스를 구축 할 때 ElasticSearch &#43; ( LogStash or FluentD ) &#43; Kibana를 조합하여 많이 사용합니다.">
 
 
 <meta property="og:description" content="대용량 서비스에서 각 장비에서 발생하는 로그를 한 장소에 모으고 해당 정보를 통합 모니터링 할 수 있는 시스템은 반드시 필요합니다.
 장비가 몇 대 안될 경우 직접 장비에 접근하여 파일 로그를 살펴보며 이슈 대응이 가능하지만, 물리 장비가 수백, 수천대 일 경우는 참 난감한 상황입니다.
-
 이러한 상황을 해결하기 위한 로그 분석 모니터링 서비스를 구축 할 때 ElasticSearch &#43; ( LogStash or FluentD ) &#43; Kibana를 조합하여 많이 사용합니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ELK(ElasticSearch &#43; LogStash &#43; Kibana) Stack (번외 FluentD)">
@@ -26,11 +24,9 @@
 <meta property="og:site_name" content="Keep calm carry on">
 <meta property="og:description" content="대용량 서비스에서 각 장비에서 발생하는 로그를 한 장소에 모으고 해당 정보를 통합 모니터링 할 수 있는 시스템은 반드시 필요합니다.
 장비가 몇 대 안될 경우 직접 장비에 접근하여 파일 로그를 살펴보며 이슈 대응이 가능하지만, 물리 장비가 수백, 수천대 일 경우는 참 난감한 상황입니다.
-
 이러한 상황을 해결하기 위한 로그 분석 모니터링 서비스를 구축 할 때 ElasticSearch &#43; ( LogStash or FluentD ) &#43; Kibana를 조합하여 많이 사용합니다.">
 <meta name="twitter:description" content="대용량 서비스에서 각 장비에서 발생하는 로그를 한 장소에 모으고 해당 정보를 통합 모니터링 할 수 있는 시스템은 반드시 필요합니다.
 장비가 몇 대 안될 경우 직접 장비에 접근하여 파일 로그를 살펴보며 이슈 대응이 가능하지만, 물리 장비가 수백, 수천대 일 경우는 참 난감한 상황입니다.
-
 이러한 상황을 해결하기 위한 로그 분석 모니터링 서비스를 구축 할 때 ElasticSearch &#43; ( LogStash or FluentD ) &#43; Kibana를 조합하여 많이 사용합니다.">
 <meta property="og:locale" content="en-us">
 
@@ -106,7 +102,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -266,75 +261,70 @@ if (!doNotTrack) {
             <div class="main-content-wrap">
               <p>대용량 서비스에서 각 장비에서 발생하는 로그를 한 장소에 모으고 해당 정보를 통합 모니터링 할 수 있는 시스템은 반드시 필요합니다.
 장비가 몇 대 안될 경우 직접 장비에 접근하여 파일 로그를 살펴보며 이슈 대응이 가능하지만, 물리 장비가 수백, 수천대 일 경우는 참 난감한 상황입니다.</p>
-
 <p>이러한 상황을 해결하기 위한 로그 분석 모니터링 서비스를 구축 할 때 ElasticSearch + ( LogStash or FluentD ) + Kibana를 조합하여 많이 사용합니다.</p>
-
 <h3 id="구-조">구 조</h3>
-
-<p><img src="https://ence2.github.io/img/logSystem.png" alt="structure" /></p>
-
+<p><img src="https://ence2.github.io/img/logSystem.png" alt="structure"></p>
 <p>각 장비에서 발생하는 로그를 LogStash or FluentD를 이용하여 ElasticSearch에 전송하고, Kibana를 통해 웹브라우저에서 모니터링 할 수 있습니다.</p>
-
 <h3 id="logstash">LogStash</h3>
-
 <ul>
-<li><p><a href="https://www.elastic.co/kr/logstash">Logstash</a>는 실시간 파이프라인 기능을 가진 오픈소스 데이터 수집 엔진입니다. Logstash는 서로 다른 소스의 데이터를 탄력적으로 통합하고 사용자가 선택한 목적지로 데이터를 정규화할 수 있습니다. 다양한 고급 다운스트림 분석 및 시각화 활용 사례를 위해 모든 데이터를 정리하고 대중화(democratization)합니다.</p></li>
-
-<li><p>logstash는 <a href="https://www.elastic.co/guide/en/logstash/current/input-plugins.html">다양한 곳</a>에서 Input을 받아 사용자가 가공하여 <a href="https://www.elastic.co/guide/en/logstash/current/output-plugins.html">다양한 곳</a>으로 출력 및 저장 할 수 있습니다.</p></li>
-</ul>
-
+<li>
+<p><a href="https://www.elastic.co/kr/logstash">Logstash</a>는 실시간 파이프라인 기능을 가진 오픈소스 데이터 수집 엔진입니다. Logstash는 서로 다른 소스의 데이터를 탄력적으로 통합하고 사용자가 선택한 목적지로 데이터를 정규화할 수 있습니다. 다양한 고급 다운스트림 분석 및 시각화 활용 사례를 위해 모든 데이터를 정리하고 대중화(democratization)합니다.</p>
+</li>
+<li>
+<p>logstash는 <a href="https://www.elastic.co/guide/en/logstash/current/input-plugins.html">다양한 곳</a>에서 Input을 받아 사용자가 가공하여 <a href="https://www.elastic.co/guide/en/logstash/current/output-plugins.html">다양한 곳</a>으로 출력 및 저장 할 수 있습니다.</p>
 <p>데이터가 소스에서 저장소로 이동할 때 <code>logstash</code>필터에서 미리 정의한 이벤트 및 구조를 정의 할 수 있고, 사용할 수 있는 <a href="https://www.elastic.co/guide/en/logstash/current/filter-plugins.html">라이브러리</a>는 다양합니다.</p>
-
-<pre><code>정리
-  - input : 데이터를 받는다.
-  - filter : 데이터를 가공한다.
-  - output : 데이터를 출력한다.
-</code></pre>
-
-<h3 id="fluentd">FluentD</h3>
-
-<ul>
-<li><a href="https://www.fluentd.org/">Fluentd</a>는 로그(데이터) collector입니다. 보통 로그를 수집하는 데 사용하지만, 다양한 데이터 소스(HTTP, TCP 등)로부터 데이터를 받아올 수 있습니다.</li>
-<li>Fluentd로 전달된 데이터는 <strong>tag</strong>, <strong>time</strong>, <strong>record(JSON)</strong> 로 구성된 이벤트로 처리되며, 원하는 형태로 가공되어 다양한 목적지(Elasticsearch, S3, HDFS 등)로 전달될 수 있습니다.</li>
-<li>Fluentd는 C와 Ruby로 개발되었다. 더 적은 메모리를 사용해야 하는 환경에서는 Fluentd forwarder의 경량화 버전인 <a href="http://fluentbit.io/documentation/0.12/about/fluentd_and_fluentbit.html">Fluentd-Bit</a> 와 함께 사용할 수 있습니다.
-
-
-
-<br />
-
-<br /></li>
+<pre tabindex="0"><code></code></pre></li>
 </ul>
-
-<h3 id="elastic-search">Elastic Search</h3>
-
+<p>정리</p>
 <ul>
-<li>Distributed , RESTful search and analytics.(데이터 검색, 분석 및 저장)</li>
-<li><a href="https://www.elastic.co/kr/elasticsearch/">Elastic Search</a>는 Apache Lucene을 기반으로 개발한 <strong>분산 검색엔진으로 비정형 데이터를 쉽게 저장하고 처리</strong>할 수 있으며,
+<li>input : 데이터를 받는다.</li>
+<li>filter : 데이터를 가공한다.</li>
+<li>output : 데이터를 출력한다.</li>
+</ul>
+<pre tabindex="0"><code>
+
+
+
+
+
+
+### FluentD
+
+- [Fluentd](https://www.fluentd.org/)는 로그(데이터) collector입니다. 보통 로그를 수집하는 데 사용하지만, 다양한 데이터 소스(HTTP, TCP 등)로부터 데이터를 받아올 수 있습니다.
+- Fluentd로 전달된 데이터는 **tag**, **time**, **record(JSON)** 로 구성된 이벤트로 처리되며, 원하는 형태로 가공되어 다양한 목적지(Elasticsearch, S3, HDFS 등)로 전달될 수 있습니다.
+- Fluentd는 C와 Ruby로 개발되었다. 더 적은 메모리를 사용해야 하는 환경에서는 Fluentd forwarder의 경량화 버전인 [Fluentd-Bit](http://fluentbit.io/documentation/0.12/about/fluentd_and_fluentbit.html) 와 함께 사용할 수 있습니다.
+
+
+
+
+
+
+
+### Elastic Search
+- Distributed , RESTful search and analytics.(데이터 검색, 분석 및 저장)
+- [Elastic Search](https://www.elastic.co/kr/elasticsearch/)는 Apache Lucene을 기반으로 개발한 **분산 검색엔진으로 비정형 데이터를 쉽게 저장하고 처리**할 수 있으며,
 실시간 검색과 플러그인을 이용한 확장을 지원하는 장점을 가지고 있습니다.
-<strong>인덱스 갱신 주기도 빠른 편이며, 운영중인 스키마 변경이 가능합니다.</strong>
+**인덱스 갱신 주기도 빠른 편이며, 운영중인 스키마 변경이 가능합니다.**
 
 
 
-<br />
-
-<br /></li>
-</ul>
-
-<h3 id="kibana">Kibana</h3>
-
-<ul>
-<li><a href="https://www.elastic.co/kr/kibana/features">Kibana</a>는 데이터를 시각화하고, Elastic Stack의 모든 기능을 구성 및 관리할수 있는 확장 가능한 UI 도구입니다.
 
 
 
-<br />
 
-<br /></li>
-</ul>
+### Kibana
 
-<h3 id="logstash와-fluentd-비교">LogStash와 FluentD 비교</h3>
+- [Kibana](https://www.elastic.co/kr/kibana/features)는 데이터를 시각화하고, Elastic Stack의 모든 기능을 구성 및 관리할수 있는 확장 가능한 UI 도구입니다.
 
-<p><img src="https://ence2.github.io/img/logstashVsFluentD.png" alt="vs" /></p>
+
+
+
+
+
+
+### LogStash와 FluentD 비교
+
+![vs](/img/logstashVsFluentD.png)</code></pre>
               
             </div>
           </div>
@@ -434,7 +424,7 @@ if (!doNotTrack) {
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

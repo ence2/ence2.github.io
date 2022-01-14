@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="이번 시간에는 STL의 스마트 포인터, , 에 대해 살펴보겠습니다.">
@@ -98,7 +98,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -256,778 +255,687 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>이번 시간에는 STL의 스마트 포인터, <chrono>, <function>에 대해 살펴보겠습니다.</p>
-
+              <p>이번 시간에는 STL의 스마트 포인터, <!-- raw HTML omitted -->, <!-- raw HTML omitted -->에 대해 살펴보겠습니다.</p>
 <h2 id="smart-pointer">Smart pointer</h2>
-
 <h3 id="스마트-포인터의-개념">스마트 포인터의 개념</h3>
-
 <ul>
 <li>포인터와 유사하게 동작하는 추상화된 타입으로 포인터의 기능 외에 자동화된 자원관리 등의 기능을 추가로 제공한다.</li>
 </ul>
-
-<h3 id="shared-ptr">Shared_ptr</h3>
-
+<h3 id="shared_ptr">Shared_ptr</h3>
 <ul>
-<li>헤더 -&gt; <memory></li>
+<li>헤더 -&gt; <!-- raw HTML omitted --></li>
 <li>자원을 공유하며 참조 count가 0이 될 때 동적 할당된 메모리가 해제됨</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-//    int a = 0; // copy initialization/
-//    int a(0);  // direct initialization
+<span style="color:#75715e">//    int a = 0; // copy initialization/
+</span><span style="color:#75715e">//    int a(0);  // direct initialization
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//shared_ptr&lt;Car&gt; p = new Car; // error
+</span><span style="color:#75715e"></span>    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> p(<span style="color:#66d9ef">new</span> Car);  <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> p1(<span style="color:#66d9ef">new</span> Car);
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">sizeof</span>(p1) <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    //shared_ptr&lt;Car&gt; p = new Car; // error
-    shared_ptr&lt;Car&gt; p(new Car);  // ok
-    shared_ptr&lt;Car&gt; p1(new Car);
-    cout &lt;&lt; sizeof(p1) &lt;&lt; endl;
-
-//    shared_ptr&lt;Car&gt; p2 = p1;
-
+<span style="color:#75715e">//    shared_ptr&lt;Car&gt; p2 = p1;
+</span><span style="color:#75715e"></span>
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>커스텀 deleter 전달 가능 (함수, 함수 객체, 람다 가능)
-
 <ul>
 <li>할당자 생략 가능</li>
-</ul></li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    shared_ptr&lt;Car&gt; p( new Car,
-                      [](Car* p) { delete p; },
-                     MyAlloc&lt;Car&gt;() );
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> p( <span style="color:#66d9ef">new</span> Car,
+                      [](Car<span style="color:#f92672">*</span> p) { <span style="color:#66d9ef">delete</span> p; },
+                     MyAlloc<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span>() );
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>shared_ptr과 배열(C++17 이후 삭제자를 제공하지 않아도 safe함)
-
 <ul>
 <li>C++17 이후 배열 첨자 연산 가능</li>
-</ul></li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    shared_ptr&lt;Car[]&gt; p1( new Car[10]); //  delete[],   []연산있음
-
-    p1[0].Go();
+    shared_ptr<span style="color:#f92672">&lt;</span>Car[]<span style="color:#f92672">&gt;</span> p1( <span style="color:#66d9ef">new</span> Car[<span style="color:#ae81ff">10</span>]); <span style="color:#75715e">//  delete[],   []연산있음
+</span><span style="color:#75715e"></span>
+    p1[<span style="color:#ae81ff">0</span>].Go();
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>기본 연산</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;memory&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Car.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;memory&gt;
-#include &quot;Car.h&quot;
-using namespace std;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    shared_ptr&lt;Car&gt; p1( new Car ); //1
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> p1( <span style="color:#66d9ef">new</span> Car ); <span style="color:#75715e">//1
+</span><span style="color:#75715e"></span>
+    p1<span style="color:#f92672">-&gt;</span>Go();  <span style="color:#75715e">// Car 의 멤버 접근.
+</span><span style="color:#75715e"></span>
+    Car<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> p1.get();
+    cout <span style="color:#f92672">&lt;&lt;</span> p <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    p1-&gt;Go();  // Car 의 멤버 접근.
-
-    Car* p = p1.get();
-    cout &lt;&lt; p &lt;&lt; endl;
-
-    shared_ptr&lt;Car&gt; p2 = p1; // 2
-    cout &lt;&lt; p1.use_count() &lt;&lt; endl; // 2
-
-    //p1 = new Car; // error
-    p1.reset( new Car); // ok
-    p1.reset();
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> p2 <span style="color:#f92672">=</span> p1; <span style="color:#75715e">// 2
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> p1.use_count() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 2
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//p1 = new Car; // error
+</span><span style="color:#75715e"></span>    p1.reset( <span style="color:#66d9ef">new</span> Car); <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>    p1.reset();
     p1.swap(p2);
 
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>new 직접 할당시 메모리 할당이 2번 발생(제어블록, 객체)
-
 <ul>
 <li>해결방법 -&gt; make_shared</li>
-</ul></li>
 </ul>
-
-<pre><code class="language-cpp">void* operator new( size_t sz)
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> <span style="color:#66d9ef">operator</span> <span style="color:#a6e22e">new</span>( size_t sz)
 {
-    cout &lt;&lt; &quot;new sz : &quot; &lt;&lt; sz &lt;&lt; endl;
-    return malloc(sz);
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;new sz : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> sz <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">return</span> malloc(sz);
 }
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //shared_ptr&lt;Car&gt; p1( new Car ) ; // 비효율
-
-    shared_ptr&lt;Car&gt; p1 = make_shared&lt;Car&gt;();
-    shared_ptr&lt;Car&gt; p1 (make_shared&lt;Car&gt;());
-    shared_ptr&lt;Car&gt; p1 = allocate_shared&lt;Car&gt;(MyAlloc&lt;Car&gt;() );
+    <span style="color:#75715e">//shared_ptr&lt;Car&gt; p1( new Car ) ; // 비효율
+</span><span style="color:#75715e"></span>
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> p1 <span style="color:#f92672">=</span> make_shared<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span>();
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> p1 (make_shared<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span>());
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> p1 <span style="color:#f92672">=</span> allocate_shared<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span>(MyAlloc<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span>() );
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>raw 메모리로 2개의 shared_ptr을 초기화 할 경우 문제 발생</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    Car* p = new Car;
+    Car<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Car;
 
-    shared_ptr&lt;Car&gt; sp1(p);  // 제어 블럭 생성.
-    shared_ptr&lt;Car&gt; sp2(p);  // 제어 블럭 생성.
-
-    shared_ptr&lt;Car&gt; sp3 = make_shared&lt;Car&gt;(); // make_shared 권장
-}
-</code></pre>
-
-<ul>
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> sp1(p);  <span style="color:#75715e">// 제어 블럭 생성.
+</span><span style="color:#75715e"></span>    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> sp2(p);  <span style="color:#75715e">// 제어 블럭 생성.
+</span><span style="color:#75715e"></span>
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> sp3 <span style="color:#f92672">=</span> make_shared<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span>(); <span style="color:#75715e">// make_shared 권장
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>enable_shared_from_this -&gt; CRTP
-
 <ul>
 <li>this를 가지고 제어 블럭을 공유하는 shared_ptr을 만들 수 있게함</li>
-</ul></li>
 </ul>
-
-<pre><code class="language-cpp">class Worker : public enable_shared_from_this&lt;Worker&gt; // CRTP
-{
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Worker</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> enable_shared_from_this<span style="color:#f92672">&lt;</span>Worker<span style="color:#f92672">&gt;</span> <span style="color:#75715e">// CRTP
+</span><span style="color:#75715e"></span>{
     Car c;
-    shared_ptr&lt;Worker&gt; holdMe;
-public:
-    void Run()
+    shared_ptr<span style="color:#f92672">&lt;</span>Worker<span style="color:#f92672">&gt;</span> holdMe;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> Run()
     {
-        //holdMe = this;
-        //holdMe = p
+        <span style="color:#75715e">//holdMe = this;
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//holdMe = p
+</span><span style="color:#75715e"></span>
+        holdMe <span style="color:#f92672">=</span> shared_from_this();
 
-        holdMe = shared_from_this();
-
-        thread t(&amp;Worker::Main, this);
+        <span style="color:#66d9ef">thread</span> <span style="color:#a6e22e">t</span>(<span style="color:#f92672">&amp;</span>Worker<span style="color:#f92672">::</span>Main, <span style="color:#66d9ef">this</span>);
         t.detach();
     }
-    void Main()
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Main</span>()
     {
-        c.Go();     // 멤버 data(Car) 사용
-        cout &lt;&lt; &quot;finish thread&quot; &lt;&lt; endl;
+        c.Go();     <span style="color:#75715e">// 멤버 data(Car) 사용
+</span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;finish thread&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 
         holdMe.reset();
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     {
-        shared_ptr&lt;Worker&gt; sp = make_shared&lt;Worker&gt;();
-        sp-&gt;Run();
-    } // 여기서 sp 파괴를 시도함 but, shared_from_this로 막을 수 있음
-    getchar();
+        shared_ptr<span style="color:#f92672">&lt;</span>Worker<span style="color:#f92672">&gt;</span> sp <span style="color:#f92672">=</span> make_shared<span style="color:#f92672">&lt;</span>Worker<span style="color:#f92672">&gt;</span>();
+        sp<span style="color:#f92672">-&gt;</span>Run();
+    } <span style="color:#75715e">// 여기서 sp 파괴를 시도함 but, shared_from_this로 막을 수 있음
+</span><span style="color:#75715e"></span>    getchar();
 }
 
-</code></pre>
-
-<h3 id="weak-ptr">Weak_ptr</h3>
-
+</code></pre></div><h3 id="weak_ptr">Weak_ptr</h3>
 <ul>
 <li>shared_ptr의 상호 참조 이슈</li>
 </ul>
-
-<pre><code class="language-cpp">struct People
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">People</span>
 {
-    People(string s) : name(s) {}
-    ~People() { cout &lt;&lt; &quot;~People : &quot; &lt;&lt; name &lt;&lt; endl;}
+    People(string s) <span style="color:#f92672">:</span> name(s) {}
+    <span style="color:#f92672">~</span>People() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;~People : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> name <span style="color:#f92672">&lt;&lt;</span> endl;}
 
     string name;
-    shared_ptr&lt;People&gt; bf; // best friend
-};
+    shared_ptr<span style="color:#f92672">&lt;</span>People<span style="color:#f92672">&gt;</span> bf; <span style="color:#75715e">// best friend
+</span><span style="color:#75715e"></span>};
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    shared_ptr&lt;People&gt; p1( new People(&quot;KIM&quot;));
-    shared_ptr&lt;People&gt; p2( new People(&quot;LEE&quot;));
+    shared_ptr<span style="color:#f92672">&lt;</span>People<span style="color:#f92672">&gt;</span> p1( <span style="color:#66d9ef">new</span> People(<span style="color:#e6db74">&#34;KIM&#34;</span>));
+    shared_ptr<span style="color:#f92672">&lt;</span>People<span style="color:#f92672">&gt;</span> p2( <span style="color:#66d9ef">new</span> People(<span style="color:#e6db74">&#34;LEE&#34;</span>));
 
-    p1-&gt;bf = p2;
-    p2-&gt;bf = p1;
+    p1<span style="color:#f92672">-&gt;</span>bf <span style="color:#f92672">=</span> p2;
+    p2<span style="color:#f92672">-&gt;</span>bf <span style="color:#f92672">=</span> p1;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>상호 참조 이슈 해결방법 -&gt; weak_ptr
-
 <ul>
 <li>weak_ptr은 참조 계수를 증가시키지 않음</li>
-</ul></li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //shared_ptr&lt;Car&gt; wp; // use count 증가
+    <span style="color:#75715e">//shared_ptr&lt;Car&gt; wp; // use count 증가
+</span><span style="color:#75715e"></span>
+    weak_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> wp; <span style="color:#75715e">// use count 증가 안함.
+</span><span style="color:#75715e"></span>
 
-    weak_ptr&lt;Car&gt; wp; // use count 증가 안함.
-
-
-    shared_ptr&lt;Car&gt; sp( new Car );
-    wp = sp;
-    cout &lt;&lt; sp.use_count() &lt;&lt; endl; // 1
-
-    if ( wp.expired() )
-        cout &lt;&lt; &quot;destroy&quot; &lt;&lt; endl;
-    else
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> sp( <span style="color:#66d9ef">new</span> Car );
+    wp <span style="color:#f92672">=</span> sp;
+    cout <span style="color:#f92672">&lt;&lt;</span> sp.use_count() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">if</span> ( wp.expired() )
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;destroy&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">else</span>
     {
-        cout &lt;&lt; &quot;not destroy&quot; &lt;&lt; endl;
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;not destroy&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
 
-        // weak_ptr을 사용해서는 대상객체에 접근할수 없다.
-        //wp-&gt;Go(); // error.
+        <span style="color:#75715e">// weak_ptr을 사용해서는 대상객체에 접근할수 없다.
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//wp-&gt;Go(); // error.
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">// weak_ptr을 가지고 다시 shared_ptr을 만들어야 한다.
+</span><span style="color:#75715e"></span>
+        shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> sp2 <span style="color:#f92672">=</span> wp.lock();
 
-        // weak_ptr을 가지고 다시 shared_ptr을 만들어야 한다.
-
-        shared_ptr&lt;Car&gt; sp2 = wp.lock();
-
-        if ( sp2 )
-            sp2-&gt;Go();
+        <span style="color:#66d9ef">if</span> ( sp2 )
+            sp2<span style="color:#f92672">-&gt;</span>Go();
     }
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>대상 객체가 진짜 파괴 되는 시점
-
 <ul>
 <li>use count(shared_ptr 참조 카운트) == 0 &amp;&amp; weak count(waek_ptr 참조 카운트) = 0 일 때</li>
-</ul></li>
 </ul>
-
-<h3 id="unique-ptr">Unique_ptr</h3>
-
+</li>
+</ul>
+<h3 id="unique_ptr">Unique_ptr</h3>
 <ul>
 <li>공유 없이, 자원 독점, 자동 메모리 해제</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    shared_ptr&lt;Car&gt; sp1(new Car);
-    shared_ptr&lt;Car&gt; sp2 = sp1;  // ok. 참조 계수 2.
-
-    auto f = [](Car* p) { delete p;}
-    unique_ptr&lt;Car, decltype(f)&gt; up1(new Car, f); // 자원 독점
-
-    unique_ptr&lt;Car, void(*)(Car*)&gt; up1(new Car, foo); // 자원 독점
-
-    //unique_ptr&lt;Car&gt; up2 = up1; // error.
-
-    cout &lt;&lt; sizeof(sp1) &lt;&lt; endl;
-    cout &lt;&lt; sizeof(up1) &lt;&lt; endl;
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> sp1(<span style="color:#66d9ef">new</span> Car);
+    shared_ptr<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> sp2 <span style="color:#f92672">=</span> sp1;  <span style="color:#75715e">// ok. 참조 계수 2.
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">auto</span> f <span style="color:#f92672">=</span> [](Car<span style="color:#f92672">*</span> p) { <span style="color:#66d9ef">delete</span> p;}
+    unique_ptr<span style="color:#f92672">&lt;</span>Car, <span style="color:#66d9ef">decltype</span>(f)<span style="color:#f92672">&gt;</span> up1(<span style="color:#66d9ef">new</span> Car, f); <span style="color:#75715e">// 자원 독점
+</span><span style="color:#75715e"></span>
+    unique_ptr<span style="color:#f92672">&lt;</span>Car, <span style="color:#66d9ef">void</span>(<span style="color:#f92672">*</span>)(Car<span style="color:#f92672">*</span>)<span style="color:#f92672">&gt;</span> up1(<span style="color:#66d9ef">new</span> Car, foo); <span style="color:#75715e">// 자원 독점
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//unique_ptr&lt;Car&gt; up2 = up1; // error.
+</span><span style="color:#75715e"></span>
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">sizeof</span>(sp1) <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">sizeof</span>(up1) <span style="color:#f92672">&lt;&lt;</span> endl;
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>복사는 될 수 없지만, move는 가능</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    unique_ptr&lt;int&gt; up1(new int);
-    //unique_ptr&lt;int&gt; up2 = up1; // error.
-
-    unique_ptr&lt;int&gt; up2 = move(up1); // ok. 
-}
-</code></pre>
-
-<ul>
+    unique_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> up1(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>);
+    <span style="color:#75715e">//unique_ptr&lt;int&gt; up2 = up1; // error.
+</span><span style="color:#75715e"></span>
+    unique_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> up2 <span style="color:#f92672">=</span> move(up1); <span style="color:#75715e">// ok. 
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>삭제자 변경</li>
 </ul>
-
-<pre><code class="language-cpp">void foo(int* p )
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p )
 {
-    cout &lt;&lt; &quot;foo&quot; &lt;&lt; endl;
-    delete p;
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;foo&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">delete</span> p;
 }
 
-struct Deleter
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Deleter</span>
 {
-    void operator()(int* p ) const
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">operator</span>()(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p ) <span style="color:#66d9ef">const</span>
     {
-         delete p;
+         <span style="color:#66d9ef">delete</span> p;
     }
 };
 
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //shared_ptr&lt;int&gt; sp( new int, foo);
+    <span style="color:#75715e">//shared_ptr&lt;int&gt; sp( new int, foo);
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 1. 함수객체 사용
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// unique_ptr&lt;int, Deleter&gt; up( new int);
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 2. 함수 포인터 사용
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// unique_ptr&lt;int, void(*)(int*) &gt; up( new int, foo);
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 3. 람다 표현식 사용.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">auto</span> f <span style="color:#f92672">=</span> [](<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p ) { <span style="color:#66d9ef">delete</span> p; cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;lambda&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;};
 
-    // 1. 함수객체 사용
-    // unique_ptr&lt;int, Deleter&gt; up( new int);
+    unique_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">decltype</span>(f) <span style="color:#f92672">&gt;</span> up( <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>, f);
 
-    // 2. 함수 포인터 사용
-    // unique_ptr&lt;int, void(*)(int*) &gt; up( new int, foo);
-
-    // 3. 람다 표현식 사용.
-    auto f = [](int* p ) { delete p; cout &lt;&lt; &quot;lambda&quot; &lt;&lt; endl;};
-
-    unique_ptr&lt;int, decltype(f) &gt; up( new int, f);
-
-    unique_ptr&lt;int[] &gt; up( new int[10]);
+    unique_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>[] <span style="color:#f92672">&gt;</span> up( <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">10</span>]);
 }
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>shared_ptr와의 호환성 -&gt; unique_ptr -&gt; move -&gt; shared_ptr 만 가능(나머지 X)</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    shared_ptr&lt;int&gt; sp(new int);
-    unique_ptr&lt;int&gt; up(new int);
+    shared_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> sp(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>);
+    unique_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> up(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>);
 
-    shared_ptr&lt;int&gt; sp1 = up;       // error
-    shared_ptr&lt;int&gt; sp2 = move(up); // ok
-
-    unique_ptr&lt;int&gt; up1 = sp;       // error.
-    unique_ptr&lt;int&gt; up2 = move(sp); // error.
-}
-</code></pre>
-
-<h2 id="chrono">Chrono</h2>
-
+    shared_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> sp1 <span style="color:#f92672">=</span> up;       <span style="color:#75715e">// error
+</span><span style="color:#75715e"></span>    shared_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> sp2 <span style="color:#f92672">=</span> move(up); <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
+    unique_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> up1 <span style="color:#f92672">=</span> sp;       <span style="color:#75715e">// error.
+</span><span style="color:#75715e"></span>    unique_ptr<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> up2 <span style="color:#f92672">=</span> move(sp); <span style="color:#75715e">// error.
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h2 id="chrono">Chrono</h2>
 <h3 id="ratio">ratio</h3>
-
 <ul>
 <li>컴파일 시간 분수 값을 나타내는 템플릿
-
 <ul>
 <li>분자, 분모는 약분된 상태로 저장됨</li>
 <li>실행 시간에 메모리에 보관하는 값은 없고, 컴파일 시간에 사용되는 상수</li>
-</ul></li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    ratio&lt;2, 4&gt; r1; // 2/4  =&gt; 1/2
-
-    cout &lt;&lt; sizeof(r1) &lt;&lt; endl; // 1
-
-    cout &lt;&lt; r1.num &lt;&lt; endl; // 분자
-    cout &lt;&lt; r1.den &lt;&lt; endl; // 분모
-
-    cout &lt;&lt; ratio&lt;2, 4&gt;::num &lt;&lt; endl;  // 1
-    cout &lt;&lt; ratio&lt;2, 4&gt;::den &lt;&lt; endl;  // 2
-}
-</code></pre>
-
-<ul>
+	ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span><span style="color:#f92672">&gt;</span> r1; <span style="color:#75715e">// 2/4  =&gt; 1/2
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">sizeof</span>(r1) <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> r1.num <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 분자
+</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> r1.den <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 분모
+</span><span style="color:#75715e"></span>
+	cout <span style="color:#f92672">&lt;&lt;</span> ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span><span style="color:#f92672">&gt;::</span>num <span style="color:#f92672">&lt;&lt;</span> endl;  <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span><span style="color:#f92672">&gt;::</span>den <span style="color:#f92672">&lt;&lt;</span> endl;  <span style="color:#75715e">// 2
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>ratio간 연산도 가능</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    ratio_add&lt; ratio&lt;1,4&gt;, ratio&lt;2,4&gt; &gt; r2; // 3/4
-
-    cout &lt;&lt; r2.num &lt;&lt; endl; // 3
-    cout &lt;&lt; r2.den &lt;&lt; endl; // 4
-
-    ratio&lt;1, 1000&gt; r3; // milli
-    ratio&lt;1000, 1&gt; r4; // kilo
-
+    ratio_add<span style="color:#f92672">&lt;</span> ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">4</span><span style="color:#f92672">&gt;</span>, ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> r2; <span style="color:#75715e">// 3/4
+</span><span style="color:#75715e"></span>
+    cout <span style="color:#f92672">&lt;&lt;</span> r2.num <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 3
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> r2.den <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 4
+</span><span style="color:#75715e"></span>
+    ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1000</span><span style="color:#f92672">&gt;</span> r3; <span style="color:#75715e">// milli
+</span><span style="color:#75715e"></span>    ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1000</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;</span> r4; <span style="color:#75715e">// kilo
+</span><span style="color:#75715e"></span>
     milli m;
     kilo  k;
-    cout &lt;&lt; k.num &lt;&lt; endl; // 1000
-    cout &lt;&lt; k.den &lt;&lt; endl; // 1
-}
-</code></pre>
-
-<h3 id="duration">duration</h3>
-
+    cout <span style="color:#f92672">&lt;&lt;</span> k.num <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 1000
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> k.den <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="duration">duration</h3>
 <ul>
-<li><chrono> 헤더, ratio로 표현되는 단위(주기)에 대한 값을 보관하는 클래스</li>
+<li><!-- raw HTML omitted --> 헤더, ratio로 표현되는 단위(주기)에 대한 값을 보관하는 클래스</li>
 <li>오직 하나의 값만을 보관하며, 컴파일 타임에 연산됨</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-//    double distance = 3; // 3m, 3km, 3cm
+<span style="color:#75715e">//    double distance = 3; // 3m, 3km, 3cm
+</span><span style="color:#75715e"></span>
+    duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;&gt;</span> d1(<span style="color:#ae81ff">3</span>); <span style="color:#75715e">// 3m
+</span><span style="color:#75715e">//    duration&lt;double, ratio&lt;1,1000&gt;&gt; d2(d1); // milli 3000
+</span><span style="color:#75715e">//    duration&lt;double, ratio&lt;1000,1&gt;&gt; d3(d1); // km
+</span><span style="color:#75715e"></span>
+    duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, milli<span style="color:#f92672">&gt;</span> d2(d1); <span style="color:#75715e">// milli 3000
+</span><span style="color:#75715e"></span>    duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, kilo<span style="color:#f92672">&gt;</span> d3(d1); <span style="color:#75715e">// km
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> d2.count() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 3000
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> d3.count() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 0.003
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">using</span> MilliMeter <span style="color:#f92672">=</span> duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, milli<span style="color:#f92672">&gt;</span>;
+    <span style="color:#66d9ef">using</span> KiloMeter <span style="color:#f92672">=</span> duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, kilo<span style="color:#f92672">&gt;</span>;
+    <span style="color:#66d9ef">using</span> Meter <span style="color:#f92672">=</span> duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;&gt;</span>;
 
-    duration&lt;double, ratio&lt;1,1&gt;&gt; d1(3); // 3m
-//    duration&lt;double, ratio&lt;1,1000&gt;&gt; d2(d1); // milli 3000
-//    duration&lt;double, ratio&lt;1000,1&gt;&gt; d3(d1); // km
-
-    duration&lt;double, milli&gt; d2(d1); // milli 3000
-    duration&lt;double, kilo&gt; d3(d1); // km
-    cout &lt;&lt; d2.count() &lt;&lt; endl; // 3000
-    cout &lt;&lt; d3.count() &lt;&lt; endl; // 0.003
-
-    using MilliMeter = duration&lt;double, milli&gt;;
-    using KiloMeter = duration&lt;double, kilo&gt;;
-    using Meter = duration&lt;double, ratio&lt;1,1&gt;&gt;;
-
-    Meter m(3);
+    Meter m(<span style="color:#ae81ff">3</span>);
     KiloMeter km(m);
 
-    cout &lt;&lt; km.count() &lt;&lt; endl; // 0.003
-}
-</code></pre>
-
-<ul>
+    cout <span style="color:#f92672">&lt;&lt;</span> km.count() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 0.003
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>주의사항, 형변환시 손실이 발생 할 수 있으므로 cast 필요</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    using MilliMeter = duration&lt;int, milli&gt;;
-    using KiloMeter  = duration&lt;int, kilo&gt;;
-    using Meter      = duration&lt;int, ratio&lt;1,1&gt;&gt;;
+    <span style="color:#66d9ef">using</span> MilliMeter <span style="color:#f92672">=</span> duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, milli<span style="color:#f92672">&gt;</span>;
+    <span style="color:#66d9ef">using</span> KiloMeter  <span style="color:#f92672">=</span> duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, kilo<span style="color:#f92672">&gt;</span>;
+    <span style="color:#66d9ef">using</span> Meter      <span style="color:#f92672">=</span> duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;&gt;</span>;
 
-    Meter      m(400);  // 600m
-    MilliMeter mm(m);   // 600000    ok.. data 손실없다.
-    //KiloMeter  km(m);   // 0.6 =&gt; 0 또는 1 error.
-
-//    KiloMeter  km = duration_cast&lt;KiloMeter&gt;(m); // 버림.
-    KiloMeter  km = round&lt;KiloMeter&gt;(m); // 반올림.
-
-    cout &lt;&lt; mm.count() &lt;&lt; endl; // 600000
-    cout &lt;&lt; km.count() &lt;&lt; endl; //
-}
-</code></pre>
-
-<h3 id="chrono-1">chrono</h3>
-
+    Meter      m(<span style="color:#ae81ff">400</span>);  <span style="color:#75715e">// 600m
+</span><span style="color:#75715e"></span>    MilliMeter mm(m);   <span style="color:#75715e">// 600000    ok.. data 손실없다.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//KiloMeter  km(m);   // 0.6 =&gt; 0 또는 1 error.
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//    KiloMeter  km = duration_cast&lt;KiloMeter&gt;(m); // 버림.
+</span><span style="color:#75715e"></span>    KiloMeter  km <span style="color:#f92672">=</span> round<span style="color:#f92672">&lt;</span>KiloMeter<span style="color:#f92672">&gt;</span>(m); <span style="color:#75715e">// 반올림.
+</span><span style="color:#75715e"></span>
+    cout <span style="color:#f92672">&lt;&lt;</span> mm.count() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 600000
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> km.count() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="chrono-1">chrono</h3>
 <ul>
 <li>시간 관련 타입 제공</li>
 </ul>
-
-<pre><code class="language-cpp">int main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    /*
-    using seconds      = duration&lt;int&gt;; // duration&lt;int, ratio&lt;1,1&gt;&gt;
-    using minutes      = duration&lt;int, ratio&lt;60,1&gt;&gt;;
-    using hours        = duration&lt;int, ratio&lt;3600&gt;&gt;; // ratio&lt;3600,1&gt;
-    using milliseconds = duration&lt;int, milli&gt;;
-    */
-    hours h(1);
-    minutes m(h); // 60
-    seconds s(h); // 3600
+    <span style="color:#75715e">/*
+</span><span style="color:#75715e">    using seconds      = duration&lt;int&gt;; // duration&lt;int, ratio&lt;1,1&gt;&gt;
+</span><span style="color:#75715e">    using minutes      = duration&lt;int, ratio&lt;60,1&gt;&gt;;
+</span><span style="color:#75715e">    using hours        = duration&lt;int, ratio&lt;3600&gt;&gt;; // ratio&lt;3600,1&gt;
+</span><span style="color:#75715e">    using milliseconds = duration&lt;int, milli&gt;;
+</span><span style="color:#75715e">    */</span>
+    hours h(<span style="color:#ae81ff">1</span>);
+    minutes m(h); <span style="color:#75715e">// 60
+</span><span style="color:#75715e"></span>    seconds s(h); <span style="color:#75715e">// 3600
+</span><span style="color:#75715e"></span>
+    cout <span style="color:#f92672">&lt;&lt;</span> m.count() <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> s.count() <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    cout &lt;&lt; m.count() &lt;&lt; endl;
-    cout &lt;&lt; s.count() &lt;&lt; endl;
+    <span style="color:#75715e">//hours h2( s); // 1 error
+</span><span style="color:#75715e"></span>    hours h2 <span style="color:#f92672">=</span> duration_cast<span style="color:#f92672">&lt;</span>hours<span style="color:#f92672">&gt;</span>(s);
 
-    //hours h2( s); // 1 error
-    hours h2 = duration_cast&lt;hours&gt;(s);
+    cout <span style="color:#f92672">&lt;&lt;</span> h2.count() <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    cout &lt;&lt; h2.count() &lt;&lt; endl;
+    <span style="color:#66d9ef">using</span> days <span style="color:#f92672">=</span> duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, ratio<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">3600</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;&gt;</span>;
 
-    using days = duration&lt;int, ratio&lt;3600 * 24, 1&gt;&gt;;
-
-    days d(1);
+    days d(<span style="color:#ae81ff">1</span>);
 
     minutes m2(d);
 
-    cout &lt;&lt; m2.count() &lt;&lt; endl;  // 60 * 24
-}
-</code></pre>
-
-<ul>
+    cout <span style="color:#f92672">&lt;&lt;</span> m2.count() <span style="color:#f92672">&lt;&lt;</span> endl;  <span style="color:#75715e">// 60 * 24
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>초기화 방법 및 연산 방법</li>
 </ul>
-
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;chrono&gt;
-using namespace std;
-using namespace chrono;
-
-
-void foo( seconds s) {}  // seconds s = 3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> chrono;
 
 
-int main()
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>( seconds s) {}  <span style="color:#75715e">// seconds s = 3
+</span><span style="color:#75715e"></span>
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    // seconds =&gt; duration&lt;int, ratio&lt;1,1&gt;&gt;
+    <span style="color:#75715e">// seconds =&gt; duration&lt;int, ratio&lt;1,1&gt;&gt;
+</span><span style="color:#75715e"></span>
+    seconds s1(<span style="color:#ae81ff">3</span>);  <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//seconds s2 = 3; // error
+</span><span style="color:#75715e"></span>    seconds s3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>s;<span style="color:#75715e">// ok.   seconds operator&#34;&#34;s(3)
+</span><span style="color:#75715e"></span>    seconds s4 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>min;
 
-    seconds s1(3);  // ok
-    //seconds s2 = 3; // error
-    seconds s3 = 3s;// ok.   seconds operator&quot;&quot;s(3)
-    seconds s4 = 3min;
+    cout <span style="color:#f92672">&lt;&lt;</span> s4.count() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 180
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//foo( 3 ); // error.
+</span><span style="color:#75715e"></span>    foo( <span style="color:#ae81ff">3</span>s); <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//this_thread::sleep_for( 3min )
+</span><span style="color:#75715e"></span>
+    seconds s5 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>min <span style="color:#f92672">+</span> <span style="color:#ae81ff">40</span>s;
 
-    cout &lt;&lt; s4.count() &lt;&lt; endl; // 180
-
-    //foo( 3 ); // error.
-    foo( 3s); // ok
-
-    //this_thread::sleep_for( 3min )
-
-    seconds s5 = 3min + 40s;
-
-    cout &lt;&lt; s5.count() &lt;&lt; endl; // 220
-}
-</code></pre>
-
-<ul>
+    cout <span style="color:#f92672">&lt;&lt;</span> s5.count() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 220
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>시간 구하는 방법
-
 <ul>
 <li>time_point : 기간의 시작과, 경과 개수를 나타내는 타입</li>
 <li>epoch time : 1970년 1월 1일 0시를 기점으로 경과된 시간 단위</li>
-</ul></li>
 </ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;chrono&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> chrono;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;chrono&gt;
-#include &lt;string&gt;
-using namespace std;
-using namespace chrono;
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
 
-    system_clock::time_point tp = system_clock::now();
+    system_clock<span style="color:#f92672">::</span>time_point tp <span style="color:#f92672">=</span> system_clock<span style="color:#f92672">::</span>now();
 
-    // 1970년 1월 1일 0시 기준.
-    nanoseconds ns = tp.time_since_epoch();
+    <span style="color:#75715e">// 1970년 1월 1일 0시 기준.
+</span><span style="color:#75715e"></span>    nanoseconds ns <span style="color:#f92672">=</span> tp.time_since_epoch();
 
-    cout &lt;&lt; ns.count() &lt;&lt; endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> ns.count() <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    hours h = duration_cast&lt;hours&gt;(ns);
-    cout &lt;&lt; h.count() &lt;&lt; endl;
+    hours h <span style="color:#f92672">=</span> duration_cast<span style="color:#f92672">&lt;</span>hours<span style="color:#f92672">&gt;</span>(ns);
+    cout <span style="color:#f92672">&lt;&lt;</span> h.count() <span style="color:#f92672">&lt;&lt;</span> endl;
 
-    // time_point =&gt; string
-    time_t t = system_clock::to_time_t(tp);
-    string s = ctime(&amp;t);
-    cout &lt;&lt; s &lt;&lt; endl; // 현재 날짜 출력
-}
-</code></pre>
-
-<h2 id="function">Function</h2>
-
+    <span style="color:#75715e">// time_point =&gt; string
+</span><span style="color:#75715e"></span>    time_t t <span style="color:#f92672">=</span> system_clock<span style="color:#f92672">::</span>to_time_t(tp);
+    string s <span style="color:#f92672">=</span> ctime(<span style="color:#f92672">&amp;</span>t);
+    cout <span style="color:#f92672">&lt;&lt;</span> s <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 현재 날짜 출력
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h2 id="function">Function</h2>
 <h3 id="bind">bind</h3>
-
 <ul>
 <li>참조로 bind 하는 방법</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>placeholders;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;functional&gt;
-using namespace std;
-using namespace std::placeholders;
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f1</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span> c) { printf(<span style="color:#e6db74">&#34;f1 : %d, %d, %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, a,b,c);}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f2</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> a)              { a <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;}
 
-void f1(int a, int b, int c) { printf(&quot;f1 : %d, %d, %d\n&quot;, a,b,c);}
-void f2(int&amp; a)              { a = 20;}
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int n = 0;
-    bind(&amp;f2, ref(n))(); // cref : const 참조
-    cout &lt;&lt; n &lt;&lt; endl; // 20 ?  0
-}
-</code></pre>
-
-<ul>
+    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    bind(<span style="color:#f92672">&amp;</span>f2, ref(n))(); <span style="color:#75715e">// cref : const 참조
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 20 ?  0
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>멤버 함수, 멤버 데이터 bind 하는 방법</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>placeholders;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;functional&gt;
-using namespace std;
-using namespace std::placeholders;
-
-class Test
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>
 {
-public:
-    int data = 0;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-    void f(int a, int b) // void f( Test* this, int a, int b)
-    {
-        data = a;
-        printf(&quot;f : %d, %d\n&quot;, a, b);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) <span style="color:#75715e">// void f( Test* this, int a, int b)
+</span><span style="color:#75715e"></span>    {
+        data <span style="color:#f92672">=</span> a;
+        printf(<span style="color:#e6db74">&#34;f : %d, %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, a, b);
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     Test t;
 
-    // 객체를 고정하는 경우
-    bind(&amp;Test::f, &amp;t, 1, 2)(); // t.f(1,2)
-    bind(&amp;Test::f, t, 1, 2)(); // 복사본을 고정함
-    bind(&amp;Test::f, ref(t), 1, 2)(); // 참조
+    <span style="color:#75715e">// 객체를 고정하는 경우
+</span><span style="color:#75715e"></span>    bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>f, <span style="color:#f92672">&amp;</span>t, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)(); <span style="color:#75715e">// t.f(1,2)
+</span><span style="color:#75715e"></span>    bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>f, t, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)(); <span style="color:#75715e">// 복사본을 고정함
+</span><span style="color:#75715e"></span>    bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>f, ref(t), <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)(); <span style="color:#75715e">// 참조
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 객체를 인자로 전달하는 경우.
+</span><span style="color:#75715e"></span>    bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>f, _1, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)(<span style="color:#f92672">&amp;</span>t); <span style="color:#75715e">// 참조
+</span><span style="color:#75715e"></span>    bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>f, _1, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)(t); <span style="color:#75715e">// 값
+</span><span style="color:#75715e"></span>
 
-    // 객체를 인자로 전달하는 경우.
-    bind(&amp;Test::f, _1, 1, 2)(&amp;t); // 참조
-    bind(&amp;Test::f, _1, 1, 2)(t); // 값
-
-
-    bind(&amp;Test::data, &amp;t)() = 10; // t.data = 10
-
-    cout &lt;&lt; t.data &lt;&lt; endl; // 1
-}
-</code></pre>
-
-<h3 id="function-1">function</h3>
-
+    bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>data, <span style="color:#f92672">&amp;</span>t)() <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">// t.data = 10
+</span><span style="color:#75715e"></span>
+    cout <span style="color:#f92672">&lt;&lt;</span> t.data <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 1
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="function-1">function</h3>
 <ul>
 <li>함수 포인터의 단점 -&gt; signature가 동일한 함수만 담을 수 있음</li>
 <li>std::function -&gt; 함수 포인터를 일반화한 개념</li>
 <li>시그니처가 다를 경우 bind와 결합하여 사용 가능</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>placeholders;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;functional&gt;
-using namespace std;
-using namespace std::placeholders;
-
-void f1(int a )              { printf(&quot;f1 : %d\n&quot;, a);}
-void f2(int a, int b, int c) { printf(&quot;f2 : %d, %d, %d\n&quot;, a,b,c);}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f1</span>(<span style="color:#66d9ef">int</span> a )              { printf(<span style="color:#e6db74">&#34;f1 : %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, a);}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f2</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span> c) { printf(<span style="color:#e6db74">&#34;f2 : %d, %d, %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, a,b,c);}
 
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    //void(*f)(int) = &amp;f1;
-    //void(*f)(int) = &amp;f2; // error
+    <span style="color:#75715e">//void(*f)(int) = &amp;f1;
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//void(*f)(int) = &amp;f2; // error
+</span><span style="color:#75715e"></span>
+    function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>(<span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> f;
 
-    function&lt;void(int)&gt; f;
-
-    f = &amp;f1; // ok
-    f(10); // f1(10);
-
-    f = bind(&amp;f2,1, 2, _1); // f2를 대입하려면 bind 필요
-    f(10); // f2(1,2,10);
-}
-</code></pre>
-
-<ul>
+    f <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>f1; <span style="color:#75715e">// ok
+</span><span style="color:#75715e"></span>    f(<span style="color:#ae81ff">10</span>); <span style="color:#75715e">// f1(10);
+</span><span style="color:#75715e"></span>
+    f <span style="color:#f92672">=</span> bind(<span style="color:#f92672">&amp;</span>f2,<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, _1); <span style="color:#75715e">// f2를 대입하려면 bind 필요
+</span><span style="color:#75715e"></span>    f(<span style="color:#ae81ff">10</span>); <span style="color:#75715e">// f2(1,2,10);
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>member 함수와 function</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>placeholders;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;functional&gt;
-using namespace std;
-using namespace std::placeholders;
-
-class Test
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>
 {
-public:
-    int data = 0;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-    void f(int a, int b)
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
     {
-        data = a;
-        printf(&quot;f : %d, %d\n&quot;, a, b);
+        data <span style="color:#f92672">=</span> a;
+        printf(<span style="color:#e6db74">&#34;f : %d, %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, a, b);
     }
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     Test t;
 
-    // 1. 일반 함수 모양의 function
-    function&lt;void(int)&gt; f1;
+    <span style="color:#75715e">// 1. 일반 함수 모양의 function
+</span><span style="color:#75715e"></span>    function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>(<span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> f1;
 
-    f1 = bind(&amp;Test::f, &amp;t, _1, 20);
+    f1 <span style="color:#f92672">=</span> bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>f, <span style="color:#f92672">&amp;</span>t, _1, <span style="color:#ae81ff">20</span>);
 
-    f1(10); // t.f(10, 20)
-
-    // 2. 객체를 function 의 인자로 받는 방법
-    function&lt;void(Test*, int)&gt; f2;
-    f2 = bind(&amp;Test::f, _1, _2, 20);
-    f2(&amp;t, 100); // t.f(100, 20)
-    function&lt;void(Test, int)&gt; f3;
-    f3 = bind(&amp;Test::f, _1, _2, 20);
-    f3(t, 200); // t.f(200, 20)
-
-    function&lt;void(Test&amp;, int)&gt; f4;
-    f4 = bind(&amp;Test::f, _1, _2, 20);
-    f4(t, 300); // t.f(300, 20)
-    cout &lt;&lt; t.data &lt;&lt; endl; // 300
-}
-</code></pre>
-
-<ul>
+    f1(<span style="color:#ae81ff">10</span>); <span style="color:#75715e">// t.f(10, 20)
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 2. 객체를 function 의 인자로 받는 방법
+</span><span style="color:#75715e"></span>    function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>(Test<span style="color:#f92672">*</span>, <span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> f2;
+    f2 <span style="color:#f92672">=</span> bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>f, _1, _2, <span style="color:#ae81ff">20</span>);
+    f2(<span style="color:#f92672">&amp;</span>t, <span style="color:#ae81ff">100</span>); <span style="color:#75715e">// t.f(100, 20)
+</span><span style="color:#75715e"></span>    function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>(Test, <span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> f3;
+    f3 <span style="color:#f92672">=</span> bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>f, _1, _2, <span style="color:#ae81ff">20</span>);
+    f3(t, <span style="color:#ae81ff">200</span>); <span style="color:#75715e">// t.f(200, 20)
+</span><span style="color:#75715e"></span>
+    function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>(Test<span style="color:#f92672">&amp;</span>, <span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> f4;
+    f4 <span style="color:#f92672">=</span> bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>f, _1, _2, <span style="color:#ae81ff">20</span>);
+    f4(t, <span style="color:#ae81ff">300</span>); <span style="color:#75715e">// t.f(300, 20)
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> t.data <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 300
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>멤버 변수와 function</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>placeholders;
 
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-#include &lt;functional&gt;
-using namespace std;
-using namespace std::placeholders;
-
-class Test
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>
 {
-public:
-    int data = 10;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> data <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 };
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     Test t1, t2;
 
-    // 1.
-    function&lt;int&amp;()&gt; f1;
-    f1 = bind( &amp;Test::data, &amp;t1); // t1.data를 보관
-    cout &lt;&lt; f1() &lt;&lt; endl; // t1.data . getter
-    f1() = 20; // t1.data = 20
-    cout &lt;&lt; t1.data &lt;&lt; endl; // 20
+    <span style="color:#75715e">// 1.
+</span><span style="color:#75715e"></span>    function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span>()<span style="color:#f92672">&gt;</span> f1;
+    f1 <span style="color:#f92672">=</span> bind( <span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>data, <span style="color:#f92672">&amp;</span>t1); <span style="color:#75715e">// t1.data를 보관
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> f1() <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// t1.data . getter
+</span><span style="color:#75715e"></span>    f1() <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>; <span style="color:#75715e">// t1.data = 20
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> t1.data <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 20
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 2. 객체를 function 인자로 전달하는 방식
+</span><span style="color:#75715e"></span>
+    function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span>(Test<span style="color:#f92672">*</span>)<span style="color:#f92672">&gt;</span> f2;
 
-    // 2. 객체를 function 인자로 전달하는 방식
+    f2 <span style="color:#f92672">=</span> bind(<span style="color:#f92672">&amp;</span>Test<span style="color:#f92672">::</span>data, _1);
+    f2(<span style="color:#f92672">&amp;</span>t1) <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+    f2(<span style="color:#f92672">&amp;</span>t2) <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>;
 
-    function&lt;int&amp;(Test*)&gt; f2;
-
-    f2 = bind(&amp;Test::data, _1);
-    f2(&amp;t1) = 20;
-    f2(&amp;t2) = 30;
-
-    cout &lt;&lt; t1.data &lt;&lt; endl; // 20;
-    cout &lt;&lt; t2.data &lt;&lt; endl; // 30;
-}
-</code></pre>
-
-<ul>
+    cout <span style="color:#f92672">&lt;&lt;</span> t1.data <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 20;
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> t2.data <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 30;
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
 <li>활용 예제</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">  
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;map&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>placeholders;
 
-<pre><code class="language-cpp">  
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;functional&gt;
-#include &lt;map&gt;
-#include &lt;vector&gt;
-using namespace std;
-using namespace std::placeholders;
-
-class NotificationCenter
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NotificationCenter</span>
 {
-    using HANDLER = function&lt;void(void*)&gt;;
+    <span style="color:#66d9ef">using</span> HANDLER <span style="color:#f92672">=</span> function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>(<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)<span style="color:#f92672">&gt;</span>;
 
-    map&lt;string, vector&lt;HANDLER&gt;&gt; notif_map;
-public:
-    void Register(string key, HANDLER h)
+    map<span style="color:#f92672">&lt;</span>string, vector<span style="color:#f92672">&lt;</span>HANDLER<span style="color:#f92672">&gt;&gt;</span> notif_map;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> Register(string key, HANDLER h)
     {
         notif_map[key].push_back(h);
     }
-    void Notify( string key, void* param)
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Notify</span>( string key, <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> param)
     {
-        vector&lt;HANDLER&gt;&amp; v = notif_map[key];
+        vector<span style="color:#f92672">&lt;</span>HANDLER<span style="color:#f92672">&gt;&amp;</span> v <span style="color:#f92672">=</span> notif_map[key];
 
-        for( auto f : v)
+        <span style="color:#66d9ef">for</span>( <span style="color:#66d9ef">auto</span> f : v)
             f(param);
     }
 };
 
-void f1(void* p) { cout &lt;&lt; &quot;f1&quot; &lt;&lt; endl;}
-void f2(void* p, int a, int b) { cout &lt;&lt; &quot;f2&quot; &lt;&lt; endl;}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f1</span>(<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> p) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;f1&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f2</span>(<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> p, <span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;f2&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;}
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
     NotificationCenter nc;
-    nc.Register(&quot;CONNECT_WIFI&quot;, &amp;f1);
-    nc.Register(&quot;CONNECT_WIFI&quot;, bind(&amp;f2, _1, 0, 0) );
+    nc.Register(<span style="color:#e6db74">&#34;CONNECT_WIFI&#34;</span>, <span style="color:#f92672">&amp;</span>f1);
+    nc.Register(<span style="color:#e6db74">&#34;CONNECT_WIFI&#34;</span>, bind(<span style="color:#f92672">&amp;</span>f2, _1, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>) );
 
 
-    nc.Notify(&quot;CONNECT_WIFI&quot;, (void*)0);
+    nc.Notify(<span style="color:#e6db74">&#34;CONNECT_WIFI&#34;</span>, (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)<span style="color:#ae81ff">0</span>);
 }
-</code></pre>
+</code></pre></div>
               
             </div>
           </div>
@@ -1131,7 +1039,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Multitread on Keep calm carry on</title>
+    <title>MultiTread on Keep calm carry on</title>
     <link>https://ence2.github.io/tags/multitread/</link>
-    <description>Recent content in Multitread on Keep calm carry on</description>
+    <description>Recent content in MultiTread on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 25 Oct 2021 07:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://ence2.github.io/tags/multitread/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 25 Oct 2021 07:00:00 +0900</lastBuildDate><atom:link href="https://ence2.github.io/tags/multitread/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43; Concurrent - Parallel STL[5]</title>
       <link>https://ence2.github.io/2021/10/c-concurrent-parallel-stl5/</link>
@@ -40,10 +36,10 @@
     
     <item>
       <title>C&#43;&#43; Concurrent - Promise / future / async[2]</title>
-      <link>https://ence2.github.io/2021/09/c-concurrent-promise-future-async2/</link>
+      <link>https://ence2.github.io/2021/09/c-concurrent-promise-/-future-/-async2/</link>
       <pubDate>Tue, 21 Sep 2021 07:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/09/c-concurrent-promise-future-async2/</guid>
+      <guid>https://ence2.github.io/2021/09/c-concurrent-promise-/-future-/-async2/</guid>
       <description>&lt;p&gt;이번 시간에는 C++의 비동기 처리 관련 기술을 살펴보겠습니다.&lt;/p&gt;</description>
     </item>
     

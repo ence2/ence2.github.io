@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content=", development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="The Game Server Developer">
@@ -13,8 +13,8 @@
 
 <meta property="og:description" content="The Game Server Developer">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Std">
-<meta name="twitter:title" content="Std">
+<meta property="og:title" content="std">
+<meta name="twitter:title" content="std">
 <meta property="og:url" content="https://ence2.github.io/tags/std/">
 <meta property="twitter:url" content="https://ence2.github.io/tags/std/">
 <meta property="og:site_name" content="Keep calm carry on">
@@ -39,7 +39,7 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>Std</title>
+    <title>std</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
@@ -74,7 +74,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -250,20 +249,17 @@ if (!doNotTrack) {
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>iterator를 원하는 위치로 옮길 수 있는 함수이다. 컨테이너의 iterator를 i번째 위치로 옮기고 싶을 때 사용할 수 있습니다.</p>
-
 <p>표현식 std::advance(i, n)은 반복자 i를 거리 n만큼 증가시킵니다.</p>
-
 <ul>
-<li>n &gt; 0 이면,</li>
-</ul>
-
+<li>
+<p>n &gt; 0 이면,</p>
 <p>++i를 n번 수행하는 것과 동등(다만, __InIter 형식이 임의접근 반복자의 모형이면 advance가 훨씬 더 빠릅니다.)</p>
-
-<ul>
-<li>n &lt; 0 이면,</li>
-</ul>
-
+</li>
+<li>
+<p>n &lt; 0 이면,</p>
 <p>&ndash;i를 n번 수행하는 것과 동등합니다.</p>
+</li>
+</ul>
       
       <p>
         <a href="https://ence2.github.io/2020/11/stdadvance-%EC%98%88%EC%A0%9C/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -322,8 +318,7 @@ if (!doNotTrack) {
     <div class="postShorten-excerpt" itemprop="articleBody">
       
         <p>numeric_limits 클래스 템플릿은 템플릿 특수화로 구현되었고, 명시한 타입의 최대값이나 최소값을 질의 할 수 있는 표준화 된 방법을 제공합니다.</p>
-
-<p>(예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits <int> :: max ())</p>
+<p>(예 : int 유형에 대해 가능한 가장 큰 값은 std :: numeric_limits <!-- raw HTML omitted --> :: max ())</p>
       
       <p>
         <a href="https://ence2.github.io/2020/11/c-%EB%B3%80%EC%88%98-%ED%83%80%EC%9E%85-%EC%B5%9C%EB%8C%80-%EC%B5%9C%EC%86%8C%EA%B0%92-%ED%8E%B8%EB%A6%AC%ED%95%98%EA%B2%8C-%ED%99%95%EC%9D%B8%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-stdnumeric_limits/" class="postShorten-excerpt_link link">Continue reading</a>
@@ -381,8 +376,7 @@ if (!doNotTrack) {
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <h4 id="std-lock-guard">std::lock_guard</h4>
-
+        <h4 id="stdlock_guard">std::lock_guard</h4>
 <p>std::lock_guard는 객체 생성 시에 lock되며 객체가 소멸시에 unlock 되는 특성을 가지고 있습니다.</p>
       
       <p>
@@ -499,16 +493,11 @@ if (!doNotTrack) {
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <h2 id="for-each">for_each</h2>
-
-<p><algorithm> 에 정의됨</p>
-
-<pre><code class="language-cpp">template &lt;class InputIterator, class Function&gt;
+        <h2 id="for_each">for_each</h2>
+<p><!-- raw HTML omitted --> 에 정의됨</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InputIterator</span>, <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Function</span><span style="color:#f92672">&gt;</span>
 Function for_each(InputIterator first, InputIterator last, Function fn);
-</code></pre>
-
-<p>범위 내에 원소들에 대해 함수를 실행시킵니다.</p>
-
+</code></pre></div><p>범위 내에 원소들에 대해 함수를 실행시킵니다.</p>
 <p>범위 내 (<code>first</code> 부터 <code>last</code> 전 까지) 원소들 각각에 대해 함수 <code>fn</code> 을 실행한다. 참고로 함수의 리턴값은 무시됩니다.</p>
       
       <p>
@@ -625,8 +614,7 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
     </div>
     <div class="postShorten-excerpt" itemprop="articleBody">
       
-        <h3 id="upper-bound">upper_bound</h3>
-
+        <h3 id="upper_bound">upper_bound</h3>
 <p>컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.</p>
       
       <p>
@@ -662,7 +650,7 @@ Function for_each(InputIterator first, InputIterator last, Function fn);
         
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 

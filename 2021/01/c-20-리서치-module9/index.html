@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
 <meta name="description" content="현재 글 작성 시점에 C&#43;&#43;20 표준의 module을 제대로 지원하는 컴파일러가 존재하지 않아, 간단한 개념과 사용 방법을 살펴보겠습니다.">
@@ -96,7 +96,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
     
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
@@ -255,43 +254,33 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>현재 글 작성 시점에 C++20 표준의 module을 제대로 지원하는 컴파일러가 존재하지 않아, 간단한 개념과 사용 방법을 살펴보겠습니다.</p>
-
 <h3 id="개념-및-특징">개념 및 특징</h3>
-
 <ul>
 <li>파일에 함수를 작성하여 import &ldquo;모듈명&rdquo; 으로 패키지화 하여 사용 할 수 있습니다. (java의 import와 비슷합니다.)</li>
 <li>헤더 부분에 <code>import std.core;</code> 와 같은 표기법으로 사용하도록 지원 될 예정입니다.</li>
-<li>모듈을 이용한 모듈화 프로그래밍이 수월해집니다.
-
-<br />
-
-<br /></li>
+<li>모듈을 이용한 모듈화 프로그래밍이 수월해집니다.</li>
 </ul>
-
 <h3 id="예제">예제</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// math.ixx : 모듈 생성
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">export</span> module math;
 
-<pre><code class="language-cpp">// math.ixx : 모듈 생성
-
-export module math;
-
-export int add(int first, int second)
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> first, <span style="color:#66d9ef">int</span> second)
 {
-    return first + second;
+    <span style="color:#66d9ef">return</span> first <span style="color:#f92672">+</span> second;
 }
 
-#include &lt;iostream&gt;
-
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
 import math;
 
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int n = add(10, 20);
+    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> add(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>);
     
-    std::cout &lt;&lt; n &lt;&lt; std::endl;
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> n <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 }
-</code></pre>
-
-<p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
+</code></pre></div><p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
               
             </div>
           </div>
@@ -393,7 +382,7 @@ int main()
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 JhChoi. All Rights Reserved
+    &copy; 2022 JhChoi. All Rights Reserved
   </span>
 </footer>
 
