@@ -41,7 +41,7 @@
     
       <meta property="article:section" content="Common">
     
-      <meta property="article:section" content="Achitecture">
+      <meta property="article:section" content="Architecture">
     
   
   
@@ -249,7 +249,7 @@ if (!doNotTrack) {
     
       <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>, 
     
-      <a class="category-link" href="https://ence2.github.io/categories/achitecture">Achitecture</a>
+      <a class="category-link" href="https://ence2.github.io/categories/architecture">Architecture</a>
     
   
 
@@ -273,58 +273,31 @@ if (!doNotTrack) {
 <li>
 <p>logstash는 <a href="https://www.elastic.co/guide/en/logstash/current/input-plugins.html">다양한 곳</a>에서 Input을 받아 사용자가 가공하여 <a href="https://www.elastic.co/guide/en/logstash/current/output-plugins.html">다양한 곳</a>으로 출력 및 저장 할 수 있습니다.</p>
 <p>데이터가 소스에서 저장소로 이동할 때 <code>logstash</code>필터에서 미리 정의한 이벤트 및 구조를 정의 할 수 있고, 사용할 수 있는 <a href="https://www.elastic.co/guide/en/logstash/current/filter-plugins.html">라이브러리</a>는 다양합니다.</p>
-<pre tabindex="0"><code></code></pre></li>
+<pre tabindex="0"><code>정리
+- input : 데이터를 받는다.
+- filter : 데이터를 가공한다.
+- output : 데이터를 출력한다.
+</code></pre></li>
 </ul>
-<p>정리</p>
+<h3 id="fluentd">FluentD</h3>
 <ul>
-<li>input : 데이터를 받는다.</li>
-<li>filter : 데이터를 가공한다.</li>
-<li>output : 데이터를 출력한다.</li>
+<li><a href="https://www.fluentd.org/">Fluentd</a>는 로그(데이터) collector입니다. 보통 로그를 수집하는 데 사용하지만, 다양한 데이터 소스(HTTP, TCP 등)로부터 데이터를 받아올 수 있습니다.</li>
+<li>Fluentd로 전달된 데이터는 <strong>tag</strong>, <strong>time</strong>, <strong>record(JSON)</strong> 로 구성된 이벤트로 처리되며, 원하는 형태로 가공되어 다양한 목적지(Elasticsearch, S3, HDFS 등)로 전달될 수 있습니다.</li>
+<li>Fluentd는 C와 Ruby로 개발되었다. 더 적은 메모리를 사용해야 하는 환경에서는 Fluentd forwarder의 경량화 버전인 <a href="http://fluentbit.io/documentation/0.12/about/fluentd_and_fluentbit.html">Fluentd-Bit</a> 와 함께 사용할 수 있습니다.</li>
 </ul>
-<pre tabindex="0"><code>
-
-
-
-
-
-
-### FluentD
-
-- [Fluentd](https://www.fluentd.org/)는 로그(데이터) collector입니다. 보통 로그를 수집하는 데 사용하지만, 다양한 데이터 소스(HTTP, TCP 등)로부터 데이터를 받아올 수 있습니다.
-- Fluentd로 전달된 데이터는 **tag**, **time**, **record(JSON)** 로 구성된 이벤트로 처리되며, 원하는 형태로 가공되어 다양한 목적지(Elasticsearch, S3, HDFS 등)로 전달될 수 있습니다.
-- Fluentd는 C와 Ruby로 개발되었다. 더 적은 메모리를 사용해야 하는 환경에서는 Fluentd forwarder의 경량화 버전인 [Fluentd-Bit](http://fluentbit.io/documentation/0.12/about/fluentd_and_fluentbit.html) 와 함께 사용할 수 있습니다.
-
-
-
-
-
-
-
-### Elastic Search
-- Distributed , RESTful search and analytics.(데이터 검색, 분석 및 저장)
-- [Elastic Search](https://www.elastic.co/kr/elasticsearch/)는 Apache Lucene을 기반으로 개발한 **분산 검색엔진으로 비정형 데이터를 쉽게 저장하고 처리**할 수 있으며,
+<h3 id="elastic-search">Elastic Search</h3>
+<ul>
+<li>Distributed , RESTful search and analytics.(데이터 검색, 분석 및 저장)</li>
+<li><a href="https://www.elastic.co/kr/elasticsearch/">Elastic Search</a>는 Apache Lucene을 기반으로 개발한 <strong>분산 검색엔진으로 비정형 데이터를 쉽게 저장하고 처리</strong>할 수 있으며,
 실시간 검색과 플러그인을 이용한 확장을 지원하는 장점을 가지고 있습니다.
-**인덱스 갱신 주기도 빠른 편이며, 운영중인 스키마 변경이 가능합니다.**
-
-
-
-
-
-
-
-### Kibana
-
-- [Kibana](https://www.elastic.co/kr/kibana/features)는 데이터를 시각화하고, Elastic Stack의 모든 기능을 구성 및 관리할수 있는 확장 가능한 UI 도구입니다.
-
-
-
-
-
-
-
-### LogStash와 FluentD 비교
-
-![vs](/img/logstashVsFluentD.png)</code></pre>
+<strong>인덱스 갱신 주기도 빠른 편이며, 운영중인 스키마 변경이 가능합니다.</strong></li>
+</ul>
+<h3 id="kibana">Kibana</h3>
+<ul>
+<li><a href="https://www.elastic.co/kr/kibana/features">Kibana</a>는 데이터를 시각화하고, Elastic Stack의 모든 기능을 구성 및 관리할수 있는 확장 가능한 UI 도구입니다.</li>
+</ul>
+<h3 id="logstash와-fluentd-비교">LogStash와 FluentD 비교</h3>
+<p><img src="https://ence2.github.io/img/logstashVsFluentD.png" alt="vs"></p>
               
             </div>
           </div>

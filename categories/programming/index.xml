@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Achitecture on Keep calm carry on</title>
-    <link>https://ence2.github.io/tags/achitecture/</link>
-    <description>Recent content in Achitecture on Keep calm carry on</description>
+    <title>Programming on Keep calm carry on</title>
+    <link>https://ence2.github.io/categories/programming/</link>
+    <description>Recent content in Programming on Keep calm carry on</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Wed, 18 Nov 2020 21:43:34 +0900</lastBuildDate><atom:link href="https://ence2.github.io/tags/achitecture/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Nov 2020 21:43:34 +0900</lastBuildDate><atom:link href="https://ence2.github.io/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>모나드(Monad)란 무엇인가?</title>
       <link>https://ence2.github.io/2020/11/%EB%AA%A8%EB%82%98%EB%93%9Cmonad%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/</link>
