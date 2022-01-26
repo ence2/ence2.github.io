@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="이 시리즈를 통해 조재용, 우명인님이 지은 &ldquo;코틀린으로 배우는 함수형 프로그래밍&quot;을 읽으며 개인적으로 중요하다고 생각하는 각 장(1~11장)의 내용을 정리하고자 함(나중에 내가 빠르게 리마인드 하기 위함임)
+if &hellip; 완전한 내용의 책은 http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&amp;ejkGb=KOR&amp;barcode=9788966262557 에서 구매가 가능함">
+
+
+<meta property="og:description" content="이 시리즈를 통해 조재용, 우명인님이 지은 &ldquo;코틀린으로 배우는 함수형 프로그래밍&quot;을 읽으며 개인적으로 중요하다고 생각하는 각 장(1~11장)의 내용을 정리하고자 함(나중에 내가 빠르게 리마인드 하기 위함임)
+if &hellip; 완전한 내용의 책은 http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&amp;ejkGb=KOR&amp;barcode=9788966262557 에서 구매가 가능함">
+<meta property="og:type" content="article">
+<meta property="og:title" content="함수형 프로그래밍 in 코틀린 - 함수형 프로그래밍이란?[1]">
+<meta name="twitter:title" content="함수형 프로그래밍 in 코틀린 - 함수형 프로그래밍이란?[1]">
+<meta property="og:url" content="https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801/">
+<meta property="twitter:url" content="https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="이 시리즈를 통해 조재용, 우명인님이 지은 &ldquo;코틀린으로 배우는 함수형 프로그래밍&quot;을 읽으며 개인적으로 중요하다고 생각하는 각 장(1~11장)의 내용을 정리하고자 함(나중에 내가 빠르게 리마인드 하기 위함임)
+if &hellip; 완전한 내용의 책은 http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&amp;ejkGb=KOR&amp;barcode=9788966262557 에서 구매가 가능함">
+<meta name="twitter:description" content="이 시리즈를 통해 조재용, 우명인님이 지은 &ldquo;코틀린으로 배우는 함수형 프로그래밍&quot;을 읽으며 개인적으로 중요하다고 생각하는 각 장(1~11장)의 내용을 정리하고자 함(나중에 내가 빠르게 리마인드 하기 위함임)
+if &hellip; 완전한 내용의 책은 http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&amp;ejkGb=KOR&amp;barcode=9788966262557 에서 구매가 가능함">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2022-01-26T07:00:00">
+  
+  
+    <meta property="article:modified_time" content="2022-01-26T07:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Common">
+    
+      <meta property="article:section" content="FunctionalProgramming">
+    
+  
+  
+    
+      <meta property="article:tag" content="Functional Programming">
+    
+      <meta property="article:tag" content="Kotlin">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>함수형 프로그래밍 in 코틀린 - 함수형 프로그래밍이란?[1]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      함수형 프로그래밍 in 코틀린 - 함수형 프로그래밍이란?[1]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2022-01-26T07:00:00&#43;09:00">
+        
+  January 26, 2022
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/functionalprogramming">FunctionalProgramming</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>이 시리즈를 통해 조재용, 우명인님이 지은 &ldquo;코틀린으로 배우는 함수형 프로그래밍&quot;을 읽으며 개인적으로 중요하다고 생각하는 각 장(1~11장)의 내용을 정리하고자 함(나중에 내가 빠르게 리마인드 하기 위함임)</p>
+<p>if &hellip; 완전한 내용의 책은 <a href="http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&amp;ejkGb=KOR&amp;barcode=9788966262557">http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&amp;ejkGb=KOR&amp;barcode=9788966262557</a> 에서 구매가 가능함</p>
+<h4 id="함수형-프로그래밍의-특징">함수형 프로그래밍의 특징</h4>
+<p>불변성, 참조투명성, 일급함수, lazy evaluation</p>
+<ul>
+<li>함수를 통해 데이터의 참조 투명성을 보장, 가변 데이터 생성 회피</li>
+<li>객체지향 vs 함수형 프로그래밍이 아닌, 명령형 vs 함수형으로 봐야함</li>
+<li>사이드 이펙트가 없는 구조를 통해 멀티스레딩 환경에 적함</li>
+<li>간결한 코드</li>
+</ul>
+<p>　</p>
+<h4 id="순수한-함수란-무엇인가">순수한 함수란 무엇인가?</h4>
+<ul>
+<li>동일한 입력은 항상 동일한 결과를 출력
+<ul>
+<li>같은 파라메터를 전달하더라도 다른 값을 출력하는 함수는 당연히 &lsquo;순수하지 않은 함수&rsquo;</li>
+</ul>
+</li>
+<li>사이드이펙트가 없음
+<ul>
+<li>함수 내부에서 외부의 변수를 바꾸는 등의 행동을 하지 않음</li>
+</ul>
+</li>
+<li>순수한 함수의 효과와 고려사항
+<ul>
+<li>멀티스레딩 환경에서 공유 자원 변경에 대한 리스크가 없으므로 안전한 프로그래밍 가능(참조 투명성 만족)</li>
+<li>순수하지 못한 함수는 엔터프라이즈급 프로젝트에서 반드시 필요하기 때문에(네트워크 통신, 파일입출력 등) 이러한 필수 불가결한 기능들은 최소화 및 모듈화하는 방식으로 접근해야 함</li>
+</ul>
+</li>
+</ul>
+<p>　</p>
+<h4 id="사이드이펙트-없는-프로그램-작성하기">사이드이펙트 없는 프로그램 작성하기</h4>
+<ul>
+<li>객체 생성시 불변한 객체로 만듬</li>
+<li>함수에서 객체의 상태를 변경하는 경우 객체를 수정하는 대신, 새로운 객체를 생성하여 리턴</li>
+<li>새로운 객체를 생성하였을때, 해당 객체의 참조 관계가 있거나 사이드이펙트를 가져가야 하는 작업은 반드시 순수한 영역과 분리하며, 이러한 처리가 외부로 드러나지 않도록 설계해야 함</li>
+</ul>
+<p>　</p>
+<h4 id="참조-투명성이란">참조 투명성이란?</h4>
+<ul>
+<li>프로그램의 변경 없이 어떤 표현식을 값으로 대체 가능함
+<ul>
+<li>ex) 표현식 1 + 1는 2로 써도 같음</li>
+<li>투명한 함수 f(x)가 y를 반환한다면 f(x)는 y로 대체 될 수 있음</li>
+<li>참조 투명성을 만족 할 경우 컴파일러 코드 최적화에 용이하며, lazy evaulation 구현이 가능해짐</li>
+</ul>
+</li>
+</ul>
+<p>　</p>
+<h4 id="일급-함수">일급 함수?</h4>
+<ul>
+<li>일급 객체(first-class object)
+<ul>
+<li>객체를 함수의 매개변수로 전달 가능</li>
+<li>객체를 함수의 리턴값으로 사용 가능</li>
+<li>객체를 변수나 자료구조에 담을 수 있음</li>
+</ul>
+</li>
+<li>일급 함수(first-class function)
+<ul>
+<li>함수를 함수의 매개변수로 전달 가능</li>
+<li>함수를 함수의 리턴값으로 사용 가능</li>
+<li>함수를 변수나 자료구조에 담을 수 있음</li>
+</ul>
+</li>
+</ul>
+<p>　</p>
+<h4 id="일급-함수를-통한-추상화와-재사용성-높이기">일급 함수를 통한 추상화와 재사용성 높이기</h4>
+<ul>
+<li>
+<p>일급 함수를 사용하면 명령형 혹은 객체지향 프로그래밍에서 할 수 없는 추상화가 가능하며 재사용성이 높아짐</p>
+</li>
+<li>
+<p>명령형 vs 객체지향 vs 함수형 프로그래밍의 계산기</p>
+<ul>
+<li>
+<p>명령형 : 계산 기능간의 결합도가 높고, 응집도 / 확장성 / 재사용성이 낮음</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> calculator = SimpleCalculator()
+
+    println(calculator.calculate(<span style="color:#e6db74">&#39;+&#39;</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>))    <span style="color:#75715e">// 4
+</span><span style="color:#75715e"></span>  println(calculator.calculate(<span style="color:#e6db74">&#39;-&#39;</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>))    <span style="color:#75715e">// 2
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleCalculator</span> {
+  <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculate</span>(<span style="color:#66d9ef">operator</span>: Char, num1: Int, num2: Int): Int = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">operator</span>) {
+        <span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#f92672">-&gt;</span> num1 + num2
+        <span style="color:#e6db74">&#39;-&#39;</span> <span style="color:#f92672">-&gt;</span> num1 - num2
+        <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">throw</span> IllegalArgumentException()
+    }
+}
+</code></pre></div></li>
+<li>
+<p>객체지향 : 캡슐화, 인터페이스를 통한 확장성, 코드 재사용성, 테스트 용이성의 특징을 갖음</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> plusCalculator = OopCalculator(Plus())
+  println(plusCalculator.calculate(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>))  <span style="color:#75715e">// 4
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> minusCalculator = OopCalculator(Minus())
+    println(minusCalculator.calculate(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>))  <span style="color:#75715e">// 2
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Calculator</span> {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculate</span>(num1: Int, num2: Int): Int
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Plus</span> : Calculator {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculate</span>(num1: Int, num2: Int): Int {
+        <span style="color:#66d9ef">return</span> num1 + num2
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Minus</span> : Calculator {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculate</span>(num1: Int, num2: Int): Int {
+        <span style="color:#66d9ef">return</span> num1 - num2
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OopCalculator</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> calculator: Calculator) {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculate</span>(num1: Int, num2: Int): Int = calculator.calculate(num1, num2)
+}
+</code></pre></div></li>
+<li>
+<p>함수형</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> fpCalculator = FpCalculator()
+
+    println(fpCalculator.calculate({ n1, n2 <span style="color:#f92672">-&gt;</span> n1 + n2 }, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>))    <span style="color:#75715e">// 4
+</span><span style="color:#75715e"></span>    println(fpCalculator.calculate({ n1, n2 <span style="color:#f92672">-&gt;</span> n1 - n2 }, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>))    <span style="color:#75715e">// 2
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FpCalculator</span> {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculate</span>(calculator: (Int, Int) <span style="color:#f92672">-&gt;</span> Int, num1: Int, num2: Int): Int = calculator(num1, num2)
+}
+</code></pre></div><ul>
+<li>일급 함수를 사용해 계산 로직 추상화</li>
+<li>인터페이스X, 구현 클래스X</li>
+<li>코드 간결성, 유지보수 용이</li>
+<li>나눗셈 기능이 필요 할 경우 신규 클래스 추가 없이 기능 추가가 가능함</li>
+<li>고차 함수, 펑터, 모나드 등을 활용하면 훨씬 더 강력한 추상화 구현이 가능</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>　</p>
+<h4 id="lazy-evaulation을-통한-무한-자료구조">lazy evaulation을 통한 무한 자료구조</h4>
+<ul>
+<li>
+<p>일반적인 프로그래밍 언어에서 코드가 실행될 때 값은 즉시 평가되지만, 함수형 언어는 기본적으로 값이 필요한 시점에 연산이 이루어지며 평가 시점을 지정 할 수도 있음</p>
+</li>
+<li>
+<p>값이 실제로 필요한 시점까지 연기되기 때문에 시간이 오래 걸리는 작업을 효율적으로 동작시킬 수 있음</p>
+</li>
+<li>
+<p>명령형 언어에서는 일반적으로 무한대 값을 자료구조에 담을 수 없으나, 함수형 언어에서는 가능함</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> infiniteValue = generateSequence(<span style="color:#ae81ff">0</span>) { <span style="color:#66d9ef">it</span> + <span style="color:#ae81ff">5</span> }
+    infiniteValue.take(<span style="color:#ae81ff">5</span>).forEach { print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$it</span><span style="color:#e6db74"> &#34;</span>) }   <span style="color:#75715e">// 0 5 10 15 20
+</span><span style="color:#75715e"></span>}
+</code></pre></div>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/functional-programming/">Functional Programming</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/kotlin/">Kotlin</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/01/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%EC%84%9C%EB%B9%84%EC%8A%A4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" data-tooltip="마이크로 서비스란 무엇인가?">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/01/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%EC%84%9C%EB%B9%84%EC%8A%A4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" data-tooltip="마이크로 서비스란 무엇인가?">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2022%2F01%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D%25EC%259D%25B4%25EB%259E%25801%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2022%2F01%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D%25EC%259D%25B4%25EB%259E%25801%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2022%2F01%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D%25EC%259D%25B4%25EB%259E%25801%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2022\/01\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801\/';
+          
+            this.page.identifier = '\/2022\/01\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%EC%9D%B4%EB%9E%801\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </body>
+</html>
+
