@@ -264,7 +264,18 @@ if (!doNotTrack) {
     <span style="color:#f92672">@</span>provider <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SQLOLEDB&#39;</span>,
     <span style="color:#f92672">@</span>datasrc <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[서버 아이피]&#39;</span>,
     <span style="color:#f92672">@</span><span style="color:#66d9ef">catalog</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[데이터 베이스명]&#39;</span>
-</code></pre></div><p>- MSSQL 연결계정 생성</p>
+</code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<p>- MSSQL 연결계정 생성</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">EXEC</span> sp_addlinkedsrvlogin
     <span style="color:#f92672">@</span>rmtsrvname<span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[연결된 서버별칭]&#39;</span>,
     <span style="color:#f92672">@</span>useself<span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;false&#39;</span>,
@@ -272,7 +283,9 @@ if (!doNotTrack) {
     <span style="color:#f92672">@</span>rmtpassword <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;[사용자 암호]&#39;</span>
 </code></pre></div><p>- MSSQL 연결된 서버 확인</p>
 <pre tabindex="0"><code class="language-mssql" data-lang="mssql">SELECT * FROM master.dbo.sysservers WHERE srvname = '[연결된 서버별칭]'
-</code></pre><p>- MSSQL 연결계정 확인</p>
+</code></pre><ul>
+<li>MSSQL 연결계정 확인</li>
+</ul>
 <pre tabindex="0"><code class="language-mssql" data-lang="mssql">SELECT * FROM master.sys.linked_logins WHERE remote_name = '[사용자 이름]'
 </code></pre><p>- MSSQL 연결된 서버 사용 예시</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">--  연결된 서버를 등록한 후 사용하려면 [연결된 서버별칭].[데이터 베이스명].[데이터베이스 소유자명].[테이블명]

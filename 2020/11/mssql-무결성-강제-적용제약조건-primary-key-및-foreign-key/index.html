@@ -275,6 +275,17 @@ if (!doNotTrack) {
 <li>자기 자신에 대한 외래 키 참조가 포함된 테이블은 계속 253개의 외래 키 참조만 사용할 수 있습니다.</li>
 <li>columnstore 인덱스, 메모리 최적화 테이블, 스트레치 데이터베이스 또는 분할된 외래 키 테이블에 대해서는 현재 253개보다 많은 외래 키 참조를 포함할 수 없습니다.</li>
 </ul>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 <h3 id="foreign-key-제약-조건에-대한-인덱스">FOREIGN KEY 제약 조건에 대한 인덱스</h3>
 <p>기본 키 제약 조건과 달리 외래 키 제약 조건을 만들어도 해당 인덱스가 자동으로 생성되지 않습니다. 그러나 외래 키에 대해 인덱스를 수동으로 만들면 다음과 같은 경우 유용합니다.</p>
 <ul>
@@ -377,87 +388,74 @@ if (!doNotTrack) {
 </li>
 <li>
 <p>다음 예를 복사하여 쿼리 창에 붙여 넣고 <strong>실행</strong>을 클릭합니다. 이 예에서는 먼저 PRIMARY KEY 제약 조건의 이름을 식별한 후 해당 제약 조건을 삭제합니다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">USE AdventureWorks2012;  
+<span style="color:#66d9ef">GO</span>  
+<span style="color:#75715e">-- Return the name of primary key.  
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> name  
+<span style="color:#66d9ef">FROM</span> sys.key_constraints  
+<span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PK&#39;</span> <span style="color:#66d9ef">AND</span> OBJECT_NAME(parent_object_id) <span style="color:#f92672">=</span> N<span style="color:#e6db74">&#39;TransactionHistoryArchive&#39;</span>;  
+<span style="color:#66d9ef">GO</span>  
+<span style="color:#75715e">-- Delete the primary key constraint.  
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> Production.TransactionHistoryArchive  
+<span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">CONSTRAINT</span> PK_TransactionHistoryArchive_TransactionID;   
+<span style="color:#66d9ef">GO</span>  
+</code></pre></div></li>
 </ol>
-<p>USE AdventureWorks2012;<br>
-GO<br>
-&ndash; Return the name of primary key.<br>
-SELECT name<br>
-FROM sys.key_constraints<br>
-WHERE type = &lsquo;PK&rsquo; AND OBJECT_NAME(parent_object_id) = N&rsquo;TransactionHistoryArchive';<br>
-GO<br>
-&ndash; Delete the primary key constraint.<br>
-ALTER TABLE Production.TransactionHistoryArchive<br>
-DROP CONSTRAINT PK_TransactionHistoryArchive_TransactionID;<br>
-GO</p>
-<pre tabindex="0"><code>
-
-
-
-
-###  특정 테이블의 관계에 대한 외래 키 특성을 보려면
-
-1. 보려는 외래 키가 포함된 테이블에 대한 테이블 디자이너를 열고 테이블 디자이너를 마우스 오른쪽 단추로 클릭한 다음 바로 가기 메뉴에서 **관계** 를 선택합니다.
-2. **외래 키 관계** 대화 상자에서 표시하려는 속성이 포함된 관계를 선택합니다.
-
-외래 키 열이 기본 키에 연결되어 있으면 기본 키 열이 **테이블 디자이너** 의 행 선택기에서 기본 키 기호로 표시됩니다.
-
-
-
-
-
-### 테이블 디자이너에서 외래 키 관계 만들기
-
-#### SQL Server Management Studio 사용
-
-1. 개체 탐색기에서 관계의 외래 키 쪽에 표시할 테이블을 마우스 오른쪽 단추로 클릭하고 **디자인**을 클릭합니다.
-
-[**테이블 디자이너**](https://docs.microsoft.com/ko-kr/sql/ssms/visual-db-tools/design-tables-visual-database-tools?view=sql-server-ver15)에서 테이블이 열립니다.
-
-2. **테이블 디자이너** 메뉴에서 **관계**를 클릭합니다.
-
-3. **외래 키 관계** 대화 상자에서 **추가**를 클릭합니다.
-
-**선택한 관계** 목록에 FK_&lt;*tablename*&gt;*&lt;\*tablename\*&gt; 형식으로 자동 지정된 이름과 함께 관계가 표시됩니다. 여기에서 \*tablename\*은 외래 키 테이블의 이름입니다.*
-
-4. **선택한 관계** 목록에서 관계를 클릭합니다.
-
-5. 오른쪽에 있는 표에서 **테이블 및 열 사양**을 클릭한 다음, 속성의 오른쪽에 있는 줄임표( **…** )를 클릭합니다.
-
-6. **테이블 및 열** 대화 상자의 **기본 키** 드롭다운 목록에서 관계의 기본 키 쪽에 사용할 테이블을 선택합니다.
-
-7. 아래 표에서 테이블의 기본 키로 사용할 열을 선택합니다. 각 열 오른쪽에 있는 그리드의 셀에서 외래 키 테이블의 해당 외래 키 열을 선택합니다.
-
-**테이블 디자이너** 에서 관계의 이름이 자동으로 지정됩니다. 이 이름을 변경하려면 **관계 이름** 입력란의 내용을 편집합니다.
-
-8. **확인** 을 선택하여 관계를 만듭니다.
-
-9. 테이블 디자이너 창을 닫고 외래 키 관계 변경 내용이 적용되도록 **저장**합니다.
-
-
-
-
-
-
-### 새 테이블에서 외래 키 만들기
-
-#### Transact-SQL 사용
-
-다음 예제에서는 테이블을 만들고 AdventureWorks 데이터베이스의 `Sales.SalesReason` 테이블에 있는 `SalesReasonID` 열을 참조하는 `TempID` 열의 외래 키 제약 조건을 정의합니다. ON DELETE CASCADE 및 ON UPDATE CASCADE 절을 사용하면 `Sales.SalesReason` 테이블에 대한 변경 내용이 `Sales.TempSalesReason` 테이블에 자동으로 전파되었는지 확인할 수 있습니다.
-
-```sql
-CREATE TABLE Sales.TempSalesReason 
-(
-   TempID int NOT NULL, Name nvarchar(50)
-   , CONSTRAINT PK_TempSales PRIMARY KEY NONCLUSTERED (TempID)
-   , CONSTRAINT FK_TempSales_SalesReason FOREIGN KEY (TempID)
-     REFERENCES Sales.SalesReason (SalesReasonID)
-     ON DELETE CASCADE
-     ON UPDATE CASCADE
-)
-;
-</code></pre><h3 id="기존-테이블에서-외래-키-만들기">기존 테이블에서 외래 키 만들기</h3>
+<h3 id="특정-테이블의-관계에-대한-외래-키-특성을-보려면">특정 테이블의 관계에 대한 외래 키 특성을 보려면</h3>
+<ol>
+<li>보려는 외래 키가 포함된 테이블에 대한 테이블 디자이너를 열고 테이블 디자이너를 마우스 오른쪽 단추로 클릭한 다음 바로 가기 메뉴에서 <strong>관계</strong> 를 선택합니다.</li>
+<li><strong>외래 키 관계</strong> 대화 상자에서 표시하려는 속성이 포함된 관계를 선택합니다.</li>
+</ol>
+<p>외래 키 열이 기본 키에 연결되어 있으면 기본 키 열이 <strong>테이블 디자이너</strong> 의 행 선택기에서 기본 키 기호로 표시됩니다.</p>
+<h3 id="테이블-디자이너에서-외래-키-관계-만들기">테이블 디자이너에서 외래 키 관계 만들기</h3>
+<h4 id="sql-server-management-studio-사용">SQL Server Management Studio 사용</h4>
+<ol>
+<li>
+<p>개체 탐색기에서 관계의 외래 키 쪽에 표시할 테이블을 마우스 오른쪽 단추로 클릭하고 <strong>디자인</strong>을 클릭합니다.</p>
+<p><a href="https://docs.microsoft.com/ko-kr/sql/ssms/visual-db-tools/design-tables-visual-database-tools?view=sql-server-ver15"><strong>테이블 디자이너</strong></a>에서 테이블이 열립니다.</p>
+</li>
+<li>
+<p><strong>테이블 디자이너</strong> 메뉴에서 <strong>관계</strong>를 클릭합니다.</p>
+</li>
+<li>
+<p><strong>외래 키 관계</strong> 대화 상자에서 <strong>추가</strong>를 클릭합니다.</p>
+<p><strong>선택한 관계</strong> 목록에 FK_&lt;<em>tablename</em>&gt;<em>&lt;*tablename*&gt; 형식으로 자동 지정된 이름과 함께 관계가 표시됩니다. 여기에서 *tablename*은 외래 키 테이블의 이름입니다.</em></p>
+</li>
+<li>
+<p><strong>선택한 관계</strong> 목록에서 관계를 클릭합니다.</p>
+</li>
+<li>
+<p>오른쪽에 있는 표에서 <strong>테이블 및 열 사양</strong>을 클릭한 다음, 속성의 오른쪽에 있는 줄임표( <strong>…</strong> )를 클릭합니다.</p>
+</li>
+<li>
+<p><strong>테이블 및 열</strong> 대화 상자의 <strong>기본 키</strong> 드롭다운 목록에서 관계의 기본 키 쪽에 사용할 테이블을 선택합니다.</p>
+</li>
+<li>
+<p>아래 표에서 테이블의 기본 키로 사용할 열을 선택합니다. 각 열 오른쪽에 있는 그리드의 셀에서 외래 키 테이블의 해당 외래 키 열을 선택합니다.</p>
+<p><strong>테이블 디자이너</strong> 에서 관계의 이름이 자동으로 지정됩니다. 이 이름을 변경하려면 <strong>관계 이름</strong> 입력란의 내용을 편집합니다.</p>
+</li>
+<li>
+<p><strong>확인</strong> 을 선택하여 관계를 만듭니다.</p>
+</li>
+<li>
+<p>테이블 디자이너 창을 닫고 외래 키 관계 변경 내용이 적용되도록 <strong>저장</strong>합니다.</p>
+</li>
+</ol>
+<h3 id="새-테이블에서-외래-키-만들기">새 테이블에서 외래 키 만들기</h3>
 <h4 id="transact-sql-사용">Transact-SQL 사용</h4>
+<p>다음 예제에서는 테이블을 만들고 AdventureWorks 데이터베이스의 <code>Sales.SalesReason</code> 테이블에 있는 <code>SalesReasonID</code> 열을 참조하는 <code>TempID</code> 열의 외래 키 제약 조건을 정의합니다. ON DELETE CASCADE 및 ON UPDATE CASCADE 절을 사용하면 <code>Sales.SalesReason</code> 테이블에 대한 변경 내용이 <code>Sales.TempSalesReason</code> 테이블에 자동으로 전파되었는지 확인할 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> Sales.TempSalesReason 
+   (
+      TempID int <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>, Name nvarchar(<span style="color:#ae81ff">50</span>)
+      , <span style="color:#66d9ef">CONSTRAINT</span> PK_TempSales <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> NONCLUSTERED (TempID)
+      , <span style="color:#66d9ef">CONSTRAINT</span> FK_TempSales_SalesReason <span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (TempID)
+        <span style="color:#66d9ef">REFERENCES</span> Sales.SalesReason (SalesReasonID)
+        <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">CASCADE</span>
+        <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">UPDATE</span> <span style="color:#66d9ef">CASCADE</span>
+   )
+;
+</code></pre></div><h3 id="기존-테이블에서-외래-키-만들기">기존 테이블에서 외래 키 만들기</h3>
+<h4 id="transact-sql-사용-1">Transact-SQL 사용</h4>
 <p>다음 예제에서는 <code>TempID</code> 열의 외래 키를 만들고 AdventureWorks 데이터베이스의 <code>Sales.SalesReason</code> 테이블에 있는 <code>SalesReasonID</code> 열을 참조합니다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> Sales.TempSalesReason
    <span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">CONSTRAINT</span> FK_TempSales_SalesReason <span style="color:#66d9ef">FOREIGN</span> <span style="color:#66d9ef">KEY</span> (TempID)
@@ -546,33 +544,30 @@ CREATE TABLE Sales.TempSalesReason
 </li>
 <li>
 <p>다음 예를 복사하여 쿼리 창에 붙여 넣고 <strong>실행</strong>을 클릭합니다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">USE AdventureWorks2012;  
+<span style="color:#66d9ef">GO</span>  
+<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> dbo.DocExe   
+<span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">CONSTRAINT</span> FK_Column_B;   
+<span style="color:#66d9ef">GO</span>  
+</code></pre></div></li>
 </ol>
-<p>USE AdventureWorks2012;<br>
-GO<br>
-ALTER TABLE dbo.DocExe<br>
-DROP CONSTRAINT FK_Column_B;<br>
-GO</p>
-<pre tabindex="0"><code>
-
-
-
-
-### INSERT 및 UPDATE 문에 대한 FOREIGN KEY 제약 조건을 사용하지 않으려면
-
-1. **개체 탐색기**에서 데이터베이스 엔진인스턴스에 연결합니다.
-
-2. 표준 도구 모음에서 **새 쿼리**를 클릭합니다.
-
-3. 다음 예를 복사하여 쿼리 창에 붙여 넣고 **실행**을 클릭합니다.
-
-```sql
-USE AdventureWorks2012;  
-GO  
-ALTER TABLE Purchasing.PurchaseOrderHeader  
-NOCHECK CONSTRAINT FK_PurchaseOrderHeader_Employee_EmployeeID;  
-GO  
-</code></pre>
+<h3 id="insert-및-update-문에-대한-foreign-key-제약-조건을-사용하지-않으려면">INSERT 및 UPDATE 문에 대한 FOREIGN KEY 제약 조건을 사용하지 않으려면</h3>
+<ol>
+<li>
+<p><strong>개체 탐색기</strong>에서 데이터베이스 엔진인스턴스에 연결합니다.</p>
+</li>
+<li>
+<p>표준 도구 모음에서 <strong>새 쿼리</strong>를 클릭합니다.</p>
+</li>
+<li>
+<p>다음 예를 복사하여 쿼리 창에 붙여 넣고 <strong>실행</strong>을 클릭합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">USE AdventureWorks2012;  
+<span style="color:#66d9ef">GO</span>  
+<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> Purchasing.PurchaseOrderHeader  
+NOCHECK <span style="color:#66d9ef">CONSTRAINT</span> FK_PurchaseOrderHeader_Employee_EmployeeID;  
+<span style="color:#66d9ef">GO</span>  
+</code></pre></div></li>
+</ol>
               
             </div>
           </div>

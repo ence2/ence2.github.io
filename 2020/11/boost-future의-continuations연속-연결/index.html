@@ -265,7 +265,18 @@ if (!doNotTrack) {
   future<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> f1 <span style="color:#f92672">=</span> async([]() { <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">123</span>; });
   future<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> f2 <span style="color:#f92672">=</span> f1.then([](future<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> f) { <span style="color:#66d9ef">return</span> f.get().to_string(); <span style="color:#75715e">// here .get() won&#39;t block });
 </span><span style="color:#75715e"></span>}
-</code></pre></div><p>이 함수의 핵심 기능 중 하나는 여러 비동기 작업을 연결하는 기능입니다. 비동기 프로그래밍에서는 각 연속 작업이 이전 작업이 완료 될 때만 실행되는 일련의 작업을 정의하는 것이 일반적입니다. 어떤 경우에는 선행 future가 연속이 입력으로 받아들이는 값을 생성합니다. <code>future.then()</code>을 사용 하면 연속 체인을 만드는 것이 간단하고 직관적이됩니다.</p>
+</code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<p>이 함수의 핵심 기능 중 하나는 여러 비동기 작업을 연결하는 기능입니다. 비동기 프로그래밍에서는 각 연속 작업이 이전 작업이 완료 될 때만 실행되는 일련의 작업을 정의하는 것이 일반적입니다. 어떤 경우에는 선행 future가 연속이 입력으로 받아들이는 값을 생성합니다. <code>future.then()</code>을 사용 하면 연속 체인을 만드는 것이 간단하고 직관적이됩니다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">myFuture.then(...).then(...).then(...).
 </code></pre></div><p>​</p>
 <p>​</p>

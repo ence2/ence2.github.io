@@ -310,7 +310,18 @@ if (!doNotTrack) {
 </span><span style="color:#75715e"></span>    Point p5 <span style="color:#f92672">=</span> {.y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, .x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>}; <span style="color:#75715e">// C++20에서 지정된 초기화의 멤버 순서가 바뀔 경우 오류 발생
 </span><span style="color:#75715e"></span>    Point p6 <span style="color:#f92672">=</span> {.x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>}; <span style="color:#75715e">// 섞어서 쓸 경우 오류 발생
 </span><span style="color:#75715e"></span>}
-</code></pre></div><h3 id="constexpr-관련-변경점">Constexpr 관련 변경점</h3>
+</code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h3 id="constexpr-관련-변경점">Constexpr 관련 변경점</h3>
 <ul>
 <li><strong>std::is_constant_evaluated() 함수 추가 : 어떤 함수가 컴파일 타임에 실행 되는지 여부</strong></li>
 <li><strong>constexpr virtual function : 가상 함수도 constexpr 사용 가능 (17 이전에는 불가능)</strong></li>
@@ -393,32 +404,30 @@ range for에 초기화 구문 표현이 가능</p>
 <p><strong>using enum</strong>
 enum class 사용시 namespace 없이 사용 가능해짐</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>
+{
+ 	red <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+    green <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+    blue <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    Color temp <span style="color:#f92672">=</span> color<span style="color:#f92672">::</span>red;
+
+    <span style="color:#66d9ef">switch</span>(temp)
+    {
+        <span style="color:#75715e">//case color::red: return 1;
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//case color::green: return 2;
+</span><span style="color:#75715e"></span>
+        <span style="color:#75715e">//다음과 같이 사용 할 경우 namespace 생략 가능해짐
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">using</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Color</span>;
+        <span style="color:#66d9ef">case</span> red: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">case</span> green: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span>;
+    }
+}
 </code></pre></div></li>
 </ul>
-<p>{
-red = 1,
-green = 2,
-blue = 3
-};</p>
-<p>int main()
-{
-Color temp = color::red;</p>
-<pre><code>   switch(temp)
-   {
-       //case color::red: return 1;
-       //case color::green: return 2;
-         
-       //다음과 같이 사용 할 경우 namespace 생략 가능해짐
-       using enum Color;
-       case red: return 1;
-       case green: return 2;
-   }
-</code></pre>
-<p>}</p>
-<pre tabindex="0"><code>
-
-
-[더 많은 C++20 관련 정보](https://en.cppreference.com/w/)</code></pre>
+<p><a href="https://en.cppreference.com/w/">더 많은 C++20 관련 정보</a></p>
               
             </div>
           </div>
