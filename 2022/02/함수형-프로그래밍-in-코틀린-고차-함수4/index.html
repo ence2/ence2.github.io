@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="abstract : 고차 함수의 정의, 부분 함수, 커링 함수, 함수 합성, 응용법">
+
+
+<meta property="og:description" content="abstract : 고차 함수의 정의, 부분 함수, 커링 함수, 함수 합성, 응용법">
+<meta property="og:type" content="article">
+<meta property="og:title" content="함수형 프로그래밍 in 코틀린 - 고차 함수[4]">
+<meta name="twitter:title" content="함수형 프로그래밍 in 코틀린 - 고차 함수[4]">
+<meta property="og:url" content="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984/">
+<meta property="twitter:url" content="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="abstract : 고차 함수의 정의, 부분 함수, 커링 함수, 함수 합성, 응용법">
+<meta name="twitter:description" content="abstract : 고차 함수의 정의, 부분 함수, 커링 함수, 함수 합성, 응용법">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2022-02-01T08:08:00">
+  
+  
+    <meta property="article:modified_time" content="2022-02-01T08:08:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Common">
+    
+      <meta property="article:section" content="FunctionalProgramming">
+    
+  
+  
+    
+      <meta property="article:tag" content="Functional Programming">
+    
+      <meta property="article:tag" content="Kotlin">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>함수형 프로그래밍 in 코틀린 - 고차 함수[4]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      함수형 프로그래밍 in 코틀린 - 고차 함수[4]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2022-02-01T08:08:00&#43;09:00">
+        
+  February 1, 2022
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/functionalprogramming">FunctionalProgramming</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>abstract : 고차 함수의 정의, 부분 함수, 커링 함수, 함수 합성, 응용법</p>
+<h4 id="고차-함수">고차 함수</h4>
+<p>함수형 프로그래밍에서는 아래 두 가지 조건 중 하나 이상을 만족하는 함수를 고차 함수라 한다</p>
+<ul>
+<li>함수를 매개변수로 받는 함수</li>
+<li>함수를 반환하는 함수</li>
+</ul>
+<p><strong>고차함수는 코드의 재사용성을 높임</strong></p>
+<ul>
+<li>
+<p>객체지향 계산기 vs 고차함수 계산기</p>
+<ul>
+<li>
+<p>객체 지향 계산기 : 상속을 사용하며 기능 추가시 중복 코드가 많아짐</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// OOP 예제
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">val</span> calcSum = Sum()
+    <span style="color:#66d9ef">val</span> calcMinus = Minus()
+  <span style="color:#66d9ef">val</span> calcProduct = Product()
+    <span style="color:#66d9ef">val</span> calcTwiceSum = TwiceSum()
+
+    println(calcSum.calc(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>))     <span style="color:#75715e">// 6
+</span><span style="color:#75715e"></span>    println(calcMinus.calc(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>))   <span style="color:#75715e">// 3
+</span><span style="color:#75715e"></span>    println(calcProduct.calc(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>)) <span style="color:#75715e">// 8
+</span><span style="color:#75715e"></span>  println(calcTwiceSum.calc(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">2</span>)) <span style="color:#75715e">//20
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Calcable</span> {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calc</span>(x: Int, y: Int): Int
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sum</span> : Calcable {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calc</span>(x: Int, y: Int): Int {
+        <span style="color:#66d9ef">return</span> x + y
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Minus</span> : Calcable {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calc</span>(x: Int, y: Int): Int {
+        <span style="color:#66d9ef">return</span> x - y
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Product</span> : Calcable {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calc</span>(x: Int, y: Int): Int {
+        <span style="color:#66d9ef">return</span> x * y
+    }
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TwiceSum</span> : Calcable {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calc</span>(x: Int, y: Int): Int {
+        <span style="color:#66d9ef">return</span> (x + y) * <span style="color:#ae81ff">2</span>
+    }
+}
+</code></pre></div></li>
+<li>
+<p>고차 함수 계산기 : 비즈니스 기능을 함수로 모듈화</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// 고차함수를 사용한 예
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">val</span> sum: (Int, Int) <span style="color:#f92672">-&gt;</span> Int = { x, y <span style="color:#f92672">-&gt;</span> x + y }
+    <span style="color:#66d9ef">val</span> product: (Int, Int) <span style="color:#f92672">-&gt;</span> Int = { x, y <span style="color:#f92672">-&gt;</span> x * y }
+    <span style="color:#66d9ef">val</span> minus: (Int, Int) <span style="color:#f92672">-&gt;</span> Int = { x, y <span style="color:#f92672">-&gt;</span> x - y }
+    <span style="color:#66d9ef">val</span> twiceSum: (Int, Int) <span style="color:#f92672">-&gt;</span> Int = { x, y <span style="color:#f92672">-&gt;</span> (x + y) * <span style="color:#ae81ff">2</span> }
+
+    println(higherOrder(sum, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>))     <span style="color:#75715e">// 6
+</span><span style="color:#75715e"></span>    println(higherOrder(minus, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>))   <span style="color:#75715e">// 3
+</span><span style="color:#75715e"></span>    println(higherOrder(product, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>)) <span style="color:#75715e">// 8
+</span><span style="color:#75715e"></span>    println(higherOrder(twiceSum, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">2</span>))   <span style="color:#75715e">// 20
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">higherOrder</span>(func: (Int, Int) <span style="color:#f92672">-&gt;</span> Int, x: Int, y: Int): Int = func(x, y)
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<p><strong>코드 작성이 간결해짐</strong></p>
+<ul>
+<li>입력 리스트의 값을 두 배로 증가시키고 10보다 큰 수를 반환하는 예제</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> ints: List&lt;Int&gt; = listOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>)
+
+    <span style="color:#75715e">// 명령형 프로그래밍 예
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> over10Values: ArrayList&lt;Int&gt; = ArrayList()
+
+    <span style="color:#66d9ef">for</span> (element <span style="color:#66d9ef">in</span> ints) {
+        <span style="color:#66d9ef">val</span> twiceInt = element * <span style="color:#ae81ff">2</span>
+        <span style="color:#66d9ef">if</span>(twiceInt &gt; <span style="color:#ae81ff">10</span>){
+            over10Values.add(twiceInt)
+        }
+    }
+
+    println(over10Values)   <span style="color:#75715e">// [12, 14, 16, 18, 20]
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 고차함수를 사용한 예
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> result = ints
+            .map { <span style="color:#66d9ef">it</span> * <span style="color:#ae81ff">2</span> }
+            .filter { <span style="color:#66d9ef">it</span> &gt; <span style="color:#ae81ff">10</span> }
+
+    println(result)            <span style="color:#75715e">// [12, 14, 16, 18, 20]
+</span><span style="color:#75715e"></span>}
+</code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h4 id="부분-함수">부분 함수</h4>
+<ul>
+<li>
+<p>허용되지 않는 입력값으로 함수를 호출 할 때, 일반적인 프로그래밍에서는 예외를 던지거나 특정값을 리턴하도록 처리</p>
+</li>
+<li>
+<p>함수형 프로그래밍에서는 이러한 처리를 &lsquo;부분 함수&rsquo;를 통해 처리</p>
+</li>
+<li>
+<p>부분 함수란 <strong>모든 가능한 입력 중, 일부 입력에 대한 결과만 정의한 함수</strong>를 의미</p>
+</li>
+</ul>
+<p><strong>부분 함수의 예</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PartialFunction</span>&lt;<span style="color:#66d9ef">in</span> P, <span style="color:#66d9ef">out</span> R&gt;(
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> condition: (P) <span style="color:#f92672">-&gt;</span> Boolean,
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> f: (P) <span style="color:#f92672">-&gt;</span> R)
+    : (P) <span style="color:#f92672">-&gt;</span> R {
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">invoke</span>(p: P): R = <span style="color:#66d9ef">when</span> {
+        condition(p) <span style="color:#f92672">-&gt;</span> f(p)
+        <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">throw</span> IllegalArgumentException(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$p</span><span style="color:#e6db74"> isn&#39;t supported.&#34;</span>)
+    }
+
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">isDefinedAt</span>(p: P): Boolean = condition(p)
+}
+</code></pre></div><ul>
+<li>부분함수를 사용할 경우 호출하는 쪽에서 호출하기 전 함수가 정상적으로 동작하는지 isDefinedAt과 같은 방법을 제공함으로써 미리 확인 할 수 있다.</li>
+<li>호출자가 함수가 던지는 예외나 오류값에 대해서 알지 못하여도 된다.</li>
+<li>부분 함수의 조합으로 부분 함수 자체를 재사용 할 수도 있고, 확장 할 수도 있다.</li>
+</ul>
+<p>　</p>
+<h4 id="부분-적용-함수">부분 적용 함수</h4>
+<ul>
+<li>부분 적용 함수는 부분 함수와 이름이 비슷하지만 관계는 없음</li>
+<li>부분 적용 함수란 전달 받은 매개변수를 가변적으로 사용하여 함수 내부에서 원 함수와 다른 매개변수를 이용하는 함수를 말함</li>
+<li>전달하는 매개변수는 가변적임</li>
+<li>부분 적용 함수는 코드를 재사용 하기 위해 쓸 수도 있지만, 커링 함수(curried functions)를 구현하기 위해 필요한 개념임</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> func = { a: String, b: String <span style="color:#f92672">-&gt;</span> a + b }
+
+    <span style="color:#66d9ef">val</span> partiallyAppliedFunc1 = func.partial1(<span style="color:#e6db74">&#34;Hello&#34;</span>)
+    <span style="color:#66d9ef">val</span> result1 = partiallyAppliedFunc1(<span style="color:#e6db74">&#34;World&#34;</span>)
+
+    println(result1)  <span style="color:#75715e">// Hello World
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> partiallyAppliedFunc2 = func.partial2(<span style="color:#e6db74">&#34;World&#34;</span>)
+    <span style="color:#66d9ef">val</span> result2 = partiallyAppliedFunc2(<span style="color:#e6db74">&#34;Hello&#34;</span>)
+
+    println(result2)  <span style="color:#75715e">// Hello World
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">P1</span>, <span style="color:#a6e22e">P2</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#960050;background-color:#1e0010">((</span><span style="color:#a6e22e">P1</span>, P2) <span style="color:#f92672">-&gt;</span> R).partial1(p1: P1): (P2) <span style="color:#f92672">-&gt;</span> R {
+    <span style="color:#66d9ef">return</span> { p2 <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">this</span>(p1, p2) }
+}
+
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">P1</span>, <span style="color:#a6e22e">P2</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#960050;background-color:#1e0010">((</span><span style="color:#a6e22e">P1</span>, P2) <span style="color:#f92672">-&gt;</span> R).partial2(p2: P2): (P1) <span style="color:#f92672">-&gt;</span> R {
+    <span style="color:#66d9ef">return</span> { p1 <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">this</span>(p1, p2) }
+}
+</code></pre></div><p>　</p>
+<h4 id="커링-함수">커링 함수</h4>
+<p>커링이란 여러 개의 매개변수를 받는 함수를 분리하여, 단일 매개변수를 받는 부분 적용 함수의 체인으로 만드는 방법임</p>
+<ul>
+<li>
+<p>여러 매개변수를 받는 함수</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">multiThree</span>(a: Int, b: Int, c: Int): Int = a * b * c
+</code></pre></div></li>
+<li>
+<p>한개의 매개변수를 전달받는 체인으로 구성된 커링 함수</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">multiThree</span>(a: Int) = { b: Int <span style="color:#f92672">-&gt;</span> { c: Int <span style="color:#f92672">-&gt;</span> a * b * c } }
+</code></pre></div></li>
+<li>
+<p>두 함수의 호출 결과는 같으나 호출 방법이 다름</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">    println(partial3) <span style="color:#75715e">// 6
+</span><span style="color:#75715e"></span>    println(multiThree(<span style="color:#ae81ff">1</span>)(<span style="color:#ae81ff">2</span>)(<span style="color:#ae81ff">3</span>)) <span style="color:#75715e">// 6, 함수를 커링으로 쪼갰기 때문에 이러한 형태의 호출이 가능
+</span></code></pre></div></li>
+</ul>
+<p><strong>함수형 프로그래밍에서 복잡해 보이는 커링을 사용하는 이유</strong></p>
+<ul>
+<li>부분 적용 함수를 다양하게 재사용 할 수 있음</li>
+<li>마지막 매개변수가 입력될 때까지 함수의 실행을 늦출 수 있음</li>
+</ul>
+<p><strong>코틀린용 커링 함수 추상화하기</strong></p>
+<p>코틀린에서는 기본 함수로 커링을 제공하지 않음, 매개변수가 한개인 부분 적용 함수의 체인을 만들기 위해서는 복잡하게 함수를 정의 해야 함
+커링을 일반화하여 커링 함수를 쉽게 만들 수 있도록 다음과 같은 방법으로 추상화가 가능함</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">P1</span>, <span style="color:#a6e22e">P2</span>, <span style="color:#a6e22e">P3</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#960050;background-color:#1e0010">((</span><span style="color:#a6e22e">P1</span>, P2, P3) <span style="color:#f92672">-&gt;</span> R).curried(): (P1) <span style="color:#f92672">-&gt;</span> (P2) <span style="color:#f92672">-&gt;</span> (P3) <span style="color:#f92672">-&gt;</span> R =
+        { p1: P1 <span style="color:#f92672">-&gt;</span> { p2: P2 <span style="color:#f92672">-&gt;</span> { p3: P3 <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">this</span>(p1, p2, p3) } } }
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">P1</span>, <span style="color:#a6e22e">P2</span>, <span style="color:#a6e22e">P3</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#960050;background-color:#1e0010">((</span><span style="color:#a6e22e">P1</span>) <span style="color:#f92672">-&gt;</span> (P2) <span style="color:#f92672">-&gt;</span> (P3) <span style="color:#f92672">-&gt;</span> R).uncurried(): (P1, P2, P3) <span style="color:#f92672">-&gt;</span> R =
+        { p1: P1, p2: P2, p3: P3 <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">this</span>(p1)(p2)(p3) }
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> multiThree = { a: Int, b: Int, c: Int <span style="color:#f92672">-&gt;</span> a * b * c }
+    <span style="color:#66d9ef">val</span> curried = multiThree.curried()
+    println(curried(<span style="color:#ae81ff">1</span>)(<span style="color:#ae81ff">2</span>)(<span style="color:#ae81ff">3</span>))   <span style="color:#75715e">// 6
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> uncurried = curried.uncurried()
+    println(uncurried(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)) <span style="color:#75715e">// 6
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>　</p>
+<h4 id="합성-함수">합성 함수</h4>
+<p>합성 함수란 고차 함수를 이용해서 두개의 함수를 결합하는 것을 의미함</p>
+<p>(f o g)(x) = f(g(x)) 이며 (f o g)(x)는 g 함수가 x를 매개변수로 호출한 결과를 f 함수의 매개변수로 전달한 결과와 같음</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">F</span>, <span style="color:#a6e22e">G</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#960050;background-color:#1e0010">((</span><span style="color:#a6e22e">F</span>) <span style="color:#f92672">-&gt;</span> R).compose(g: (G) <span style="color:#f92672">-&gt;</span> F): (G) <span style="color:#f92672">-&gt;</span> R {
+    <span style="color:#66d9ef">return</span> { gInput: G <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">this</span>(g(gInput)) }
+}
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    println(composed(<span style="color:#ae81ff">3</span>))    <span style="color:#75715e">// 9
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">composed</span>(i: Int) = addThree(twice(i))
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">addThree</span>(i: Int) = i + <span style="color:#ae81ff">3</span>
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">twice</span>(i: Int) = i * <span style="color:#ae81ff">2</span>
+</code></pre></div><p><strong>여러 개의 매개변수를 갖는 함수를 합성하는 방법</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">import</span> kotlin.math.abs
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> powerOfTwo = { x: Int <span style="color:#f92672">-&gt;</span> power(x.toDouble(), <span style="color:#ae81ff">2</span>).toInt() }
+    <span style="color:#66d9ef">val</span> gcdPowerOfTwo = { x1: Int, x2: Int <span style="color:#f92672">-&gt;</span> gcd(powerOfTwo(x1), powerOfTwo(x2)) }
+
+    println(gcdPowerOfTwo(<span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">5</span>))   <span style="color:#75715e">// 25
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> curriedGcd1 = <span style="color:#f92672">::</span>gcd.curried()
+    <span style="color:#75715e">// 잘못된 합성의 예
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> composedGcdPowerOfTwo1 = curriedGcd1 compose powerOfTwo
+
+    println(composedGcdPowerOfTwo1(<span style="color:#ae81ff">25</span>)(<span style="color:#ae81ff">5</span>))   <span style="color:#75715e">// 5
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> curriedGcd2 = { m: Int, n: Int <span style="color:#f92672">-&gt;</span> gcd(m, powerOfTwo(n)) }.curried()
+    <span style="color:#75715e">// 적절한 합성의 예
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> composedGcdPowerOfTwo2 = curriedGcd2 compose powerOfTwo
+
+    println(composedGcdPowerOfTwo2(<span style="color:#ae81ff">25</span>)(<span style="color:#ae81ff">5</span>))   <span style="color:#75715e">// 25
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">tailrec</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">gcd</span>(m: Int, n: Int): Int = <span style="color:#66d9ef">when</span> (n) {
+    <span style="color:#ae81ff">0</span> <span style="color:#f92672">-&gt;</span> m
+    <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> gcd(n, m % n)
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">tailrec</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">power</span>(x: Double, n: Int, acc: Double = <span style="color:#ae81ff">1.0</span>): Double = <span style="color:#66d9ef">when</span> (n) {
+    <span style="color:#ae81ff">0</span> <span style="color:#f92672">-&gt;</span> acc
+    <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> power(x, n - <span style="color:#ae81ff">1</span>, x * acc)
+}
+</code></pre></div><p>　</p>
+<h4 id="실전-응용">실전 응용</h4>
+<p><strong>zipWith 함수</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> list1 = listOf(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>)
+    <span style="color:#66d9ef">val</span> list2 = listOf(<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">3</span>)
+
+    <span style="color:#66d9ef">val</span> add = { p1: Int, p2: Int <span style="color:#f92672">-&gt;</span> p1 + p2 }
+    <span style="color:#66d9ef">val</span> result1 = zipWith(add, list1, list2)
+    println(result1)    <span style="color:#75715e">// [13, 7, 4, 7, 7]
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> max = { p1: Int, p2: Int <span style="color:#f92672">-&gt;</span> max(p1, p2) }
+    <span style="color:#66d9ef">val</span> result2 = zipWith(max, list1, list2)
+    println(result2)    <span style="color:#75715e">// [7, 4, 2, 6, 4]
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> strcat = { p1: String, p2: String <span style="color:#f92672">-&gt;</span> p1 + p2 }
+    <span style="color:#66d9ef">val</span> result3 = zipWith(strcat, listOf(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>), listOf(<span style="color:#e6db74">&#34;c&#34;</span>, <span style="color:#e6db74">&#34;d&#34;</span>))
+    println(result3)    <span style="color:#75715e">// [ac, bd]
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> product = { p1: Int, p2: Int <span style="color:#f92672">-&gt;</span> p1 * p2 }
+    <span style="color:#66d9ef">val</span> result4 = zipWith(product, replicate(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>), (<span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">5</span>).toList())
+    println(result4)    <span style="color:#75715e">// [5, 10, 15]
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">tailrec</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">P1</span>, <span style="color:#a6e22e">P2</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#a6e22e">zipWith</span>(func: (P1, P2) <span style="color:#f92672">-&gt;</span> R, list1: List&lt;P1&gt;, list2: List&lt;P2&gt;, acc: List&lt;R&gt; = listOf()): List&lt;R&gt; = <span style="color:#66d9ef">when</span> {
+    list1.isEmpty() <span style="color:#f92672">||</span> list2.isEmpty() <span style="color:#f92672">-&gt;</span> acc
+    <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> {
+        <span style="color:#66d9ef">val</span> zipList = acc + listOf(func(list1.head(), list2.head()))
+        zipWith(func, list1.tail(), list2.tail(), zipList)
+    }
+}
+</code></pre></div><p><strong>콜백 리스너를 고차 함수로 대체</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> result = <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">CallBack1</span> {
+        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x1: String): CallBack2 {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">CallBack2</span> {
+                <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x2: String): CallBack3 {
+                    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">CallBack3</span> {
+                        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x3: String): CallBack4 {
+                            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">CallBack4</span> {
+                                <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x4: String): CallBack5 {
+                                    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">CallBack5</span> {
+                                        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x5: String): String {
+                                            <span style="color:#66d9ef">return</span> x1 + x2 + x2 + x3 + x4 + x5
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    println(result
+        .callBack(<span style="color:#e6db74">&#34;1&#34;</span>)
+        .callBack(<span style="color:#e6db74">&#34;2&#34;</span>)
+        .callBack(<span style="color:#e6db74">&#34;3&#34;</span>)
+        .callBack(<span style="color:#e6db74">&#34;4&#34;</span>)
+        .callBack(<span style="color:#e6db74">&#34;5&#34;</span>))     <span style="color:#75715e">// 12345
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">CallBack1</span> {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x1: String): CallBack2
+}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">CallBack2</span> {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x2: String): CallBack3
+}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">CallBack3</span> {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x3: String): CallBack4
+}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">CallBack4</span> {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x4: String): CallBack5
+}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">CallBack5</span> {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">callBack</span>(x5: String): String
+}
+</code></pre></div>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/functional-programming/">Functional Programming</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/kotlin/">Kotlin</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%9E%AC%EA%B7%803/" data-tooltip="함수형 프로그래밍 in 코틀린 - 재귀[3]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/01/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%9E%AC%EA%B7%803/" data-tooltip="함수형 프로그래밍 in 코틀린 - 재귀[3]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2022%2F02%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EA%25B3%25A0%25EC%25B0%25A8-%25ED%2595%25A8%25EC%2588%25984%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2022%2F02%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EA%25B3%25A0%25EC%25B0%25A8-%25ED%2595%25A8%25EC%2588%25984%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2022%2F02%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EA%25B3%25A0%25EC%25B0%25A8-%25ED%2595%25A8%25EC%2588%25984%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2022\/02\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984\/';
+          
+            this.page.identifier = '\/2022\/02\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EA%B3%A0%EC%B0%A8-%ED%95%A8%EC%88%984\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </body>
+</html>
+
