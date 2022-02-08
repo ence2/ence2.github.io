@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="abstract : 함수형 언어의 타입 시스템, 구성요소, 재귀적 자료구조 등">
+
+
+<meta property="og:description" content="abstract : 함수형 언어의 타입 시스템, 구성요소, 재귀적 자료구조 등">
+<meta property="og:type" content="article">
+<meta property="og:title" content="함수형 프로그래밍 in 코틀린 - 함수형 타입 시스템[6]">
+<meta name="twitter:title" content="함수형 프로그래밍 in 코틀린 - 함수형 타입 시스템[6]">
+<meta property="og:url" content="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6/">
+<meta property="twitter:url" content="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="abstract : 함수형 언어의 타입 시스템, 구성요소, 재귀적 자료구조 등">
+<meta name="twitter:description" content="abstract : 함수형 언어의 타입 시스템, 구성요소, 재귀적 자료구조 등">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2022-02-08T20:23:00">
+  
+  
+    <meta property="article:modified_time" content="2022-02-08T20:23:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Common">
+    
+      <meta property="article:section" content="FunctionalProgramming">
+    
+  
+  
+    
+      <meta property="article:tag" content="Functional Programming">
+    
+      <meta property="article:tag" content="Kotlin">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>함수형 프로그래밍 in 코틀린 - 함수형 타입 시스템[6]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      함수형 프로그래밍 in 코틀린 - 함수형 타입 시스템[6]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2022-02-08T20:23:00&#43;09:00">
+        
+  February 8, 2022
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/functionalprogramming">FunctionalProgramming</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>abstract : 함수형 언어의 타입 시스템, 구성요소, 재귀적 자료구조 등</p>
+<h4 id="함수형-언어의-정적-타입-시스템">함수형 언어의 정적 타입 시스템</h4>
+<p>정적 타입 시스템의 컴파일러는 컴파일 전 코드에 대해 많은 것을 알고 있고 이러한 정보를 이용해 리플렉션, 타입 추론과 같은 고도화 된 기능을 제공할 수 있음</p>
+<p>함수형 언어에서는 객체뿐 아니라 표현식도 타입으로 취급함</p>
+<p>　</p>
+<h4 id="곱-타입과-한계">곱 타입과 한계</h4>
+<p>곱 타입은 하나의 자료구조에 여러 타입을 한번에 정의 하는 것(ex 튜플, 레코드)
+두 개 이상의 타입을 AND로 결합한 형태이며 대부분의 언어에서 사용됨</p>
+<p><strong>코틀린으로 구현한 레코드의 예</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span>(<span style="color:#66d9ef">val</span> name: String, <span style="color:#66d9ef">val</span> x: Float, <span style="color:#66d9ef">val</span> y: Float)
+</code></pre></div><p><strong>곱 타입의 한계</strong></p>
+<p>AND로 자료구조간 계층 구조를 표현하려면 상속을 사용해야 하는데, 신규 계층이 추가 될 때 복잡성이 증가하고 else에 대한 처리를 반드시 해야 함</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">var</span> toggle: Boolean = <span style="color:#66d9ef">false</span>
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+
+    toggle = <span style="color:#66d9ef">true</span>
+    toggle = <span style="color:#66d9ef">false</span>
+
+    caseLanguageEnum(Language.KOTLIN)
+}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">LanguageInterface</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Java</span> : LanguageInterface
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Kotlin</span> : LanguageInterface
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Scala</span> : LanguageInterface
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Haskell</span> : LanguageInterface
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">caseLanguageInterface</span>(language: LanguageInterface) = <span style="color:#66d9ef">when</span> (language) {
+    <span style="color:#66d9ef">is</span> Java <span style="color:#f92672">-&gt;</span> {
+        <span style="color:#75715e">// doSomething
+</span><span style="color:#75715e"></span>    }
+    <span style="color:#66d9ef">is</span> Kotlin <span style="color:#f92672">-&gt;</span> {
+        <span style="color:#75715e">// doSomething
+</span><span style="color:#75715e"></span>    }
+    <span style="color:#66d9ef">is</span> Scala <span style="color:#f92672">-&gt;</span> {
+        <span style="color:#75715e">// doSomething
+</span><span style="color:#75715e"></span>    }
+    <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> {
+        <span style="color:#66d9ef">throw</span> IllegalArgumentException(<span style="color:#e6db74">&#34;invalid type : </span><span style="color:#e6db74">$language</span><span style="color:#e6db74">&#34;</span>)
+    }
+}
+
+</code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h4 id="합-타입을-사용한-or-결합">합 타입을 사용한 OR 결합</h4>
+<p>합 타입은 곱 타입과 달리 두 개 이상의 타입을 OR로 결합한다.
+코틀린은 sealed class를 사용해서 합 타입을 만듬</p>
+<p>함수형 프로그래밍에서는 패턴 매칭이 쉽고, 타입의 사이드이펙트(else 처리)를 신경 쓰지 않아도 됨(이는 컴파일 타임에 실수를 미리 예방 할 수 있게 됨)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">var</span> toggle: Boolean = <span style="color:#66d9ef">false</span>
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+
+    toggle = <span style="color:#66d9ef">true</span>
+    toggle = <span style="color:#66d9ef">false</span>
+
+    caseLanguageEnum(Language.KOTLIN)
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">caseLanguageEnum</span>(language: Language) = <span style="color:#66d9ef">when</span> (language) {
+    Language.JAVA <span style="color:#f92672">-&gt;</span> {
+        <span style="color:#75715e">// doSomething
+</span><span style="color:#75715e"></span>    }
+    Language.KOTLIN <span style="color:#f92672">-&gt;</span> {
+        <span style="color:#75715e">// doSomething
+</span><span style="color:#75715e"></span>    }
+    Language.SCALA <span style="color:#f92672">-&gt;</span> {
+        <span style="color:#75715e">// doSomething
+</span><span style="color:#75715e"></span>    }
+    Language.HASKELL <span style="color:#f92672">-&gt;</span> {
+        <span style="color:#75715e">// doSomething
+</span><span style="color:#75715e"></span>    }
+}
+
+<span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Language</span> {
+    JAVA, KOTLIN, SCALA, HASKELL
+}
+</code></pre></div><p>　</p>
+<h4 id="타입의-구성요소">타입의 구성요소</h4>
+<p><strong>타입 변수</strong></p>
+<p>C++의 템플릿 T와 동치</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">head</span>(list: List&lt;T&gt;): T = list.first()
+</code></pre></div><p>타입 변수를 갖는 함수를 다형 함수(polymorphic function)라 함</p>
+<p><strong>값 생성자</strong></p>
+<p>타입의 값을 반환하는 것</p>
+<p><strong>타입 생성자, 타입 매개변수</strong></p>
+<p>새로운 타입을 생성하기 위해 매개변수화 된 타입을 전달 받는 것</p>
+<h4 id="인터페이스interface-vs-트레이트trait-vs-추상-클래스abstract-class-vs-믹스인mixin">인터페이스(interface) vs 트레이트(trait) vs 추상 클래스(abstract class) vs 믹스인(mixin)</h4>
+<p><strong>인터페이스</strong>
+객체지향 프로그래밍에서 인터페이스는 클래스의 기능 명세</p>
+<p><strong>트레이트</strong>
+인터페이스와 유사하지만, 구현부를 포함한 메서드를 정의 할 수 있음(코틀린의 interface는 trait임)</p>
+<p><strong>추상 클래스</strong>
+상속 관계에서의 추상적인 객체를 모델링 하기 위해 사용, 다중 상속 불가</p>
+<p><strong>믹스인</strong>
+클래스들 간에 어떤 프로퍼티나 메서드를 결합하는 것으로, 재사용성이 높고 유연하며 다중 상속에서 발생하는 모호성을 해결 할 수 있음</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Developer</span> {
+    <span style="color:#66d9ef">val</span> language: String
+
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">writeCode</span>() {
+        println(<span style="color:#e6db74">&#34;write </span><span style="color:#e6db74">$language</span><span style="color:#e6db74">&#34;</span>)
+    }
+}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Backend</span> : Developer {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">operateEnvironment</span>(): String {
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;operateEnvironment&#34;</span>
+    }
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">val</span> language: String
+        <span style="color:#66d9ef">get</span>() = <span style="color:#e6db74">&#34;Haskell&#34;</span>
+}
+
+<span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Frontend</span> : Developer {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">drawUI</span>(): String {
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;drawUI&#34;</span>
+    }
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">val</span> language: String
+        <span style="color:#66d9ef">get</span>() = <span style="color:#e6db74">&#34;Elm&#34;</span>
+}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FullStack</span> : Frontend, Backend {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">val</span> language: String
+        <span style="color:#66d9ef">get</span>() = <span style="color:#66d9ef">super</span>&lt;Frontend&gt;.language + <span style="color:#66d9ef">super</span>&lt;Backend&gt;.language
+}
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> frontend = <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">Frontend</span> {}
+    <span style="color:#66d9ef">val</span> backend = <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">Backend</span> {}
+
+    frontend.writeCode()    <span style="color:#75715e">// write Elm
+</span><span style="color:#75715e"></span>    backend.writeCode()     <span style="color:#75715e">// write Haskell
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> fullStack = FullStack()
+
+    fullStack.writeCode()  <span style="color:#75715e">// write ElmHaskell
+</span><span style="color:#75715e"></span>    println(fullStack.drawUI())     <span style="color:#75715e">// drawUI
+</span><span style="color:#75715e"></span>    println(fullStack.operateEnvironment()) <span style="color:#75715e">// operateEnvironment
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>　</p>
+<h4 id="타입-클래스-타입-클래스의-인스턴스">타입 클래스, 타입 클래스의 인스턴스</h4>
+<p>하스켈에서 타입의 행위를 선언하는 방법을 타입 클래스라 함
+객체지향의 클래스와 유사한 이름이나 다른 것이며 코틀린의 인터페이스와 유사함</p>
+<ul>
+<li>행위에 대한 선언</li>
+<li>필요시, 행위의 구현부도 포함 가능</li>
+</ul>
+<p>타입 클래스와 코틀린의 인터페이스는 다르지만 아래에서 코틀린의 인터페이스를 타입 클래스와 유사한 방법으로 사용할 것임</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Eq</span>&lt;<span style="color:#66d9ef">in</span> T&gt; {
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">equal</span>(other: T): Boolean = <span style="color:#66d9ef">this</span> <span style="color:#f92672">==</span> other
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">notEqual</span>(other: T): Boolean = <span style="color:#66d9ef">this</span> <span style="color:#f92672">!=</span> other
+}
+
+<span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TrafficLight</span>: Eq&lt;TrafficLight&gt;, Print
+<span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Red</span>: TrafficLight() {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">print</span>() = print(<span style="color:#e6db74">&#34;Red&#34;</span>)
+}
+<span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Yellow</span>: TrafficLight() {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">print</span>() = print(<span style="color:#e6db74">&#34;Yellow&#34;</span>)
+}
+<span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Green</span>: TrafficLight() {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">print</span>() = print(<span style="color:#e6db74">&#34;Green&#34;</span>)
+}
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    println(Red.equal(Yellow))     <span style="color:#75715e">// false
+</span><span style="color:#75715e"></span>    println(Red.notEqual(Yellow))  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>
+    Red.print()     <span style="color:#75715e">// Red
+</span><span style="color:#75715e"></span>    Yellow.print()  <span style="color:#75715e">// Yellow
+</span><span style="color:#75715e"></span>    Green.print()   <span style="color:#75715e">// Green
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>　</p>
+<h4 id="재귀적-자료구조">재귀적 자료구조</h4>
+<p>sealed class를 사용해 대수적 데이터 타입을 만들어 활용하면, 재귀적 자료구조를 만들 수 있다
+앞서 살펴본 FunList가 재귀적 자료구조의 대표적인 예임</p>
+<p>대수적 데이터타입에서 구성하는 값 생성자의 필드에 자기 자신을 포함하는 구조를 재귀적인 자료구조라 함</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> reversed = reverse(Cons(<span style="color:#ae81ff">1</span>, Cons(<span style="color:#ae81ff">2</span>, Cons(<span style="color:#ae81ff">3</span>, Nil))), Nil)
+    printFunList(reversed)
+}
+
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">reverse</span>(list: FunList&lt;T&gt;, acc: FunList&lt;T&gt;): FunList&lt;T&gt; = <span style="color:#66d9ef">when</span> (list) {
+    Nil <span style="color:#f92672">-&gt;</span> acc
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> reverse(list.tail, acc.addHead(list.head))
+}
+</code></pre></div>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/functional-programming/">Functional Programming</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/kotlin/">Kotlin</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9C%BC%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%8B%A4%EB%A3%A8%EA%B8%B05/" data-tooltip="함수형 프로그래밍 in 코틀린 - 컬렉션으로 데이터 다루기[5]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9C%BC%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%8B%A4%EB%A3%A8%EA%B8%B05/" data-tooltip="함수형 프로그래밍 in 코틀린 - 컬렉션으로 데이터 다루기[5]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2022%2F02%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2583%2580%25EC%259E%2585-%25EC%258B%259C%25EC%258A%25A4%25ED%2585%259C6%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2022%2F02%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2583%2580%25EC%259E%2585-%25EC%258B%259C%25EC%258A%25A4%25ED%2585%259C6%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2022%2F02%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2583%2580%25EC%259E%2585-%25EC%258B%259C%25EC%258A%25A4%25ED%2585%259C6%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2022\/02\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6\/';
+          
+            this.page.identifier = '\/2022\/02\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%ED%95%A8%EC%88%98%ED%98%95-%ED%83%80%EC%9E%85-%EC%8B%9C%EC%8A%A4%ED%85%9C6\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </body>
+</html>
+
