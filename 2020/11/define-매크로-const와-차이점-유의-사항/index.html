@@ -8,29 +8,41 @@
 <meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Developing life">
 <meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
-<meta name="description" content="upper_bound
-컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.">
+<meta name="description" content="#define 상수
+#define 상수명 값
+#define 지시문 (매크로 함수)
+#define 식별자(인수1, 인수2 ...) 토큰열
+">
 
 
-<meta property="og:description" content="upper_bound
-컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.">
+<meta property="og:description" content="#define 상수
+#define 상수명 값
+#define 지시문 (매크로 함수)
+#define 식별자(인수1, 인수2 ...) 토큰열
+">
 <meta property="og:type" content="article">
-<meta property="og:title" content="std upper_bound">
-<meta name="twitter:title" content="std upper_bound">
-<meta property="og:url" content="https://ence2.github.io/2020/11/std-upper_bound/">
-<meta property="twitter:url" content="https://ence2.github.io/2020/11/std-upper_bound/">
+<meta property="og:title" content="define 매크로, const와 차이점, 유의 사항">
+<meta name="twitter:title" content="define 매크로, const와 차이점, 유의 사항">
+<meta property="og:url" content="https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
+<meta property="twitter:url" content="https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
 <meta property="og:site_name" content="Keep calm carry on">
-<meta property="og:description" content="upper_bound
-컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.">
-<meta name="twitter:description" content="upper_bound
-컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.">
+<meta property="og:description" content="#define 상수
+#define 상수명 값
+#define 지시문 (매크로 함수)
+#define 식별자(인수1, 인수2 ...) 토큰열
+">
+<meta name="twitter:description" content="#define 상수
+#define 상수명 값
+#define 지시문 (매크로 함수)
+#define 식별자(인수1, 인수2 ...) 토큰열
+">
 <meta property="og:locale" content="en-us">
 
   
-    <meta property="article:published_time" content="2020-11-08T23:22:20">
+    <meta property="article:published_time" content="2020-11-08T23:10:09">
   
   
-    <meta property="article:modified_time" content="2020-11-08T23:22:20">
+    <meta property="article:modified_time" content="2020-11-08T23:10:09">
   
   
   
@@ -42,9 +54,7 @@
   
   
     
-      <meta property="article:tag" content="c&#43;&#43;">
-    
-      <meta property="article:tag" content="std">
+      <meta property="article:tag" content="C&#43;&#43;">
     
   
 
@@ -65,14 +75,14 @@
   <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
 
 
-    <title>std upper_bound</title>
+    <title>define 매크로, const와 차이점, 유의 사항</title>
 
     <link rel="icon" href="https://ence2.github.io/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://ence2.github.io/2020/11/std-upper_bound/">
+    <link rel="canonical" href="https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -226,13 +236,13 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      std upper_bound
+      define 매크로, const와 차이점, 유의 사항
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-11-08T23:22:20&#43;09:00">
+      <time itemprop="datePublished" datetime="2020-11-08T23:10:09&#43;09:00">
         
   November 8, 2020
 
@@ -255,12 +265,11 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <h3 id="upper_bound">upper_bound</h3>
-<p>컨테이너에서 지정된 키보다 큰 값을 가진 키가 포함된 첫 번째 요소에 대한 it를 반환합니다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">iterator <span style="color:#a6e22e">upper_bound</span>(<span style="color:#66d9ef">const</span> Key<span style="color:#f92672">&amp;</span> key);
-
-const_iterator <span style="color:#a6e22e">upper_bound</span>(<span style="color:#66d9ef">const</span> Key<span style="color:#f92672">&amp;</span> key) <span style="color:#66d9ef">const</span>;
-</code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+              <h3 id="define-상수">#define 상수</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define 상수명 값
+</span></code></pre></div><h3 id="define-지시문-매크로-함수">#define 지시문 (매크로 함수)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#define 식별자(인수1, 인수2 ...) 토큰열
+</span></code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -271,20 +280,13 @@ const_iterator <span style="color:#a6e22e">upper_bound</span>(<span style="color
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-<h3 id="반환-값">반환 값</h3>
-<p><code>iterator</code> <code>const_iterator</code> 인수 키 보다 큰 키를 사용 하 여 map에서 요소 위치의 주소를 가져오거나, 해당 <code>map</code> 키와 일치 하는 항목이 없는 경우에서 마지막 요소 다음 위치의 주소를 나타냅니다.</p>
-<h3 id="example">Example</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">mymap[<span style="color:#e6db74">&#39;a&#39;</span>]<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>;
-mymap[<span style="color:#e6db74">&#39;b&#39;</span>]<span style="color:#f92672">=</span><span style="color:#ae81ff">40</span>;
-mymap[<span style="color:#e6db74">&#39;c&#39;</span>]<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>;
-mymap[<span style="color:#e6db74">&#39;d&#39;</span>]<span style="color:#f92672">=</span><span style="color:#ae81ff">80</span>;
-mymap[<span style="color:#e6db74">&#39;e&#39;</span>]<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>;
-
-itlow <span style="color:#f92672">=</span> mymap.lower_bound (<span style="color:#e6db74">&#39;b&#39;</span>);
-itup  <span style="color:#f92672">=</span> mymap.upper_bound (<span style="color:#e6db74">&#39;d&#39;</span>);
-</code></pre></div><blockquote>
-<p>위 코드의 경우 itlow는 b를 itup은 e를 가르키는 iterator가 된다.</p>
-</blockquote>
+<h3 id="const와-define의-차이점">const와 define의 차이점</h3>
+<p>#define은 선언을 할때에 type형을 기록하지 않고 const는 type 형을 기록합니다. 따라서 const의 변수형을 지정할 수 있다는 점 때문에 #define 보다 더 안전합니다. #define만이 할 수 있는 작업환경이 아니라면 const 사용이 권장됩니다.</p>
+<h3 id="유의-사항">유의 사항</h3>
+<ul>
+<li>#define은 끝에 세미콜론(;)을 붙이면 안된다는 점을 유의해야 합니다.</li>
+<li>여러줄로 코딩하기 위해선 매줄 끝에 \를 붙혀줘야 합니다.</li>
+</ul>
               
             </div>
           </div>
@@ -296,9 +298,7 @@ itup  <span style="color:#f92672">=</span> mymap.upper_bound (<span style="color
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;/">c&#43;&#43;</a>
-
-  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/std/">std</a>
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
 
                   </div>
                 
@@ -311,7 +311,7 @@ itup  <span style="color:#f92672">=</span> mymap.upper_bound (<span style="color
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/" data-tooltip="Boost Future의 continuations(연속 연결)">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/std-upper_bound/" data-tooltip="std upper_bound">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -319,7 +319,7 @@ itup  <span style="color:#f92672">=</span> mymap.upper_bound (<span style="color
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/" data-tooltip="define 매크로, const와 차이점, 유의 사항">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" data-tooltip="hpp 파일은 무엇인가?">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -337,19 +337,19 @@ itup  <span style="color:#f92672">=</span> mymap.upper_bound (<span style="color
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/std-upper_bound/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/std-upper_bound/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/std-upper_bound/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -397,7 +397,7 @@ itup  <span style="color:#f92672">=</span> mymap.upper_bound (<span style="color
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/boost-future%EC%9D%98-continuations%EC%97%B0%EC%86%8D-%EC%97%B0%EA%B2%B0/" data-tooltip="Boost Future의 continuations(연속 연결)">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/std-upper_bound/" data-tooltip="std upper_bound">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -405,7 +405,7 @@ itup  <span style="color:#f92672">=</span> mymap.upper_bound (<span style="color
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/" data-tooltip="define 매크로, const와 차이점, 유의 사항">
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2020/11/hpp-%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" data-tooltip="hpp 파일은 무엇인가?">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -423,19 +423,19 @@ itup  <span style="color:#f92672">=</span> mymap.upper_bound (<span style="color
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/std-upper_bound/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/std-upper_bound/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/std-upper_bound/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2020/11/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -465,19 +465,19 @@ itup  <span style="color:#f92672">=</span> mymap.upper_bound (<span style="color
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fstd-upper_bound%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fdefine-%25EB%25A7%25A4%25ED%2581%25AC%25EB%25A1%259C-const%25EC%2599%2580-%25EC%25B0%25A8%25EC%259D%25B4%25EC%25A0%2590-%25EC%259C%25A0%25EC%259D%2598-%25EC%2582%25AC%25ED%2595%25AD%2F">
           <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fstd-upper_bound%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fdefine-%25EB%25A7%25A4%25ED%2581%25AC%25EB%25A1%259C-const%25EC%2599%2580-%25EC%25B0%25A8%25EC%259D%25B4%25EC%25A0%2590-%25EC%259C%25A0%25EC%259D%2598-%25EC%2582%25AC%25ED%2595%25AD%2F">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fstd-upper_bound%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2020%2F11%2Fdefine-%25EB%25A7%25A4%25ED%2581%25AC%25EB%25A1%259C-const%25EC%2599%2580-%25EC%25B0%25A8%25EC%259D%25B4%25EC%25A0%2590-%25EC%259C%25A0%25EC%259D%2598-%25EC%2582%25AC%25ED%2595%25AD%2F">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -569,9 +569,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/std-upper_bound\/';
+          this.page.url = 'https:\/\/ence2.github.io\/2020\/11\/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD\/';
           
-            this.page.identifier = '\/2020\/11\/std-upper_bound\/'
+            this.page.identifier = '\/2020\/11\/define-%EB%A7%A4%ED%81%AC%EB%A1%9C-const%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%A0%90-%EC%9C%A0%EC%9D%98-%EC%82%AC%ED%95%AD\/'
           
         };
         (function() {

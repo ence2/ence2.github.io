@@ -8,47 +8,47 @@
     <language>ko-kr</language>
     <lastBuildDate>Mon, 14 Jun 2021 11:00:00 +0900</lastBuildDate><atom:link href="https://ence2.github.io/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>C# 중급 - FRAMEWORK[5]</title>
-      <link>https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/</link>
+      <title>Csharp 씨샵 중급 - FRAMEWORK[5]</title>
+      <link>https://ence2.github.io/2021/06/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-framework5/</link>
       <pubDate>Mon, 14 Jun 2021 11:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-framework5/</guid>
+      <guid>https://ence2.github.io/2021/06/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-framework5/</guid>
       <description>&lt;p&gt;이번 시간에는 Stream / Decorator / Adapter / MISC에 대해 알아보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>C# 중급 - Concurrency[4]</title>
-      <link>https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-concurrency4/</link>
+      <title>Csharp 씨샵 중급 - Concurrency[4]</title>
+      <link>https://ence2.github.io/2021/06/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-concurrency4/</link>
       <pubDate>Sat, 12 Jun 2021 11:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-concurrency4/</guid>
+      <guid>https://ence2.github.io/2021/06/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-concurrency4/</guid>
       <description>&lt;p&gt;C#의 Thread, Task, Async에 대해 알아보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>C# 중급 - 최신 문법[3]</title>
-      <link>https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-%EC%B5%9C%EC%8B%A0-%EB%AC%B8%EB%B2%953/</link>
+      <title>Csharp 씨샵 중급 - 최신 문법[3]</title>
+      <link>https://ence2.github.io/2021/06/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-%EC%B5%9C%EC%8B%A0-%EB%AC%B8%EB%B2%953/</link>
       <pubDate>Sat, 12 Jun 2021 09:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-%EC%B5%9C%EC%8B%A0-%EB%AC%B8%EB%B2%953/</guid>
+      <guid>https://ence2.github.io/2021/06/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-%EC%B5%9C%EC%8B%A0-%EB%AC%B8%EB%B2%953/</guid>
       <description>&lt;p&gt;Index와 Range, 패턴 매칭, switch expression, local function, 신규 C# 문법 등에 대해 살펴보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>C# 중급 - C#의 원리[2]</title>
-      <link>https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-c%23%EC%9D%98-%EC%9B%90%EB%A6%AC2/</link>
+      <title>Csharp 씨샵 중급 - Csharp의 원리[2]</title>
+      <link>https://ence2.github.io/2021/06/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-csharp%EC%9D%98-%EC%9B%90%EB%A6%AC2/</link>
       <pubDate>Mon, 07 Jun 2021 09:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/06/c#-%EC%A4%91%EA%B8%89-c%23%EC%9D%98-%EC%9B%90%EB%A6%AC2/</guid>
+      <guid>https://ence2.github.io/2021/06/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-csharp%EC%9D%98-%EC%9B%90%EB%A6%AC2/</guid>
       <description>&lt;p&gt;이번 시간에는 IL과 C#의 원리, Constructor에 대해 알아보겠습니다.&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>C# 중급 - Orientation[1]</title>
-      <link>https://ence2.github.io/2021/05/c#-%EC%A4%91%EA%B8%89-orientation1/</link>
+      <title>Csharp 씨샵 중급 - Orientation[1]</title>
+      <link>https://ence2.github.io/2021/05/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-orientation1/</link>
       <pubDate>Mon, 17 May 2021 09:00:00 +0900</pubDate>
       
-      <guid>https://ence2.github.io/2021/05/c#-%EC%A4%91%EA%B8%89-orientation1/</guid>
+      <guid>https://ence2.github.io/2021/05/csharp-%EC%94%A8%EC%83%B5-%EC%A4%91%EA%B8%89-orientation1/</guid>
       <description>&lt;p&gt;C# 언어와 .Net Framework의 중급 이상의 기술 학습을 진행하는 시리즈 입니다.&lt;/p&gt;</description>
     </item>
     
