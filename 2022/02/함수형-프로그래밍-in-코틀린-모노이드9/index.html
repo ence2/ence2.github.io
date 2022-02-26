@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="abstract : 모노이드 정의, 모노이드 타입 클래스 구현, 모노이드의 법칙 등">
+
+
+<meta property="og:description" content="abstract : 모노이드 정의, 모노이드 타입 클래스 구현, 모노이드의 법칙 등">
+<meta property="og:type" content="article">
+<meta property="og:title" content="함수형 프로그래밍 in 코틀린 - 모노이드[9]">
+<meta name="twitter:title" content="함수형 프로그래밍 in 코틀린 - 모노이드[9]">
+<meta property="og:url" content="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/">
+<meta property="twitter:url" content="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="abstract : 모노이드 정의, 모노이드 타입 클래스 구현, 모노이드의 법칙 등">
+<meta name="twitter:description" content="abstract : 모노이드 정의, 모노이드 타입 클래스 구현, 모노이드의 법칙 등">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2022-02-26T20:42:00">
+  
+  
+    <meta property="article:modified_time" content="2022-02-26T20:42:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Common">
+    
+      <meta property="article:section" content="FunctionalProgramming">
+    
+  
+  
+    
+      <meta property="article:tag" content="Functional Programming">
+    
+      <meta property="article:tag" content="Kotlin">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>함수형 프로그래밍 in 코틀린 - 모노이드[9]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      함수형 프로그래밍 in 코틀린 - 모노이드[9]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2022-02-26T20:42:00&#43;09:00">
+        
+  February 26, 2022
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/functionalprogramming">FunctionalProgramming</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>abstract : 모노이드 정의, 모노이드 타입 클래스 구현, 모노이드의 법칙 등</p>
+<h4 id="모노이드란">모노이드란?</h4>
+<p>모노이드는 연관 바이너리 함수와 항등값을 가진 대수적 타입으로 정의</p>
+<p><strong>연관 바이너리 함수</strong>
+(곱셈, 덧셈, 리스트를 합치는 함수 대상) 두 개의 매개변수와 리턴값의 타입이 동일한 바이너리 함수
+곱셈, 덧셈, 리스트 결합은 결합 법칙을 만족함</p>
+<p>모노이드는 곱셈이나, 덧셈, 리스트 결합하기의 예와 같은 몇 가지 동작을 일반화 할 수 있고 이러한 동작은 함수형 프로그래밍에서 다루는 대부분의 대수적 타입에서 사용된다.</p>
+<p>　</p>
+<h4 id="모노이드-타입-클래스-구현">모노이드 타입 클래스 구현</h4>
+<p><strong>간단한 모노이드 타입 클래스</strong></p>
+<p>memty 함수 : 항등원 리턴
+mappend 함수 : 바이너리 함수 리턴</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Monoid</span>&lt;T&gt; {
+
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mempty</span>(): T
+
+    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mappend</span>(m1: T, m2: T): T
+}
+</code></pre></div><p>두 함수는 모노이드를 반환하는 것이 아니라, 모노이드가 가진 값의 타입을 반환하며 코드 체이닝을 할 수 없음
+체이닝을 가능하도록 처리 하려면 코드가 복잡해지며 대수 타입 이해 학습을 위해 위와 같은 방식으로 사용</p>
+<p><strong>덧셈 타입 모노이드</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> x = <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">val</span> y = <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">val</span> z = <span style="color:#ae81ff">3</span>
+
+    SumMonoid().run {
+        println(mappend(mempty(), x) <span style="color:#f92672">==</span> x)  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>        println(mappend(x, mempty()) <span style="color:#f92672">==</span> x)  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>        println(mappend(mappend(x, y), z) <span style="color:#f92672">==</span> mappend(x, mappend(y, z)))  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>    }
+
+    println(SumMonoid().mconcat(funListOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>)))      <span style="color:#75715e">// 15
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SumMonoid</span> : Monoid&lt;Int&gt; {
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mempty</span>(): Int = <span style="color:#ae81ff">0</span> <span style="color:#75715e">// 덧셈의 항등원은 0
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mappend</span>(m1: Int, m2: Int): Int = m1 + m2
+}
+</code></pre></div><p><strong>곱셈 타입 모노이드</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> x = <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">val</span> y = <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">val</span> z = <span style="color:#ae81ff">3</span>
+
+    ProductMonoid().run {
+        println(mappend(mempty(), x) <span style="color:#f92672">==</span> x)  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>        println(mappend(x, mempty()) <span style="color:#f92672">==</span> x)  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>        println(mappend(mappend(x, y), z) <span style="color:#f92672">==</span> mappend(x, mappend(y, z)))  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>    }
+
+    println(ProductMonoid().mconcat(funListOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>)))      <span style="color:#75715e">// 120
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ProductMonoid</span> : Monoid&lt;Int&gt; {
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mempty</span>(): Int = <span style="color:#ae81ff">1</span>
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mappend</span>(m1: Int, m2: Int): Int = m1 * m2
+}
+</code></pre></div><p><strong>모노이드의 법칙</strong></p>
+<p>모노이드는 항등값과 바이너리 함수를 갖으며, 항등 법칙과 결합법칙을 만족해야 함</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin">mppend(menpty(), x) = x <span style="color:#75715e">// 항등 법칙 만족
+</span><span style="color:#75715e"></span>mppend(x, menpty()) = x <span style="color:#75715e">// 결합 법칙 만족
+</span><span style="color:#75715e"></span>mappend(mappend(x, y), z) = mappend(x, mappend(y, z))
+</code></pre></div><p><strong>mconcat 함수 만들기</strong></p>
+<p>입력 받은 리스트 요소를 하나의 값으로 출력하는 함수</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">Monoid</span>&lt;T&gt;.mconcat(list: FunList&lt;T&gt;): T = list.foldRight(mempty(), <span style="color:#f92672">::</span>mappend)
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;){
+    prinln(ProductMonoid().mconcat(funListOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>))) <span style="color:#75715e">// 120
+</span><span style="color:#75715e"></span>    prinln(SumMonoid().mconcat(funListOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>))) <span style="color:#75715e">// 15
+</span><span style="color:#75715e"></span>}
+</code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h4 id="메이비-모노이드-만들기">메이비 모노이드 만들기</h4>
+<p>메이비 모노이드는 실패 할 수 있는 연산의 결과를 모노이드로 처리 할 때 사용된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> x = Just(<span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">val</span> y = Just(<span style="color:#ae81ff">2</span>)
+    <span style="color:#66d9ef">val</span> z = Just(<span style="color:#ae81ff">3</span>)
+
+    MaybeMonoid.monoid(ProductMonoid()).run {
+        println(mappend(mempty(), x) <span style="color:#f92672">==</span> x)  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>        println(mappend(x, mempty()) <span style="color:#f92672">==</span> x)  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>        println(mappend(mappend(x, y), z) <span style="color:#f92672">==</span> mappend(x, mappend(y, z)))  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>    }
+
+    MaybeMonoid.monoid(SumMonoid()).run {
+        println(mappend(mempty(), x) <span style="color:#f92672">==</span> x)  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>        println(mappend(x, mempty()) <span style="color:#f92672">==</span> x)  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>        println(mappend(mappend(x, y), z) <span style="color:#f92672">==</span> mappend(x, mappend(y, z)))  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>    }
+}
+
+<span style="color:#66d9ef">object</span> <span style="color:#a6e22e">MaybeMonoid</span> {
+
+    <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">monoid</span>(inValue: Monoid&lt;T&gt;) = <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">Monoid</span>&lt;Maybe&lt;T&gt;&gt; {
+
+        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mempty</span>(): Maybe&lt;T&gt; = Nothing
+
+        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mappend</span>(m1: Maybe&lt;T&gt;, m2: Maybe&lt;T&gt;): Maybe&lt;T&gt; = <span style="color:#66d9ef">when</span> {
+            m1 <span style="color:#66d9ef">is</span> Nothing <span style="color:#f92672">-&gt;</span> m2
+            m2 <span style="color:#66d9ef">is</span> Nothing <span style="color:#f92672">-&gt;</span> m1
+            m1 <span style="color:#66d9ef">is</span> Just <span style="color:#f92672">&amp;&amp;</span> m2 <span style="color:#66d9ef">is</span> Just <span style="color:#f92672">-&gt;</span> Just(inValue.mappend(m1.value, m2.value))
+            <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> Nothing
+        }
+    }
+}
+
+<span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Maybe</span>&lt;<span style="color:#66d9ef">out</span> T&gt;
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Just</span>&lt;T&gt;(<span style="color:#66d9ef">val</span> value: T) : Maybe&lt;T&gt;()
+<span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Nothing</span> : Maybe&lt;kotlin.Nothing&gt;()
+</code></pre></div><p>　</p>
+<h4 id="모노이드를-통한-폴더블-이진-트리">모노이드를 통한 폴더블 이진 트리</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> tree = Node(<span style="color:#ae81ff">1</span>,
+            Node(<span style="color:#ae81ff">2</span>,
+                    Node(<span style="color:#ae81ff">3</span>), Node(<span style="color:#ae81ff">4</span>)),
+            Node(<span style="color:#ae81ff">5</span>,
+                    Node(<span style="color:#ae81ff">6</span>), Node(<span style="color:#ae81ff">7</span>)))
+
+    println(tree.foldLeft(<span style="color:#ae81ff">0</span>) { a, b <span style="color:#f92672">-&gt;</span> a + b })    <span style="color:#75715e">// 28
+</span><span style="color:#75715e"></span>    println(tree.foldLeft(<span style="color:#ae81ff">1</span>) { a, b <span style="color:#f92672">-&gt;</span> a * b })    <span style="color:#75715e">// 5040
+</span><span style="color:#75715e"></span>
+    println(tree.foldMap({ a <span style="color:#f92672">-&gt;</span> a * <span style="color:#ae81ff">2</span> }, SumMonoid()))  <span style="color:#75715e">// 56
+</span><span style="color:#75715e"></span>    println(tree.foldMap({ a <span style="color:#f92672">-&gt;</span> a + <span style="color:#ae81ff">1</span> }, ProductMonoid()))  <span style="color:#75715e">// 40320
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BinaryTree</span>&lt;<span style="color:#66d9ef">out</span> A&gt; : Foldable&lt;A&gt; {
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">foldLeft</span>(acc: B, f: (B, A) <span style="color:#f92672">-&gt;</span> B): B = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+        <span style="color:#66d9ef">is</span> EmptyTree <span style="color:#f92672">-&gt;</span> acc
+        <span style="color:#66d9ef">is</span> Node <span style="color:#f92672">-&gt;</span> {
+            <span style="color:#66d9ef">val</span> leftAcc = leftTree.foldLeft(acc, f)
+            <span style="color:#66d9ef">val</span> rootAcc = f(leftAcc, value)
+            rightTree.foldLeft(rootAcc, f)
+        }
+    }
+}
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Node</span>&lt;A&gt;(<span style="color:#66d9ef">val</span> value: A, <span style="color:#66d9ef">val</span> leftTree: BinaryTree&lt;A&gt; = EmptyTree, <span style="color:#66d9ef">val</span> rightTree: BinaryTree&lt;A&gt; = EmptyTree) : BinaryTree&lt;A&gt;()
+<span style="color:#66d9ef">object</span> <span style="color:#a6e22e">EmptyTree</span> : BinaryTree&lt;kotlin.Nothing&gt;()
+</code></pre></div>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/functional-programming/">Functional Programming</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/kotlin/">Kotlin</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%ED%8B%B0%EB%B8%8C-%ED%8E%91%ED%84%B08/" data-tooltip="함수형 프로그래밍 in 코틀린 - 애플리케이티브 펑터[8]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%ED%8B%B0%EB%B8%8C-%ED%8E%91%ED%84%B08/" data-tooltip="함수형 프로그래밍 in 코틀린 - 애플리케이티브 펑터[8]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2022%2F02%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25AA%25A8%25EB%2585%25B8%25EC%259D%25B4%25EB%2593%259C9%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2022%2F02%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25AA%25A8%25EB%2585%25B8%25EC%259D%25B4%25EB%2593%259C9%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2022%2F02%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25AA%25A8%25EB%2585%25B8%25EC%259D%25B4%25EB%2593%259C9%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2022\/02\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9\/';
+          
+            this.page.identifier = '\/2022\/02\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </body>
+</html>
+
