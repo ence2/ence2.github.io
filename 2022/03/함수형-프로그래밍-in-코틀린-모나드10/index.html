@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="abstract : 모나드 정의, 모나드 타입 클래스 구현, 모나드의 법칙 등">
+
+
+<meta property="og:description" content="abstract : 모나드 정의, 모나드 타입 클래스 구현, 모나드의 법칙 등">
+<meta property="og:type" content="article">
+<meta property="og:title" content="함수형 프로그래밍 in 코틀린 - 모나드[10]">
+<meta name="twitter:title" content="함수형 프로그래밍 in 코틀린 - 모나드[10]">
+<meta property="og:url" content="https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/">
+<meta property="twitter:url" content="https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="abstract : 모나드 정의, 모나드 타입 클래스 구현, 모나드의 법칙 등">
+<meta name="twitter:description" content="abstract : 모나드 정의, 모나드 타입 클래스 구현, 모나드의 법칙 등">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2022-03-01T18:54:00">
+  
+  
+    <meta property="article:modified_time" content="2022-03-01T18:54:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Common">
+    
+      <meta property="article:section" content="FunctionalProgramming">
+    
+  
+  
+    
+      <meta property="article:tag" content="Functional Programming">
+    
+      <meta property="article:tag" content="Kotlin">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>함수형 프로그래밍 in 코틀린 - 모나드[10]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      함수형 프로그래밍 in 코틀린 - 모나드[10]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2022-03-01T18:54:00&#43;09:00">
+        
+  March 1, 2022
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/functionalprogramming">FunctionalProgramming</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>abstract : 모나드 정의, 모나드 타입 클래스 구현, 모나드의 법칙 등</p>
+<h4 id="모나드-타입-클래스">모나드 타입 클래스</h4>
+<p>펑터는 어떤 컨텍스트 내의 값을 변경 할 때 사용된다. 펑터 타입 클래스를 사용해서 다양한 타입에서 fmap 함수를 적용 할 수 있었다. 또한 애플리케이티브 펑터는 apply 함수를 구현하여 컨텍스트 안에 있는 함수를 다룰 수 있다.
+그러나 <strong>어떤 값이 포함된 컨텍스트를 일반적인 값을 받아서 컨텍스트를 반환하는 함수의 입력으로 넣으려면</strong> 다른 방법이 필요하다.</p>
+<p>모나드는 펑터이자 애플리케이티브 펑터다. 추가로 모나드는 flatMap이라는 함수가 추가로 제공된다. 따라서 모나드는 애플리케이티브 펑터의 확장으로 볼 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Monad</span>&lt;<span style="color:#66d9ef">out</span> A&gt; : Functor&lt;A&gt; {
+
+    <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">V</span>&gt; <span style="color:#a6e22e">pure</span>(value: V): Monad&lt;V&gt;
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">fmap</span>(f: (A) <span style="color:#f92672">-&gt;</span> B): Monad&lt;B&gt; = flatMap { a <span style="color:#f92672">-&gt;</span> pure(f(a)) }
+
+    <span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">flatMap</span>(f: (A) <span style="color:#f92672">-&gt;</span> Monad&lt;B&gt;): Monad&lt;B&gt;
+
+    <span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">leadTo</span>(m: Monad&lt;B&gt;): Monad&lt;B&gt; = flatMap { m }
+}
+</code></pre></div><p>flatMap 함수는 Monad<!-- raw HTML omitted -->를 (A) -&gt; Monad<!-- raw HTML omitted --> 함수에 적용해서 Monad<!-- raw HTML omitted -->를 반환 한다. (입력받은 Monad<!-- raw HTML omitted -->에서 A를 꺼내서 (A) -&gt; Monad<!-- raw HTML omitted --> 함수로 입력한 결과 Monad<!-- raw HTML omitted -->를 반환한다.)</p>
+<p>이와 같은 동작은 모나드 컨텍스트에 있는 값을 일반값처럼 다룰 수 있게 한다.</p>
+<p>flatMap 함수의 또 다른 기능으로는 중첩된 컨텍스트를 하나의 컨텍스트로 펼쳐서 매핑하는 것이다.
+그러나 중첩을 펼치는 것은 flatMap 함수의 한가지 기능일 뿐, 모나드를 더 깊게 이해하고 활용하려면 flatMap 함수는 <strong>컨텍스트에 값을 마치 일반 값처럼 다룰 수 있게 해준다</strong>는 것을 명심하자.</p>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h4 id="메이비-모나드">메이비 모나드</h4>
+<p>옵셔널 개념을 적용한 모나드</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// fmap test
+</span><span style="color:#75715e"></span>    println(Just(<span style="color:#ae81ff">10</span>).fmap { <span style="color:#66d9ef">it</span> + <span style="color:#ae81ff">10</span> })   <span style="color:#75715e">// Just(20)
+</span><span style="color:#75715e"></span>    println(Nothing.fmap { x: Int <span style="color:#f92672">-&gt;</span> x + <span style="color:#ae81ff">10</span> })  <span style="color:#75715e">// Nothing
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// pure test
+</span><span style="color:#75715e"></span>    println(Maybe.pure(<span style="color:#ae81ff">10</span>))  <span style="color:#75715e">// Just(10)
+</span><span style="color:#75715e"></span>    println(Maybe.pure { x: Int <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> })  <span style="color:#75715e">// Just((kotlin.Int) -&gt; kotlin.Int)
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// apply test
+</span><span style="color:#75715e"></span>    println(Maybe.pure { x: Int <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> } apply Just(<span style="color:#ae81ff">10</span>))  <span style="color:#75715e">// Just(20)
+</span><span style="color:#75715e"></span>    println(Maybe.pure { x: Int <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> } apply Nothing)   <span style="color:#75715e">// Nothing
+</span><span style="color:#75715e"></span>    println(Maybe.pure({ x: Int, y: Int <span style="color:#f92672">-&gt;</span> x * y }.curried())
+            apply Just(<span style="color:#ae81ff">10</span>)
+            apply Just(<span style="color:#ae81ff">20</span>)
+    )   <span style="color:#75715e">// Just(200)
+</span><span style="color:#75715e"></span>
+    println(Maybe.pure({ x: Int, y: Int, z: Int <span style="color:#f92672">-&gt;</span> x * y + z }.curried())
+            apply Just(<span style="color:#ae81ff">10</span>)
+            apply Just(<span style="color:#ae81ff">20</span>)
+            apply Just(<span style="color:#ae81ff">30</span>)
+    )   <span style="color:#75715e">// Just(230)
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// leadTo test
+</span><span style="color:#75715e"></span>    println(Just(<span style="color:#ae81ff">10</span>).leadTo(Nothing))   <span style="color:#75715e">// Nothing
+</span><span style="color:#75715e"></span>    println(Nothing.leadTo(Just(<span style="color:#ae81ff">10</span>)))   <span style="color:#75715e">// Nothing
+</span><span style="color:#75715e"></span>    println(Just(<span style="color:#ae81ff">10</span>).leadTo(Just(<span style="color:#ae81ff">20</span>)))   <span style="color:#75715e">// Just(20)
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// flatMap test
+</span><span style="color:#75715e"></span>    println(Just(<span style="color:#ae81ff">10</span>).flatMap { x <span style="color:#f92672">-&gt;</span> Maybe.pure(x * <span style="color:#ae81ff">2</span>) })    <span style="color:#75715e">// Just(20)
+</span><span style="color:#75715e"></span>    println(Nothing.flatMap { x: Int <span style="color:#f92672">-&gt;</span> Maybe.pure(x * <span style="color:#ae81ff">2</span>) })    <span style="color:#75715e">// Nothing
+</span><span style="color:#75715e"></span>    println(Just(Just(<span style="color:#ae81ff">10</span>)).flatMap { m <span style="color:#f92672">-&gt;</span> m.fmap { x <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> } })  <span style="color:#75715e">// Just(20)
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Maybe</span>&lt;<span style="color:#66d9ef">out</span> A&gt; : Monad&lt;A&gt; {
+
+    <span style="color:#66d9ef">companion</span> <span style="color:#66d9ef">object</span> {
+        <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">V</span>&gt; <span style="color:#a6e22e">pure</span>(value: V) : Maybe&lt;V&gt; = Just(<span style="color:#ae81ff">0</span>).pure(value)
+    }
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">V</span>&gt; <span style="color:#a6e22e">pure</span>(value: V): Maybe&lt;V&gt; = Just(value)
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">fmap</span>(f: (A) <span style="color:#f92672">-&gt;</span> B): Maybe&lt;B&gt; = <span style="color:#66d9ef">super</span>.fmap(f) <span style="color:#66d9ef">as</span> Maybe&lt;B&gt;
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">flatMap</span>(f: (A) <span style="color:#f92672">-&gt;</span> Monad&lt;B&gt;): Maybe&lt;B&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+        <span style="color:#66d9ef">is</span> Just <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">try</span> { f(value) <span style="color:#66d9ef">as</span> Maybe&lt;B&gt; } <span style="color:#66d9ef">catch</span> (e: ClassCastException) { Nothing }
+        <span style="color:#66d9ef">is</span> Nothing <span style="color:#f92672">-&gt;</span> Nothing
+    }
+}
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Just</span>&lt;<span style="color:#66d9ef">out</span> A&gt;(<span style="color:#66d9ef">val</span> value: A) : Maybe&lt;A&gt;() {
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">toString</span>(): String = <span style="color:#e6db74">&#34;Just(</span><span style="color:#e6db74">$value</span><span style="color:#e6db74">)&#34;</span>
+}
+
+<span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Nothing</span> : Maybe&lt;kotlin.Nothing&gt;() {
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">toString</span>(): String = <span style="color:#e6db74">&#34;Nothing&#34;</span>
+}
+
+<span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">A</span>, <span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">Maybe</span>&lt;(A) <span style="color:#f92672">-&gt;</span> B&gt;.apply(f: Maybe&lt;A&gt;): Maybe&lt;B&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Just <span style="color:#f92672">-&gt;</span> f.fmap(value)
+    <span style="color:#66d9ef">is</span> Nothing <span style="color:#f92672">-&gt;</span> Nothing
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">P1</span>, <span style="color:#a6e22e">P2</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#960050;background-color:#1e0010">((</span><span style="color:#a6e22e">P1</span>, P2) <span style="color:#f92672">-&gt;</span> R).curried(): (P1) <span style="color:#f92672">-&gt;</span> (P2) <span style="color:#f92672">-&gt;</span> R =
+        { p1: P1 <span style="color:#f92672">-&gt;</span> { p2: P2 <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">this</span>(p1, p2) } }
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">P1</span>, <span style="color:#a6e22e">P2</span>, <span style="color:#a6e22e">P3</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#960050;background-color:#1e0010">((</span><span style="color:#a6e22e">P1</span>, P2, P3) <span style="color:#f92672">-&gt;</span> R).curried(): (P1) <span style="color:#f92672">-&gt;</span> (P2) <span style="color:#f92672">-&gt;</span> (P3) <span style="color:#f92672">-&gt;</span> R =
+        { p1: P1 <span style="color:#f92672">-&gt;</span> { p2: P2 <span style="color:#f92672">-&gt;</span> { p3: P3 <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">this</span>(p1, p2, p3) } } }
+</code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h4 id="메이비-모나드-활용">메이비 모나드 활용</h4>
+<p><strong>1. 중첩된 널이 될 수 있는 객체 내의 값 접근하는 상황에서 일반적인 처리 예</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A1</span>(<span style="color:#66d9ef">val</span> b: B1?)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B1</span>(<span style="color:#66d9ef">val</span> c: C1?)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C1</span>(<span style="color:#66d9ef">val</span> d: D1?)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">D1</span>(<span style="color:#66d9ef">val</span> value: String?)
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> a = A1(B1(C1(D1(<span style="color:#e6db74">&#34;someValue&#34;</span>))))
+
+    println(getValueOfD1(a))     <span style="color:#75715e">// someValue
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getValueOfD1</span>(a: A1): String {
+    <span style="color:#66d9ef">val</span> b = a.b
+    <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+        <span style="color:#66d9ef">val</span> c = b.c
+        <span style="color:#66d9ef">if</span> (c <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+            <span style="color:#66d9ef">val</span> d = c.d
+            <span style="color:#66d9ef">if</span> (d <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+                <span style="color:#66d9ef">if</span> (d.value <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+                    <span style="color:#66d9ef">return</span> d.value
+                } <span style="color:#66d9ef">else</span> {
+                    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>
+                }
+            }
+        }
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>
+}
+</code></pre></div><p><strong>2. 메이비를 사용한 값 접근 예</strong></p>
+<p>1번 상황에서 중첩된 if else 구조가 flatMap 함수로 대체</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A2</span>(<span style="color:#66d9ef">val</span> b: Maybe&lt;B2&gt;)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B2</span>(<span style="color:#66d9ef">val</span> c: Maybe&lt;C2&gt;)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C2</span>(<span style="color:#66d9ef">val</span> d: Maybe&lt;D2&gt;)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">D2</span>(<span style="color:#66d9ef">val</span> value: Maybe&lt;String&gt;)
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> a = A2(Just(B2(Just(C2(Just(D2(Just(<span style="color:#e6db74">&#34;someValue&#34;</span>))))))))
+    <span style="color:#66d9ef">val</span> result = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">val</span> maybe = getValueOfD2(a)) {
+        <span style="color:#66d9ef">is</span> Just <span style="color:#f92672">-&gt;</span> maybe.value
+        Nothing <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;&#34;</span>
+    }
+
+    println(result)     <span style="color:#75715e">// someValue
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getValueOfD2</span>(a: A2): Maybe&lt;String&gt; = a.b
+    .flatMap { <span style="color:#66d9ef">it</span>.c }
+    .flatMap { <span style="color:#66d9ef">it</span>.d }
+    .flatMap { <span style="color:#66d9ef">it</span>.value }
+</code></pre></div><p><strong>3. 코틀린의 safe null 처리를 이용한 코드</strong></p>
+<p>안전한 널 처리를 언어차원에서 지원하는 코틀린은 메이비 모나드를 별도로 제공하지 않음
+간단한 널 처리가 필요한 것이 아니라면 메이비 모나드를 직접 만들어 사용하는 것이 좋음</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A3</span>(<span style="color:#66d9ef">val</span> b: B3?)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B3</span>(<span style="color:#66d9ef">val</span> c: C3?)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C3</span>(<span style="color:#66d9ef">val</span> d: D3?)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">D3</span>(<span style="color:#66d9ef">val</span> value: String?)
+
+<span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> a = A3(B3(C3(D3(<span style="color:#e6db74">&#34;someValue&#34;</span>))))
+
+    println(a.b<span style="color:#f92672">?.</span>c<span style="color:#f92672">?.</span>d<span style="color:#f92672">?.</span>value <span style="color:#f92672">?:</span> <span style="color:#e6db74">&#34;&#34;</span>)     <span style="color:#75715e">// someValue
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>　</p>
+<h4 id="모나드의-법칙">모나드의 법칙</h4>
+<p>(애플리케이티브) 펑터와 같이 작성된 타입이 모나드의 법칙을 만족해야 안전하게 동작한다.</p>
+<ul>
+<li>왼쪽 항등 법칙 : pure(x) flatMap f = f(x)</li>
+<li>오른쪽 항등 법칙 : m flatMap pure = m</li>
+<li>결합 법칙 : (m flatMap f) flatMap g = m flatMap { x -&gt; f(x) flatMap g }</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> x = <span style="color:#ae81ff">10</span>
+    <span style="color:#66d9ef">val</span> f = { a: Int <span style="color:#f92672">-&gt;</span> Just(a * <span style="color:#ae81ff">2</span>) }
+    <span style="color:#66d9ef">val</span> g = { a: Int <span style="color:#f92672">-&gt;</span> Just(a + <span style="color:#ae81ff">1</span>) }
+    <span style="color:#66d9ef">val</span> h = { a: Int <span style="color:#f92672">-&gt;</span> Just(a * <span style="color:#ae81ff">10</span>) }
+    <span style="color:#66d9ef">val</span> pure = { a: Int <span style="color:#f92672">-&gt;</span> Just(a) }
+    <span style="color:#66d9ef">val</span> m = Just(<span style="color:#ae81ff">10</span>)
+
+    <span style="color:#75715e">// Left Identity
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// pure(x) flatMap f = f(x)
+</span><span style="color:#75715e"></span>    println(pure(x) flatMap f <span style="color:#f92672">==</span> f(x))  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// Right Identity
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// m flatMap pure = m
+</span><span style="color:#75715e"></span>    println(m flatMap pure <span style="color:#f92672">==</span> m)    <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// Associativity Law
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// (m flatMap f) flatMap g = m flatMap { x -&gt; f(x) flatMap g }
+</span><span style="color:#75715e"></span>    println((m flatMap f) flatMap g <span style="color:#f92672">==</span> m flatMap { a <span style="color:#f92672">-&gt;</span> f(a) flatMap g } )  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// identity compose f = f
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// f compose identity = f
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// (f compose g) compose h = f compose (g compose h)
+</span><span style="color:#75715e"></span>    println((pure compose f)(<span style="color:#ae81ff">10</span>) <span style="color:#f92672">==</span> f(<span style="color:#ae81ff">10</span>))  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>    println((f compose pure)(<span style="color:#ae81ff">10</span>) <span style="color:#f92672">==</span> f(<span style="color:#ae81ff">10</span>))  <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>    println(((f compose g) compose h)(<span style="color:#ae81ff">10</span>) <span style="color:#f92672">==</span> (f compose (g compose h))(<span style="color:#ae81ff">10</span>)) <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">F</span>, <span style="color:#a6e22e">G</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#960050;background-color:#1e0010">((</span><span style="color:#a6e22e">F</span>) <span style="color:#f92672">-&gt;</span> Monad&lt;R&gt;).compose(g: (G) <span style="color:#f92672">-&gt;</span> Monad&lt;F&gt;): (G) <span style="color:#f92672">-&gt;</span> Monad&lt;R&gt; {
+    <span style="color:#66d9ef">return</span> { gInput: G <span style="color:#f92672">-&gt;</span> g(gInput) flatMap <span style="color:#66d9ef">this</span> }
+}
+</code></pre></div><p>　</p>
+<h4 id="io-모나드">IO 모나드</h4>
+<p>순수한 함수형 언어에서 입출력(IO) 작업은 큰 골칫거리, 입출력 자체가외부와의 연결이 불가피하여 상태를 변경해야하고, 데이터의 순수성을 깨는 컨텍스트이기 때문</p>
+<p>이와 같은 이유로 코틀린이나 스칼라 같은 하이브리드 언어도 입출력 작업은 명령형 프로그래밍 방식을 따른다.</p>
+<p>그러나 하스켈의 경우 언어의 순수성을 지키기 위해 내부적으로 아주 복잡한 방법으로 입출력을 구현함</p>
+<p>하스켈은 프로그램의 순수한 영역과, 상태를 변경해야하는 비순수 영역(사이드 이펙트 발생 가능한)을 완전히 분리하는 방법으로 입출력을 구현하였다.</p>
+<p><strong>명령형 방식의 IO 및 함수 분리 예제</strong></p>
+<p>함수 내부에서 파일 입출력 작업을 수행하기 때문에 순수한 함수가 아님(동일한 입력에 동일한 출력을 보장하지 않음)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> filePath = ClassLoader.getSystemResource(<span style="color:#e6db74">&#34;someArticle.txt&#34;</span>).path
+    println(getFirstWord(filePath))     <span style="color:#75715e">// Why
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> lines = getLines(filePath)
+    println(getFirstWord2(lines))    <span style="color:#75715e">// Why
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getFirstWord</span>(filePath: String): String = getFirstLine(filePath).split(<span style="color:#e6db74">&#34; &#34;</span>).first()
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getFirstLine</span>(filePath: String): String = File(filePath).readLines().first()
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getFirstWord2</span>(lines: List&lt;String&gt;): String = lines.first().split(<span style="color:#e6db74">&#34; &#34;</span>).first()
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">getLines</span>(filePath: String): List&lt;String&gt; = File(filePath).readLines()
+</code></pre></div><p>하스켈에서는 입출력 작업이 모나드 내에서만 가능하도록 강제하고, IO 모나드의 결괏값을 꺼내오는 바인딩 연산자(&lt;-)를 제공하며, IO 모나드에서 값을 꺼낼 때 반드시 &lt;-의 사용을 강제하여 두 작업의 분리를 유도한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">getFirstLine</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">getFirstLine</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> return ()
+<span style="color:#a6e22e">getFirstLine</span> <span style="color:#f92672">::</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+	handle <span style="color:#f92672">&lt;-</span> openFile x <span style="color:#66d9ef">ReadMode</span>
+	content <span style="color:#f92672">&lt;-</span> hGetContents handle
+	<span style="color:#66d9ef">let</span> firstLine <span style="color:#f92672">=</span> head <span style="color:#f92672">.</span> lines <span style="color:#f92672">$</span> content
+	return firstLine
+</code></pre></div><p>　</p>
+<h4 id="리스트-모나드">리스트 모나드</h4>
+<p>모나드를 이용해서 구현한 List</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args: Array&lt;String&gt;) {
+    <span style="color:#66d9ef">val</span> list1 = funListOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+    <span style="color:#66d9ef">val</span> list2 = funListOf(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">20</span>)
+
+    println(list1.mempty())   <span style="color:#75715e">// []
+</span><span style="color:#75715e"></span>    println(list1 mappend list2)    <span style="color:#75715e">// [1, 2, 3, 5, 10, 15, 20]
+</span><span style="color:#75715e"></span>    println(list1.fmap { x <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> })  <span style="color:#75715e">// [2, 4, 6]
+</span><span style="color:#75715e"></span>    println(FunList.pure(<span style="color:#ae81ff">10</span>))   <span style="color:#75715e">// [10]
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">val</span> list3 = funListOf&lt;(Int) <span style="color:#f92672">-&gt;</span> Int&gt;({ x <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> }, { x <span style="color:#f92672">-&gt;</span> x + <span style="color:#ae81ff">1</span> }, { x <span style="color:#f92672">-&gt;</span> x - <span style="color:#ae81ff">10</span> })
+    println(list3 apply list1)  <span style="color:#75715e">// [2, 4, 6, 2, 3, 4, -9, -8, -7]
+</span><span style="color:#75715e"></span>    println(list3 apply list2)  <span style="color:#75715e">// [10, 20, 30, 40, 6, 11, 16, 21, -5, 0, 5, 10]
+</span><span style="color:#75715e"></span>    println(list1 _apply list3)  <span style="color:#75715e">// [2, 4, 6, 2, 3, 4, -9, -8, -7]
+</span><span style="color:#75715e"></span>    println(list2 _apply list3)  <span style="color:#75715e">// [10, 20, 30, 40, 6, 11, 16, 21, -5, 0, 5, 10]
+</span><span style="color:#75715e"></span>
+    println(Nil flatMap { x <span style="color:#f92672">-&gt;</span> funListOf(x) })  <span style="color:#75715e">// []
+</span><span style="color:#75715e"></span>    println(list1 flatMap { x <span style="color:#f92672">-&gt;</span> funListOf(x, -x) })    <span style="color:#75715e">// [1, -1, 2, -2, 3, -3]
+</span><span style="color:#75715e"></span>    println(funListOf(list1, list2).flatten())  <span style="color:#75715e">// [1, 2, 3, 5, 10, 15, 20]
+</span><span style="color:#75715e"></span>
+    println(funListOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+            .flatMap { x <span style="color:#f92672">-&gt;</span> funListOf(x to <span style="color:#e6db74">&#39;a&#39;</span>, x to <span style="color:#e6db74">&#39;c&#39;</span>) }     <span style="color:#75715e">// [(1, a), (1, c), (2, a), (2, c)]
+</span><span style="color:#75715e"></span>            .fmap { x <span style="color:#f92672">-&gt;</span> x.first to x.second.toUpperCase() }     <span style="color:#75715e">// [(1, A), (1, C), (2, A), (2, C)]
+</span><span style="color:#75715e"></span>            ._apply(funListOf&lt;(Pair&lt;Int, Char&gt;) <span style="color:#f92672">-&gt;</span> Char&gt;({ x <span style="color:#f92672">-&gt;</span> x.second }, { x <span style="color:#f92672">-&gt;</span> x.second + x.first }))   <span style="color:#75715e">// [A, B, C, D, A, C, C, E]
+</span><span style="color:#75715e">//            .foldLeft(Nil as FunList&lt;Char&gt;) { acc, x -&gt; if (acc.contains(x)) acc else Cons(x, acc) }    // [E, D, C, B, A]
+</span><span style="color:#75715e"></span>            .distinct()   <span style="color:#75715e">// [E, D, C, B, A]
+</span><span style="color:#75715e"></span>            .reverse()  <span style="color:#75715e">// [A, B, C, D, E]
+</span><span style="color:#75715e"></span>    )
+}
+
+<span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FunList</span>&lt;<span style="color:#66d9ef">out</span> T&gt; {
+    <span style="color:#66d9ef">companion</span> <span style="color:#66d9ef">object</span>
+}
+
+<span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Nil</span> : FunList&lt;kotlin.Nothing&gt;() {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">toString</span>(): String = <span style="color:#e6db74">&#34;[]&#34;</span>
+}
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cons</span>&lt;<span style="color:#66d9ef">out</span> T&gt;(<span style="color:#66d9ef">val</span> head: T, <span style="color:#66d9ef">val</span> tail: FunList&lt;T&gt;) : FunList&lt;T&gt;() {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">toString</span>(): String = <span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">${foldLeft(&#34;&#34;) { acc, x -&gt; &#34;$acc, $x&#34; }</span><span style="color:#e6db74">.drop(2)}]&#34;</span>
+}
+
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">funListOf</span>(<span style="color:#66d9ef">vararg</span> elements: T): FunList&lt;T&gt; = elements.toFunList()
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">Array</span>&lt;<span style="color:#66d9ef">out</span> T&gt;.toFunList(): FunList&lt;T&gt; = <span style="color:#66d9ef">when</span> {
+    <span style="color:#66d9ef">this</span>.isEmpty() <span style="color:#f92672">-&gt;</span> Nil
+    <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> Cons(<span style="color:#66d9ef">this</span>[<span style="color:#ae81ff">0</span>], <span style="color:#66d9ef">this</span>.copyOfRange(<span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">this</span>.size).toFunList())
+}
+
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.mempty() = Nil
+
+<span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.mappend(other: FunList&lt;T&gt;): FunList&lt;T&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Nil <span style="color:#f92672">-&gt;</span> other
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> Cons(head, tail.mappend(other))
+}
+
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;FunList&lt;T&gt;&gt;.flatten(): FunList&lt;T&gt; = foldRight(mempty()) { t, r: FunList&lt;T&gt; <span style="color:#f92672">-&gt;</span> t mappend r }
+
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">FunList</span>.Companion.pure(value: T): FunList&lt;T&gt; = Cons(value, Nil)
+
+<span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;(T) <span style="color:#f92672">-&gt;</span> R&gt;.apply(f: FunList&lt;T&gt;): FunList&lt;R&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Nil <span style="color:#f92672">-&gt;</span> Nil
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> f.fmap(head) mappend tail.apply(f)
+}
+
+<span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;._apply(f: FunList&lt;(T) <span style="color:#f92672">-&gt;</span> R&gt;): FunList&lt;R&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Nil <span style="color:#f92672">-&gt;</span> Nil
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> f.fmap { <span style="color:#66d9ef">it</span>(head) } mappend tail._apply(f)
+}
+
+<span style="color:#75715e">//infix fun &lt;T, R&gt; FunList&lt;T&gt;.flatMap(f: (T) -&gt; FunList&lt;R&gt;): FunList&lt;R&gt; = when (this) {
+</span><span style="color:#75715e">//    is Nil -&gt; Nil
+</span><span style="color:#75715e">//    is Cons -&gt; f(head) mappend tail.flatMap(f)
+</span><span style="color:#75715e">//}
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.flatMap(f: (T) <span style="color:#f92672">-&gt;</span> FunList&lt;R&gt;): FunList&lt;R&gt; = fmap(f).flatten()
+
+<span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.fmap(f: (T) <span style="color:#f92672">-&gt;</span> R): FunList&lt;R&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Nil <span style="color:#f92672">-&gt;</span> Nil
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> Cons(f(head), tail.fmap(f))
+}
+
+<span style="color:#75715e">//infix fun &lt;T, R&gt; FunList&lt;T&gt;.fmap(f: (T) -&gt; R): FunList&lt;R&gt; = flatMap { x -&gt; Cons(f(x), Nil) }
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.foldRight(acc: R, f: (T, R) <span style="color:#f92672">-&gt;</span> R): R = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Nil <span style="color:#f92672">-&gt;</span> acc
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> f(head, tail.foldRight(acc, f))
+}
+
+<span style="color:#66d9ef">tailrec</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.foldLeft(acc: R, f: (R, T) <span style="color:#f92672">-&gt;</span> R): R = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Nil <span style="color:#f92672">-&gt;</span> acc
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> tail.foldLeft(f(acc, head), f)
+}
+
+<span style="color:#66d9ef">tailrec</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.contains(element: T): Boolean = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Nil <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">false</span>
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span> (element <span style="color:#f92672">==</span> head) <span style="color:#66d9ef">true</span> <span style="color:#66d9ef">else</span> tail.contains(element)
+}
+
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.distinct(): FunList&lt;T&gt; =
+    foldLeft(Nil <span style="color:#66d9ef">as</span> FunList&lt;T&gt;) { acc, x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span> (acc.contains(x)) acc <span style="color:#66d9ef">else</span> Cons(x, acc) }
+
+<span style="color:#66d9ef">tailrec</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.reverse(acc: FunList&lt;T&gt; = Nil): FunList&lt;T&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Nil <span style="color:#f92672">-&gt;</span> acc
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> tail.reverse(Cons(head, acc))
+}
+
+<span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.filter(acc: FunList&lt;T&gt; = Nil, f: (T) <span style="color:#f92672">-&gt;</span> Boolean): FunList&lt;T&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    Nil <span style="color:#f92672">-&gt;</span> acc.reverse()
+    <span style="color:#66d9ef">is</span> Cons <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span> (f(head)) {
+        tail.filter(Cons(head, acc), f)
+    } <span style="color:#66d9ef">else</span> {
+        tail.filter(acc, f)
+    }
+}
+
+<span style="color:#66d9ef">fun</span>&lt;T&gt; printFunList(list: FunList&lt;T&gt;) = println(list.toStringByFoldLeft())
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">FunList</span>&lt;T&gt;.toStringByFoldLeft(): String = <span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">${foldLeft(&#34;&#34;) { acc, x -&gt; &#34;$acc, $x&#34; }</span><span style="color:#e6db74">.drop(2)}]&#34;</span>
+</code></pre></div>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/functional-programming/">Functional Programming</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/kotlin/">Kotlin</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/" data-tooltip="함수형 프로그래밍 in 코틀린 - 모노이드[9]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/02/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%85%B8%EC%9D%B4%EB%93%9C9/" data-tooltip="함수형 프로그래밍 in 코틀린 - 모노이드[9]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2022%2F03%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25AA%25A8%25EB%2582%2598%25EB%2593%259C10%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2022%2F03%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25AA%25A8%25EB%2582%2598%25EB%2593%259C10%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2022%2F03%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25AA%25A8%25EB%2582%2598%25EB%2593%259C10%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2022\/03\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10\/';
+          
+            this.page.identifier = '\/2022\/03\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </body>
+</html>
+
