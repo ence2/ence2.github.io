@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.92.0 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Developing life">
+<meta name="keywords" content="tech, developer, 개발자, programmer, programming, software, 프로그래머, coding, 코딩, server, development, developer, 프로그래머, 개발자, 프로그래밍">
+<meta name="description" content="abstract : 함수형 프로그래밍에서 로깅, 예외처리, 테스트, 디버깅과 같은 실용적인 주제를 어떻게 처리하는지">
+
+
+<meta property="og:description" content="abstract : 함수형 프로그래밍에서 로깅, 예외처리, 테스트, 디버깅과 같은 실용적인 주제를 어떻게 처리하는지">
+<meta property="og:type" content="article">
+<meta property="og:title" content="함수형 프로그래밍 in 코틀린 - 로깅, 예외처리, 테스트, 디버깅[11]">
+<meta name="twitter:title" content="함수형 프로그래밍 in 코틀린 - 로깅, 예외처리, 테스트, 디버깅[11]">
+<meta property="og:url" content="https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511/">
+<meta property="twitter:url" content="https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511/">
+<meta property="og:site_name" content="Keep calm carry on">
+<meta property="og:description" content="abstract : 함수형 프로그래밍에서 로깅, 예외처리, 테스트, 디버깅과 같은 실용적인 주제를 어떻게 처리하는지">
+<meta name="twitter:description" content="abstract : 함수형 프로그래밍에서 로깅, 예외처리, 테스트, 디버깅과 같은 실용적인 주제를 어떻게 처리하는지">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2022-03-06T01:27:00">
+  
+  
+    <meta property="article:modified_time" content="2022-03-06T01:27:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Common">
+    
+      <meta property="article:section" content="FunctionalProgramming">
+    
+  
+  
+    
+      <meta property="article:tag" content="Functional Programming">
+    
+      <meta property="article:tag" content="Kotlin">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+  <meta property="twitter:image" content="https://avatars1.githubusercontent.com/u/53330253?s=460&u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&v=4">
+
+
+    <title>함수형 프로그래밍 in 코틀린 - 로깅, 예외처리, 테스트, 디버깅[11]</title>
+
+    <link rel="icon" href="https://ence2.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://ence2.github.io/css/style-3vvhladpcoxxi5xtg919g4jomaw4to5kaduclr4dto0uo6rhcutwzy9zd.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-183004637-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://ence2.github.io/">Keep calm carry on</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://ence2.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://ence2.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Developing life</h4>
+        
+          <h5 class="sidebar-profile-bio">다시 보기 위한 공간입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link open-algolia-search" href="https://ence2.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+      
+      <span class="sidebar-button-desc">Search</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/ence2" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.instagram.com/svr.dev/" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-instagram"></i>
+      
+      <span class="sidebar-button-desc">Instagram</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://ence2.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      함수형 프로그래밍 in 코틀린 - 로깅, 예외처리, 테스트, 디버깅[11]
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2022-03-06T01:27:00&#43;09:00">
+        
+  March 6, 2022
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://ence2.github.io/categories/common">Common</a>, 
+    
+      <a class="category-link" href="https://ence2.github.io/categories/functionalprogramming">FunctionalProgramming</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>abstract : 함수형 프로그래밍에서 로깅, 예외처리, 테스트, 디버깅과 같은 실용적인 주제를 어떻게 처리하는지</p>
+<h4 id="함수형-프로그래밍에서-로그-남기기">함수형 프로그래밍에서 로그 남기기</h4>
+<p>함수형 프로그래밍에서 많은 체이닝이 발생 할 때, 복잡한 데이터 변환 과정을 로그로 남기고 싶다면 어떻게 해야 할 까?</p>
+<p><strong>1. 좋지 않은 방법 : 각 고차 함수 내에서 로그를 남김</strong></p>
+<p>참조 투명성을 보장하지 않고, 하나의 함수가 여러 일을 함</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">functionalSolution1</span>(list: FunStream&lt;Int&gt;) = list
+    .fmap {
+        println(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$it</span><span style="color:#e6db74"> + 5&#34;</span>)
+        <span style="color:#66d9ef">it</span> + <span style="color:#ae81ff">5</span>
+    }
+    .fmap {
+        println(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$it</span><span style="color:#e6db74"> * </span><span style="color:#e6db74">$it</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">it</span> * <span style="color:#66d9ef">it</span>
+    }
+    .fmap {
+        println(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$it</span><span style="color:#e6db74"> &gt; 50&#34;</span>)
+        <span style="color:#66d9ef">it</span> &gt; <span style="color:#ae81ff">50</span>
+    }
+</code></pre></div><p><strong>2. 확장 함수를 사용하여 개선</strong></p>
+<p>로그를 남기는 확장함수를 사용하였으나 여전히 참조 투명성을 위배함</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">functionalSolution2</span>(list: FunStream&lt;Int&gt;) = list
+    .fmap { addFive(<span style="color:#66d9ef">it</span>) withLog <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$it</span><span style="color:#e6db74"> + 5&#34;</span> }
+    .fmap { square(<span style="color:#66d9ef">it</span>) withLog <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$it</span><span style="color:#e6db74"> * </span><span style="color:#e6db74">$it</span><span style="color:#e6db74">&#34;</span> }
+    .fmap { isGreaterThan50(<span style="color:#66d9ef">it</span>) withLog <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$it</span><span style="color:#e6db74"> &gt; 50&#34;</span> }
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">addFive</span>(<span style="color:#66d9ef">it</span>: Int) = <span style="color:#66d9ef">it</span> + <span style="color:#ae81ff">5</span>
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">square</span>(<span style="color:#66d9ef">it</span>: Int) = <span style="color:#66d9ef">it</span> * <span style="color:#66d9ef">it</span>
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">isGreaterThan50</span>(<span style="color:#66d9ef">it</span>: Int) = <span style="color:#66d9ef">it</span> &gt; <span style="color:#ae81ff">50</span>
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">T</span>.withLog(log: String): T {
+    println(log)
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>
+}
+</code></pre></div><p><strong>3. 모나드 활용</strong></p>
+<p>게으른 평가를 이용하여 로그를 다른 컨텍스트 내부에 쌓아두고 이후 처리</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">val</span> result = functionalSolution4(funStreamOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>))
+
+    printFunStream(result.fmap { <span style="color:#66d9ef">it</span>.value })    <span style="color:#75715e">// [false, false, true]
+</span><span style="color:#75715e"></span>    printFunStream(
+        result.flatMap { <span style="color:#66d9ef">it</span>.logs } <span style="color:#66d9ef">as</span> FunStream&lt;*&gt;)  <span style="color:#75715e">// [1 + 5, 6 * 6, 36 &gt; 50, 2 + 5, 7 * 7, 49 &gt; 50, 3 + 5, 8 * 8, 64 &gt; 50]
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">functionalSolution4</span>(list: FunStream&lt;Int&gt;) = list
+    .fmap { addFive(<span style="color:#66d9ef">it</span>) withLog <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$it</span><span style="color:#e6db74"> + 5&#34;</span> }
+    .fmap { <span style="color:#66d9ef">it</span>.flatMap { x <span style="color:#f92672">-&gt;</span> square(x) withLog <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$x</span><span style="color:#e6db74"> * </span><span style="color:#e6db74">$x</span><span style="color:#e6db74">&#34;</span> } }
+    .fmap { <span style="color:#66d9ef">it</span>.flatMap { x <span style="color:#f92672">-&gt;</span> isGreaterThan50(x) withLog <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$x</span><span style="color:#e6db74"> &gt; 50&#34;</span> } }
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>&gt; <span style="color:#a6e22e">T</span>.withLog(log: String): WriterMonad&lt;T&gt; = WriterMonad(<span style="color:#66d9ef">this</span>, funStreamOf(log))
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WriterMonad</span>&lt;<span style="color:#66d9ef">out</span> T&gt;(<span style="color:#66d9ef">val</span> value: T, <span style="color:#66d9ef">val</span> logs: FunStream&lt;String&gt;) : Monad&lt;T&gt; {
+
+    <span style="color:#66d9ef">companion</span> <span style="color:#66d9ef">object</span> {
+        <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">V</span>&gt; <span style="color:#a6e22e">pure</span>(value: V) = WriterMonad(<span style="color:#ae81ff">0</span>, mempty()).pure(value)
+    }
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">V</span>&gt; <span style="color:#a6e22e">pure</span>(value: V): WriterMonad&lt;V&gt; = WriterMonad(value, mempty())
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">R</span>&gt; <span style="color:#a6e22e">flatMap</span>(f: (T) <span style="color:#f92672">-&gt;</span> Monad&lt;R&gt;): WriterMonad&lt;R&gt; {
+        <span style="color:#66d9ef">val</span> applied = f(<span style="color:#66d9ef">this</span>.value) <span style="color:#66d9ef">as</span> WriterMonad&lt;R&gt;
+        <span style="color:#66d9ef">return</span> WriterMonad(applied.value, <span style="color:#66d9ef">this</span>.logs mappend applied.logs)
+    }
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">addFive</span>(<span style="color:#66d9ef">it</span>: Int) = <span style="color:#66d9ef">it</span> + <span style="color:#ae81ff">5</span>
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">square</span>(<span style="color:#66d9ef">it</span>: Int) = <span style="color:#66d9ef">it</span> * <span style="color:#66d9ef">it</span>
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">isGreaterThan50</span>(<span style="color:#66d9ef">it</span>: Int) = <span style="color:#66d9ef">it</span> &gt; <span style="color:#ae81ff">50</span>
+</code></pre></div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2434286165145936"
+     data-ad-slot="3616975529"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h4 id="함수형-프로그래밍에서-예외처리하기">함수형 프로그래밍에서 예외처리하기</h4>
+<p>lazy evaumation으로 처리되는 함수형 프로그래밍에서 예외가 발생할 가능성이 있는 람다 함수가 모나드의 함수 체인 중간에 입력되면 예외처리를 어떻게 하는 것이 좋을까?</p>
+<p><strong>1. 메이비 모나드를 활용</strong></p>
+<p>메이비는 실패할 가능성을 포함하는 컨텍스트로 이를 활용하여 중간에 예외가 발생할 경우 실패를 의미하는 Nothing을 반환하고, 성공하면 Just를 반환</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">when</span>(<span style="color:#66d9ef">val</span> result = divSubTenBy(<span style="color:#ae81ff">5</span>)) {
+        <span style="color:#66d9ef">is</span> Nothing <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(5) error&#34;</span>)
+        <span style="color:#66d9ef">is</span> Just <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(5) returns </span><span style="color:#e6db74">${result.value}</span><span style="color:#e6db74">&#34;</span>)
+    }   <span style="color:#75715e">// divSubTenBy(5) returns 8
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">when</span>(<span style="color:#66d9ef">val</span> result = divSubTenBy(<span style="color:#ae81ff">0</span>)) {
+        <span style="color:#66d9ef">is</span> Nothing <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(0) error&#34;</span>)
+        <span style="color:#66d9ef">is</span> Just <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(0) returns </span><span style="color:#e6db74">${result.value}</span><span style="color:#e6db74">&#34;</span>)
+    }   <span style="color:#75715e">// divSubTenBy(0) error
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">divideTenBy</span>(value: Int): Maybe&lt;Int&gt; = <span style="color:#66d9ef">try</span> {
+    Just(<span style="color:#ae81ff">10</span> / value)
+} <span style="color:#66d9ef">catch</span> (e: Exception) {
+    Nothing
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">subtractTenBy</span>(value: Int) = <span style="color:#ae81ff">10</span> - value
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">divSubTenBy</span>(value: Int) = divideTenBy(value).fmap { subtractTenBy(<span style="color:#66d9ef">it</span>) }
+</code></pre></div><p><strong>2. 이더 모나드를 활용</strong></p>
+<p>메이비를 사용하면 실패 여부를 정확하게 반환 할 수 있으나, 실패 원인까지 파악 할 수 없다. 실패 여부까지 포함 할 수 있는 컨텍스트인 이더를 모나드로 작성하여 예외처리에 활용 할 수 있다.</p>
+<ul>
+<li>이더 모나드 구현</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Either</span>&lt;<span style="color:#66d9ef">out</span> L, <span style="color:#66d9ef">out</span> R&gt; : Monad&lt;R&gt; {
+
+    <span style="color:#66d9ef">companion</span> <span style="color:#66d9ef">object</span> {
+        <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">V</span>&gt; <span style="color:#a6e22e">pure</span>(value: V) = Right(<span style="color:#ae81ff">0</span>).pure(value)
+    }
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">V</span>&gt; <span style="color:#a6e22e">pure</span>(value: V): Either&lt;L, V&gt; = Right(value)
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">R2</span>&gt; <span style="color:#a6e22e">fmap</span>(f: (R) <span style="color:#f92672">-&gt;</span> R2): Either&lt;L, R2&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+        <span style="color:#66d9ef">is</span> Left <span style="color:#f92672">-&gt;</span> Left(value)
+        <span style="color:#66d9ef">is</span> Right <span style="color:#f92672">-&gt;</span> Right(f(value))
+    }
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">flatMap</span>(f: (R) <span style="color:#f92672">-&gt;</span> Monad&lt;B&gt;): Monad&lt;B&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+        <span style="color:#66d9ef">is</span> Left <span style="color:#f92672">-&gt;</span> Left(value)
+        <span style="color:#66d9ef">is</span> Right <span style="color:#f92672">-&gt;</span> f(value)
+    }
+
+<span style="color:#75715e">//    override fun &lt;R2&gt; flatMap(f: (R) -&gt; Monad&lt;R2&gt;): Either&lt;L, R2&gt; = when (this) {
+</span><span style="color:#75715e">//        is Left -&gt; Left(value)
+</span><span style="color:#75715e">//        is Right -&gt; try {
+</span><span style="color:#75715e">//            f(value) as Right&lt;R2&gt;
+</span><span style="color:#75715e">//        } catch (e: TypeCastException) {
+</span><span style="color:#75715e">//            Left(e.message) as Left&lt;L&gt;
+</span><span style="color:#75715e">//        }
+</span><span style="color:#75715e">//    }
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Left</span>&lt;<span style="color:#66d9ef">out</span> L&gt;(<span style="color:#66d9ef">val</span> value: L) : Either&lt;L, Nothing&gt;() {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">toString</span>(): String = <span style="color:#e6db74">&#34;Left(</span><span style="color:#e6db74">$value</span><span style="color:#e6db74">)&#34;</span>
+}
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Right</span>&lt;<span style="color:#66d9ef">out</span> R&gt;(<span style="color:#66d9ef">val</span> value: R) : Either&lt;Nothing, R&gt;() {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">toString</span>(): String = <span style="color:#e6db74">&#34;Right(</span><span style="color:#e6db74">$value</span><span style="color:#e6db74">)&#34;</span>
+}
+
+<span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">L</span>, <span style="color:#a6e22e">A</span>, <span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">Either</span>&lt;L, (A) <span style="color:#f92672">-&gt;</span> B&gt;.apply(f: Either&lt;L, A&gt;): Either&lt;L, B&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Left <span style="color:#f92672">-&gt;</span> Left(value)
+    <span style="color:#66d9ef">is</span> Right <span style="color:#f92672">-&gt;</span> f.fmap(value)
+}
+</code></pre></div><ul>
+<li>이더 모나드를 활용한 예외처리 예제</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">when</span>(<span style="color:#66d9ef">val</span> result = divSubTenBy(<span style="color:#ae81ff">5</span>)) {
+        <span style="color:#66d9ef">is</span> Left <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(5) error by </span><span style="color:#e6db74">${result.value}</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">is</span> Right <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(5) returns </span><span style="color:#e6db74">${result.value}</span><span style="color:#e6db74">&#34;</span>)
+    }   <span style="color:#75715e">// divSubTenBy(5) returns 8
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">when</span>(<span style="color:#66d9ef">val</span> result = divSubTenBy(<span style="color:#ae81ff">0</span>)) {
+        <span style="color:#66d9ef">is</span> Left <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(0) error by </span><span style="color:#e6db74">${result.value}</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">is</span> Right <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(0) returns </span><span style="color:#e6db74">${result.value}</span><span style="color:#e6db74">&#34;</span>)
+    }   <span style="color:#75715e">// divSubTenBy(0) error by divide by zero exception
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">divideTenBy</span>(value: Int): Either&lt;String, Int&gt; = <span style="color:#66d9ef">try</span> {
+    Right(<span style="color:#ae81ff">10</span> / value)
+} <span style="color:#66d9ef">catch</span> (e: ArithmeticException) {
+    Left(<span style="color:#e6db74">&#34;divide by zero exception&#34;</span>)
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">subtractTenBy</span>(value: Int) = <span style="color:#ae81ff">10</span> - value
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">divSubTenBy</span>(value: Int) = divideTenBy(value).fmap { subtractTenBy(<span style="color:#66d9ef">it</span>) }
+</code></pre></div><p><strong>3. 트라이 모나드 활용</strong></p>
+<p>이더 모나드는 try catch 문으로 예외를 받고, Left에 직접 메세지를 넣어 반환하였다. 트라이 모나드는 예외 자체를 컨텍스트에 담아서, 별도의 예외처리 없이 체이닝을 가능하게 한다.</p>
+<ul>
+<li>트라이 모나드 구현</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// fmap test
+</span><span style="color:#75715e"></span>    println(Success(<span style="color:#ae81ff">10</span>).fmap { <span style="color:#66d9ef">it</span> + <span style="color:#ae81ff">10</span> })     <span style="color:#75715e">// Success(20)
+</span><span style="color:#75715e"></span>    println(Failure(NullPointerException(<span style="color:#e6db74">&#34;NPE&#34;</span>)).fmap { x: Int <span style="color:#f92672">-&gt;</span> x + <span style="color:#ae81ff">10</span> })    <span style="color:#75715e">// Failure(NPE)
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// pure test
+</span><span style="color:#75715e"></span>    println(Try.pure(<span style="color:#ae81ff">10</span>))    <span style="color:#75715e">// Success(10)
+</span><span style="color:#75715e"></span>    println(Try.pure { x: Int <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> })   <span style="color:#75715e">// Success((kotlin.Int) -&gt; kotlin.Int)
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// apply test
+</span><span style="color:#75715e"></span>    println(Try.pure { x: Int <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> } apply Failure(NullPointerException(<span style="color:#e6db74">&#34;NPE&#34;</span>)))   <span style="color:#75715e">// Failure(NPE)
+</span><span style="color:#75715e"></span>    println(Try.pure { x: Int <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> } apply Success(<span style="color:#ae81ff">10</span>))   <span style="color:#75715e">// Success(20)
+</span><span style="color:#75715e"></span>    println(Try.pure({ x: Int, y: Int <span style="color:#f92672">-&gt;</span> x * y }.curried())
+            apply Failure(NullPointerException(<span style="color:#e6db74">&#34;NPE&#34;</span>))
+            apply Success(<span style="color:#ae81ff">10</span>)
+    )   <span style="color:#75715e">// Failure(NPE)
+</span><span style="color:#75715e"></span>    println(Try.pure({ x: Int, y: Int <span style="color:#f92672">-&gt;</span> x * y }.curried())
+            apply Success(<span style="color:#ae81ff">10</span>)
+            apply Success(<span style="color:#ae81ff">20</span>)
+    )   <span style="color:#75715e">// Success(200)
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// flatMap test
+</span><span style="color:#75715e"></span>    println(Success(<span style="color:#ae81ff">10</span>).flatMap { x <span style="color:#f92672">-&gt;</span> Try.pure(x * <span style="color:#ae81ff">2</span>) })  <span style="color:#75715e">// Success(20)
+</span><span style="color:#75715e"></span>    println(Failure(NullPointerException(<span style="color:#e6db74">&#34;NPE&#34;</span>)).flatMap {  x: Int <span style="color:#f92672">-&gt;</span> Try.pure(x * <span style="color:#ae81ff">2</span>) } )   <span style="color:#75715e">// Failure(NPE)
+</span><span style="color:#75715e"></span>    println(Success(Success(<span style="color:#ae81ff">10</span>)).flatMap {  m <span style="color:#f92672">-&gt;</span> m.fmap { x <span style="color:#f92672">-&gt;</span> x * <span style="color:#ae81ff">2</span> }  })  <span style="color:#75715e">// Success(20)
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Try</span>&lt;<span style="color:#66d9ef">out</span> R&gt; : Monad&lt;R&gt; {
+
+    <span style="color:#66d9ef">companion</span> <span style="color:#66d9ef">object</span> {
+        <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">V</span>&gt; <span style="color:#a6e22e">pure</span>(value: V) = Success(<span style="color:#ae81ff">0</span>).pure(value)
+    }
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">B</span>&gt; <span style="color:#a6e22e">fmap</span>(f: (R) <span style="color:#f92672">-&gt;</span> B): Try&lt;B&gt; = <span style="color:#66d9ef">super</span>.fmap(f) <span style="color:#66d9ef">as</span> Try&lt;B&gt;
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">V</span>&gt; <span style="color:#a6e22e">pure</span>(value: V): Try&lt;V&gt; = Success(value)
+
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">R2</span>&gt; <span style="color:#a6e22e">flatMap</span>(f: (R) <span style="color:#f92672">-&gt;</span> Monad&lt;R2&gt;): Try&lt;R2&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+        <span style="color:#66d9ef">is</span> Failure <span style="color:#f92672">-&gt;</span> Failure(e)
+        <span style="color:#66d9ef">is</span> Success <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">try</span> { f(value) <span style="color:#66d9ef">as</span> Try&lt;R2&gt; } <span style="color:#66d9ef">catch</span> (e: Throwable) { Failure(e) }
+    }
+}
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Failure</span>(<span style="color:#66d9ef">val</span> e: Throwable) : Try&lt;Nothing&gt;() {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">toString</span>(): String = <span style="color:#e6db74">&#34;Failure(</span><span style="color:#e6db74">${e.message}</span><span style="color:#e6db74">)&#34;</span>
+}
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Success</span>&lt;<span style="color:#66d9ef">out</span> R&gt;(<span style="color:#66d9ef">val</span> value: R) : Try&lt;R&gt;() {
+    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">toString</span>(): String = <span style="color:#e6db74">&#34;Success(</span><span style="color:#e6db74">$value</span><span style="color:#e6db74">)&#34;</span>
+}
+
+<span style="color:#66d9ef">infix</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#a6e22e">Try</span>&lt;(T) <span style="color:#f92672">-&gt;</span> R&gt;.apply(f: Try&lt;T&gt;): Try&lt;R&gt; = <span style="color:#66d9ef">when</span> (<span style="color:#66d9ef">this</span>) {
+    <span style="color:#66d9ef">is</span> Failure <span style="color:#f92672">-&gt;</span> Failure(e)
+    <span style="color:#66d9ef">is</span> Success <span style="color:#f92672">-&gt;</span> f.fmap(value)
+}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> &lt;<span style="color:#a6e22e">P1</span>, <span style="color:#a6e22e">P2</span>, <span style="color:#a6e22e">R</span>&gt; <span style="color:#960050;background-color:#1e0010">((</span><span style="color:#a6e22e">P1</span>, P2) <span style="color:#f92672">-&gt;</span> R).curried(): (P1) <span style="color:#f92672">-&gt;</span> (P2) <span style="color:#f92672">-&gt;</span> R =
+        { p1: P1 <span style="color:#f92672">-&gt;</span> { p2: P2 <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">this</span>(p1, p2) } }
+</code></pre></div><ul>
+<li>트라이 모나드를 활용한 예외처리 예제</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-kotlin" data-lang="kotlin"><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">when</span>(<span style="color:#66d9ef">val</span> result = divSubTenBy(<span style="color:#ae81ff">5</span>)) {
+        <span style="color:#66d9ef">is</span> Failure <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(5) error by </span><span style="color:#e6db74">${result.e}</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">is</span> Success <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(5) returns </span><span style="color:#e6db74">${result.value}</span><span style="color:#e6db74">&#34;</span>)
+    }   <span style="color:#75715e">// divSubTenBy(5) returns 5
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">when</span>(<span style="color:#66d9ef">val</span> result = divSubTenBy(<span style="color:#ae81ff">0</span>)) {
+        <span style="color:#66d9ef">is</span> Failure <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(0) error by </span><span style="color:#e6db74">${result.e}</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">is</span> Success <span style="color:#f92672">-&gt;</span> println(<span style="color:#e6db74">&#34;divSubTenBy(0) returns </span><span style="color:#e6db74">${result.value}</span><span style="color:#e6db74">&#34;</span>)
+    }   <span style="color:#75715e">// divSubTenBy(0) error by java.lang.ArithmeticException: / by zero
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">divideTenBy</span>(value: Int): Try&lt;Int&gt; = Try.pure(<span style="color:#ae81ff">10</span>).fmap { <span style="color:#66d9ef">it</span> / value }
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">subtractTenBy</span>(value: Int) = <span style="color:#ae81ff">10</span> / value
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">divSubTenBy</span>(value: Int) = divideTenBy(value).fmap { subtractTenBy(<span style="color:#66d9ef">it</span>) }
+</code></pre></div><p>　</p>
+<h4 id="함수형-프로그래밍에서-테스팅하기">함수형 프로그래밍에서 테스팅하기</h4>
+<p>함수형 프로그래밍은 일반적인 프로그래밍 방식보다 테스트하기 좋은 코드가 만들어진다.</p>
+<p><strong>테스트하기 좋은 코드만들기</strong></p>
+<p>첫째, 불변 객체를 사용하라</p>
+<ul>
+<li>순수한 함수형 언어에서 한번 생성된 객체는 변경할 수 없다. 불변 객체를 사용한 함수는 예측이 가능하다.</li>
+</ul>
+<p>둘째, <strong>동일한 입력에 동일한 출력을 보장하는 순수한 함수를 만들라</strong></p>
+<p>셋째, <strong>파일 / 네트워크 IO와 같은 부수효과를 발생하거나 상태를 가진 영역은 순수한 영역과 최대한 분리하라</strong></p>
+<p>넷째, <strong>널값의 사용을 피하라</strong></p>
+<p>다섯째, <strong>메이비와 이더를 적극적으로 활용하라</strong></p>
+<p>위 다섯까지 명제의 방향성은 한가지이며 다음과 같다 : <strong>부수효과를 최대한 결리하고 프로그램을 순수한 함수들로만 구성하라</strong></p>
+<p>객체지향 프로그래밍에서는 부수효과를(DB 연결 등) 가진 모듈을 효과적으로 교체하기 위해 의존성 주입(DI) 패턴을 사용하며, 함수형 프로그래밍에서도 태그리스 파이널(Tagless final)이라는 패턴을 사용한다.</p>
+<p>태그리스 파이널은 메이비, 리스트, 이더처럼 구체적인 타입을 사용하지 않은 타입 클래스에 행위들을 선언하고 실행 흐름을 선언하는 것이다. 이렇게 선언된 실행 흐름에는 구체적인 타입이 정해져 있지 않다. 실행 흐름이 선언된 상태에서 타입 클래스의 행위들을 구현해서 넘길 수 있는데, 구체적인 타입도 이때 정해진다. 태그리스 파이널 패턴을 사용하면 외부 시스템에 접근하는 모듈을 테스트 목적의 모의 객체로 손쉽게 교체할 수 있다.</p>
+<p>　</p>
+<h4 id="함수형-프로그래밍에서-디버깅하기">함수형 프로그래밍에서 디버깅하기</h4>
+<p>명령형 프로그래밍은 라인별로 코드를 자겅하기 때문에 주로 중단점 디버거를 사용하지만, 함수형 프로그래밍은 여러 가지 고차 함수의 체인을 한 라인에 선언하고, 심지어 게으른 평가로 인해서 코드의 실행이 특정 라인에서 이루어진다고 보장하기 어렵다. 따라서 함수형 프로그래밍에서는 다른 도구를 사용해야 함</p>
+<p>인텔리제이 디버거를 코틀린에서 활용하는 팁을 알아보자</p>
+<p><strong>인텔리제이를 활용한 리스트 체인 디버깅</strong></p>
+<p>인텔리제이 디버거는 함수에 입력되는 람다 함수 단위로 중단점을 찍을 수 있다.</p>
+<p>중단점을 찍은 후 Set Breakpoint를 통해 라인, 람다 혹은 전체 등 중단점을 세밀하게 설정 할 수 있다.</p>
+<p><strong>인텔리제이를 활용한 시퀀스 체인 디버깅</strong></p>
+<p>게으른 평가를 수행하는 시퀀스는 실제 수행되는 시점에 중단점이 걸린다.</p>
+<p>함수 체인이 평가되는 시점이 실제 로직과 아주 멀리 있거나, 시퀀스에 값이 매우 많다면, 특정 값에서 발생하는 오류를 찾기 쉽지 않은데 이럴 때는 람다 중단점에 조건을 서정 할 수 있다(해당 브레이크 포인트에 컨트롤을 누른상태로 클릭)</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/functional-programming/">Functional Programming</a>
+
+  <a class="tag tag--primary tag--small" href="https://ence2.github.io/tags/kotlin/">Kotlin</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/" data-tooltip="함수형 프로그래밍 in 코틀린 - 모나드[10]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 JhChoi. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%82%98%EB%93%9C10/" data-tooltip="함수형 프로그래밍 in 코틀린 - 모나드[10]">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://ence2.github.io/2022/03/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fence2.github.io%2F2022%2F03%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A1%259C%25EA%25B9%2585-%25EC%2598%2588%25EC%2599%25B8%25EC%25B2%2598%25EB%25A6%25AC-%25ED%2585%258C%25EC%258A%25A4%25ED%258A%25B8-%25EB%2594%2594%25EB%25B2%2584%25EA%25B9%258511%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fence2.github.io%2F2022%2F03%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A1%259C%25EA%25B9%2585-%25EC%2598%2588%25EC%2599%25B8%25EC%25B2%2598%25EB%25A6%25AC-%25ED%2585%258C%25EC%258A%25A4%25ED%258A%25B8-%25EB%2594%2594%25EB%25B2%2584%25EA%25B9%258511%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fence2.github.io%2F2022%2F03%2F%25ED%2595%25A8%25EC%2588%2598%25ED%2598%2595-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D-in-%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0-%25EB%25A1%259C%25EA%25B9%2585-%25EC%2598%2588%25EC%2599%25B8%25EC%25B2%2598%25EB%25A6%25AC-%25ED%2585%258C%25EC%258A%25A4%25ED%258A%25B8-%25EB%2594%2594%25EB%25B2%2584%25EA%25B9%258511%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://avatars1.githubusercontent.com/u/53330253?s=460&amp;u=0f3d9c64f695413f8d31da697df4b8e2f77a2ef1&amp;v=4" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Developing life</h4>
+    
+      <div id="about-card-bio">다시 보기 위한 공간입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Game Developer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        South Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://ence2.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://ence2.github.io/js/script-cs3dg32dbvpminyyazkkqhrzxpbqj1rq9shogay7ajhhibfcghlcs7u1wqfo.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/ence2.github.io\/2022\/03\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511\/';
+          
+            this.page.identifier = '\/2022\/03\/%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-in-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%A1%9C%EA%B9%85-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EB%94%94%EB%B2%84%EA%B9%8511\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'ence2-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2434286165145936"
+     crossorigin="anonymous"></script>
+  </body>
+</html>
+
